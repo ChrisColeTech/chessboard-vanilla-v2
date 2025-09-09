@@ -1,10 +1,11 @@
 import React from "react";
 import { useAppStore } from "../../stores/appStore";
-import { UITestsMainPage } from "../../components/uitests/UITestsMainPage";
+import { UITestsMainPage } from "./UITestsMainPage";
 import { DragTestPageWrapper } from "../../components/uitests/DragTestPageWrapper";
 import { UIAudioTestPageWrapper } from "../../components/uitests/UIAudioTestPageWrapper";
 import { LayoutTestPageWrapper } from "../../components/uitests/LayoutTestPageWrapper";
 import { MobileDragTestPageWrapper } from "../../components/uitests/MobileDragTestPageWrapper";
+import { DesktopLayoutTestPageWrapper } from "../../components/uitests/DesktopLayoutTestPageWrapper";
 
 export const UITestPage: React.FC = () => {
   const currentChildPage = useAppStore((state) => state.currentChildPage);
@@ -20,6 +21,8 @@ export const UITestPage: React.FC = () => {
     CurrentPageComponent = LayoutTestPageWrapper;
   } else if (currentChildPage === "mobiledragtest") {
     CurrentPageComponent = MobileDragTestPageWrapper;
+  } else if (currentChildPage === "desktoplayouttest") {
+    CurrentPageComponent = DesktopLayoutTestPageWrapper;
   }
 
   return (

@@ -20,6 +20,7 @@ import { useBrandedSplashActions } from '../../hooks/splash/useBrandedSplashActi
 import { useLuxurysplashActions } from '../../hooks/splash/useLuxurysplashActions'
 import { useFunctionalSplashActions } from '../../hooks/splash/useFunctionalSplashActions'
 import { useMobileDragTestActions } from '../../hooks/uitests/useMobileDragTestActions'
+import { useDesktopLayoutTestActions } from '../../hooks/uitests/useDesktopLayoutTestActions'
 import { useUIClickSound } from '../../hooks/audio/useUIClickSound'
 import { useUIHoverSound } from '../../hooks/audio/useUIHoverSound'
 import { useAppStore } from '../../stores/appStore'
@@ -76,6 +77,7 @@ export function ActionSheetContainer({ currentPage, className, onClose, isOpen, 
   const luxurysplashActions = useLuxurysplashActions()
   const functionalSplashActions = useFunctionalSplashActions()
   const mobileDragTestActions = useMobileDragTestActions()
+  const desktopLayoutTestActions = useDesktopLayoutTestActions()
   
   // Audio for action clicks and hovers
   const { playUIClick } = useUIClickSound()
@@ -169,7 +171,8 @@ export function ActionSheetContainer({ currentPage, className, onClose, isOpen, 
         'go-to-drag-test': uiTestsActions.goToDragTest,
         'go-to-audio-test': uiTestsActions.goToAudioTest,
         'go-to-layout-test': uiTestsActions.goToLayoutTest,
-        'go-to-mobile-drag-test': uiTestsActions.goToMobileDragTest
+        'go-to-mobile-drag-test': uiTestsActions.goToMobileDragTest,
+        'go-to-desktop-layout-test': uiTestsActions.goToDesktopLayoutTest
       },
       layout: {
         'change-background': layoutActions.changeBackground,
@@ -187,7 +190,8 @@ export function ActionSheetContainer({ currentPage, className, onClose, isOpen, 
         // Navigation actions
         'go-to-audio-test': uiTestsActions.goToAudioTest,
         'go-to-layout-test': uiTestsActions.goToLayoutTest,
-        'go-to-mobile-drag-test': uiTestsActions.goToMobileDragTest
+        'go-to-mobile-drag-test': uiTestsActions.goToMobileDragTest,
+        'go-to-desktop-layout-test': uiTestsActions.goToDesktopLayoutTest
       },
       uiaudiotest: {
         'test-move-sound': uiAudioTestActions.testMoveSound,
@@ -197,7 +201,8 @@ export function ActionSheetContainer({ currentPage, className, onClose, isOpen, 
         // Navigation actions
         'go-to-drag-test': uiTestsActions.goToDragTest,
         'go-to-layout-test': uiTestsActions.goToLayoutTest,
-        'go-to-mobile-drag-test': uiTestsActions.goToMobileDragTest
+        'go-to-mobile-drag-test': uiTestsActions.goToMobileDragTest,
+        'go-to-desktop-layout-test': uiTestsActions.goToDesktopLayoutTest
       },
       splash: {
         'go-to-minimal': splashActions.goToMinimal,
@@ -270,7 +275,16 @@ export function ActionSheetContainer({ currentPage, className, onClose, isOpen, 
         // Navigation actions
         'go-to-drag-test': uiTestsActions.goToDragTest,
         'go-to-audio-test': uiTestsActions.goToAudioTest,
-        'go-to-layout-test': uiTestsActions.goToLayoutTest
+        'go-to-layout-test': uiTestsActions.goToLayoutTest,
+        'go-to-desktop-layout-test': uiTestsActions.goToDesktopLayoutTest
+      },
+      desktoplayouttest: {
+        'toggle-layout-elements': desktopLayoutTestActions.toggleLayoutElements,
+        // Navigation actions
+        'go-to-drag-test': desktopLayoutTestActions.goToDragTest,
+        'go-to-audio-test': desktopLayoutTestActions.goToAudioTest,
+        'go-to-layout-test': desktopLayoutTestActions.goToLayoutTest,
+        'go-to-mobile-drag-test': desktopLayoutTestActions.goToMobileDragTest
       }
     }
     
@@ -302,7 +316,7 @@ export function ActionSheetContainer({ currentPage, className, onClose, isOpen, 
     // Use HeadlessUI's close callback AND our onClose
     closeCallback()
     onClose()
-  }, [currentPage, playUIClick, playActions, slotsActions, casinoActions, workerActions, uiTestsActions, layoutActions, dragTestActions, uiAudioTestActions, splashActions, minimalSplashActions, animatedSplashActions, loadingProgressActions, brandedSplashActions, luxurysplashActions, functionalSplashActions, mobileDragTestActions, onClose, logout, onOpenSettings])
+  }, [currentPage, playUIClick, playActions, slotsActions, casinoActions, workerActions, uiTestsActions, layoutActions, dragTestActions, uiAudioTestActions, splashActions, minimalSplashActions, animatedSplashActions, loadingProgressActions, brandedSplashActions, luxurysplashActions, functionalSplashActions, mobileDragTestActions, desktopLayoutTestActions, onClose, logout, onOpenSettings])
 
   const handleHover = useCallback((actionLabel: string) => {
     playUIHover(`Action: ${actionLabel}`)

@@ -9,7 +9,7 @@ import type { SoundEffect } from '../../services/audio/audioService';
  */
 export const UI_SOUND_MAPPING: Record<UIInteractionType, UISoundType> = {
   click: 'uiClick',
-  hover: 'uiClick', // Future: could be 'uiHover' when implemented
+  hover: 'uiHover', // Use move sound for subtle hover feedback
   focus: 'uiClick', // Future: could be 'uiSelect' when implemented  
   select: 'uiClick' // Future: could be 'uiSelect' when implemented
 };
@@ -36,8 +36,8 @@ export const DEFAULT_INTERACTION_CONFIGS: UIInteractionConfig[] = [
   },
   {
     interactionType: 'hover',
-    soundType: 'uiClick', // Future: uiHover
-    enabled: false // Disabled by default to avoid audio spam
+    soundType: 'uiHover', // Use move sound for subtle hover feedback
+    enabled: true // Enable hover sounds
   },
   {
     interactionType: 'focus',

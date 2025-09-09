@@ -76,6 +76,12 @@ export const COMMON_ACTIONS: Record<string, ActionSheetAction> = {
     icon: Move,
     variant: 'secondary'
   },
+  'go-to-desktop-layout-test': {
+    id: 'go-to-desktop-layout-test',
+    label: 'Go to Desktop Layout Test',
+    icon: Maximize2,
+    variant: 'secondary'
+  },
   
   // Casino navigation actions
   'go-to-slots': {
@@ -156,7 +162,8 @@ export const COMMON_ACTION_GROUPS = {
     'go-to-drag-test',
     'go-to-audio-test',
     'go-to-layout-test',
-    'go-to-mobile-drag-test'
+    'go-to-mobile-drag-test',
+    'go-to-desktop-layout-test'
   ],
   
   // Casino game siblings (child pages)

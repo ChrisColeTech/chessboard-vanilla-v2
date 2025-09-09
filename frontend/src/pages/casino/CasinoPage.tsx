@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppStore } from "../../stores/appStore";
-import { CasinoMainPage } from "../../components/casino/CasinoMainPage";
+import { CasinoMainPage } from "./CasinoMainPage";
 import { SlotMachinePageWrapper } from "../../components/casino/SlotMachinePageWrapper";
 import { BlackjackPageWrapper } from "../../components/casino/BlackjackPageWrapper";
 import { HoldemPageWrapper } from "../../components/casino/HoldemPageWrapper";

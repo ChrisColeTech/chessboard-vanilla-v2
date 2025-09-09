@@ -1,0 +1,160 @@
+{
+  "registry_version": "1.0",
+  "last_updated": "2025-01-15",
+  "networks": [
+    {
+      "id": "stockfish-light-v1",
+      "name": "Stockfish Light",
+      "filename": "stockfish_light.nnue",
+      "version": "1.0",
+      "file_size": 5242880,
+      "elo_rating": 3200,
+      "architecture": "NNUE",
+      "input_features": 768,
+      "hidden_layers": [256, 256],
+      "output_nodes": 1,
+      "description": "Compact network optimized for mobile devices",
+      "is_bundled": true,
+      "device_compatibility": {
+        "minimum_ios": "14.0",
+        "recommended_memory": 67108864,
+        "optimal_hash_size": 64,
+        "max_threads": 2
+      },
+      "performance_metrics": {
+        "nodes_per_second": 1500000,
+        "battery_efficiency": "excellent",
+        "thermal_impact": "low"
+      },
+      "checksum": {
+        "sha256": "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
+        "md5": "12345678901234567890123456789012"
+      },
+      "tags": ["mobile", "efficient", "bundled", "recommended"]
+    },
+    {
+      "id": "stockfish-medium-v1", 
+      "name": "Stockfish Medium",
+      "filename": "stockfish_medium.nnue",
+      "version": "1.0",
+      "file_size": 15728640,
+      "elo_rating": 3400,
+      "architecture": "NNUE",
+      "input_features": 768,
+      "hidden_layers": [256, 256, 256, 256],
+      "output_nodes": 1,
+      "description": "Balanced network for good performance and strength",
+      "is_bundled": false,
+      "download_url": "https://example.com/networks/stockfish_medium.nnue",
+      "device_compatibility": {
+        "minimum_ios": "15.0",
+        "recommended_memory": 134217728,
+        "optimal_hash_size": 128,
+        "max_threads": 4
+      },
+      "performance_metrics": {
+        "nodes_per_second": 1200000,
+        "battery_efficiency": "good", 
+        "thermal_impact": "moderate"
+      },
+      "checksum": {
+        "sha256": "b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef1234567",
+        "md5": "23456789012345678901234567890123"
+      },
+      "tags": ["balanced", "performance", "downloadable"]
+    },
+    {
+      "id": "stockfish-full-v16",
+      "name": "Stockfish Full v16",
+      "filename": "nn-1111cefa1111.nnue", 
+      "version": "16.1",
+      "file_size": 52428800,
+      "elo_rating": 3600,
+      "architecture": "NNUE",
+      "input_features": 768,
+      "hidden_layers": [512, 512, 256, 256],
+      "output_nodes": 1,
+      "description": "Full-strength network for maximum playing strength",
+      "is_bundled": false,
+      "download_url": "https://tests.stockfishchess.org/api/nn/nn-1111cefa1111.nnue",
+      "device_compatibility": {
+        "minimum_ios": "15.0",
+        "recommended_memory": 268435456,
+        "optimal_hash_size": 256,
+        "max_threads": 6
+      },
+      "performance_metrics": {
+        "nodes_per_second": 800000,
+        "battery_efficiency": "fair",
+        "thermal_impact": "high"
+      },
+      "checksum": {
+        "sha256": "c3d4e5f6789012345678901234567890abcdef1234567890abcdef12345678",
+        "md5": "34567890123456789012345678901234"
+      },
+      "tags": ["maximum_strength", "professional", "downloadable", "latest"]
+    }
+  ],
+  "device_recommendations": {
+    "low_end": {
+      "memory_threshold": 3000000000,
+      "processor_cores": 4,
+      "recommended_network": "stockfish-light-v1",
+      "fallback_network": "stockfish-light-v1",
+      "settings": {
+        "hash_size": 64,
+        "threads": 1,
+        "analysis_time_limit": 30
+      }
+    },
+    "medium_end": {
+      "memory_threshold": 6000000000,
+      "processor_cores": 6, 
+      "recommended_network": "stockfish-medium-v1",
+      "fallback_network": "stockfish-light-v1",
+      "settings": {
+        "hash_size": 128,
+        "threads": 2,
+        "analysis_time_limit": 60
+      }
+    },
+    "high_end": {
+      "memory_threshold": 8000000000,
+      "processor_cores": 8,
+      "recommended_network": "stockfish-full-v16",
+      "fallback_network": "stockfish-medium-v1", 
+      "settings": {
+        "hash_size": 256,
+        "threads": 4,
+        "analysis_time_limit": 120
+      }
+    }
+  },
+  "download_mirrors": [
+    {
+      "name": "Official Stockfish",
+      "base_url": "https://tests.stockfishchess.org/api/nn/",
+      "priority": 1,
+      "supports_resume": true
+    },
+    {
+      "name": "GitHub Releases",
+      "base_url": "https://github.com/official-stockfish/networks/releases/download/",
+      "priority": 2,
+      "supports_resume": false
+    }
+  ],
+  "validation_rules": {
+    "min_file_size": 1048576,
+    "max_file_size": 104857600,
+    "required_extensions": [".nnue"],
+    "validate_checksum": true,
+    "validate_magic_numbers": true
+  },
+  "update_policy": {
+    "check_interval_days": 7,
+    "auto_download": false,
+    "notify_updates": true,
+    "keep_old_versions": 2
+  }
+}

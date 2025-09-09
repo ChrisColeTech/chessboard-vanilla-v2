@@ -86,6 +86,7 @@ app.get('/api/test-db', async (req, res) => {
 });
 
 // Routes
+import authRoutes from './routes/auth';
 import puzzleRoutes from './routes/puzzles';
 import gameRoutes from './routes/games';
 import userRoutes from './routes/users';
@@ -93,6 +94,7 @@ import statsRoutes from './routes/stats';
 import learningPathRoutes from './routes/learning_paths';
 import tutorialRoutes from './routes/tutorials';
 
+app.use('/auth', authRoutes);
 app.use('/api/puzzles', puzzleRoutes);
 app.use('/api/games', gameRoutes);
 app.use('/api/users', userRoutes);
@@ -102,7 +104,7 @@ app.use('/api/tutorials', tutorialRoutes);
 
 // Serve built frontend (for Railway deployment)
 import path from 'path';
-const frontendPath = path.join(__dirname, '../../frontend/app/dist');
+const frontendPath = path.join(__dirname, '../../frontend/dist');
 app.use(express.static(frontendPath));
 
 // Frontend routing fallback (must come after API routes)

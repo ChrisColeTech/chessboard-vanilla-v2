@@ -1,6 +1,6 @@
 // usePlayGame.ts - Main play game state management hook
 // Phase 7: State Management Hooks - React state bridge to services
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef, useEffect, useMemo } from 'react';
 import { PlayGameService } from '../../services/chess/PlayGameService';
 import { StockfishEngineClient } from '../../services/clients/StockfishEngineClient';
 import { useChessAudio } from '../../services/audio/audioService';
@@ -59,7 +59,7 @@ export const usePlayGame = (initialPlayerColor: PieceColor = 'white') => {
     };
 
     initializeServices();
-  }, [initialPlayerColor, playGameStart]);
+  }, [initialPlayerColor]); // Remove playGameStart dependency
 
   // Computer move handler
   const handleComputerTurn = useCallback(async () => {
@@ -139,7 +139,7 @@ export const usePlayGame = (initialPlayerColor: PieceColor = 'white') => {
         playGameServiceRef.current.setThinkingState({ isThinking: false });
       }
     }
-  }, [skillLevel, playMove, playCheck, playGameStart, playGameEnd, playError]);
+  }, [skillLevel]);
 
   // Player move handler
   const makeMove = useCallback(async (from: string, to: string, promotion?: PieceType): Promise<boolean> => {
@@ -193,7 +193,7 @@ export const usePlayGame = (initialPlayerColor: PieceColor = 'white') => {
       playError();
       return false;
     }
-  }, [handleComputerTurn, playMove, playCheck, playGameEnd, playError]);
+  }, [handleComputerTurn]);
 
   // Update skill level
   const updateSkillLevel = useCallback(async (level: ComputerDifficulty) => {
@@ -246,7 +246,7 @@ export const usePlayGame = (initialPlayerColor: PieceColor = 'white') => {
       console.error('❌ [USE PLAY GAME] Error resetting game:', err);
       setError('Failed to reset game');
     }
-  }, [playGameStart]);
+  }, []);
 
   // Get valid moves
   const getValidMoves = useCallback((square?: string): string[] => {
@@ -266,6 +266,13 @@ export const usePlayGame = (initialPlayerColor: PieceColor = 'white') => {
     return playGameServiceRef.current.getPlayGameState();
   }, []);
 
+  // Memoized game state helpers to prevent infinite re-renders
+  const gameStateHelpers = useMemo(() => ({
+    isPlayerTurn: playGameServiceRef.current?.isPlayerTurn() ?? false,
+    isComputerTurn: playGameServiceRef.current?.isComputerTurn() ?? false,
+    canPlayerMakeMove: playGameServiceRef.current?.canPlayerMakeMove() ?? false,
+  }), [gameState]); // Re-calculate when game state changes
+
   // Public interface
   return {
     // Core game state
@@ -277,10 +284,8 @@ export const usePlayGame = (initialPlayerColor: PieceColor = 'white') => {
     isComputerThinking,
     skillLevel,
     
-    // Game state helpers
-    isPlayerTurn: playGameServiceRef.current?.isPlayerTurn() ?? false,
-    isComputerTurn: playGameServiceRef.current?.isComputerTurn() ?? false,
-    canPlayerMakeMove: playGameServiceRef.current?.canPlayerMakeMove() ?? false,
+    // Game state helpers (memoized)
+    ...gameStateHelpers,
     
     // Actions
     makeMove,

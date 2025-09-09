@@ -10,7 +10,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "../../components/ui";
 import type { AuthPage } from "../../components/auth/AuthRouter";

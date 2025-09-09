@@ -16,8 +16,7 @@
     "ngrok:url": "curl -s http://localhost:4040/api/tunnels | grep -o '\"public_url\":\"[^\"]*\"' | cut -d'\"' -f4",
     "tunnel:url": "echo 'Permanent URL: https://eager-terrier-especially.ngrok-free.app'",
     "cloudflared": "cloudflared tunnel --url http://localhost:5173 --no-autoupdate",
-    "backend": "cd ../chessboard-backend && npm run dev",
-    "fullstack": "concurrently --kill-others --prefix \"{name}\" --names \"FRONTEND,BACKEND\" \"npm run dev:local\" \"npm run backend\""
+    "fullstack": "npm run dev:local"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.7",

@@ -31,7 +31,7 @@ export function BoardColorSelector() {
       <SegmentedControl
         options={colorModeOptions}
         value={boardColorMode}
-        onChange={handleBoardColorModeChange}
+        onChange={(value: string) => handleBoardColorModeChange(value as any)}
         className="w-full"
         size="sm"
       />
@@ -58,7 +58,7 @@ export function BoardColorSelector() {
           <SegmentedControl
             options={premiumStyleOptions}
             value={premiumBoardStyle}
-            onChange={handlePremiumStyleChange}
+            onChange={(value: string) => handlePremiumStyleChange(value as any)}
             className="w-full"
             size="sm"
             iconOnly={true}

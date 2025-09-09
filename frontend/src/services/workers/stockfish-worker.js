@@ -25,7 +25,10 @@ try {
   log('Loading Stockfish.js...');
   
   // Import the stockfish.js script - this creates a Module with built-in worker handling
-  self.importScripts('/stockfish/stockfish.js');
+  // Use relative path resolution to work with different base URLs
+  const baseUrl = self.location.origin;
+  const stockfishUrl = new URL('/stockfish/stockfish.js', baseUrl).href;
+  self.importScripts(stockfishUrl);
   log('Stockfish.js loaded successfully');
   
   // The stockfish.js file we have is already a complete worker implementation

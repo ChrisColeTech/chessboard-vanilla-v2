@@ -11,7 +11,7 @@ const statsService = new StatsService();
 // GET /overview
 router.get('/overview', authenticate, async (req: any, res) => {
   try {
-    const result = await statsService.getOverviewStats();
+    const result = await statsService.getOverviewStats(req.userId);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });
@@ -21,7 +21,7 @@ router.get('/overview', authenticate, async (req: any, res) => {
 // GET /puzzles
 router.get('/puzzles', authenticate, async (req: any, res) => {
   try {
-    const result = await statsService.getPuzzleStats();
+    const result = await statsService.getPuzzleStats(req.userId);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });
@@ -31,7 +31,7 @@ router.get('/puzzles', authenticate, async (req: any, res) => {
 // GET /games
 router.get('/games', authenticate, async (req: any, res) => {
   try {
-    const result = await statsService.getGameStats();
+    const result = await statsService.getGameStats(req.userId);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });
@@ -41,7 +41,7 @@ router.get('/games', authenticate, async (req: any, res) => {
 // GET /progress
 router.get('/progress', authenticate, async (req: any, res) => {
   try {
-    const result = await statsService.getProgressStats();
+    const result = await statsService.getProgressStats(req.userId);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });
@@ -51,7 +51,7 @@ router.get('/progress', authenticate, async (req: any, res) => {
 // GET /performance
 router.get('/performance', authenticate, async (req: any, res) => {
   try {
-    const result = await statsService.getPerformanceStats();
+    const result = await statsService.getPerformanceStats(req.userId);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });
@@ -61,7 +61,7 @@ router.get('/performance', authenticate, async (req: any, res) => {
 // GET /ratings
 router.get('/ratings', authenticate, async (req: any, res) => {
   try {
-    const result = await statsService.getRatingStats();
+    const result = await statsService.getRatingStats(req.userId);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });

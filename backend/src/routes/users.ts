@@ -11,7 +11,7 @@ const userService = new UserService();
 // GET /profile
 router.get('/profile', authenticate, async (req: any, res) => {
   try {
-    const result = await userService.getUserProfile();
+    const result = await userService.getUserProfile(req.userId);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });
@@ -21,7 +21,7 @@ router.get('/profile', authenticate, async (req: any, res) => {
 // PUT /profile
 router.put('/profile', authenticate, async (req: any, res) => {
   try {
-    const result = await userService.updateUserProfile(req.body);
+    const result = await userService.updateUserProfile(req.userId, req.body);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });
@@ -31,7 +31,7 @@ router.put('/profile', authenticate, async (req: any, res) => {
 // GET /preferences
 router.get('/preferences', authenticate, async (req: any, res) => {
   try {
-    const result = await userService.getUserPreferences();
+    const result = await userService.getUserPreferences(req.userId);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });
@@ -41,7 +41,7 @@ router.get('/preferences', authenticate, async (req: any, res) => {
 // PUT /preferences
 router.put('/preferences', authenticate, async (req: any, res) => {
   try {
-    const result = await userService.updateUserPreferences(req.body);
+    const result = await userService.updateUserPreferences(req.userId, req.body);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });
@@ -51,7 +51,7 @@ router.put('/preferences', authenticate, async (req: any, res) => {
 // GET /settings
 router.get('/settings', authenticate, async (req: any, res) => {
   try {
-    const result = await userService.getUserSettings();
+    const result = await userService.getUserSettings(req.userId);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });
@@ -61,7 +61,7 @@ router.get('/settings', authenticate, async (req: any, res) => {
 // PUT /settings
 router.put('/settings', authenticate, async (req: any, res) => {
   try {
-    const result = await userService.updateUserSettings(req.body);
+    const result = await userService.updateUserSettings(req.userId, req.body);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });

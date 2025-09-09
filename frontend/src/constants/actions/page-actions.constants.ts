@@ -157,7 +157,7 @@ export const PAGE_ACTIONS: Record<string, ActionSheetAction[]> = {
       icon: EyeOff,
       variant: 'default'
     }
-  ], ['go-to-drag-test', 'go-to-audio-test', 'go-to-mobile-drag-test']),
+  ], ['go-to-drag-test', 'go-to-audio-test', 'go-to-mobile-drag-test', 'go-to-desktop-layout-test']),
   splash: [
     {
       id: 'go-to-minimal',
@@ -248,7 +248,7 @@ export const PAGE_ACTIONS: Record<string, ActionSheetAction[]> = {
       icon: RotateCw,
       variant: 'default'
     }
-  ], ['go-to-audio-test', 'go-to-layout-test', 'go-to-mobile-drag-test']),
+  ], ['go-to-audio-test', 'go-to-layout-test', 'go-to-mobile-drag-test', 'go-to-desktop-layout-test']),
   uiaudiotest: mergeWithCommonActions([
     {
       id: 'test-move-sound',
@@ -277,7 +277,7 @@ export const PAGE_ACTIONS: Record<string, ActionSheetAction[]> = {
       icon: RefreshCw,
       variant: 'destructive'
     }
-  ], ['go-to-drag-test', 'go-to-layout-test', 'go-to-mobile-drag-test']),
+  ], ['go-to-drag-test', 'go-to-layout-test', 'go-to-mobile-drag-test', 'go-to-desktop-layout-test']),
   luxurysplash: [
     {
       id: 'test-luxury',
@@ -338,5 +338,13 @@ export const PAGE_ACTIONS: Record<string, ActionSheetAction[]> = {
       icon: RotateCw,
       variant: 'default'
     }
-  ], ['go-to-drag-test', 'go-to-audio-test', 'go-to-layout-test']),
+  ], ['go-to-drag-test', 'go-to-audio-test', 'go-to-layout-test', 'go-to-desktop-layout-test']),
+  desktoplayouttest: mergeWithCommonActions([
+    {
+      id: 'toggle-layout-elements',
+      label: 'Toggle Layout Elements',
+      icon: EyeOff,
+      variant: 'default'
+    }
+  ], ['go-to-drag-test', 'go-to-audio-test', 'go-to-layout-test', 'go-to-mobile-drag-test']),
 }

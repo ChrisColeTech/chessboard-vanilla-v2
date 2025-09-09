@@ -191,9 +191,10 @@ const backToMain = useCallback(() => {
 #### 3. Page Rendering
 
 ```typescript
-// UITestPage.tsx
+// UITestPage.tsx - Parent routing component
 const currentChildPage = useAppStore((state) => state.currentChildPage)
 
+// Main page is in src/pages/uitests/UITestsMainPage.tsx
 let CurrentPageComponent = UITestsMainPage
 
 if (currentChildPage === 'dragtest') {
@@ -367,9 +368,18 @@ export const PAGE_ACTIONS: Record<string, ActionSheetAction[]> = {
 
 ### Adding a Child Page
 
-1. **Create page wrapper:**
+1. **Create the page:**
 ```typescript
-// src/components/ChildPageWrapper.tsx
+// src/pages/parentpage/ChildPage.tsx
+export const ChildPage: React.FC = () => {
+  // Page implementation
+  return <div>Child page content</div>
+}
+```
+
+2. **Create page wrapper:**
+```typescript
+// src/components/parentpage/ChildPageWrapper.tsx  
 export const ChildPageWrapper: React.FC = () => {
   usePageInstructions('childpage')
   usePageActions('childpage')
@@ -378,7 +388,7 @@ export const ChildPageWrapper: React.FC = () => {
 }
 ```
 
-2. **Add navigation action:**
+3. **Add navigation action:**
 ```typescript
 // Parent page actions hook
 const goToChildPage = useCallback(() => {
@@ -387,7 +397,7 @@ const goToChildPage = useCallback(() => {
 }, [setCurrentChildPage, playMove])
 ```
 
-3. **Update parent page rendering:**
+4. **Update parent page rendering:**
 ```typescript
 // Parent page component
 if (currentChildPage === 'childpage') {
@@ -395,7 +405,7 @@ if (currentChildPage === 'childpage') {
 }
 ```
 
-4. **Add child page actions:**
+5. **Add child page actions:**
 ```typescript
 // src/constants/actions/page-actions.constants.ts
 export const PAGE_ACTIONS: Record<string, ActionSheetAction[]> = {

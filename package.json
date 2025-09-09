@@ -10,20 +10,20 @@
   },
   "scripts": {
     "build": "npm run build:frontend && npm run build:backend",
-    "build:frontend": "cd frontend/app && npm install && npm run build",
+    "build:frontend": "cd frontend && npm install && npm run build",
     "build:backend": "cd backend && npm install && npm run build",
     "start": "cd backend && npm start",
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:backend": "cd backend && npm run dev", 
-    "dev:frontend": "cd frontend/app && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
     "dev:electron": "concurrently \"npm run dev:frontend\" \"wait-on http://localhost:5173 && npm run dev:electron-start\"",
     "dev:electron-start": "NODE_ENV=development electron .",
     "build:electron": "npm run build:frontend && electron-builder",
     "start:electron": "electron .",
     "test": "npm run test:backend && npm run test:frontend",
     "test:backend": "cd backend && npm test",
-    "test:frontend": "cd frontend/app && npm test",
-    "postinstall": "cd backend && npm install && cd ../frontend/app && npm install"
+    "test:frontend": "cd frontend && npm test",
+    "postinstall": "cd backend && npm install && cd ../frontend && npm install"
   },
   "keywords": [
     "react",

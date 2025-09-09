@@ -50,7 +50,10 @@ function AppContent() {
         '.chess-square',
         '.chess-board',
         '[disabled]',
-        '.disabled'
+        '.disabled',
+        '[data-headlessui-state]', // Exclude HeadlessUI elements (action sheets, menus, etc.)
+        '[data-action-item]', // Exclude action sheet items that have explicit hover handlers
+        '.action-sheet-item' // Exclude action sheet items by class
       ]
     }
   });

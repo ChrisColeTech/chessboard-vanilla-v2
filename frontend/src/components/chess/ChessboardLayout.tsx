@@ -34,7 +34,7 @@ export const ChessboardLayout: React.FC<ChessboardLayoutProps> = ({
         gridTemplateColumns: '100px 1fr 100px',
         gridTemplateRows: '80px 1fr 80px',
         gap: '8px',
-        minHeight: '0'
+        minHeight: '100%'
       }}
     >
       {/* Row 1 */}

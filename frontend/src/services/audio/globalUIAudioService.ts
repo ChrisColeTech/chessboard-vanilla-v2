@@ -47,12 +47,18 @@ export class GlobalUIAudioService implements IGlobalUIAudioService {
   private config: GlobalUIAudioConfig;
   private initialized = false;
   private globalClickHandler: GlobalClickHandler;
+  private globalHoverHandler: (event: Event) => void;
+  private lastHoveredElement: Element | null = null;
+  private lastHoveredElementId: string | null = null; // More robust element tracking
+  private lastHoverSoundTime = 0;
+  private readonly HOVER_SOUND_COOLDOWN_MS = 300; // Increased cooldown to prevent retriggering
 
   constructor(initialConfig: Partial<GlobalUIAudioConfig> = {}) {
     this.config = { ...DEFAULT_CONFIG, ...initialConfig };
     
-    // Bind the click handler to maintain 'this' context
+    // Bind the event handlers to maintain 'this' context
     this.globalClickHandler = this.handleGlobalClick.bind(this);
+    this.globalHoverHandler = this.handleGlobalHover.bind(this);
     
     console.log('🔊 [GLOBAL UI AUDIO] Service created with config:', this.config);
   }
@@ -73,10 +79,12 @@ export class GlobalUIAudioService implements IGlobalUIAudioService {
 
     // Use event delegation on window with capture phase (avoids React conflicts)
     window.addEventListener('click', this.globalClickHandler, true);
-    console.log('🔊 [GLOBAL UI AUDIO] Event listener attached to window with capture phase');
+    window.addEventListener('mouseover', this.globalHoverHandler, true);
+    window.addEventListener('mouseout', this.resetHoverState.bind(this), true);
+    console.log('🔊 [GLOBAL UI AUDIO] Event listeners attached to window (click, hover, mouseout) with capture phase');
     
     this.initialized = true;
-    console.log('🔊 [GLOBAL UI AUDIO] Service initialized and listening for click events');
+    console.log('🔊 [GLOBAL UI AUDIO] Service initialized and listening for click and hover events');
   }
 
   /**
@@ -88,8 +96,10 @@ export class GlobalUIAudioService implements IGlobalUIAudioService {
       return;
     }
 
-    // Clean up event listener
+    // Clean up event listeners
     window.removeEventListener('click', this.globalClickHandler, true);
+    window.removeEventListener('mouseover', this.globalHoverHandler, true);
+    window.removeEventListener('mouseout', this.resetHoverState.bind(this), true);
     
     this.initialized = false;
     console.log('🔊 [GLOBAL UI AUDIO] Service destroyed, event listener removed from window');
@@ -169,6 +179,44 @@ export class GlobalUIAudioService implements IGlobalUIAudioService {
    */
   public isInitialized(): boolean {
     return this.initialized;
+  }
+
+  /**
+   * Global hover event handler for UI audio feedback
+   */
+  private handleGlobalHover(event: Event): void {
+    const target = event.target as HTMLElement;
+    
+    // Create a unique identifier for the element to prevent repeated sounds
+    const elementId = this.createElementIdentifier(target);
+    
+    // Prevent repeated sounds for the same element (mouseover fires repeatedly)
+    if (this.lastHoveredElementId === elementId) {
+      return;
+    }
+    
+    this.lastHoveredElement = target;
+    this.lastHoveredElementId = elementId;
+    
+    if (!this.config.enabled || !this.config.autoDetection) {
+      return;
+    }
+
+    if (!target) {
+      return;
+    }
+
+    try {
+      // Detect if this hover should trigger audio
+      const detectionResult = this.detectClickableElement(target);
+      
+      if (detectionResult.shouldPlaySound) {
+        // Play the UI hover sound
+        this.playAudioForInteraction('hover');
+      }
+    } catch (error) {
+      console.error('🔊 [GLOBAL UI AUDIO] Error in hover handler:', error);
+    }
   }
 
   /**
@@ -284,6 +332,35 @@ export class GlobalUIAudioService implements IGlobalUIAudioService {
   }
 
   /**
+   * Create a unique identifier for an element to prevent duplicate sounds
+   */
+  private createElementIdentifier(element: Element): string {
+    // Use a combination of tag, id, class, and position to create a unique identifier
+    const tagName = element.tagName.toLowerCase();
+    const id = element.id || '';
+    const className = element.className || '';
+    const textContent = (element.textContent || '').substring(0, 20); // First 20 chars
+    
+    // Get element's position in DOM tree for uniqueness
+    let position = '';
+    let parent = element.parentElement;
+    if (parent) {
+      const siblings = Array.from(parent.children);
+      position = siblings.indexOf(element).toString();
+    }
+    
+    return `${tagName}#${id}.${className}[${position}]:${textContent}`;
+  }
+
+  /**
+   * Reset hover state to allow new hover sounds (called on mouseleave-like events)
+   */
+  private resetHoverState(): void {
+    this.lastHoveredElement = null;
+    this.lastHoveredElementId = null;
+  }
+
+  /**
    * Play audio for a specific interaction type
    */
   private playAudioForInteraction(interactionType: 'click' | 'hover' | 'focus' | 'select'): void {
@@ -292,12 +369,26 @@ export class GlobalUIAudioService implements IGlobalUIAudioService {
       return;
     }
 
+    // Apply cooldown specifically for hover sounds to prevent rapid-fire
+    if (interactionType === 'hover') {
+      const now = Date.now();
+      const timeSinceLastHover = now - this.lastHoverSoundTime;
+      
+      if (timeSinceLastHover < this.HOVER_SOUND_COOLDOWN_MS) {
+        console.log(`🔊 [GLOBAL UI AUDIO] Hover sound skipped (cooldown: ${timeSinceLastHover}ms < ${this.HOVER_SOUND_COOLDOWN_MS}ms)`);
+        return;
+      }
+      
+      this.lastHoverSoundTime = now;
+    }
+
     try {
       // Get the appropriate sound effect for this interaction
       const soundEffect = getSoundForInteraction(interactionType);
       
       // Play the sound through the audio service
       audioService.play(soundEffect);
+      console.log(`🔊 [GLOBAL UI AUDIO] Playing ${interactionType} sound: ${soundEffect}`);
     } catch (error) {
       console.error(`🔊 [GLOBAL UI AUDIO] Error playing audio for ${interactionType}:`, error);
     }

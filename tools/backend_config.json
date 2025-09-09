@@ -315,6 +315,119 @@
           "handler": "completeTutorial"
         }
       ]
+    },
+    "auth": {
+      "entity": "Auth",
+      "entities": "auth",
+      "table_name": "users",
+      "route_prefix": "auth",
+      "special_routing": true,
+      "properties": {
+        "id": "string",
+        "username": "string",
+        "email": "string",
+        "password_hash": "string",
+        "chess_elo": "number",
+        "puzzle_rating": "number",
+        "preferences": "string",
+        "created_at": "string",
+        "updated_at": "string"
+      },
+      "methods": [
+        "register",
+        "login",
+        "getCurrentUser",
+        "updateProfile", 
+        "changePassword",
+        "verifyToken",
+        "forgotPassword",
+        "resetPassword",
+        "logout",
+        "checkEmailAvailability",
+        "checkUsernameAvailability",
+        "deleteAccount",
+        "healthCheck"
+      ],
+      "endpoints": [
+        {
+          "method": "POST",
+          "path": "/register",
+          "handler": "register",
+          "auth_required": false
+        },
+        {
+          "method": "POST", 
+          "path": "/login",
+          "handler": "login",
+          "auth_required": false
+        },
+        {
+          "method": "GET",
+          "path": "/me",
+          "handler": "getCurrentUser",
+          "auth_required": true
+        },
+        {
+          "method": "PUT",
+          "path": "/profile", 
+          "handler": "updateProfile",
+          "auth_required": true
+        },
+        {
+          "method": "POST",
+          "path": "/change-password",
+          "handler": "changePassword",
+          "auth_required": true
+        },
+        {
+          "method": "POST",
+          "path": "/verify-token",
+          "handler": "verifyToken",
+          "auth_required": false
+        },
+        {
+          "method": "POST",
+          "path": "/forgot-password", 
+          "handler": "forgotPassword",
+          "auth_required": false
+        },
+        {
+          "method": "POST",
+          "path": "/reset-password",
+          "handler": "resetPassword", 
+          "auth_required": false
+        },
+        {
+          "method": "POST",
+          "path": "/logout",
+          "handler": "logout",
+          "auth_required": false
+        },
+        {
+          "method": "POST",
+          "path": "/check-email",
+          "handler": "checkEmailAvailability",
+          "auth_required": false
+        },
+        {
+          "method": "POST",
+          "path": "/check-username",
+          "handler": "checkUsernameAvailability", 
+          "auth_required": false
+        },
+        {
+          "method": "DELETE",
+          "path": "/delete-account",
+          "handler": "deleteAccount",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/health",
+          "handler": "healthCheck",
+          "auth_required": false
+        }
+      ]
     }
   },
   "database": {
@@ -332,5 +445,5 @@
     "add_validation": true,
     "add_swagger_docs": true
   },
-  "target_directory": "../backend-v2"
+  "target_directory": "../backend"
 }

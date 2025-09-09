@@ -101,6 +101,108 @@ export class PuzzleService {
     return result.rows.map(row => this.formatPuzzleResponse(row));
   }
 
+  // New methods to match frontend expectations
+  async getRandomPuzzle(queryParams: any): Promise<PuzzleResponse> {
+    const { minRating = 800, maxRating = 2000, themes, limit = 1 } = queryParams;
+    
+    let query = 'SELECT * FROM puzzles WHERE rating BETWEEN $1 AND $2';
+    const params = [minRating, maxRating];
+    
+    if (themes) {
+      const themeArray = Array.isArray(themes) ? themes : themes.split(',');
+      query += ' AND themes ILIKE ANY($3)';
+      params.push(themeArray.map((theme: string) => `%${theme}%`));
+    }
+    
+    query += ' ORDER BY RANDOM() LIMIT $' + (params.length + 1);
+    params.push(limit);
+    
+    const result = await this.db.query(query, params);
+    
+    if (!result.rows.length) {
+      throw new Error('No puzzles available');
+    }
+    
+    return this.formatPuzzleResponse(result.rows[0]);
+  }
+
+  async getPuzzleById(id: string): Promise<PuzzleResponse> {
+    const result = await this.db.query('SELECT * FROM puzzles WHERE id = $1', [id]);
+    if (!result.rows.length) throw new Error('Puzzle not found');
+    
+    return this.formatPuzzleResponse(result.rows[0]);
+  }
+
+  async getPuzzles(queryParams: any): Promise<PuzzleResponse[]> {
+    const { minRating = 0, maxRating = 3000, themes, limit = 10, offset = 0 } = queryParams;
+    
+    let query = 'SELECT * FROM puzzles WHERE rating BETWEEN $1 AND $2';
+    const params = [minRating, maxRating];
+    
+    if (themes) {
+      const themeArray = Array.isArray(themes) ? themes : themes.split(',');
+      query += ' AND themes ILIKE ANY($3)';
+      params.push(themeArray.map((theme: string) => `%${theme}%`));
+    }
+    
+    query += ' ORDER BY rating DESC LIMIT $' + (params.length + 1) + ' OFFSET $' + (params.length + 2);
+    params.push(limit, offset);
+    
+    const result = await this.db.query(query, params);
+    return result.rows.map(row => this.formatPuzzleResponse(row));
+  }
+
+  async getPuzzleThemes(): Promise<string[]> {
+    const result = await this.db.query(`
+      SELECT DISTINCT themes FROM puzzles 
+      WHERE themes IS NOT NULL AND themes != ''
+      LIMIT 50
+    `);
+    
+    const allThemes = new Set<string>();
+    result.rows.forEach(row => {
+      try {
+        const themes = JSON.parse(row.themes || '[]');
+        themes.forEach((theme: string) => allThemes.add(theme));
+      } catch (e) {
+        // Skip invalid JSON
+      }
+    });
+    
+    return Array.from(allThemes).slice(0, 20);
+  }
+
+  async getPuzzleStats(): Promise<any> {
+    const totalResult = await this.db.query('SELECT COUNT(*) as total FROM puzzles');
+    const avgRatingResult = await this.db.query('SELECT AVG(rating) as avg_rating FROM puzzles');
+    const minRatingResult = await this.db.query('SELECT MIN(rating) as min_rating FROM puzzles');
+    const maxRatingResult = await this.db.query('SELECT MAX(rating) as max_rating FROM puzzles');
+    
+    return {
+      totalPuzzles: parseInt(totalResult.rows[0]?.total || '0'),
+      averageRating: Math.round(avgRatingResult.rows[0]?.avg_rating || 0),
+      minRating: parseInt(minRatingResult.rows[0]?.min_rating || '0'),
+      maxRating: parseInt(maxRatingResult.rows[0]?.max_rating || '0')
+    };
+  }
+
+  async searchPuzzles(queryParams: any): Promise<PuzzleResponse[]> {
+    const { q, limit = 10 } = queryParams;
+    
+    if (!q) {
+      return [];
+    }
+    
+    const result = await this.db.query(`
+      SELECT * FROM puzzles 
+      WHERE description ILIKE $1 OR themes ILIKE $1
+      ORDER BY rating DESC 
+      LIMIT $2
+    `, [`%${q}%`, limit]);
+    
+    return result.rows.map(row => this.formatPuzzleResponse(row));
+  }
+
   private formatPuzzleResponse(row: any): PuzzleResponse {
     return {
       id: row.id,

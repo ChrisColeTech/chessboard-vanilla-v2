@@ -7,6 +7,65 @@ import { CreatePuzzleRequest, UpdatePuzzleRequest } from '../models/Puzzle';
 const router = Router();
 const puzzleService = new PuzzleService();
 
+// GET /random - Frontend expects this instead of /next
+router.get('/random', async (req: any, res) => {
+  try {
+    const result = await puzzleService.getRandomPuzzle(req.query);
+    res.json({ success: true, data: result });
+  } catch (error: any) {
+    res.status(400).json({ success: false, error: error.message });
+  }
+});
+
+// GET /:id - Get specific puzzle by ID
+router.get('/:id', async (req: any, res) => {
+  try {
+    const result = await puzzleService.getPuzzleById(req.params.id);
+    res.json({ success: true, data: result });
+  } catch (error: any) {
+    res.status(400).json({ success: false, error: error.message });
+  }
+});
+
+// GET / - Get multiple puzzles with filtering
+router.get('/', async (req: any, res) => {
+  try {
+    const result = await puzzleService.getPuzzles(req.query);
+    res.json({ success: true, data: result });
+  } catch (error: any) {
+    res.status(400).json({ success: false, error: error.message });
+  }
+});
+
+// GET /themes - Frontend expects this instead of /categories
+router.get('/themes', async (req: any, res) => {
+  try {
+    const result = await puzzleService.getPuzzleThemes();
+    res.json({ success: true, data: result });
+  } catch (error: any) {
+    res.status(400).json({ success: false, error: error.message });
+  }
+});
+
+// GET /stats - Puzzle statistics
+router.get('/stats', async (req: any, res) => {
+  try {
+    const result = await puzzleService.getPuzzleStats();
+    res.json({ success: true, data: result });
+  } catch (error: any) {
+    res.status(400).json({ success: false, error: error.message });
+  }
+});
+
+// GET /search - Search puzzles
+router.get('/search', async (req: any, res) => {
+  try {
+    const result = await puzzleService.searchPuzzles(req.query);
+    res.json({ success: true, data: result });
+  } catch (error: any) {
+    res.status(400).json({ success: false, error: error.message });
+  }
+});
 
 // GET /next
 router.get('/next', authenticate, async (req: any, res) => {

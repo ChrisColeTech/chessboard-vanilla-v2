@@ -12,7 +12,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "../../components/ui";
 import { AuthLayout } from "../../components/auth/AuthLayout";

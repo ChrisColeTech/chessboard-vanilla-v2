@@ -78,6 +78,13 @@ export function useUITestsActions() {
     }, 100)
   }, [setCurrentChildPage])
 
+  const goToDesktopLayoutTest = useCallback(() => {
+    // Small delay to prevent hover sound from triggering after menu transition
+    setTimeout(() => {
+      setCurrentChildPage('desktoplayouttest')
+    }, 100)
+  }, [setCurrentChildPage])
+
   return {
     runUITests,
     clearUIResults,
@@ -87,6 +94,7 @@ export function useUITestsActions() {
     goToAudioTest,
     goToLayoutTest,
     goToMobileDragTest,
+    goToDesktopLayoutTest,
     testResults
   }
 }
