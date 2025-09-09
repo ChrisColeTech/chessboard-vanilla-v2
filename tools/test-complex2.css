@@ -1,0 +1,149 @@
+/* Second complex CSS file for multi-file testing */
+
+/* Cyberpunk themes */
+.theme-cyberpunk-blue {
+  --background: #0a0e27;
+  --foreground: #64ffda;
+  --primary: #00b4d8;
+  --secondary: #0077b6;
+  --accent: #90e0ef;
+  --muted: rgba(100, 255, 218, 0.1);
+  --border: #00b4d8;
+  --radius: 0rem;
+  --shadow: 0 0 30px rgba(0, 180, 216, 0.3);
+  --test-hover: #002535;
+  --titlebar-hover: #28c9f8;
+  --modal-overlay: #00b3d4;
+  --dropdown-bg: #006a79;
+  --text-shadow: rgb(0, 23, 49);
+}
+
+.theme-cyberpunk-red {
+  --background: #1a0505;
+  --foreground: #ff6b6b;
+  --primary: #ff3333;
+  --secondary: #cc0000;
+  --accent: #ff9999;
+  --muted: rgba(255, 107, 107, 0.1);
+  --border: #ff3333;
+  --radius: 0rem;
+  --shadow: 0 0 30px rgba(255, 51, 51, 0.3);
+  --test-hover: #f9b5b3;
+  --titlebar-hover: #ff5e26;
+  --modal-overlay: #ff8d6d;
+  --dropdown-bg: #f30017;
+  --text-shadow: rgb(246, 113, 98);
+}
+
+/* Nature themes */
+.theme-forest-green {
+  --background: #0d1b0d;
+  --foreground: #a7c957;
+  --primary: #6a994e;
+  --secondary: #386641;
+  --accent: #bc4749;
+  --muted: rgba(167, 201, 87, 0.1);
+  --border: #6a994e;
+  --radius: 0.5rem;
+  --test-hover: #a2d894;
+  --titlebar-hover: #3e7638;
+  --modal-overlay: #65bd55;
+  --dropdown-bg: #5b7f3a;
+  --text-shadow: rgb(95, 119, 64);
+}
+
+.theme-ocean-blue {
+  --background: #001219;
+  --foreground: #94d2bd;
+  --primary: #005577;
+  --secondary: #0a9396;
+  --accent: #ee9b00;
+  --muted: rgba(148, 210, 189, 0.1);
+  --border: #005577;
+  --radius: 0.75rem;
+  --test-hover: #04342c;
+  --titlebar-hover: #0f574a;
+  --modal-overlay: #19c3e4;
+  --dropdown-bg: #065a93;
+  --text-shadow: rgb(0, 63, 80);
+}
+
+/* Retro themes with RGBA values */
+.theme-retro-80s {
+  --background: rgba(30, 30, 30, 1);
+  --foreground: rgba(255, 20, 147, 1);
+  --primary: rgba(255, 20, 147, 1);
+  --secondary: rgba(0, 191, 255, 1);
+  --accent: rgba(50, 205, 50, 1);
+  --muted: rgba(255, 20, 147, 0.15);
+  --border: rgba(255, 20, 147, 0.8);
+  --radius: 0.25rem;
+  --glow: 0 0 20px rgba(255, 20, 147, 0.6);
+  --test-hover: rgba(0, 191, 255, 1);
+  --titlebar-hover: rgba(255, 20, 147, 1);
+  --modal-overlay: rgba(255, 20, 147, 1);
+  --dropdown-bg: rgba(255, 20, 147, 1);
+  --text-shadow: rgb(209, 0, 131);
+}
+
+/* Space theme with HSL */
+.theme-space-purple {
+  --background: hsl(240, 100%, 5%);
+  --foreground: hsl(280, 100%, 85%);
+  --primary: hsl(280, 100%, 70%);
+  --secondary: hsl(240, 80%, 60%);
+  --accent: hsl(320, 100%, 75%);
+  --muted: hsla(280, 100%, 85%, 0.1);
+  --border: hsl(280, 100%, 70%);
+  --radius: 1rem;
+  --test-hover: hsl(240, 80%, 60%);
+  --titlebar-hover: hsl(280, 100%, 70%);
+  --modal-overlay: hsl(280, 100%, 70%);
+  --dropdown-bg: hsl(280, 100%, 70%);
+  --text-shadow: rgb(171, 171, 171);
+}
+
+/* Edge case: theme with no primary/secondary */
+.theme-edge-case {
+  --background: #ffffff;
+  --foreground: #000000;
+  --accent: #ff0000;
+  --radius: 0.5rem;
+  --test-hover: #cccccc;
+  --titlebar-hover: #cccccc;
+  --modal-overlay: #cccccc;
+  --dropdown-bg: #cccccc;
+  --text-shadow: #cccccc;
+}
+
+/* Theme with very long color names and complex values */
+.theme-complex-values {
+  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --foreground: #ffffff;
+  --primary: #667eea;
+  --secondary: #764ba2;
+  --accent: #f093fb;
+  --muted: rgba(102, 126, 234, 0.05);
+  --border: #667eea;
+  --radius: clamp(0.25rem, 2vw, 1rem);
+  --test-hover: #8342a2;
+  --titlebar-hover: #5d49a3;
+  --modal-overlay: #b2aac3;
+  --dropdown-bg: #644582;
+  --text-shadow: rgb(92, 45, 118);
+}
+
+/* Final test theme */
+.theme-final-test {
+  --background: #fefefe;
+  --foreground: #1a1a1a;
+  --primary: #e74c3c;
+  --secondary: #3498db;
+  --accent: #2ecc71;
+  --radius: 0.5rem;
+  --test-hover: #4387c4;
+  --titlebar-hover: #d66165;
+  --modal-overlay: #3579ca;
+  --dropdown-bg: #78a9e4;
+  --text-shadow: rgb(145, 28, 40);
+}

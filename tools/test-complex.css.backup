@@ -1,0 +1,125 @@
+/* Complex CSS test file with multiple themes and edge cases */
+
+/* Base theme with lots of variables */
+.theme-professional {
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+  --primary: #2563eb;
+  --secondary: #64748b;
+  --accent: #06b6d4;
+  --muted: #f8fafc;
+  --border: #e2e8f0;
+  --radius: 0.5rem;
+  /* Existing hover colors */
+  --button-hover: #1d4ed8;
+  --test-hover: #a5c7fc;
+}
+
+/* Dark variant of professional theme */
+.theme-professional.dark {
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --primary: #3b82f6;
+  --secondary: #94a3b8;
+  --accent: #22d3ee;
+  --muted: #1e293b;
+  --border: #334155;
+  --button-hover: #2563eb;
+  --test-hover: #19319c;
+}
+
+/* Gaming theme with vibrant colors */
+.theme-gaming-neon {
+  --background: #000000;
+  --foreground: #ffffff;
+  --primary: #ff0080;
+  --secondary: #00ff80;
+  --accent: #8000ff;
+  --muted: rgba(255, 0, 128, 0.1);
+  --border: #ff0080;
+  --radius: 0.25rem;
+  --glow: 0 0 20px rgba(255, 0, 128, 0.5);
+  --test-hover: #f46b89;
+}
+
+/* Corporate theme */
+.theme-corporate {
+  --background: #fafafa;
+  --foreground: #2d3748;
+  --primary: #4a5568;
+  --secondary: #718096;
+  --accent: #2b6cb0;
+  --muted: #f7fafc;
+  --border: #e2e8f0;
+  --radius: 0.375rem;
+  --test-hover: #404c55;
+}
+
+/* Experimental theme with CSS custom properties */
+.theme-experimental {
+  --background: hsl(220, 13%, 91%);
+  --foreground: hsl(220, 9%, 26%);
+  --primary: hsl(262, 83%, 58%);
+  --secondary: hsl(220, 14%, 56%);
+  --accent: hsl(142, 76%, 36%);
+  --muted: hsla(210, 40%, 98%, 0.8);
+  --border: hsl(214, 32%, 91%);
+  --radius: 1rem;
+  --test-hover: hsl(220, 14%, 56%);
+}
+
+/* Light variant with unusual naming */
+.theme-sunrise-light {
+  --background: #fef7ed;
+  --foreground: #9a3412;
+  --primary: #ea580c;
+  --secondary: #fb923c;
+  --accent: #fbbf24;
+  --muted: #fed7aa;
+  --border: #fdba74;
+  --radius: 0.75rem;
+  --test-hover: #ff4224;
+}
+
+/* Theme with existing hover variable that should be updated */
+.theme-existing-hover {
+  --background: #f1f5f9;
+  --foreground: #0f172a;
+  --primary: #0ea5e9;
+  --secondary: #64748b;
+  --accent: #06b6d4;
+  --test-hover: #6fa2ef;
+  --radius: 0.5rem;
+}
+
+/* Theme with minimal variables */
+.theme-minimal {
+  --primary: #000000;
+  --secondary: #ffffff;
+  --test-hover: #ffffff;
+}
+
+/* Comment between themes */
+/* This is a comment that should be ignored */
+
+/* Theme with RGB colors */
+.theme-rgb-colors {
+  --background: rgb(255, 255, 255);
+  --foreground: rgb(0, 0, 0);
+  --primary: rgb(59, 130, 246);
+  --secondary: rgb(100, 116, 139);
+  --accent: rgb(6, 182, 212);
+  --radius: 0.5rem;
+  --test-hover: rgb(100, 116, 139);
+}
+
+/* Final theme */
+.theme-final {
+  --background: #ffffff;
+  --foreground: #111827;
+  --primary: #7c3aed;
+  --secondary: #a78bfa;
+  --accent: #c084fc;
+  --radius: 0.5rem;
+  --test-hover: #7e3ff5;
+}

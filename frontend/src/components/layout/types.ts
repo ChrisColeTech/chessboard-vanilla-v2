@@ -1,0 +1,1 @@
+export type TabId = 'worker' | 'uitests' | 'casino' | 'play'

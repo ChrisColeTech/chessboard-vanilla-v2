@@ -1,0 +1,63 @@
+{
+  "name": "chessboard-vanilla-v2",
+  "version": "2.0.0",
+  "description": "Professional full-stack chess puzzle platform with TypeScript, PostgreSQL, and React - 32,000+ puzzles for skill development",
+  "main": "electron/main.js",
+  "type": "commonjs",
+  "engines": {
+    "node": "18.x",
+    "npm": "9.x"
+  },
+  "scripts": {
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "cd frontend/app && npm install && npm run build",
+    "build:backend": "cd backend && npm install && npm run build",
+    "start": "cd backend && npm start",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev", 
+    "dev:frontend": "cd frontend/app && npm run dev",
+    "dev:electron": "concurrently \"npm run dev:frontend\" \"wait-on http://localhost:5173 && npm run dev:electron-start\"",
+    "dev:electron-start": "NODE_ENV=development electron .",
+    "build:electron": "npm run build:frontend && electron-builder",
+    "start:electron": "electron .",
+    "test": "npm run test:backend && npm run test:frontend",
+    "test:backend": "cd backend && npm test",
+    "test:frontend": "cd frontend/app && npm test",
+    "postinstall": "cd backend && npm install && cd ../frontend/app && npm install"
+  },
+  "keywords": [
+    "react",
+    "javascript",
+    "electron"
+  ],
+  "author": "Claude Code Assistant",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "electron": "^28.1.0",
+    "electron-builder": "^24.9.1",
+    "wait-on": "^7.2.0"
+  },
+  "dependencies": {},
+  "build": {
+    "appId": "com.chessboard-vanilla-v2.app",
+    "productName": "Master Chess Training",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "electron/**/*",
+      "backend/**/*",
+      "frontend/dist/**/*"
+    ],
+    "mac": {
+      "icon": "assets/icon.icns"
+    },
+    "win": {
+      "icon": "assets/icon.ico"
+    },
+    "linux": {
+      "icon": "assets/icon.png"
+    }
+  }
+}

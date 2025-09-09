@@ -1,0 +1,52 @@
+// index.ts - Constants exports barrel
+
+// Chess core constants
+export {
+  STARTING_FEN,
+  FILES,
+  RANKS,
+  PIECE_TYPES,
+  PIECE_COLORS,
+  PIECE_UNICODE,
+  PIECE_NAMES,
+  DEFAULT_BOARD_SIZE,
+  MIN_BOARD_SIZE,
+  MAX_BOARD_SIZE
+} from './chess.constants';
+
+// Piece set constants
+export {
+  PIECE_SETS,
+  PIECE_SET_NAMES,
+  DEFAULT_PIECE_SET,
+  getPieceFileName,
+  getPieceImagePath,
+  PIECE_VALUES,
+  GAME_PHASE_THRESHOLDS
+} from './pieces.constants';
+
+// Computer opponent constants
+export * from './chess/computer-difficulty.constants';
+
+// Phase 3: UI Tests constants
+export {
+  DEFAULT_AUDIO_DEMO_CONFIG,
+  MINIMAL_AUDIO_DEMO_CONFIG,
+  ADVANCED_AUDIO_DEMO_CONFIG,
+  DEFAULT_DRAG_TEST_CONFIG,
+  BASIC_DRAG_TEST_CONFIG,
+  ADVANCED_DRAG_TEST_CONFIG,
+  STANDARD_UI_INTERACTIONS,
+  STANDARD_INTERACTIVE_SELECTORS,
+  STANDARD_EXCLUSIONS,
+  DEMO_SECTION_PRIORITIES,
+  CONFIG_VALIDATION_RULES,
+  UI_TEST_ROUTES,
+  DEFAULT_UI_TEST_ROUTE,
+  UI_TEST_PATHS,
+  UI_TEST_ROUTE_IDS,
+  BREADCRUMB_LABELS,
+  NAVIGATION_CATEGORIES,
+  ROUTE_ACCESS_LEVELS,
+  ROUTE_METADATA
+} from './ui-tests';

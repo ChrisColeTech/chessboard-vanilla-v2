@@ -1,0 +1,21 @@
+.theme-red {
+  --background: #ffffff;
+  --foreground: #212121;
+  --primary: #ef4444;
+  --secondary: #64748b;
+  --accent: #f87171;
+  --radius: 0.5rem;
+  --card-border: #485257;
+  --test-hover: #ee6a49;
+}
+
+.theme-blue {
+  --background: #ffffff;
+  --foreground: #1f2937;
+  --primary: #3b82f6;
+  --secondary: #6b7280;
+  --accent: #60a5fa;
+  --radius: 0.75rem;
+  --card-border: #282c34;
+  --test-hover: #192eb5;
+}

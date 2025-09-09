@@ -1,0 +1,72 @@
+name: Deploy to Railway
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Install root dependencies
+      run: npm ci --ignore-scripts
+    
+    - name: Install backend dependencies
+      run: cd backend && npm ci
+    
+    - name: Install frontend dependencies
+      run: cd frontend/app && npm ci
+    
+    - name: Build backend
+      run: cd backend && npm run build
+    
+    - name: Build frontend
+      run: cd frontend/app && npm run build
+    
+    - name: Run backend tests
+      run: cd backend && npm test
+      env:
+        NODE_ENV: test
+        DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
+    
+    - name: Run frontend tests
+      run: cd frontend/app && npm test -- --run
+      env:
+        CI: true
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Deploy to Railway
+      uses: railway-app/railway-action@v1
+      with:
+        command: 'up'
+        railway_token: ${{ secrets.RAILWAY_TOKEN }}
+        railway_service: ${{ secrets.RAILWAY_SERVICE_ID }}
+        railway_environment: production
+        
+    - name: Health Check
+      run: |
+        sleep 30
+        curl -f ${{ secrets.RAILWAY_DEPLOYMENT_URL }}/api/health || exit 1
+      timeout-minutes: 5

@@ -1,0 +1,336 @@
+{
+  "endpoints": {
+    "users": {
+      "entity": "User",
+      "entities": "users",
+      "table_name": "users",
+      "properties": {
+        "id": "string",
+        "username": "string",
+        "email": "string",
+        "password_hash": "string",
+        "chess_elo": "number",
+        "puzzle_rating": "number",
+        "preferences": "string",
+        "created_at": "string",
+        "updated_at": "string"
+      },
+      "methods": [
+        "getUserProfile",
+        "updateUserProfile",
+        "getUserPreferences",
+        "updateUserPreferences",
+        "getUserSettings",
+        "updateUserSettings"
+      ],
+      "endpoints": [
+        {
+          "method": "GET",
+          "path": "/profile",
+          "handler": "getUserProfile"
+        },
+        {
+          "method": "PUT",
+          "path": "/profile",
+          "handler": "updateUserProfile"
+        },
+        {
+          "method": "GET",
+          "path": "/preferences",
+          "handler": "getUserPreferences"
+        },
+        {
+          "method": "PUT",
+          "path": "/preferences",
+          "handler": "updateUserPreferences"
+        },
+        {
+          "method": "GET",
+          "path": "/settings",
+          "handler": "getUserSettings"
+        },
+        {
+          "method": "PUT",
+          "path": "/settings",
+          "handler": "updateUserSettings"
+        }
+      ]
+    },
+    "puzzles": {
+      "entity": "Puzzle",
+      "entities": "puzzles",
+      "table_name": "puzzles",
+      "properties": {
+        "id": "string",
+        "fen": "string",
+        "solution_moves": "string",
+        "themes": "string",
+        "rating": "number",
+        "description": "string",
+        "created_at": "string"
+      },
+      "methods": [
+        "getNextPuzzle",
+        "solvePuzzle",
+        "getPuzzleHint",
+        "getPuzzleCategories",
+        "getPuzzleHistory",
+        "createCustomPuzzle",
+        "getCustomPuzzles"
+      ],
+      "endpoints": [
+        {
+          "method": "GET",
+          "path": "/next",
+          "handler": "getNextPuzzle"
+        },
+        {
+          "method": "POST",
+          "path": "/:id/solve",
+          "handler": "solvePuzzle"
+        },
+        {
+          "method": "GET",
+          "path": "/:id/hint",
+          "handler": "getPuzzleHint"
+        },
+        {
+          "method": "GET",
+          "path": "/categories",
+          "handler": "getPuzzleCategories"
+        },
+        {
+          "method": "GET",
+          "path": "/history",
+          "handler": "getPuzzleHistory"
+        },
+        {
+          "method": "POST",
+          "path": "/custom",
+          "handler": "createCustomPuzzle"
+        },
+        {
+          "method": "GET",
+          "path": "/custom",
+          "handler": "getCustomPuzzles"
+        }
+      ]
+    },
+    "games": {
+      "entity": "Game",
+      "entities": "games",
+      "table_name": "games",
+      "properties": {
+        "id": "string",
+        "user_id": "string",
+        "ai_level": "number",
+        "user_color": "string",
+        "current_fen": "string",
+        "pgn": "string",
+        "status": "string",
+        "result": "string",
+        "time_control": "string",
+        "started_at": "string",
+        "completed_at": "string"
+      },
+      "methods": [
+        "getGames",
+        "getGameById",
+        "createGame",
+        "updateGame",
+        "analyzeGame",
+        "getGameAnalysis",
+        "getGameReviews"
+      ],
+      "endpoints": [
+        {
+          "method": "GET",
+          "path": "/",
+          "handler": "getGames"
+        },
+        {
+          "method": "GET",
+          "path": "/:id",
+          "handler": "getGameById"
+        },
+        {
+          "method": "POST",
+          "path": "/",
+          "handler": "createGame"
+        },
+        {
+          "method": "PUT",
+          "path": "/:id",
+          "handler": "updateGame"
+        },
+        {
+          "method": "POST",
+          "path": "/:id/analyze",
+          "handler": "analyzeGame"
+        },
+        {
+          "method": "GET",
+          "path": "/:id/analysis",
+          "handler": "getGameAnalysis"
+        },
+        {
+          "method": "GET",
+          "path": "/reviews",
+          "handler": "getGameReviews"
+        }
+      ]
+    },
+    "stats": {
+      "entity": "Stats",
+      "entities": "stats",
+      "table_name": "users",
+      "properties": {
+        "user_id": "string",
+        "total_puzzles": "number",
+        "correct_puzzles": "number",
+        "puzzle_accuracy": "number",
+        "avg_solve_time": "number",
+        "current_rating": "number",
+        "games_played": "number",
+        "games_won": "number",
+        "win_rate": "number"
+      },
+      "methods": [
+        "getOverviewStats",
+        "getPuzzleStats",
+        "getGameStats",
+        "getProgressStats",
+        "getPerformanceStats",
+        "getRatingStats"
+      ],
+      "endpoints": [
+        {
+          "method": "GET",
+          "path": "/overview",
+          "handler": "getOverviewStats"
+        },
+        {
+          "method": "GET",
+          "path": "/puzzles",
+          "handler": "getPuzzleStats"
+        },
+        {
+          "method": "GET",
+          "path": "/games",
+          "handler": "getGameStats"
+        },
+        {
+          "method": "GET",
+          "path": "/progress",
+          "handler": "getProgressStats"
+        },
+        {
+          "method": "GET",
+          "path": "/performance",
+          "handler": "getPerformanceStats"
+        },
+        {
+          "method": "GET",
+          "path": "/ratings",
+          "handler": "getRatingStats"
+        }
+      ]
+    },
+    "learning": {
+      "entity": "LearningPath",
+      "entities": "learning_paths",
+      "table_name": "learning_paths",
+      "properties": {
+        "id": "string",
+        "title": "string",
+        "description": "string",
+        "difficulty": "string",
+        "modules": "string",
+        "progress": "number",
+        "created_at": "string",
+        "updated_at": "string"
+      },
+      "methods": [
+        "getLearningPaths",
+        "getLearningPathById",
+        "enrollInPath",
+        "updateProgress"
+      ],
+      "endpoints": [
+        {
+          "method": "GET",
+          "path": "/paths",
+          "handler": "getLearningPaths"
+        },
+        {
+          "method": "GET",
+          "path": "/paths/:id",
+          "handler": "getLearningPathById"
+        },
+        {
+          "method": "POST",
+          "path": "/paths/:id/enroll",
+          "handler": "enrollInPath"
+        },
+        {
+          "method": "PUT",
+          "path": "/paths/:id/progress",
+          "handler": "updateProgress"
+        }
+      ]
+    },
+    "tutorials": {
+      "entity": "Tutorial",
+      "entities": "tutorials",
+      "table_name": "tutorials",
+      "properties": {
+        "id": "string",
+        "title": "string",
+        "description": "string",
+        "content": "string",
+        "difficulty": "string",
+        "duration": "number",
+        "completed": "boolean",
+        "created_at": "string"
+      },
+      "methods": [
+        "getTutorials",
+        "getTutorialById",
+        "completeTutorial"
+      ],
+      "endpoints": [
+        {
+          "method": "GET",
+          "path": "/",
+          "handler": "getTutorials"
+        },
+        {
+          "method": "GET",
+          "path": "/:id",
+          "handler": "getTutorialById"
+        },
+        {
+          "method": "POST",
+          "path": "/:id/complete",
+          "handler": "completeTutorial"
+        }
+      ]
+    }
+  },
+  "database": {
+    "type": "postgresql",
+    "connection": {
+      "host": "aws-1-us-east-2.pooler.supabase.com",
+      "port": 5432,
+      "database": "postgres",
+      "ssl": true
+    }
+  },
+  "generation_options": {
+    "overwrite_existing": false,
+    "create_tests": true,
+    "add_validation": true,
+    "add_swagger_docs": true
+  },
+  "target_directory": "../backend-v2"
+}

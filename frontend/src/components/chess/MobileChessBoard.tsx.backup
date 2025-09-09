@@ -1,0 +1,517 @@
+// Dynamic 8x8 Grid with Click Tracking and Animation
+import React, { useState, useEffect } from "react";
+import {
+  generateChessGridCells,
+  type GridCell,
+} from "../../utils/grid-generator.utils";
+import { useTheme, useAppStore } from "../../stores/appStore";
+import { useChessBoardAudio } from "../../hooks/audio/useChessBoardAudio";
+import { getPieceImagePath } from "../../constants/pieces.constants";
+import type { MobileChessGameState, ChessPiece } from "../../types";
+
+interface MobileChessBoardProps {
+  onGameStateChange?: (gameState: MobileChessGameState) => void;
+  onCapturedPiecesChange?: (pieces: ChessPiece[]) => void;
+}
+
+export const MobileChessBoard: React.FC<MobileChessBoardProps> = () => {
+  const { currentTheme, isDarkMode } = useTheme();
+  const selectedPieceSet = useAppStore((state) => state.selectedPieceSet);
+  
+  // Centralized responsive piece sizing based on grid size
+  const GRID_SIZE = 4; // Change this to scale the entire board
+  const PIECE_SIZE = `min(${100 / GRID_SIZE * 0.72}vw, ${100 / GRID_SIZE * 0.72}vh)`; // 72% of cell size
+  const PIECE_FONT_SIZE = `min(${100 / GRID_SIZE * 0.72}vw, ${100 / GRID_SIZE * 0.72}vh)`;
+  const {
+    playPieceSelection,
+    playPieceDeselection,
+    playPieceMove,
+    playInvalidMove,
+  } = useChessBoardAudio();
+
+  console.log(
+    "🎨 [DEBUG] MobileChessBoard render start with theme:",
+    currentTheme,
+    isDarkMode
+  );
+  console.log(
+    "🎨 [DEBUG] Current document classes at render:",
+    document.documentElement.className
+  );
+  const [selectedCell, setSelectedCell] = useState<string | null>(null);
+  
+  // Wrapper-based piece system - each piece has a unique ID and position
+  interface WrapperPiece {
+    id: string;
+    symbol: string;
+    color: string;
+    type: string;
+    x: number; // Pixel position
+    y: number; // Pixel position
+    opacity: number;
+    isAnimating: boolean;
+    boardPosition: string; // Chess notation (a1, b2, etc.)
+  }
+  
+  const [wrapperPieces, setWrapperPieces] = useState<WrapperPiece[]>([]);
+
+  // Generate 16 cells (4x4 grid) with chess-style alternating colors using CSS classes
+  const [gridCells, setGridCells] = useState<GridCell[]>([]);
+
+  useEffect(() => {
+    console.log(
+      "🎨 [DEBUG] Generating grid cells with CSS classes for theme:",
+      currentTheme,
+      isDarkMode
+    );
+
+    const cells = generateChessGridCells(GRID_SIZE * GRID_SIZE, "", "", {
+      showCoordinates: true,
+      coordinateStyle: "edges",
+      showFiles: true,
+      showRanks: true,
+    });
+    setGridCells(cells);
+    console.log(
+      "🎨 [DEBUG] Grid cells generated and set, count:",
+      cells.length
+    );
+  }, [currentTheme, isDarkMode]);
+
+  // Initialize wrapper pieces with pixel positions
+  useEffect(() => {
+    const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+    const topRank = GRID_SIZE;
+    const bottomRank = 1;
+    
+    const initialPieces: WrapperPiece[] = [
+      {
+        id: 'white-king',
+        symbol: '♔',
+        color: 'white',
+        type: 'king',
+        ...chessToPx(`a${topRank}`),
+        opacity: 1,
+        isAnimating: false,
+        boardPosition: `a${topRank}`
+      },
+      {
+        id: 'white-queen',
+        symbol: '♕',
+        color: 'white',
+        type: 'queen',
+        ...chessToPx(`b${topRank}`),
+        opacity: 1,
+        isAnimating: false,
+        boardPosition: `b${topRank}`
+      },
+      {
+        id: 'black-queen',
+        symbol: '♛',
+        color: 'black',
+        type: 'queen',
+        ...chessToPx(`${files[GRID_SIZE-2]}${bottomRank}`),
+        opacity: 1,
+        isAnimating: false,
+        boardPosition: `${files[GRID_SIZE-2]}${bottomRank}`
+      },
+      {
+        id: 'black-king',
+        symbol: '♚',
+        color: 'black',
+        type: 'king',
+        ...chessToPx(`${files[GRID_SIZE-1]}${bottomRank}`),
+        opacity: 1,
+        isAnimating: false,
+        boardPosition: `${files[GRID_SIZE-1]}${bottomRank}`
+      }
+    ];
+    
+    setWrapperPieces(initialPieces);
+  }, []);
+
+  // Convert chess notation to pixel coordinates (assumes 400px board size as reference)
+  const chessToPx = (cellId: string): { x: number; y: number } => {
+    const file = cellId[0];
+    const rank = parseInt(cellId[1]);
+    
+    const column = file.charCodeAt(0) - "a".charCodeAt(0);
+    const row = GRID_SIZE - rank;
+    
+    // Calculate pixel position (board is assumed to be 400px for now)
+    const cellSize = 400 / GRID_SIZE;
+    return {
+      x: column * cellSize + cellSize / 2,
+      y: row * cellSize + cellSize / 2
+    };
+  };
+  
+  // Helper to find piece by board position
+  const findPieceAt = (position: string) => {
+    return wrapperPieces.find(p => p.boardPosition === position);
+  };
+
+  const handleCellClick = (cellId: string) => {
+    const pieceAtCell = findPieceAt(cellId);
+
+    if (selectedCell === null) {
+      // First click - select cell only if it has a piece
+      if (pieceAtCell) {
+        setSelectedCell(cellId);
+        playPieceSelection(); // 🔊 Audio feedback
+        console.log(
+          `Selected ${pieceAtCell.color} ${pieceAtCell.type} at: ${cellId}`
+        );
+      } else {
+        playInvalidMove(); // 🔊 Audio feedback for empty cell
+        console.log(`Clicked empty cell: ${cellId}`);
+      }
+    } else if (selectedCell === cellId) {
+      // Clicking same cell - deselect
+      setSelectedCell(null);
+      playPieceDeselection(); // 🔊 Audio feedback
+      console.log(`Deselected piece at: ${cellId}`);
+    } else {
+      // Second click - move piece to new cell
+      const move = { from: selectedCell, to: cellId };
+      // setLastMove(move); // TODO: Re-enable for move highlighting
+
+      const movingPiece = pieces[selectedCell];
+      if (movingPiece) {
+        // Check if this move captures an enemy piece
+        const targetPiece = pieces[cellId];
+        const wasCapture = !!targetPiece;
+
+        // If capturing, add the captured piece to capture animation list
+        if (wasCapture && targetPiece) {
+          const captureId = `capture-${cellId}-${Date.now()}`;
+          setCapturedPieces((prev) => [
+            ...prev,
+            {
+              cellId,
+              piece: targetPiece,
+              id: captureId,
+              isAnimating: false,
+            },
+          ]);
+
+          // Start the capture animation after a small delay
+          setTimeout(() => {
+            setCapturedPieces((prev) =>
+              prev.map((cp) =>
+                cp.id === captureId ? { ...cp, isAnimating: true } : cp
+              )
+            );
+          }, 10);
+
+          // Remove captured piece after animation completes
+          setTimeout(() => {
+            setCapturedPieces((prev) =>
+              prev.filter((cp) => cp.id !== captureId)
+            );
+          }, 410); // Reduced from 610ms to 410ms
+        }
+
+        // Play move audio feedback
+        playPieceMove(wasCapture); // 🔊 Audio feedback
+
+        // Start animation with the piece AND create ghost piece
+        setAnimatingPiece({
+          piece: movingPiece,
+          from: selectedCell,
+          to: cellId,
+        });
+        setGhostPiece({
+          piece: movingPiece,
+          position: selectedCell,
+        });
+        setAnimationStep("start");
+
+        // Wait for React to render the animation and ghost pieces
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            // Remove static pieces AFTER ghost/animating pieces are rendered
+            setPieces((prev) => {
+              const newPieces = { ...prev };
+              delete newPieces[selectedCell];
+              // Also remove captured piece immediately
+              if (wasCapture) {
+                delete newPieces[cellId];
+              }
+              return newPieces;
+            });
+            
+            // Start the actual animation
+            setAnimationStep("end");
+          });
+        });
+
+        // Complete the move after animation (longer duration for smoother movement)
+        setTimeout(() => {
+          // Add piece to new position FIRST
+          setPieces((prev) => ({
+            ...prev,
+            [cellId]: movingPiece,
+          }));
+          
+          // Wait for the new static piece to render before cleaning up
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              setAnimatingPiece(null);
+              setGhostPiece(null);
+              setAnimationStep("start");
+            });
+          });
+        }, 800);
+      }
+
+      setSelectedCell(null);
+      console.log(`Moved piece: ${move.from} → ${move.to}`);
+    }
+  };
+
+  const getCellStyle = (cell: GridCell) => ({
+    backgroundColor:
+      selectedCell === cell.id
+        ? "var(--chess-selected-square)" // Use chess-specific selection color
+        : undefined, // Let CSS variables handle the background color
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: "pointer",
+    fontSize: "24px",
+    fontWeight: "bold",
+    transition: "all 0.2s ease",
+  });
+
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        aspectRatio: "1",
+        position: "relative", // Enable absolute positioning for pieces
+      }}
+    >
+      {/* Grid Container */}
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "grid",
+          gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
+          gridTemplateRows: `repeat(${GRID_SIZE}, 1fr)`,
+          gap: "0px",
+        }}
+      >
+        {gridCells.map((cell) => {
+          const elementProps = cell.element.props as { style?: React.CSSProperties };
+          return React.cloneElement(cell.element as React.ReactElement<{ onClick?: () => void; style?: React.CSSProperties }>, {
+            key: cell.id,
+            onClick: () => handleCellClick(cell.id),
+            style: {
+              ...elementProps.style,
+              ...getCellStyle(cell),
+            },
+          });
+        })}
+      </div>
+
+      {/* Static Chess Pieces */}
+      {Object.entries(pieces).map(([cellId, piece]) => {
+        const position = cellToPixelPosition(cellId);
+        return (
+          <div
+            key={`piece-${cellId}`}
+            style={{
+              position: "absolute",
+              left: position.left,
+              top: position.top,
+              transform: "translate(-50%, -50%)",
+              width: PIECE_SIZE,
+              height: PIECE_SIZE,
+              zIndex: 10,
+              pointerEvents: "none",
+              userSelect: "none",
+            }}
+          >
+            <img
+              src={getPieceImagePath(
+                piece.color as 'white' | 'black',
+                piece.type as 'king' | 'queen' | 'rook' | 'bishop' | 'knight' | 'pawn',
+                selectedPieceSet,
+                cellId
+              )}
+              alt={`${piece.color} ${piece.type}`}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "contain",
+              }}
+              onError={(e) => {
+                // Fallback to Unicode symbols if image fails to load
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+                target.parentElement!.style.fontSize = PIECE_FONT_SIZE;
+                target.parentElement!.style.color = piece.color === "white" ? "var(--chess-piece-white)" : "var(--chess-piece-black)";
+                target.parentElement!.style.filter = piece.color === "white" ? "var(--chess-piece-white-shadow)" : "var(--chess-piece-black-shadow)";
+                target.parentElement!.style.textShadow = piece.color === "white" ? "var(--chess-piece-white-text-shadow)" : "var(--chess-piece-black-text-shadow)";
+                target.parentElement!.textContent = piece.symbol;
+              }}
+            />
+          </div>
+        );
+      })}
+
+      {/* Animated Piece (during movement) */}
+      {animatingPiece && (
+        <div
+          key="animating-piece"
+          style={{
+            position: "absolute",
+            left:
+              animationStep === "start"
+                ? cellToPixelPosition(animatingPiece.from).left
+                : cellToPixelPosition(animatingPiece.to).left,
+            top:
+              animationStep === "start"
+                ? cellToPixelPosition(animatingPiece.from).top
+                : cellToPixelPosition(animatingPiece.to).top,
+            transform: "translate(-50%, -50%)",
+            width: "min(18vw, 18vh)",
+            height: "min(18vw, 18vh)",
+            transition:
+              animationStep === "end"
+                ? "all 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+                : "none",
+            zIndex: 20, // Higher z-index during animation
+            pointerEvents: "none",
+            userSelect: "none",
+          }}
+        >
+          <img
+            src={getPieceImagePath(
+              animatingPiece.piece.color as 'white' | 'black',
+              animatingPiece.piece.type as 'king' | 'queen' | 'rook' | 'bishop' | 'knight' | 'pawn',
+              selectedPieceSet,
+              animatingPiece.to
+            )}
+            alt={`${animatingPiece.piece.color} ${animatingPiece.piece.type}`}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+            }}
+            onError={(e) => {
+              // Fallback to Unicode symbols if image fails to load
+              const target = e.target as HTMLImageElement;
+              target.style.display = 'none';
+              target.parentElement!.style.fontSize = PIECE_FONT_SIZE;
+              target.parentElement!.style.color = animatingPiece.piece.color === "white" ? "var(--chess-piece-white)" : "var(--chess-piece-black)";
+              target.parentElement!.style.filter = animatingPiece.piece.color === "white" ? "var(--chess-piece-white-shadow)" : "var(--chess-piece-black-shadow)";
+              target.parentElement!.style.textShadow = animatingPiece.piece.color === "white" ? "var(--chess-piece-white-text-shadow)" : "var(--chess-piece-black-text-shadow)";
+              target.parentElement!.textContent = animatingPiece.piece.symbol;
+            }}
+          />
+        </div>
+      )}
+
+      {/* Ghost Piece (semi-transparent piece left on source square during animation) */}
+      {ghostPiece && (
+        <div
+          key={`ghost-${ghostPiece.position}`}
+          style={{
+            position: "absolute",
+            left: cellToPixelPosition(ghostPiece.position).left,
+            top: cellToPixelPosition(ghostPiece.position).top,
+            transform: "translate(-50%, -50%)",
+            width: "min(18vw, 18vh)",
+            height: "min(18vw, 18vh)",
+            opacity: 0.3, // Semi-transparent ghost effect
+            zIndex: 5, // Below static pieces but above board
+            pointerEvents: "none",
+            userSelect: "none",
+          }}
+        >
+          <img
+            src={getPieceImagePath(
+              ghostPiece.piece.color as 'white' | 'black',
+              ghostPiece.piece.type as 'king' | 'queen' | 'rook' | 'bishop' | 'knight' | 'pawn',
+              selectedPieceSet,
+              ghostPiece.position
+            )}
+            alt={`${ghostPiece.piece.color} ${ghostPiece.piece.type} ghost`}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+            }}
+            onError={(e) => {
+              // Fallback to Unicode symbols if image fails to load
+              const target = e.target as HTMLImageElement;
+              target.style.display = 'none';
+              target.parentElement!.style.fontSize = PIECE_FONT_SIZE;
+              target.parentElement!.style.color = ghostPiece.piece.color === "white" ? "var(--chess-piece-white)" : "var(--chess-piece-black)";
+              target.parentElement!.style.filter = ghostPiece.piece.color === "white" ? "var(--chess-piece-white-shadow)" : "var(--chess-piece-black-shadow)";
+              target.parentElement!.style.textShadow = ghostPiece.piece.color === "white" ? "var(--chess-piece-white-text-shadow)" : "var(--chess-piece-black-text-shadow)";
+              target.parentElement!.textContent = ghostPiece.piece.symbol;
+            }}
+          />
+        </div>
+      )}
+
+      {/* Captured Pieces (shrinking animation) */}
+      {capturedPieces.map((capturedPiece) => {
+        const position = cellToPixelPosition(capturedPiece.cellId);
+
+        return (
+          <div
+            key={capturedPiece.id}
+            style={{
+              position: "absolute",
+              left: position.left,
+              top: position.top,
+              transform: capturedPiece.isAnimating
+                ? "translate(-50%, -50%) scale(0)"
+                : "translate(-50%, -50%) scale(1)",
+              width: PIECE_SIZE,
+              height: PIECE_SIZE,
+              opacity: capturedPiece.isAnimating ? 0 : 1,
+              transition: capturedPiece.isAnimating
+                ? "transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease-out"
+                : "none",
+              zIndex: 15, // Above static pieces, below moving piece
+              pointerEvents: "none",
+              userSelect: "none",
+            }}
+          >
+            <img
+              src={getPieceImagePath(
+                capturedPiece.piece.color as 'white' | 'black',
+                capturedPiece.piece.type as 'king' | 'queen' | 'rook' | 'bishop' | 'knight' | 'pawn',
+                selectedPieceSet,
+                capturedPiece.cellId
+              )}
+              alt={`${capturedPiece.piece.color} ${capturedPiece.piece.type}`}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "contain",
+              }}
+              onError={(e) => {
+                // Fallback to Unicode symbols if image fails to load
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+                target.parentElement!.style.fontSize = PIECE_FONT_SIZE;
+                target.parentElement!.style.color = capturedPiece.piece.color === "white" ? "var(--chess-piece-white)" : "var(--chess-piece-black)";
+                target.parentElement!.style.filter = capturedPiece.piece.color === "white" ? "var(--chess-piece-white-shadow)" : "var(--chess-piece-black-shadow)";
+                target.parentElement!.style.textShadow = capturedPiece.piece.color === "white" ? "var(--chess-piece-white-text-shadow)" : "var(--chess-piece-black-text-shadow)";
+                target.parentElement!.textContent = capturedPiece.piece.symbol;
+              }}
+            />
+          </div>
+        );
+      })}
+    </div>
+  );
+};
