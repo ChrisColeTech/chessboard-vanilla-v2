@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import { authenticate } from '../middleware/auth';
 import { validate } from '../middleware/validation';
-import { LearningpathService } from '../services/learningpathService';
-import { CreateLearningpathRequest, UpdateLearningpathRequest } from '../models/Learningpath';
+import { LearningPathService } from '../services/learningpathService';
+import { CreateLearningPathRequest, UpdateLearningPathRequest } from '../models/LearningPath';
 
 const router = Router();
-const learningpathService = new LearningpathService();
+const learningpathService = new LearningPathService();
 
 
 // GET /paths
@@ -31,7 +31,7 @@ router.get('/paths/:id', authenticate, async (req: any, res) => {
 // POST /paths/:id/enroll
 router.post('/paths/:id/enroll', authenticate, async (req: any, res) => {
   try {
-    const result = await learningpathService.enrollInPath(req.params.id, req.body);
+    const result = await learningpathService.enrollInPath(req.params.id, req.userId);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });
@@ -41,7 +41,7 @@ router.post('/paths/:id/enroll', authenticate, async (req: any, res) => {
 // PUT /paths/:id/progress
 router.put('/paths/:id/progress', authenticate, async (req: any, res) => {
   try {
-    const result = await learningpathService.updateProgress(req.params.id, req.body);
+    const result = await learningpathService.updateProgress(req.params.id, req.userId, req.body);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });

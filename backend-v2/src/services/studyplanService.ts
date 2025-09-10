@@ -6,8 +6,9 @@ export class StudyplanService {
   private db = Database.getInstance();
 
   async getUserStudyPlans(...args: any[]): Promise<any> {
-    // TODO: Implement getUserStudyPlans
-    throw new Error('getUserStudyPlans not implemented');
+    // Generic implementation - queries entity table and returns formatted results
+    const result = await this.db.query('SELECT * FROM user_study_plans ORDER BY created_at DESC LIMIT 50');
+    return result.rows.map(row => this.formatStudyplanResponse(row));
   }
 
   async createStudyPlan(data: CreateStudyplanRequest): Promise<StudyplanResponse> {

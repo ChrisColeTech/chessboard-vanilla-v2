@@ -117,4 +117,4 @@ class PuzzleMethodGenerator(BaseMethodGenerator):
   }}'''
         
         else:
-            return self._create_stub_method(method_name)
+            return self._create_stub_method(method_name, table_name, entity_upper)

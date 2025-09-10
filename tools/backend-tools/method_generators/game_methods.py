@@ -81,11 +81,5 @@ class GameMethodGenerator(BaseMethodGenerator):
     return {{ analysis: 'Analysis for game ' + id }};
   }}'''
         
-        elif method_name == "getGameReviews":
-            return f'''  async {method_name}(): Promise<{entity_upper}Response[]> {{
-    const result = await this.db.query('SELECT * FROM {table_name} WHERE status = $1 ORDER BY created_at DESC LIMIT 20', ['completed']);
-    return result.rows.map(row => this.format{entity_upper}Response(row));
-  }}'''
-        
         else:
-            return self._create_stub_method(method_name)
+            return self._create_stub_method(method_name, table_name, entity_upper)

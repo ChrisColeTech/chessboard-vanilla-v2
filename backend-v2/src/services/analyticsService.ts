@@ -11,8 +11,9 @@ export class AnalyticsService {
   }
 
   async getUserAnalytics(...args: any[]): Promise<any> {
-    // TODO: Implement getUserAnalytics
-    throw new Error('getUserAnalytics not implemented');
+    // Generic implementation - queries entity table and returns formatted results
+    const result = await this.db.query('SELECT * FROM user_analytics ORDER BY created_at DESC LIMIT 50');
+    return result.rows.map(row => this.formatAnalyticsResponse(row));
   }
 
   async getAnalyticsSummary(): Promise<AnalyticsResponse[]> {

@@ -78,10 +78,43 @@ class GenericMethodGenerator(BaseMethodGenerator):
     return result.rows.map(row => this.format{entity_upper}Response(row));
   }}'''
         
-        elif method_name in ["getUserProgress", "getProgressStats", "resetProgress"]:
-            return f'''  async {method_name}(...args: any[]): Promise<any> {{
-    const result = await this.db.query('SELECT * FROM {table_name} ORDER BY created_at DESC');
-    return result.rows.map(row => this.format{entity_upper}Response(row));
+        elif method_name == "getUserProgress":
+            return f'''  async {method_name}(userId: string): Promise<{entity_upper}Response> {{
+    const result = await this.db.query('SELECT * FROM {table_name} WHERE user_id = $1', [userId]);
+    if (!result.rows.length) throw new Error('User progress not found');
+    return this.format{entity_upper}Response(result.rows[0]);
+  }}'''
+        
+        elif method_name == "updateProgress":
+            return f'''  async {method_name}(userId: string, data: Update{entity_upper}Request): Promise<{entity_upper}Response> {{
+    const result = await this.db.query(`
+      UPDATE {table_name} 
+      SET puzzles_solved = COALESCE($2, puzzles_solved),
+          puzzles_correct = COALESCE($3, puzzles_correct),
+          current_streak = COALESCE($4, current_streak),
+          best_streak = COALESCE($5, best_streak),
+          total_time_spent = COALESCE($6, total_time_spent),
+          updated_at = NOW()
+      WHERE user_id = $1
+      RETURNING *
+    `, [userId, data.puzzles_solved, data.puzzles_correct, data.current_streak, data.best_streak, data.total_time_spent]);
+    
+    if (!result.rows.length) throw new Error('{entity_upper} not found');
+    return this.format{entity_upper}Response(result.rows[0]);
+  }}'''
+        
+        elif method_name == "getProgressStats":
+            return f'''  async {method_name}(userId?: string): Promise<any> {{
+    const query = userId ? 'SELECT * FROM {table_name} WHERE user_id = $1' : 'SELECT * FROM {table_name} ORDER BY created_at DESC LIMIT 50';
+    const params = userId ? [userId] : [];
+    const result = await this.db.query(query, params);
+    return result.rows.length ? (userId ? this.format{entity_upper}Response(result.rows[0]) : result.rows.map(row => this.format{entity_upper}Response(row))) : null;
+  }}'''
+        
+        elif method_name == "resetProgress":
+            return f'''  async {method_name}(userId: string): Promise<any> {{
+    const result = await this.db.query('SELECT * FROM {table_name} WHERE user_id = $1', [userId]);
+    return result.rows.length ? this.format{entity_upper}Response(result.rows[0]) : null;
   }}'''
         
         elif method_name in ["searchOpenings", "getOpeningByEco", "getPopularOpenings"]:
@@ -158,6 +191,13 @@ class GenericMethodGenerator(BaseMethodGenerator):
         
         elif method_name in ["getUserSubscription", "createSubscription", "updateSubscription", "cancelSubscription"]:
             return f'''  async {method_name}(...args: any[]): Promise<any> {{
+    const result = await this.db.query('SELECT * FROM {table_name} ORDER BY created_at DESC LIMIT 50');
+    return result.rows.map(row => this.format{entity_upper}Response(row));
+  }}'''
+        
+        elif method_name in ["getGameStats", "getPuzzleStats", "getOverviewStats", "getProgressStats", "getPerformanceStats", "getRatingStats"]:
+            return f'''  async {method_name}(...args: any[]): Promise<any> {{
+    // Stats aggregation from user data
     const result = await this.db.query('SELECT * FROM {table_name} ORDER BY created_at DESC LIMIT 50');
     return result.rows.map(row => this.format{entity_upper}Response(row));
   }}'''

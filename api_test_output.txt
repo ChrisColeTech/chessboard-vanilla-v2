@@ -1,0 +1,957 @@
+🚀 Starting API Connectivity Test v3
+🌍 FRONTEND: http://localhost:5173
+🔧 BACKEND : http://localhost:3001
+📁 PAYLOADS: /mnt/c/Projects/chessboard-vanilla-v2/tools/backend-tools/payload-generator/generated_payloads.json
+📦 Loading generated payloads...
+  ✅ Loaded payloads for 25 entity groups
+🔐 Setting up authentication...
+  📝 Registering test user...
+    ⤷ Request body: {
+  "username": "testuser_1757529234193",
+  "email": "testuser_1757529234193@example.com",
+  "password": "password123"
+}
+  ✅ User registered successfully
+  🔑 Logging in...
+    ⤷ Request body: {
+  "email": "testuser_1757529234193@example.com",
+  "password": "password123"
+}
+  ✅ Authentication successful! Token acquired.
+  👤 Fetching user information...
+
+🔍 Testing users endpoints (6 endpoints):
+  GET    http://localhost:3001/api/users/profile
+    ✅ 200 OK
+  PUT    http://localhost:3001/api/users/profile
+    ⤷ Request body: {
+  "chess_elo": 1600,
+  "puzzle_rating": 1550
+}
+    ✅ 200 OK
+  GET    http://localhost:3001/api/users/preferences
+    ✅ 200 OK
+  PUT    http://localhost:3001/api/users/preferences
+    ⤷ Request body: {
+  "preferences": {
+    "theme": "dark",
+    "sound_enabled": true,
+    "auto_promotion": false
+  }
+}
+    ✅ 200 OK
+  GET    http://localhost:3001/api/users/settings
+    ✅ 200 OK
+  PUT    http://localhost:3001/api/users/settings
+    ⤷ Request body: {
+  "chess_elo": 1500,
+  "puzzle_rating": 1500
+}
+    ✅ 200 OK
+
+🔍 Testing puzzles endpoints (7 endpoints):
+  GET    http://localhost:3001/api/puzzles/next
+    ✅ 200 OK
+  POST   http://localhost:3001/api/puzzles/259923b5-1bd0-4fc9-b784-58b54777d90a/solve
+    ⤷ Request body: {
+  "moves": "e2e4",
+  "time_taken": 30
+}
+    ✅ 200 OK
+  GET    http://localhost:3001/api/puzzles/259923b5-1bd0-4fc9-b784-58b54777d90a/hint
+    ✅ 200 OK
+  GET    http://localhost:3001/api/puzzles/categories
+    ✅ 200 OK
+  GET    http://localhost:3001/api/puzzles/history
+    ✅ 200 OK
+  POST   http://localhost:3001/api/puzzles/custom
+    ⤷ Request body: {
+  "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+  "solution_moves": "e2e4 e7e5",
+  "themes": "checkmate",
+  "rating": 1200,
+  "description": "Test custom puzzle"
+}
+    ✅ 200 OK
+  GET    http://localhost:3001/api/puzzles/custom
+    ✅ 200 OK
+
+🔍 Testing games endpoints (6 endpoints):
+  GET    http://localhost:3001/api/games/
+    ✅ 200 OK
+  GET    http://localhost:3001/api/games/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+    ✅ 200 OK
+  POST   http://localhost:3001/api/games/
+    ⤷ Request body: {
+  "ai_level": 1,
+  "user_color": "white",
+  "time_control": "blitz"
+}
+    ✅ 200 OK
+  PUT    http://localhost:3001/api/games/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+    ⤷ Request body: {
+  "user_id": "test-user_id-20250910141423",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "id": "test-id-20250910141423",
+  "ai_level": 1,
+  "user_color": "white",
+  "current_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+  "pgn": "1. e4 e5 2. Nf3 Nc6",
+  "status": "test_status",
+  "result": "test_result",
+  "time_control": "test_time_control",
+  "started_at": "test_started_at",
+  "completed_at": "test_completed_at"
+}
+    ✅ 200 OK
+  POST   http://localhost:3001/api/games/0da4d1e4-b3ec-428f-8578-4304ac5472c9/analyze
+    ⤷ Request body: {
+  "depth": 15
+}
+    ✅ 200 OK
+  GET    http://localhost:3001/api/games/0da4d1e4-b3ec-428f-8578-4304ac5472c9/analysis
+    ✅ 200 OK
+
+🔍 Testing stats endpoints (6 endpoints):
+  GET    http://localhost:3001/api/stats/overview
+    ✅ 200 OK
+  GET    http://localhost:3001/api/stats/puzzles
+    ✅ 200 OK
+  GET    http://localhost:3001/api/stats/games
+    ✅ 200 OK
+  GET    http://localhost:3001/api/stats/progress
+    ✅ 200 OK
+  GET    http://localhost:3001/api/stats/performance
+    ✅ 200 OK
+  GET    http://localhost:3001/api/stats/ratings
+    ✅ 200 OK
+
+🔍 Testing learning endpoints (4 endpoints):
+  GET    http://localhost:3001/api/learning/paths
+    ✅ 200 OK
+  GET    http://localhost:3001/api/learning/paths/nu2i5slg3mewklnfk
+    ✅ 200 OK
+  POST   http://localhost:3001/api/learning/paths/nu2i5slg3mewklnfk/enroll
+    ⤷ Request body: {
+  "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1"
+}
+    ❌ 400 Bad Request
+    ⤷ Response: {
+  "success": false,
+  "error": "Learningpath not found"
+}
+  PUT    http://localhost:3001/api/learning/paths/nu2i5slg3mewklnfk/progress
+    ⤷ Request body: {
+  "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "progress": 0.75
+}
+    ✅ 200 OK
+
+🔍 Testing tutorials endpoints (3 endpoints):
+  GET    http://localhost:3001/api/tutorials/
+    ✅ 200 OK
+  GET    http://localhost:3001/api/tutorials/79o1sdbtomewklmbb
+    ✅ 200 OK
+  POST   http://localhost:3001/api/tutorials/79o1sdbtomewklmbb/complete
+    ⤷ Request body: {
+  "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "completion_time": 300
+}
+    ✅ 200 OK
+
+🔍 Testing auth endpoints (13 endpoints):
+  POST   http://localhost:3001/api/auth/register [SKIPPED - handled by auth]
+  POST   http://localhost:3001/api/auth/login [SKIPPED - handled by auth]
+  GET    http://localhost:3001/api/auth/me
+    ❌ 400 Bad Request
+    ⤷ Response: {
+  "success": false,
+  "error": "User not found"
+}
+  PUT    http://localhost:3001/api/auth/profile
+    ⤷ Request body: {
+  "chess_elo": 1600,
+  "puzzle_rating": 1550
+}
+    ❌ 400 Bad Request
+    ⤷ Response: {
+  "success": false,
+  "error": "User not found"
+}
+  POST   http://localhost:3001/api/auth/change-password
+    ⤷ Request body: {
+  "current_password": "password123",
+  "new_password": "newpassword123"
+}
+    ❌ 400 Bad Request
+    ⤷ Response: {
+  "success": false,
+  "error": "User not found"
+}
+  POST   http://localhost:3001/api/auth/verify-token
+    ⤷ Request body: {
+  "username": "testuser_141423_p3z7nx",
+  "email": "testuser_141423_p3z7nx@example.com",
+  "password_hash": "password123",
+  "chess_elo": 1500,
+  "puzzle_rating": 1500,
+  "preferences": "test_preferences"
+}
+    ❌ 400 Bad Request
+    ⤷ Response: {
+  "success": false,
+  "error": "Invalid token"
+}
+  POST   http://localhost:3001/api/auth/forgot-password
+    ⤷ Request body: {
+  "email": "testuser_141423_c931w6@example.com"
+}
+    ✅ 200 OK
+  POST   http://localhost:3001/api/auth/reset-password
+    ⤷ Request body: {
+  "token": "reset-token-123",
+  "new_password": "newpassword123"
+}
+    ❌ 400 Bad Request
+    ⤷ Response: {
+  "success": false,
+  "error": "Password reset functionality requires email service integration"
+}
+  POST   http://localhost:3001/api/auth/logout
+    ⤷ Request body: {
+  "username": "testuser_141423_ytv4m2",
+  "email": "testuser_141423_ytv4m2@example.com",
+  "password_hash": "password123",
+  "chess_elo": 1500,
+  "puzzle_rating": 1500,
+  "preferences": "test_preferences"
+}
+    ✅ 200 OK
+  POST   http://localhost:3001/api/auth/check-email
+    ⤷ Request body: {
+  "email": "testuser_141423_bv2adb@example.com"
+}
+    ✅ 200 OK
+  POST   http://localhost:3001/api/auth/check-username
+    ⤷ Request body: {
+  "username": "testuser_141423_ylxatd"
+}
+    ✅ 200 OK
+  DELETE http://localhost:3001/api/auth/delete-account [SKIPPED - handled by auth]
+  GET    http://localhost:3001/api/auth/health
+    ✅ 200 OK
+
+🔍 Testing sessions endpoints (3 endpoints):
+  POST   http://localhost:3001/api/sessions/create [SKIPPED - handled by auth]
+  GET    http://localhost:3001/api/sessions/validate/test-session-token [SKIPPED - handled by auth]
+  DELETE http://localhost:3001/api/sessions/test-session-token [SKIPPED - handled by auth]
+
+🔍 Testing achievements endpoints (3 endpoints):
+  GET    http://localhost:3001/api/achievements/
+    ✅ 200 OK
+  GET    http://localhost:3001/api/achievements/user/4c31c867-b8e1-46b8-872c-d8c196cd80f1
+    ✅ 200 OK
+  POST   http://localhost:3001/api/achievements/unlock
+    ⤷ Request body: {
+  "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "achievement_id": "test-achievement-123"
+}
+    ✅ 200 OK
+
+🔍 Testing progress endpoints (3 endpoints):
+  GET    http://localhost:3001/api/progress/user/4c31c867-b8e1-46b8-872c-d8c196cd80f1
+    ✅ 200 OK
+  PUT    http://localhost:3001/api/progress/update
+    ⤷ Request body: {
+  "user_id": "test-user_id-20250910141423",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "id": "test-id-20250910141423",
+  "puzzles_solved": 100,
+  "puzzles_correct": 100,
+  "current_streak": 100,
+  "best_streak": 100,
+  "total_time_spent": 30,
+  "achievements_unlocked": "test_achievements_unlocked",
+  "last_puzzle_date": "test_last_puzzle_date",
+  "created_at": "2025-09-10T14:14:23.581178",
+  "updated_at": "2025-09-10T14:14:23.581178"
+}
+    ❌ 400 Bad Request
+    ⤷ Response: {
+  "success": false,
+  "error": "Progress not found"
+}
+  GET    http://localhost:3001/api/progress/stats/4c31c867-b8e1-46b8-872c-d8c196cd80f1
+    ✅ 200 OK
+
+🔍 Testing openings endpoints (3 endpoints):
+  GET    http://localhost:3001/api/openings/
+    ✅ 200 OK
+  GET    http://localhost:3001/api/openings/eco/B92
+    ✅ 200 OK
+  GET    http://localhost:3001/api/openings/search
+    ✅ 200 OK
+
+🔍 Testing analysis endpoints (2 endpoints):
+  POST   http://localhost:3001/api/analysis/position
+    ⤷ Request body: {
+  "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+  "depth": 15
+}
+    ✅ 200 OK
+  GET    http://localhost:3001/api/analysis/position/rnbqkbnr-pppppppp-8-8-8-8-PPPPPPPP-RNBQKBNR
+    ✅ 200 OK
+
+🔍 Testing ai-opponents endpoints (3 endpoints):
+  GET    http://localhost:3001/api/aiOpponents/
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+  GET    http://localhost:3001/api/aiOpponents/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+  GET    http://localhost:3001/api/aiOpponents/difficulty/beginner
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+
+🔍 Testing analytics endpoints (2 endpoints):
+  POST   http://localhost:3001/api/analytics/track
+    ⤷ Request body: {
+  "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "event_type": "puzzle_solved",
+  "event_data": "{\"puzzle_id\": \"test-puzzle-123\", \"time\": 30}",
+  "session_id": "test-session-123"
+}
+    ✅ 200 OK
+  GET    http://localhost:3001/api/analytics/user/4c31c867-b8e1-46b8-872c-d8c196cd80f1
+    ✅ 200 OK
+
+🔍 Testing profiles endpoints (2 endpoints):
+  GET    http://localhost:3001/api/profiles/4c31c867-b8e1-46b8-872c-d8c196cd80f1
+    ✅ 200 OK
+  PUT    http://localhost:3001/api/profiles/4c31c867-b8e1-46b8-872c-d8c196cd80f1
+    ⤷ Request body: {
+  "user_id": "test-user_id-20250910141423",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "id": "test-id-20250910141423",
+  "display_name": "test_display_name",
+  "avatar_url": "test_avatar_url",
+  "bio": "test_bio",
+  "country": "test_country",
+  "created_at": "2025-09-10T14:14:23.581178",
+  "updated_at": "2025-09-10T14:14:23.581178"
+}
+    ❌ 400 Bad Request
+    ⤷ Response: {
+  "success": false,
+  "error": "Profile not found"
+}
+
+🔍 Testing endgames endpoints (3 endpoints):
+  GET    http://localhost:3001/api/endgames/
+    ✅ 200 OK
+  GET    http://localhost:3001/api/endgames/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+    ✅ 200 OK
+  GET    http://localhost:3001/api/endgames/category/endgame
+    ✅ 200 OK
+
+🔍 Testing game-reviews endpoints (3 endpoints):
+  POST   http://localhost:3001/api/gameReviews/
+    ⤷ Request body: {
+  "game_id": "test-game_id-20250910141423",
+  "reviewer_id": "test-reviewer_id-20250910141423",
+  "analysis": "test_analysis",
+  "rating": 1500,
+  "key_moments": "test_key_moments"
+}
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+  GET    http://localhost:3001/api/gameReviews/game/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+  GET    http://localhost:3001/api/gameReviews/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+
+🔍 Testing historic-games endpoints (4 endpoints):
+  GET    http://localhost:3001/api/historicGames/
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+  GET    http://localhost:3001/api/historicGames/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+  GET    http://localhost:3001/api/historicGames/search
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+  GET    http://localhost:3001/api/historicGames/player/kasparov
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+
+🔍 Testing puzzle-attempts endpoints (3 endpoints):
+  POST   http://localhost:3001/api/puzzleAttempts/
+    ⤷ Request body: {
+  "user_id": "test-user_id-20250910141423",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "puzzle_id": "test-puzzle_id-20250910141423",
+  "correct": true,
+  "time_spent": 30,
+  "moves_made": "test_moves_made",
+  "completed_at": "test_completed_at"
+}
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+  GET    http://localhost:3001/api/puzzleAttempts/user/4c31c867-b8e1-46b8-872c-d8c196cd80f1
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+  GET    http://localhost:3001/api/puzzleAttempts/puzzle/259923b5-1bd0-4fc9-b784-58b54777d90a
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+
+🔍 Testing puzzle-sources endpoints (2 endpoints):
+  GET    http://localhost:3001/api/puzzleSources/
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+  GET    http://localhost:3001/api/puzzleSources/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+
+🔍 Testing learning-modules endpoints (3 endpoints):
+  GET    http://localhost:3001/api/learningModules/path/nu2i5slg3mewklnfk
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+  GET    http://localhost:3001/api/learningModules/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+  POST   http://localhost:3001/api/learningModules/0da4d1e4-b3ec-428f-8578-4304ac5472c9/complete
+    ⤷ Request body: {
+  "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1"
+}
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+
+🔍 Testing tutorial-steps endpoints (2 endpoints):
+  GET    http://localhost:3001/api/tutorialSteps/tutorial/79o1sdbtomewklmbb
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+  POST   http://localhost:3001/api/tutorialSteps/0da4d1e4-b3ec-428f-8578-4304ac5472c9/complete
+    ⤷ Request body: {
+  "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1"
+}
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+
+🔍 Testing study-plans endpoints (3 endpoints):
+  GET    http://localhost:3001/api/studyPlans/user/4c31c867-b8e1-46b8-872c-d8c196cd80f1
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+  POST   http://localhost:3001/api/studyPlans/
+    ⤷ Request body: {
+  "user_id": "test-user_id-20250910141423",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "title": "test_title",
+  "goals": "test_goals",
+  "schedule": "test_schedule",
+  "progress": 0.5
+}
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+  PUT    http://localhost:3001/api/studyPlans/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+    ⤷ Request body: {
+  "user_id": "test-user_id-20250910141423",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "id": "test-id-20250910141423",
+  "title": "test_title",
+  "goals": "test_goals",
+  "schedule": "test_schedule",
+  "progress": 0.5,
+  "created_at": "2025-09-10T14:14:23.581178",
+  "updated_at": "2025-09-10T14:14:23.581178"
+}
+    ❌ 404 Not Found
+    ⤷ Response: {
+  "error": "Route not found"
+}
+
+🔍 Testing help endpoints (3 endpoints):
+  GET    http://localhost:3001/api/help/
+    ✅ 200 OK
+  GET    http://localhost:3001/api/help/category/endgame
+    ✅ 200 OK
+  GET    http://localhost:3001/api/help/search
+    ✅ 200 OK
+
+🔍 Testing subscriptions endpoints (3 endpoints):
+  GET    http://localhost:3001/api/subscriptions/user/4c31c867-b8e1-46b8-872c-d8c196cd80f1
+    ✅ 200 OK
+  POST   http://localhost:3001/api/subscriptions/
+    ⤷ Request body: {
+  "user_id": "test-user_id-20250910141423",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "plan_type": "test_plan_type",
+  "status": "test_status",
+  "expires_at": "2025-09-10T14:14:23.581178"
+}
+    ❌ 400 Bad Request
+    ⤷ Response: {
+  "success": false,
+  "error": "null value in column \"name\" of relation \"subscriptions\" violates not-null constraint"
+}
+  PUT    http://localhost:3001/api/subscriptions/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+    ⤷ Request body: {
+  "user_id": "test-user_id-20250910141423",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "id": "test-id-20250910141423",
+  "plan_type": "test_plan_type",
+  "status": "test_status",
+  "expires_at": "2025-09-10T14:14:23.581178",
+  "created_at": "2025-09-10T14:14:23.581178",
+  "updated_at": "2025-09-10T14:14:23.581178"
+}
+    ❌ 400 Bad Request
+    ⤷ Response: {
+  "success": false,
+  "error": "Subscription not found"
+}
+
+======================================================================
+📊 API CONNECTIVITY TEST v3 RESULTS
+======================================================================
+Total Endpoints Tested: 95
+✅ Successful: 56 (58.9%)
+❌ Failed: 33 (34.7%)
+⏭️  Skipped: 6 (6.3%)
+
+🔍 ERROR DETAILS:
+
+1. POST http://localhost:3001/api/learning/paths/nu2i5slg3mewklnfk/enroll
+   Entity: learning
+   Handler: enrollInPath
+   Status: 400 Bad Request
+   Payload: {
+  "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1"
+}
+   Response: {
+  "success": false,
+  "error": "Learningpath not found"
+}
+
+2. GET http://localhost:3001/api/auth/me
+   Entity: auth
+   Handler: getCurrentUser
+   Status: 400 Bad Request
+   Response: {
+  "success": false,
+  "error": "User not found"
+}
+
+3. PUT http://localhost:3001/api/auth/profile
+   Entity: auth
+   Handler: updateProfile
+   Status: 400 Bad Request
+   Payload: {
+  "chess_elo": 1600,
+  "puzzle_rating": 1550
+}
+   Response: {
+  "success": false,
+  "error": "User not found"
+}
+
+4. POST http://localhost:3001/api/auth/change-password
+   Entity: auth
+   Handler: changePassword
+   Status: 400 Bad Request
+   Payload: {
+  "current_password": "password123",
+  "new_password": "newpassword123"
+}
+   Response: {
+  "success": false,
+  "error": "User not found"
+}
+
+5. POST http://localhost:3001/api/auth/verify-token
+   Entity: auth
+   Handler: verifyToken
+   Status: 400 Bad Request
+   Payload: {
+  "username": "testuser_141423_p3z7nx",
+  "email": "testuser_141423_p3z7nx@example.com",
+  "password_hash": "password123",
+  "chess_elo": 1500,
+  "puzzle_rating": 1500,
+  "preferences": "test_preferences"
+}
+   Response: {
+  "success": false,
+  "error": "Invalid token"
+}
+
+6. POST http://localhost:3001/api/auth/reset-password
+   Entity: auth
+   Handler: resetPassword
+   Status: 400 Bad Request
+   Payload: {
+  "token": "reset-token-123",
+  "new_password": "newpassword123"
+}
+   Response: {
+  "success": false,
+  "error": "Password reset functionality requires email service integration"
+}
+
+7. PUT http://localhost:3001/api/progress/update
+   Entity: progress
+   Handler: updateProgress
+   Status: 400 Bad Request
+   Payload: {
+  "user_id": "test-user_id-20250910141423",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "id": "test-id-20250910141423",
+  "puzzles_solved": 100,
+  "puzzles_correct": 100,
+  "current_streak": 100,
+  "best_streak": 100,
+  "total_time_spent": 30,
+  "achievements_unlocked": "test_achievements_unlocked",
+  "last_puzzle_date": "test_last_puzzle_date",
+  "created_at": "2025-09-10T14:14:23.581178",
+  "updated_at": "2025-09-10T14:14:23.581178"
+}
+   Response: {
+  "success": false,
+  "error": "Progress not found"
+}
+
+8. GET http://localhost:3001/api/aiOpponents/
+   Entity: ai-opponents
+   Handler: getAllOpponents
+   Status: 404 Not Found
+   Response: {
+  "error": "Route not found"
+}
+
+9. GET http://localhost:3001/api/aiOpponents/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+   Entity: ai-opponents
+   Handler: getOpponentById
+   Status: 404 Not Found
+   Response: {
+  "error": "Route not found"
+}
+
+10. GET http://localhost:3001/api/aiOpponents/difficulty/beginner
+   Entity: ai-opponents
+   Handler: getOpponentsByDifficulty
+   Status: 404 Not Found
+   Response: {
+  "error": "Route not found"
+}
+
+11. PUT http://localhost:3001/api/profiles/4c31c867-b8e1-46b8-872c-d8c196cd80f1
+   Entity: profiles
+   Handler: updateProfile
+   Status: 400 Bad Request
+   Payload: {
+  "user_id": "test-user_id-20250910141423",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "id": "test-id-20250910141423",
+  "display_name": "test_display_name",
+  "avatar_url": "test_avatar_url",
+  "bio": "test_bio",
+  "country": "test_country",
+  "created_at": "2025-09-10T14:14:23.581178",
+  "updated_at": "2025-09-10T14:14:23.581178"
+}
+   Response: {
+  "success": false,
+  "error": "Profile not found"
+}
+
+12. POST http://localhost:3001/api/gameReviews/
+   Entity: game-reviews
+   Handler: createReview
+   Status: 404 Not Found
+   Payload: {
+  "game_id": "test-game_id-20250910141423",
+  "reviewer_id": "test-reviewer_id-20250910141423",
+  "analysis": "test_analysis",
+  "rating": 1500,
+  "key_moments": "test_key_moments"
+}
+   Response: {
+  "error": "Route not found"
+}
+
+13. GET http://localhost:3001/api/gameReviews/game/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+   Entity: game-reviews
+   Handler: getGameReviews
+   Status: 404 Not Found
+   Response: {
+  "error": "Route not found"
+}
+
+14. GET http://localhost:3001/api/gameReviews/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+   Entity: game-reviews
+   Handler: getReviewById
+   Status: 404 Not Found
+   Response: {
+  "error": "Route not found"
+}
+
+15. GET http://localhost:3001/api/historicGames/
+   Entity: historic-games
+   Handler: getAllHistoricGames
+   Status: 404 Not Found
+   Response: {
+  "error": "Route not found"
+}
+
+16. GET http://localhost:3001/api/historicGames/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+   Entity: historic-games
+   Handler: getGameById
+   Status: 404 Not Found
+   Response: {
+  "error": "Route not found"
+}
+
+17. GET http://localhost:3001/api/historicGames/search
+   Entity: historic-games
+   Handler: searchGames
+   Status: 404 Not Found
+   Response: {
+  "error": "Route not found"
+}
+
+18. GET http://localhost:3001/api/historicGames/player/kasparov
+   Entity: historic-games
+   Handler: getGamesByPlayer
+   Status: 404 Not Found
+   Response: {
+  "error": "Route not found"
+}
+
+19. POST http://localhost:3001/api/puzzleAttempts/
+   Entity: puzzle-attempts
+   Handler: recordAttempt
+   Status: 404 Not Found
+   Payload: {
+  "user_id": "test-user_id-20250910141423",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "puzzle_id": "test-puzzle_id-20250910141423",
+  "correct": true,
+  "time_spent": 30,
+  "moves_made": "test_moves_made",
+  "completed_at": "test_completed_at"
+}
+   Response: {
+  "error": "Route not found"
+}
+
+20. GET http://localhost:3001/api/puzzleAttempts/user/4c31c867-b8e1-46b8-872c-d8c196cd80f1
+   Entity: puzzle-attempts
+   Handler: getUserAttempts
+   Status: 404 Not Found
+   Response: {
+  "error": "Route not found"
+}
+
+21. GET http://localhost:3001/api/puzzleAttempts/puzzle/259923b5-1bd0-4fc9-b784-58b54777d90a
+   Entity: puzzle-attempts
+   Handler: getPuzzleAttempts
+   Status: 404 Not Found
+   Response: {
+  "error": "Route not found"
+}
+
+22. GET http://localhost:3001/api/puzzleSources/
+   Entity: puzzle-sources
+   Handler: getAllSources
+   Status: 404 Not Found
+   Response: {
+  "error": "Route not found"
+}
+
+23. GET http://localhost:3001/api/puzzleSources/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+   Entity: puzzle-sources
+   Handler: getSourceById
+   Status: 404 Not Found
+   Response: {
+  "error": "Route not found"
+}
+
+24. GET http://localhost:3001/api/learningModules/path/nu2i5slg3mewklnfk
+   Entity: learning-modules
+   Handler: getModulesByPath
+   Status: 404 Not Found
+   Response: {
+  "error": "Route not found"
+}
+
+25. GET http://localhost:3001/api/learningModules/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+   Entity: learning-modules
+   Handler: getModuleById
+   Status: 404 Not Found
+   Response: {
+  "error": "Route not found"
+}
+
+26. POST http://localhost:3001/api/learningModules/0da4d1e4-b3ec-428f-8578-4304ac5472c9/complete
+   Entity: learning-modules
+   Handler: completeModule
+   Status: 404 Not Found
+   Payload: {
+  "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1"
+}
+   Response: {
+  "error": "Route not found"
+}
+
+27. GET http://localhost:3001/api/tutorialSteps/tutorial/79o1sdbtomewklmbb
+   Entity: tutorial-steps
+   Handler: getStepsByTutorial
+   Status: 404 Not Found
+   Response: {
+  "error": "Route not found"
+}
+
+28. POST http://localhost:3001/api/tutorialSteps/0da4d1e4-b3ec-428f-8578-4304ac5472c9/complete
+   Entity: tutorial-steps
+   Handler: completeStep
+   Status: 404 Not Found
+   Payload: {
+  "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1"
+}
+   Response: {
+  "error": "Route not found"
+}
+
+29. GET http://localhost:3001/api/studyPlans/user/4c31c867-b8e1-46b8-872c-d8c196cd80f1
+   Entity: study-plans
+   Handler: getUserStudyPlans
+   Status: 404 Not Found
+   Response: {
+  "error": "Route not found"
+}
+
+30. POST http://localhost:3001/api/studyPlans/
+   Entity: study-plans
+   Handler: createStudyPlan
+   Status: 404 Not Found
+   Payload: {
+  "user_id": "test-user_id-20250910141423",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "title": "test_title",
+  "goals": "test_goals",
+  "schedule": "test_schedule",
+  "progress": 0.5
+}
+   Response: {
+  "error": "Route not found"
+}
+
+31. PUT http://localhost:3001/api/studyPlans/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+   Entity: study-plans
+   Handler: updatePlan
+   Status: 404 Not Found
+   Payload: {
+  "user_id": "test-user_id-20250910141423",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "id": "test-id-20250910141423",
+  "title": "test_title",
+  "goals": "test_goals",
+  "schedule": "test_schedule",
+  "progress": 0.5,
+  "created_at": "2025-09-10T14:14:23.581178",
+  "updated_at": "2025-09-10T14:14:23.581178"
+}
+   Response: {
+  "error": "Route not found"
+}
+
+32. POST http://localhost:3001/api/subscriptions/
+   Entity: subscriptions
+   Handler: createSubscription
+   Status: 400 Bad Request
+   Payload: {
+  "user_id": "test-user_id-20250910141423",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "plan_type": "test_plan_type",
+  "status": "test_status",
+  "expires_at": "2025-09-10T14:14:23.581178"
+}
+   Response: {
+  "success": false,
+  "error": "null value in column \"name\" of relation \"subscriptions\" violates not-null constraint"
+}
+
+33. PUT http://localhost:3001/api/subscriptions/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+   Entity: subscriptions
+   Handler: updateSubscription
+   Status: 400 Bad Request
+   Payload: {
+  "user_id": "test-user_id-20250910141423",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "id": "test-id-20250910141423",
+  "plan_type": "test_plan_type",
+  "status": "test_status",
+  "expires_at": "2025-09-10T14:14:23.581178",
+  "created_at": "2025-09-10T14:14:23.581178",
+  "updated_at": "2025-09-10T14:14:23.581178"
+}
+   Response: {
+  "success": false,
+  "error": "Subscription not found"
+}
+
+🌐 Testing Frontend Access:
+  ❌ Frontend not accessible: NETWORK_ERROR undefined
+
+🎯 Overall Success Rate: 58.9%
+⚠️  Connectivity issues detected. Review errors above.

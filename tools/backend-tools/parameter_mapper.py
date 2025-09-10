@@ -22,16 +22,22 @@ class ParameterMapper:
         
         # Special handler patterns that need custom parameter mapping
         self.special_handlers = {
-            'updateUserSettings': 'req.body',
-            'updateUserPreferences': 'req.body',
-            'getUserSettings': '',
-            'getUserPreferences': '',
+            'updateUserSettings': 'req.user.id, req.body',
+            'updateUserPreferences': 'req.user.id, req.body',
+            'updateUserProfile': 'req.user.id, req.body',
+            'getUserSettings': 'req.user.id',
+            'getUserPreferences': 'req.user.id',
+            'getUserProfile': 'req.user.id',
+            'enrollInPath': 'req.params.id, req.user.id',
+            'updateProgress': 'req.params.id, req.user.id, req.body',
         }
         
         # Path-specific handler overrides for special cases
         self.path_handler_overrides = {
             # Progress update without ID parameter (uses userId from body)
-            ('PUT', '/update', 'updateProgress'): 'req.body.userId, req.body',
+            ('PUT', '/update', 'updateProgress'): 'req.user.id, req.body',
+            # Progress update with ID parameter (path ID, user ID, body)
+            ('PUT', '/:id/progress', 'updateProgress'): 'req.params.id, req.user.id, req.body',
             # Tutorial completion only needs the ID
             ('POST', '/:id/complete', 'completeTutorial'): 'req.params.id',
         }
@@ -185,6 +191,11 @@ if __name__ == "__main__":
         ('PUT', '/update', 'updateProgress'),  # Should be req.body.userId, req.body
         ('GET', '/', 'getAllAchievements'),
         ('PUT', '/settings', 'updateUserSettings'),
+        ('GET', '/profile', 'getUserProfile'),
+        ('PUT', '/profile', 'updateUserProfile'),
+        ('GET', '/preferences', 'getUserPreferences'),
+        ('PUT', '/preferences', 'updateUserPreferences'),
+        ('GET', '/settings', 'getUserSettings'),
     ]
     
     print("Parameter Mapping Test Results:")

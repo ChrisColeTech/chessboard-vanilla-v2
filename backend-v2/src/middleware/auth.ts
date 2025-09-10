@@ -7,6 +7,7 @@ export interface AuthenticatedRequest extends Request {
     username: string;
     email: string;
   };
+  userId?: string;
 }
 
 export const authenticate = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
@@ -22,6 +23,7 @@ export const authenticate = (req: AuthenticatedRequest, res: Response, next: Nex
       return res.status(403).json({ error: 'Invalid token' });
     }
     req.user = user;
+    req.userId = user.userId;
     next();
   });
 };
@@ -37,6 +39,7 @@ export const optionalAuth = (req: AuthenticatedRequest, res: Response, next: Nex
   jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key', (err: any, user: any) => {
     if (!err) {
       req.user = user;
+      req.userId = user.userId;
     }
     next();
   });

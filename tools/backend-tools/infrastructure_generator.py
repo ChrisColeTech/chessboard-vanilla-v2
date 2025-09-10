@@ -161,6 +161,7 @@ export interface AuthenticatedRequest extends Request {
     username: string;
     email: string;
   };
+  userId?: string;
 }
 
 export const authenticate = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
@@ -176,6 +177,7 @@ export const authenticate = (req: AuthenticatedRequest, res: Response, next: Nex
       return res.status(403).json({ error: 'Invalid token' });
     }
     req.user = user;
+    req.userId = user.userId;
     next();
   });
 };
@@ -191,6 +193,7 @@ export const optionalAuth = (req: AuthenticatedRequest, res: Response, next: Nex
   jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key', (err: any, user: any) => {
     if (!err) {
       req.user = user;
+      req.userId = user.userId;
     }
     next();
   });
@@ -270,11 +273,11 @@ export const validateSchema = (schema: any) => {
                     # Generate import statement using camelCase filename
                     route_imports.append(f"import {camel_var_name} from './routes/{route_filename}';")
                     
-                    # API URL also uses camelCase
-                    camel_url = snake_to_camel(entities_name)
+                    # Convert endpoint key to camelCase for API path
+                    api_path = snake_to_camel(endpoint_key.replace('-', '_'))
                     
-                    # Generate route registration using camelCase for API path
-                    route_registrations.append(f"app.use('/api/{camel_url}', {camel_var_name});")
+                    # Generate route registration using camelCase API path
+                    route_registrations.append(f"app.use('/api/{api_path}', {camel_var_name});")
             
         except Exception as e:
             self.logger.warning(f"Could not load backend config, using default routes: {e}")

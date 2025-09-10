@@ -1,0 +1,450 @@
+2025-09-10 16:02:01,362 - backend_generator_v2 - INFO - 🚀 Generating 25 endpoints from tools/backend_config.json
+2025-09-10 16:02:01,363 - infrastructure_generator - INFO - 🏗️ Generating infrastructure files...
+2025-09-10 16:02:01,367 - infrastructure_generator - INFO - 📁 Created directory: src/middleware
+2025-09-10 16:02:01,369 - infrastructure_generator - INFO - 📁 Created directory: src/utils
+2025-09-10 16:02:01,371 - infrastructure_generator - INFO - 📁 Created directory: src/models
+2025-09-10 16:02:01,373 - infrastructure_generator - INFO - 📁 Created directory: src/services
+2025-09-10 16:02:01,375 - infrastructure_generator - INFO - 📁 Created directory: src/routes
+2025-09-10 16:02:01,379 - infrastructure_generator - INFO - 📝 Generated: src/utils/database.ts
+2025-09-10 16:02:01,382 - infrastructure_generator - INFO - 📝 Generated: src/middleware/auth.ts
+2025-09-10 16:02:01,386 - infrastructure_generator - INFO - 📝 Generated: src/middleware/validation.ts
+2025-09-10 16:02:01,393 - infrastructure_generator - INFO - 📝 Generated: src/app.ts with 25 routes
+2025-09-10 16:02:01,393 - infrastructure_generator - INFO - ✅ Infrastructure files generated successfully!
+2025-09-10 16:02:01,394 - backend_generator_v2 - INFO - 
+📦 Processing users...
+2025-09-10 16:02:01,394 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for User endpoint
+2025-09-10 16:02:01,394 - backend_generator_v2 - INFO - 📝 Generating User model...
+2025-09-10 16:02:01,400 - backend_generator_v2 - INFO - 🔧 Generating User service...
+2025-09-10 16:02:01,481 - backend_generator_v2 - INFO - 🛣️ Generating User routes...
+2025-09-10 16:02:01,487 - backend_generator_v2 - INFO - ✅ Successfully generated User endpoint!
+2025-09-10 16:02:01,487 - backend_generator_v2 - INFO - 
+📊 Generation Summary for User:
+2025-09-10 16:02:01,487 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,487 - backend_generator_v2 - INFO -    📊 Properties: 9
+2025-09-10 16:02:01,488 - backend_generator_v2 - INFO -    ⚙️ Methods: 11
+2025-09-10 16:02:01,488 - backend_generator_v2 - INFO -    🛣️ Endpoints: 11
+2025-09-10 16:02:01,488 - backend_generator_v2 - INFO - 
+📦 Processing puzzles...
+2025-09-10 16:02:01,488 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for Puzzle endpoint
+2025-09-10 16:02:01,488 - backend_generator_v2 - WARNING - ⚠️ Custom method 'solvePuzzle' may not be supported
+2025-09-10 16:02:01,488 - backend_generator_v2 - INFO - 📝 Generating Puzzle model...
+2025-09-10 16:02:01,494 - backend_generator_v2 - INFO - 🔧 Generating Puzzle service...
+2025-09-10 16:02:01,500 - backend_generator_v2 - INFO - 🛣️ Generating Puzzle routes...
+2025-09-10 16:02:01,507 - backend_generator_v2 - INFO - ✅ Successfully generated Puzzle endpoint!
+2025-09-10 16:02:01,507 - backend_generator_v2 - INFO - 
+📊 Generation Summary for Puzzle:
+2025-09-10 16:02:01,507 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,507 - backend_generator_v2 - INFO -    📊 Properties: 7
+2025-09-10 16:02:01,507 - backend_generator_v2 - INFO -    ⚙️ Methods: 12
+2025-09-10 16:02:01,508 - backend_generator_v2 - INFO -    🛣️ Endpoints: 12
+2025-09-10 16:02:01,508 - backend_generator_v2 - INFO - 
+📦 Processing games...
+2025-09-10 16:02:01,508 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for Game endpoint
+2025-09-10 16:02:01,508 - backend_generator_v2 - WARNING - ⚠️ Custom method 'analyzeGame' may not be supported
+2025-09-10 16:02:01,509 - backend_generator_v2 - INFO - 📝 Generating Game model...
+2025-09-10 16:02:01,514 - backend_generator_v2 - INFO - 🔧 Generating Game service...
+2025-09-10 16:02:01,520 - backend_generator_v2 - INFO - 🛣️ Generating Game routes...
+2025-09-10 16:02:01,526 - backend_generator_v2 - INFO - ✅ Successfully generated Game endpoint!
+2025-09-10 16:02:01,526 - backend_generator_v2 - INFO - 
+📊 Generation Summary for Game:
+2025-09-10 16:02:01,526 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,526 - backend_generator_v2 - INFO -    📊 Properties: 11
+2025-09-10 16:02:01,527 - backend_generator_v2 - INFO -    ⚙️ Methods: 9
+2025-09-10 16:02:01,527 - backend_generator_v2 - INFO -    🛣️ Endpoints: 8
+2025-09-10 16:02:01,527 - backend_generator_v2 - INFO - 
+📦 Processing stats...
+2025-09-10 16:02:01,527 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for Stats endpoint
+2025-09-10 16:02:01,527 - backend_generator_v2 - INFO - 📝 Generating Stats model...
+2025-09-10 16:02:01,533 - backend_generator_v2 - INFO - 🔧 Generating Stats service...
+2025-09-10 16:02:01,539 - backend_generator_v2 - INFO - 🛣️ Generating Stats routes...
+2025-09-10 16:02:01,544 - backend_generator_v2 - INFO - ✅ Successfully generated Stats endpoint!
+2025-09-10 16:02:01,545 - backend_generator_v2 - INFO - 
+📊 Generation Summary for Stats:
+2025-09-10 16:02:01,545 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,545 - backend_generator_v2 - INFO -    📊 Properties: 9
+2025-09-10 16:02:01,545 - backend_generator_v2 - INFO -    ⚙️ Methods: 11
+2025-09-10 16:02:01,545 - backend_generator_v2 - INFO -    🛣️ Endpoints: 11
+2025-09-10 16:02:01,545 - backend_generator_v2 - INFO - 
+📦 Processing learning...
+2025-09-10 16:02:01,546 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for LearningPath endpoint
+2025-09-10 16:02:01,546 - backend_generator_v2 - WARNING - ⚠️ Custom method 'enrollInPath' may not be supported
+2025-09-10 16:02:01,546 - backend_generator_v2 - INFO - 📝 Generating LearningPath model...
+2025-09-10 16:02:01,551 - backend_generator_v2 - INFO - 🔧 Generating LearningPath service...
+2025-09-10 16:02:01,557 - backend_generator_v2 - INFO - 🛣️ Generating LearningPath routes...
+2025-09-10 16:02:01,563 - backend_generator_v2 - INFO - ✅ Successfully generated LearningPath endpoint!
+2025-09-10 16:02:01,563 - backend_generator_v2 - INFO - 
+📊 Generation Summary for LearningPath:
+2025-09-10 16:02:01,563 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,564 - backend_generator_v2 - INFO -    📊 Properties: 8
+2025-09-10 16:02:01,564 - backend_generator_v2 - INFO -    ⚙️ Methods: 9
+2025-09-10 16:02:01,564 - backend_generator_v2 - INFO -    🛣️ Endpoints: 9
+2025-09-10 16:02:01,564 - backend_generator_v2 - INFO - 
+📦 Processing tutorials...
+2025-09-10 16:02:01,564 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for Tutorial endpoint
+2025-09-10 16:02:01,565 - backend_generator_v2 - WARNING - ⚠️ Custom method 'completeTutorial' may not be supported
+2025-09-10 16:02:01,565 - backend_generator_v2 - INFO - 📝 Generating Tutorial model...
+2025-09-10 16:02:01,571 - backend_generator_v2 - INFO - 🔧 Generating Tutorial service...
+2025-09-10 16:02:01,577 - backend_generator_v2 - INFO - 🛣️ Generating Tutorial routes...
+2025-09-10 16:02:01,583 - backend_generator_v2 - INFO - ✅ Successfully generated Tutorial endpoint!
+2025-09-10 16:02:01,583 - backend_generator_v2 - INFO - 
+📊 Generation Summary for Tutorial:
+2025-09-10 16:02:01,583 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,583 - backend_generator_v2 - INFO -    📊 Properties: 8
+2025-09-10 16:02:01,583 - backend_generator_v2 - INFO -    ⚙️ Methods: 7
+2025-09-10 16:02:01,584 - backend_generator_v2 - INFO -    🛣️ Endpoints: 6
+2025-09-10 16:02:01,584 - backend_generator_v2 - INFO - 
+📦 Processing auth...
+2025-09-10 16:02:01,584 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for Auth endpoint
+2025-09-10 16:02:01,584 - backend_generator_v2 - WARNING - ⚠️ Custom method 'register' may not be supported
+2025-09-10 16:02:01,584 - backend_generator_v2 - WARNING - ⚠️ Custom method 'login' may not be supported
+2025-09-10 16:02:01,584 - backend_generator_v2 - WARNING - ⚠️ Custom method 'changePassword' may not be supported
+2025-09-10 16:02:01,585 - backend_generator_v2 - WARNING - ⚠️ Custom method 'verifyToken' may not be supported
+2025-09-10 16:02:01,585 - backend_generator_v2 - WARNING - ⚠️ Custom method 'forgotPassword' may not be supported
+2025-09-10 16:02:01,585 - backend_generator_v2 - WARNING - ⚠️ Custom method 'resetPassword' may not be supported
+2025-09-10 16:02:01,585 - backend_generator_v2 - WARNING - ⚠️ Custom method 'logout' may not be supported
+2025-09-10 16:02:01,585 - backend_generator_v2 - WARNING - ⚠️ Custom method 'checkEmailAvailability' may not be supported
+2025-09-10 16:02:01,586 - backend_generator_v2 - WARNING - ⚠️ Custom method 'checkUsernameAvailability' may not be supported
+2025-09-10 16:02:01,586 - backend_generator_v2 - WARNING - ⚠️ Custom method 'healthCheck' may not be supported
+2025-09-10 16:02:01,586 - backend_generator_v2 - INFO - 📝 Generating Auth model...
+2025-09-10 16:02:01,592 - backend_generator_v2 - INFO - 🔧 Generating Auth service...
+2025-09-10 16:02:01,597 - backend_generator_v2 - INFO - 🛣️ Generating Auth routes...
+2025-09-10 16:02:01,603 - backend_generator_v2 - INFO - ✅ Successfully generated Auth endpoint!
+2025-09-10 16:02:01,603 - backend_generator_v2 - INFO - 
+📊 Generation Summary for Auth:
+2025-09-10 16:02:01,603 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,604 - backend_generator_v2 - INFO -    📊 Properties: 9
+2025-09-10 16:02:01,604 - backend_generator_v2 - INFO -    ⚙️ Methods: 18
+2025-09-10 16:02:01,604 - backend_generator_v2 - INFO -    🛣️ Endpoints: 18
+2025-09-10 16:02:01,604 - backend_generator_v2 - INFO - 
+📦 Processing sessions...
+2025-09-10 16:02:01,604 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for Session endpoint
+2025-09-10 16:02:01,604 - backend_generator_v2 - WARNING - ⚠️ Custom method 'validateSession' may not be supported
+2025-09-10 16:02:01,605 - backend_generator_v2 - WARNING - ⚠️ Custom method 'expireSession' may not be supported
+2025-09-10 16:02:01,605 - backend_generator_v2 - WARNING - ⚠️ Custom method 'cleanupExpiredSessions' may not be supported
+2025-09-10 16:02:01,605 - backend_generator_v2 - INFO - 📝 Generating Session model...
+2025-09-10 16:02:01,611 - backend_generator_v2 - INFO - 🔧 Generating Session service...
+2025-09-10 16:02:01,617 - backend_generator_v2 - INFO - 🛣️ Generating Session routes...
+2025-09-10 16:02:01,622 - backend_generator_v2 - INFO - ✅ Successfully generated Session endpoint!
+2025-09-10 16:02:01,623 - backend_generator_v2 - INFO - 
+📊 Generation Summary for Session:
+2025-09-10 16:02:01,623 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,623 - backend_generator_v2 - INFO -    📊 Properties: 6
+2025-09-10 16:02:01,623 - backend_generator_v2 - INFO -    ⚙️ Methods: 9
+2025-09-10 16:02:01,623 - backend_generator_v2 - INFO -    🛣️ Endpoints: 8
+2025-09-10 16:02:01,624 - backend_generator_v2 - INFO - 
+📦 Processing achievements...
+2025-09-10 16:02:01,624 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for Achievement endpoint
+2025-09-10 16:02:01,624 - backend_generator_v2 - WARNING - ⚠️ Custom method 'unlockAchievement' may not be supported
+2025-09-10 16:02:01,624 - backend_generator_v2 - WARNING - ⚠️ Custom method 'checkAchievements' may not be supported
+2025-09-10 16:02:01,624 - backend_generator_v2 - INFO - 📝 Generating Achievement model...
+2025-09-10 16:02:01,630 - backend_generator_v2 - INFO - 🔧 Generating Achievement service...
+2025-09-10 16:02:01,636 - backend_generator_v2 - INFO - 🛣️ Generating Achievement routes...
+2025-09-10 16:02:01,641 - backend_generator_v2 - INFO - ✅ Successfully generated Achievement endpoint!
+2025-09-10 16:02:01,641 - backend_generator_v2 - INFO - 
+📊 Generation Summary for Achievement:
+2025-09-10 16:02:01,642 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,642 - backend_generator_v2 - INFO -    📊 Properties: 7
+2025-09-10 16:02:01,642 - backend_generator_v2 - INFO -    ⚙️ Methods: 8
+2025-09-10 16:02:01,642 - backend_generator_v2 - INFO -    🛣️ Endpoints: 7
+2025-09-10 16:02:01,642 - backend_generator_v2 - INFO - 
+📦 Processing progress...
+2025-09-10 16:02:01,642 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for Progress endpoint
+2025-09-10 16:02:01,643 - backend_generator_v2 - WARNING - ⚠️ Custom method 'resetProgress' may not be supported
+2025-09-10 16:02:01,643 - backend_generator_v2 - INFO - 📝 Generating Progress model...
+2025-09-10 16:02:01,648 - backend_generator_v2 - INFO - 🔧 Generating Progress service...
+2025-09-10 16:02:01,655 - backend_generator_v2 - INFO - 🛣️ Generating Progress routes...
+2025-09-10 16:02:01,660 - backend_generator_v2 - INFO - ✅ Successfully generated Progress endpoint!
+2025-09-10 16:02:01,661 - backend_generator_v2 - INFO - 
+📊 Generation Summary for Progress:
+2025-09-10 16:02:01,661 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,661 - backend_generator_v2 - INFO -    📊 Properties: 11
+2025-09-10 16:02:01,661 - backend_generator_v2 - INFO -    ⚙️ Methods: 8
+2025-09-10 16:02:01,661 - backend_generator_v2 - INFO -    🛣️ Endpoints: 8
+2025-09-10 16:02:01,661 - backend_generator_v2 - INFO - 
+📦 Processing openings...
+2025-09-10 16:02:01,662 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for Opening endpoint
+2025-09-10 16:02:01,662 - backend_generator_v2 - WARNING - ⚠️ Custom method 'searchOpenings' may not be supported
+2025-09-10 16:02:01,662 - backend_generator_v2 - INFO - 📝 Generating Opening model...
+2025-09-10 16:02:01,668 - backend_generator_v2 - INFO - 🔧 Generating Opening service...
+2025-09-10 16:02:01,674 - backend_generator_v2 - INFO - 🛣️ Generating Opening routes...
+2025-09-10 16:02:01,680 - backend_generator_v2 - INFO - ✅ Successfully generated Opening endpoint!
+2025-09-10 16:02:01,680 - backend_generator_v2 - INFO - 
+📊 Generation Summary for Opening:
+2025-09-10 16:02:01,680 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,680 - backend_generator_v2 - INFO -    📊 Properties: 7
+2025-09-10 16:02:01,680 - backend_generator_v2 - INFO -    ⚙️ Methods: 9
+2025-09-10 16:02:01,680 - backend_generator_v2 - INFO -    🛣️ Endpoints: 7
+2025-09-10 16:02:01,681 - backend_generator_v2 - INFO - 
+📦 Processing analysis...
+2025-09-10 16:02:01,681 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for Analysis endpoint
+2025-09-10 16:02:01,681 - backend_generator_v2 - WARNING - ⚠️ Custom method 'analyzePosition' may not be supported
+2025-09-10 16:02:01,681 - backend_generator_v2 - WARNING - ⚠️ Custom method 'saveAnalysis' may not be supported
+2025-09-10 16:02:01,681 - backend_generator_v2 - INFO - 📝 Generating Analysis model...
+2025-09-10 16:02:01,687 - backend_generator_v2 - INFO - 🔧 Generating Analysis service...
+2025-09-10 16:02:01,693 - backend_generator_v2 - INFO - 🛣️ Generating Analysis routes...
+2025-09-10 16:02:01,699 - backend_generator_v2 - INFO - ✅ Successfully generated Analysis endpoint!
+2025-09-10 16:02:01,699 - backend_generator_v2 - INFO - 
+📊 Generation Summary for Analysis:
+2025-09-10 16:02:01,699 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,699 - backend_generator_v2 - INFO -    📊 Properties: 7
+2025-09-10 16:02:01,700 - backend_generator_v2 - INFO -    ⚙️ Methods: 9
+2025-09-10 16:02:01,700 - backend_generator_v2 - INFO -    🛣️ Endpoints: 7
+2025-09-10 16:02:01,700 - backend_generator_v2 - INFO - 
+📦 Processing ai-opponents...
+2025-09-10 16:02:01,700 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for AIOpponent endpoint
+2025-09-10 16:02:01,700 - backend_generator_v2 - INFO - 📝 Generating AIOpponent model...
+2025-09-10 16:02:01,706 - backend_generator_v2 - INFO - 🔧 Generating AIOpponent service...
+2025-09-10 16:02:01,712 - backend_generator_v2 - INFO - 🛣️ Generating AIOpponent routes...
+2025-09-10 16:02:01,718 - backend_generator_v2 - INFO - ✅ Successfully generated AIOpponent endpoint!
+2025-09-10 16:02:01,718 - backend_generator_v2 - INFO - 
+📊 Generation Summary for AIOpponent:
+2025-09-10 16:02:01,718 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,719 - backend_generator_v2 - INFO -    📊 Properties: 7
+2025-09-10 16:02:01,719 - backend_generator_v2 - INFO -    ⚙️ Methods: 9
+2025-09-10 16:02:01,719 - backend_generator_v2 - INFO -    🛣️ Endpoints: 6
+2025-09-10 16:02:01,719 - backend_generator_v2 - INFO - 
+📦 Processing analytics...
+2025-09-10 16:02:01,719 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for Analytics endpoint
+2025-09-10 16:02:01,720 - backend_generator_v2 - WARNING - ⚠️ Custom method 'trackEvent' may not be supported
+2025-09-10 16:02:01,720 - backend_generator_v2 - INFO - 📝 Generating Analytics model...
+2025-09-10 16:02:01,726 - backend_generator_v2 - INFO - 🔧 Generating Analytics service...
+2025-09-10 16:02:01,732 - backend_generator_v2 - INFO - 🛣️ Generating Analytics routes...
+2025-09-10 16:02:01,738 - backend_generator_v2 - INFO - ✅ Successfully generated Analytics endpoint!
+2025-09-10 16:02:01,738 - backend_generator_v2 - INFO - 
+📊 Generation Summary for Analytics:
+2025-09-10 16:02:01,738 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,739 - backend_generator_v2 - INFO -    📊 Properties: 6
+2025-09-10 16:02:01,739 - backend_generator_v2 - INFO -    ⚙️ Methods: 8
+2025-09-10 16:02:01,739 - backend_generator_v2 - INFO -    🛣️ Endpoints: 7
+2025-09-10 16:02:01,739 - backend_generator_v2 - INFO - 
+📦 Processing profiles...
+2025-09-10 16:02:01,740 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for Profile endpoint
+2025-09-10 16:02:01,740 - backend_generator_v2 - INFO - 📝 Generating Profile model...
+2025-09-10 16:02:01,746 - backend_generator_v2 - INFO - 🔧 Generating Profile service...
+2025-09-10 16:02:01,753 - backend_generator_v2 - INFO - 🛣️ Generating Profile routes...
+2025-09-10 16:02:01,759 - backend_generator_v2 - INFO - ✅ Successfully generated Profile endpoint!
+2025-09-10 16:02:01,759 - backend_generator_v2 - INFO - 
+📊 Generation Summary for Profile:
+2025-09-10 16:02:01,760 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,760 - backend_generator_v2 - INFO -    📊 Properties: 8
+2025-09-10 16:02:01,760 - backend_generator_v2 - INFO -    ⚙️ Methods: 6
+2025-09-10 16:02:01,760 - backend_generator_v2 - INFO -    🛣️ Endpoints: 7
+2025-09-10 16:02:01,761 - backend_generator_v2 - INFO - 
+📦 Processing endgames...
+2025-09-10 16:02:01,761 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for Endgame endpoint
+2025-09-10 16:02:01,761 - backend_generator_v2 - WARNING - ⚠️ Custom method 'practiceEndgame' may not be supported
+2025-09-10 16:02:01,761 - backend_generator_v2 - INFO - 📝 Generating Endgame model...
+2025-09-10 16:02:01,767 - backend_generator_v2 - INFO - 🔧 Generating Endgame service...
+2025-09-10 16:02:01,774 - backend_generator_v2 - INFO - 🛣️ Generating Endgame routes...
+2025-09-10 16:02:01,781 - backend_generator_v2 - INFO - ✅ Successfully generated Endgame endpoint!
+2025-09-10 16:02:01,781 - backend_generator_v2 - INFO - 
+📊 Generation Summary for Endgame:
+2025-09-10 16:02:01,782 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,782 - backend_generator_v2 - INFO -    📊 Properties: 8
+2025-09-10 16:02:01,782 - backend_generator_v2 - INFO -    ⚙️ Methods: 7
+2025-09-10 16:02:01,782 - backend_generator_v2 - INFO -    🛣️ Endpoints: 6
+2025-09-10 16:02:01,782 - backend_generator_v2 - INFO - 
+📦 Processing game-reviews...
+2025-09-10 16:02:01,783 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for GameReview endpoint
+2025-09-10 16:02:01,783 - backend_generator_v2 - INFO - 📝 Generating GameReview model...
+2025-09-10 16:02:01,789 - backend_generator_v2 - INFO - 🔧 Generating GameReview service...
+2025-09-10 16:02:01,796 - backend_generator_v2 - INFO - 🛣️ Generating GameReview routes...
+2025-09-10 16:02:01,802 - backend_generator_v2 - INFO - ✅ Successfully generated GameReview endpoint!
+2025-09-10 16:02:01,802 - backend_generator_v2 - INFO - 
+📊 Generation Summary for GameReview:
+2025-09-10 16:02:01,803 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,803 - backend_generator_v2 - INFO -    📊 Properties: 7
+2025-09-10 16:02:01,803 - backend_generator_v2 - INFO -    ⚙️ Methods: 8
+2025-09-10 16:02:01,803 - backend_generator_v2 - INFO -    🛣️ Endpoints: 6
+2025-09-10 16:02:01,804 - backend_generator_v2 - INFO - 
+📦 Processing historic-games...
+2025-09-10 16:02:01,804 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for HistoricGame endpoint
+2025-09-10 16:02:01,804 - backend_generator_v2 - WARNING - ⚠️ Custom method 'searchGames' may not be supported
+2025-09-10 16:02:01,804 - backend_generator_v2 - INFO - 📝 Generating HistoricGame model...
+2025-09-10 16:02:01,811 - backend_generator_v2 - INFO - 🔧 Generating HistoricGame service...
+2025-09-10 16:02:01,818 - backend_generator_v2 - INFO - 🛣️ Generating HistoricGame routes...
+2025-09-10 16:02:01,825 - backend_generator_v2 - INFO - ✅ Successfully generated HistoricGame endpoint!
+2025-09-10 16:02:01,825 - backend_generator_v2 - INFO - 
+📊 Generation Summary for HistoricGame:
+2025-09-10 16:02:01,825 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,825 - backend_generator_v2 - INFO -    📊 Properties: 9
+2025-09-10 16:02:01,826 - backend_generator_v2 - INFO -    ⚙️ Methods: 9
+2025-09-10 16:02:01,826 - backend_generator_v2 - INFO -    🛣️ Endpoints: 7
+2025-09-10 16:02:01,826 - backend_generator_v2 - INFO - 
+📦 Processing puzzle-attempts...
+2025-09-10 16:02:01,826 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for PuzzleAttempt endpoint
+2025-09-10 16:02:01,826 - backend_generator_v2 - WARNING - ⚠️ Custom method 'recordAttempt' may not be supported
+2025-09-10 16:02:01,827 - backend_generator_v2 - INFO - 📝 Generating PuzzleAttempt model...
+2025-09-10 16:02:01,834 - backend_generator_v2 - INFO - 🔧 Generating PuzzleAttempt service...
+2025-09-10 16:02:01,842 - backend_generator_v2 - INFO - 🛣️ Generating PuzzleAttempt routes...
+2025-09-10 16:02:01,850 - backend_generator_v2 - INFO - ✅ Successfully generated PuzzleAttempt endpoint!
+2025-09-10 16:02:01,850 - backend_generator_v2 - INFO - 
+📊 Generation Summary for PuzzleAttempt:
+2025-09-10 16:02:01,850 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,850 - backend_generator_v2 - INFO -    📊 Properties: 7
+2025-09-10 16:02:01,851 - backend_generator_v2 - INFO -    ⚙️ Methods: 9
+2025-09-10 16:02:01,851 - backend_generator_v2 - INFO -    🛣️ Endpoints: 7
+2025-09-10 16:02:01,851 - backend_generator_v2 - INFO - 
+📦 Processing puzzle-sources...
+2025-09-10 16:02:01,851 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for PuzzleSource endpoint
+2025-09-10 16:02:01,852 - backend_generator_v2 - INFO - 📝 Generating PuzzleSource model...
+2025-09-10 16:02:01,859 - backend_generator_v2 - INFO - 🔧 Generating PuzzleSource service...
+2025-09-10 16:02:01,866 - backend_generator_v2 - INFO - 🛣️ Generating PuzzleSource routes...
+2025-09-10 16:02:01,873 - backend_generator_v2 - INFO - ✅ Successfully generated PuzzleSource endpoint!
+2025-09-10 16:02:01,873 - backend_generator_v2 - INFO - 
+📊 Generation Summary for PuzzleSource:
+2025-09-10 16:02:01,873 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,873 - backend_generator_v2 - INFO -    📊 Properties: 6
+2025-09-10 16:02:01,874 - backend_generator_v2 - INFO -    ⚙️ Methods: 8
+2025-09-10 16:02:01,874 - backend_generator_v2 - INFO -    🛣️ Endpoints: 5
+2025-09-10 16:02:01,874 - backend_generator_v2 - INFO - 
+📦 Processing learning-modules...
+2025-09-10 16:02:01,874 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for LearningModule endpoint
+2025-09-10 16:02:01,874 - backend_generator_v2 - WARNING - ⚠️ Custom method 'completeModule' may not be supported
+2025-09-10 16:02:01,874 - backend_generator_v2 - INFO - 📝 Generating LearningModule model...
+2025-09-10 16:02:01,880 - backend_generator_v2 - INFO - 🔧 Generating LearningModule service...
+2025-09-10 16:02:01,887 - backend_generator_v2 - INFO - 🛣️ Generating LearningModule routes...
+2025-09-10 16:02:01,893 - backend_generator_v2 - INFO - ✅ Successfully generated LearningModule endpoint!
+2025-09-10 16:02:01,893 - backend_generator_v2 - INFO - 
+📊 Generation Summary for LearningModule:
+2025-09-10 16:02:01,894 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,894 - backend_generator_v2 - INFO -    📊 Properties: 8
+2025-09-10 16:02:01,894 - backend_generator_v2 - INFO -    ⚙️ Methods: 8
+2025-09-10 16:02:01,894 - backend_generator_v2 - INFO -    🛣️ Endpoints: 7
+2025-09-10 16:02:01,894 - backend_generator_v2 - INFO - 
+📦 Processing tutorial-steps...
+2025-09-10 16:02:01,895 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for TutorialStep endpoint
+2025-09-10 16:02:01,895 - backend_generator_v2 - WARNING - ⚠️ Custom method 'completeStep' may not be supported
+2025-09-10 16:02:01,895 - backend_generator_v2 - WARNING - ⚠️ Custom method 'resetTutorial' may not be supported
+2025-09-10 16:02:01,896 - backend_generator_v2 - INFO - 📝 Generating TutorialStep model...
+2025-09-10 16:02:01,902 - backend_generator_v2 - INFO - 🔧 Generating TutorialStep service...
+2025-09-10 16:02:01,908 - backend_generator_v2 - INFO - 🛣️ Generating TutorialStep routes...
+2025-09-10 16:02:01,915 - backend_generator_v2 - INFO - ✅ Successfully generated TutorialStep endpoint!
+2025-09-10 16:02:01,915 - backend_generator_v2 - INFO - 
+📊 Generation Summary for TutorialStep:
+2025-09-10 16:02:01,915 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,915 - backend_generator_v2 - INFO -    📊 Properties: 7
+2025-09-10 16:02:01,916 - backend_generator_v2 - INFO -    ⚙️ Methods: 9
+2025-09-10 16:02:01,916 - backend_generator_v2 - INFO -    🛣️ Endpoints: 7
+2025-09-10 16:02:01,916 - backend_generator_v2 - INFO - 
+📦 Processing study-plans...
+2025-09-10 16:02:01,916 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for StudyPlan endpoint
+2025-09-10 16:02:01,917 - backend_generator_v2 - INFO - 📝 Generating StudyPlan model...
+2025-09-10 16:02:01,923 - backend_generator_v2 - INFO - 🔧 Generating StudyPlan service...
+2025-09-10 16:02:01,930 - backend_generator_v2 - INFO - 🛣️ Generating StudyPlan routes...
+2025-09-10 16:02:01,937 - backend_generator_v2 - INFO - ✅ Successfully generated StudyPlan endpoint!
+2025-09-10 16:02:01,937 - backend_generator_v2 - INFO - 
+📊 Generation Summary for StudyPlan:
+2025-09-10 16:02:01,937 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,937 - backend_generator_v2 - INFO -    📊 Properties: 8
+2025-09-10 16:02:01,938 - backend_generator_v2 - INFO -    ⚙️ Methods: 9
+2025-09-10 16:02:01,938 - backend_generator_v2 - INFO -    🛣️ Endpoints: 6
+2025-09-10 16:02:01,938 - backend_generator_v2 - INFO - 
+📦 Processing help...
+2025-09-10 16:02:01,938 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for Help endpoint
+2025-09-10 16:02:01,939 - backend_generator_v2 - WARNING - ⚠️ Custom method 'searchHelp' may not be supported
+2025-09-10 16:02:01,939 - backend_generator_v2 - INFO - 📝 Generating Help model...
+2025-09-10 16:02:01,944 - backend_generator_v2 - INFO - 🔧 Generating Help service...
+2025-09-10 16:02:01,949 - backend_generator_v2 - INFO - 🛣️ Generating Help routes...
+2025-09-10 16:02:01,955 - backend_generator_v2 - INFO - ✅ Successfully generated Help endpoint!
+2025-09-10 16:02:01,956 - backend_generator_v2 - INFO - 
+📊 Generation Summary for Help:
+2025-09-10 16:02:01,956 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,956 - backend_generator_v2 - INFO -    📊 Properties: 7
+2025-09-10 16:02:01,956 - backend_generator_v2 - INFO -    ⚙️ Methods: 7
+2025-09-10 16:02:01,956 - backend_generator_v2 - INFO -    🛣️ Endpoints: 7
+2025-09-10 16:02:01,957 - backend_generator_v2 - INFO - 
+📦 Processing subscriptions...
+2025-09-10 16:02:01,957 - backend_generator_v2 - INFO - 🚀 Starting v2 generation for Subscription endpoint
+2025-09-10 16:02:01,957 - backend_generator_v2 - WARNING - ⚠️ Custom method 'cancelSubscription' may not be supported
+2025-09-10 16:02:01,957 - backend_generator_v2 - INFO - 📝 Generating Subscription model...
+2025-09-10 16:02:01,964 - backend_generator_v2 - INFO - 🔧 Generating Subscription service...
+2025-09-10 16:02:01,971 - backend_generator_v2 - INFO - 🛣️ Generating Subscription routes...
+2025-09-10 16:02:01,979 - backend_generator_v2 - INFO - ✅ Successfully generated Subscription endpoint!
+2025-09-10 16:02:01,979 - backend_generator_v2 - INFO - 
+📊 Generation Summary for Subscription:
+2025-09-10 16:02:01,980 - backend_generator_v2 - INFO -    📁 Files created: 3 (model, service, routes)
+2025-09-10 16:02:01,980 - backend_generator_v2 - INFO -    📊 Properties: 7
+2025-09-10 16:02:01,980 - backend_generator_v2 - INFO -    ⚙️ Methods: 7
+2025-09-10 16:02:01,980 - backend_generator_v2 - INFO -    🛣️ Endpoints: 6
+2025-09-10 16:02:01,981 - backend_generator_v2 - INFO - 
+📊 Generation Summary:
+2025-09-10 16:02:01,981 - backend_generator_v2 - INFO -    ✅ Successful: 25/25
+2025-09-10 16:02:01,981 - backend_generator_v2 - INFO -    ❌ Failed: 0/25
+🚀 Backend Generator v2 Starting...
+📝 Generated backend-v2/src/models/User.ts
+📝 Generated backend-v2/src/services/userService.ts
+📝 Generated backend-v2/src/routes/users.ts
+📝 Generated backend-v2/src/models/Puzzle.ts
+📝 Generated backend-v2/src/services/puzzleService.ts
+📝 Generated backend-v2/src/routes/puzzles.ts
+📝 Generated backend-v2/src/models/Game.ts
+📝 Generated backend-v2/src/services/gameService.ts
+📝 Generated backend-v2/src/routes/games.ts
+📝 Generated backend-v2/src/models/Stats.ts
+📝 Generated backend-v2/src/services/statsService.ts
+📝 Generated backend-v2/src/routes/stats.ts
+📝 Generated backend-v2/src/models/LearningPath.ts
+📝 Generated backend-v2/src/services/learningpathService.ts
+📝 Generated backend-v2/src/routes/learningPaths.ts
+📝 Generated backend-v2/src/models/Tutorial.ts
+📝 Generated backend-v2/src/services/tutorialService.ts
+📝 Generated backend-v2/src/routes/tutorials.ts
+📝 Generated backend-v2/src/models/Auth.ts
+📝 Generated backend-v2/src/services/authService.ts
+📝 Generated backend-v2/src/routes/auth.ts
+📝 Generated backend-v2/src/models/Session.ts
+📝 Generated backend-v2/src/services/sessionService.ts
+📝 Generated backend-v2/src/routes/sessions.ts
+📝 Generated backend-v2/src/models/Achievement.ts
+📝 Generated backend-v2/src/services/achievementService.ts
+📝 Generated backend-v2/src/routes/achievements.ts
+📝 Generated backend-v2/src/models/Progress.ts
+📝 Generated backend-v2/src/services/progressService.ts
+📝 Generated backend-v2/src/routes/progress.ts
+📝 Generated backend-v2/src/models/Opening.ts
+📝 Generated backend-v2/src/services/openingService.ts
+📝 Generated backend-v2/src/routes/openings.ts
+📝 Generated backend-v2/src/models/Analysis.ts
+📝 Generated backend-v2/src/services/analysisService.ts
+📝 Generated backend-v2/src/routes/analysis.ts
+📝 Generated backend-v2/src/models/Aiopponent.ts
+📝 Generated backend-v2/src/services/aiopponentService.ts
+📝 Generated backend-v2/src/routes/aiOpponents.ts
+📝 Generated backend-v2/src/models/Analytics.ts
+📝 Generated backend-v2/src/services/analyticsService.ts
+📝 Generated backend-v2/src/routes/analytics.ts
+📝 Generated backend-v2/src/models/Profile.ts
+📝 Generated backend-v2/src/services/profileService.ts
+📝 Generated backend-v2/src/routes/profiles.ts
+📝 Generated backend-v2/src/models/Endgame.ts
+📝 Generated backend-v2/src/services/endgameService.ts
+📝 Generated backend-v2/src/routes/endgames.ts
+📝 Generated backend-v2/src/models/Gamereview.ts
+📝 Generated backend-v2/src/services/gamereviewService.ts
+📝 Generated backend-v2/src/routes/gameReviews.ts
+📝 Generated backend-v2/src/models/Historicgame.ts
+📝 Generated backend-v2/src/services/historicgameService.ts
+📝 Generated backend-v2/src/routes/historicGames.ts
+📝 Generated backend-v2/src/models/Puzzleattempt.ts
+📝 Generated backend-v2/src/services/puzzleattemptService.ts
+📝 Generated backend-v2/src/routes/puzzleAttempts.ts
+📝 Generated backend-v2/src/models/Puzzlesource.ts
+📝 Generated backend-v2/src/services/puzzlesourceService.ts
+📝 Generated backend-v2/src/routes/puzzleSources.ts
+📝 Generated backend-v2/src/models/Learningmodule.ts
+📝 Generated backend-v2/src/services/learningmoduleService.ts
+📝 Generated backend-v2/src/routes/learningModules.ts
+📝 Generated backend-v2/src/models/Tutorialstep.ts
+📝 Generated backend-v2/src/services/tutorialstepService.ts
+📝 Generated backend-v2/src/routes/tutorialSteps.ts
+📝 Generated backend-v2/src/models/Studyplan.ts
+📝 Generated backend-v2/src/services/studyplanService.ts
+📝 Generated backend-v2/src/routes/studyPlans.ts
+📝 Generated backend-v2/src/models/Help.ts
+📝 Generated backend-v2/src/services/helpService.ts
+📝 Generated backend-v2/src/routes/help.ts
+📝 Generated backend-v2/src/models/Subscription.ts
+📝 Generated backend-v2/src/services/subscriptionService.ts
+📝 Generated backend-v2/src/routes/subscriptions.ts
+✅ Generated 25/25 endpoints successfully

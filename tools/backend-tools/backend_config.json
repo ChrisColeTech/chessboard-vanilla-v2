@@ -139,8 +139,7 @@
         "createGame",
         "updateGame",
         "analyzeGame",
-        "getGameAnalysis",
-        "getGameReviews"
+        "getGameAnalysis"
       ],
       "endpoints": [
         {
@@ -172,11 +171,6 @@
           "method": "GET",
           "path": "/:id/analysis",
           "handler": "getGameAnalysis"
-        },
-        {
-          "method": "GET",
-          "path": "/reviews",
-          "handler": "getGameReviews"
         }
       ]
     },

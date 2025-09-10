@@ -1,0 +1,1010 @@
+≡ƒÜÇ Starting API Connectivity Test
+≡ƒîì FRONTEND: http://localhost:5173
+≡ƒöº BACKEND : http://localhost:3001
+≡ƒôä CONFIG  : C:\Projects\chessboard-vanilla-v2\tools\backend-tools\backend_config.json
+≡ƒöÉ Setting up authentication...
+  Γ£à Authentication successful! Token acquired.
+  ΓÜá∩╕Å  Could not determine user id from /api/auth/me. Some endpoints may still fail.
+
+≡ƒöì Testing users endpoints:
+  GET    http://localhost:3001/api/users/profile
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "User not found"
+}
+  PUT    http://localhost:3001/api/users/profile
+    Γñ╖ Request body: {
+  "id": "test-id-1757512518389",
+  "createdAt": "2025-09-10T13:55:18.389Z",
+  "updatedAt": "2025-09-10T13:55:18.389Z",
+  "username": "testuser",
+  "email": "test@example.com"
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "User not found"
+}
+  GET    http://localhost:3001/api/users/preferences
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "User not found"
+}
+  PUT    http://localhost:3001/api/users/preferences
+    Γñ╖ Request body: {
+  "id": "test-id-1757512518654",
+  "createdAt": "2025-09-10T13:55:18.654Z",
+  "updatedAt": "2025-09-10T13:55:18.654Z",
+  "username": "testuser",
+  "email": "test@example.com"
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "User not found"
+}
+  GET    http://localhost:3001/api/users/settings
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "User not found"
+}
+  PUT    http://localhost:3001/api/users/settings
+    Γñ╖ Request body: {
+  "id": "test-id-1757512518906",
+  "createdAt": "2025-09-10T13:55:18.906Z",
+  "updatedAt": "2025-09-10T13:55:18.906Z",
+  "username": "testuser",
+  "email": "test@example.com"
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "User not found"
+}
+
+≡ƒöì Testing puzzles endpoints:
+  GET    http://localhost:3001/api/puzzles/next
+    Γ£à 200 OK
+  POST   http://localhost:3001/api/puzzles/test-id-123/solve
+    Γñ╖ Request body: {
+  "id": "test-id-1757512519735",
+  "createdAt": "2025-09-10T13:55:19.735Z",
+  "updatedAt": "2025-09-10T13:55:19.735Z",
+  "name": "Test Puzzle",
+  "description": "Test item"
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "Puzzle not found"
+}
+  GET    http://localhost:3001/api/puzzles/test-id-123/hint
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "Puzzle not found"
+}
+  GET    http://localhost:3001/api/puzzles/categories
+    Γ£à 200 OK
+  GET    http://localhost:3001/api/puzzles/history
+    Γ£à 200 OK
+  POST   http://localhost:3001/api/puzzles/custom
+    Γñ╖ Request body: {
+  "id": "test-id-1757512520239",
+  "createdAt": "2025-09-10T13:55:20.239Z",
+  "updatedAt": "2025-09-10T13:55:20.239Z",
+  "name": "Test Puzzle",
+  "description": "Test item"
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "null value in column \"fen\" of relation \"puzzles\" violates not-null constraint"
+}
+  GET    http://localhost:3001/api/puzzles/custom
+    Γ£à 200 OK
+
+≡ƒöì Testing games endpoints:
+  GET    http://localhost:3001/api/games/
+    Γ£à 200 OK
+  GET    http://localhost:3001/api/games/test-id-123
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "Game not found"
+}
+  POST   http://localhost:3001/api/games/
+    Γñ╖ Request body: {
+  "id": "test-id-1757512520787",
+  "createdAt": "2025-09-10T13:55:20.787Z",
+  "updatedAt": "2025-09-10T13:55:20.787Z",
+  "ai_level": 1,
+  "user_color": "white",
+  "current_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+  "pgn": "",
+  "result": null
+}
+    Γ£à 200 OK
+  PUT    http://localhost:3001/api/games/test-id-123
+    Γñ╖ Request body: {
+  "id": "test-id-1757512520911",
+  "createdAt": "2025-09-10T13:55:20.911Z",
+  "updatedAt": "2025-09-10T13:55:20.911Z",
+  "ai_level": 1,
+  "user_color": "white",
+  "current_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+  "pgn": "",
+  "result": null
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "Game not found"
+}
+  POST   http://localhost:3001/api/games/test-id-123/analyze
+    Γñ╖ Request body: {
+  "id": "test-id-1757512521037",
+  "createdAt": "2025-09-10T13:55:21.037Z",
+  "updatedAt": "2025-09-10T13:55:21.037Z",
+  "ai_level": 1,
+  "user_color": "white",
+  "current_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+  "pgn": "",
+  "result": null
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "Game not found"
+}
+  GET    http://localhost:3001/api/games/test-id-123/analysis
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "Game not found"
+}
+  GET    http://localhost:3001/api/games/reviews
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "Game not found"
+}
+
+≡ƒöì Testing stats endpoints:
+  GET    http://localhost:3001/api/stats/overview
+    Γ£à 200 OK
+  GET    http://localhost:3001/api/stats/puzzles
+    Γ£à 200 OK
+  GET    http://localhost:3001/api/stats/games
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "getGameStats not implemented"
+}
+  GET    http://localhost:3001/api/stats/progress
+    Γ£à 200 OK
+  GET    http://localhost:3001/api/stats/performance
+    Γ£à 200 OK
+  GET    http://localhost:3001/api/stats/ratings
+    Γ£à 200 OK
+
+≡ƒöì Testing learning endpoints:
+  GET    http://localhost:3001/api/learningPaths/paths
+    Γ£à 200 OK
+  GET    http://localhost:3001/api/learningPaths/paths/test-id-123
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "Learningpath not found"
+}
+  POST   http://localhost:3001/api/learningPaths/paths/test-id-123/enroll
+    Γñ╖ Request body: {
+  "id": "test-id-1757512522393",
+  "createdAt": "2025-09-10T13:55:22.393Z",
+  "updatedAt": "2025-09-10T13:55:22.393Z",
+  "name": "Test LearningPath",
+  "description": "Test item"
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "column \"user_id\" does not exist"
+}
+  PUT    http://localhost:3001/api/learningPaths/paths/test-id-123/progress
+    Γñ╖ Request body: {
+  "id": "test-id-1757512522518",
+  "createdAt": "2025-09-10T13:55:22.518Z",
+  "updatedAt": "2025-09-10T13:55:22.518Z",
+  "name": "Test LearningPath",
+  "description": "Test item"
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "Learningpath not found"
+}
+
+≡ƒöì Testing tutorials endpoints:
+  GET    http://localhost:3001/api/tutorials/
+    Γ£à 200 OK
+  GET    http://localhost:3001/api/tutorials/test-id-123
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "Tutorial not found"
+}
+  POST   http://localhost:3001/api/tutorials/test-id-123/complete
+    Γñ╖ Request body: {
+  "id": "test-id-1757512522892",
+  "createdAt": "2025-09-10T13:55:22.892Z",
+  "updatedAt": "2025-09-10T13:55:22.892Z",
+  "name": "Test Tutorial",
+  "description": "Test item"
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "Tutorial not found"
+}
+
+≡ƒöì Testing auth endpoints:
+  POST   http://localhost:3001/api/auth/register
+    Γñ╖ Request body: {
+  "id": "test-id-1757512523017",
+  "createdAt": "2025-09-10T13:55:23.017Z",
+  "updatedAt": "2025-09-10T13:55:23.017Z",
+  "username": "testuser",
+  "email": "test@example.com"
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "User with this email or username already exists"
+}
+  POST   http://localhost:3001/api/auth/login
+    Γñ╖ Request body: {
+  "id": "test-id-1757512523140",
+  "createdAt": "2025-09-10T13:55:23.140Z",
+  "updatedAt": "2025-09-10T13:55:23.140Z",
+  "username": "testuser",
+  "email": "test@example.com"
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "data and hash arguments required"
+}
+  GET    http://localhost:3001/api/auth/me
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "User not found"
+}
+  PUT    http://localhost:3001/api/auth/profile
+    Γñ╖ Request body: {
+  "id": "test-id-1757512523391",
+  "createdAt": "2025-09-10T13:55:23.391Z",
+  "updatedAt": "2025-09-10T13:55:23.391Z",
+  "username": "testuser",
+  "email": "test@example.com"
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "syntax error at or near \"2\""
+}
+  POST   http://localhost:3001/api/auth/change-password
+    Γñ╖ Request body: {
+  "id": "test-id-1757512523516",
+  "createdAt": "2025-09-10T13:55:23.516Z",
+  "updatedAt": "2025-09-10T13:55:23.516Z",
+  "username": "testuser",
+  "email": "test@example.com"
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "User not found"
+}
+  POST   http://localhost:3001/api/auth/verify-token
+    Γñ╖ Request body: {
+  "id": "test-id-1757512523641",
+  "createdAt": "2025-09-10T13:55:23.641Z",
+  "updatedAt": "2025-09-10T13:55:23.641Z",
+  "username": "testuser",
+  "email": "test@example.com"
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "Invalid token"
+}
+  POST   http://localhost:3001/api/auth/forgot-password
+    Γñ╖ Request body: {
+  "id": "test-id-1757512523752",
+  "createdAt": "2025-09-10T13:55:23.752Z",
+  "updatedAt": "2025-09-10T13:55:23.752Z",
+  "username": "testuser",
+  "email": "test@example.com"
+}
+    Γ£à 200 OK
+  POST   http://localhost:3001/api/auth/reset-password
+    Γñ╖ Request body: {
+  "id": "test-id-1757512523877",
+  "createdAt": "2025-09-10T13:55:23.877Z",
+  "updatedAt": "2025-09-10T13:55:23.877Z",
+  "username": "testuser",
+  "email": "test@example.com"
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "Password reset functionality requires email service integration"
+}
+  POST   http://localhost:3001/api/auth/logout
+    Γñ╖ Request body: {
+  "id": "test-id-1757512523988",
+  "createdAt": "2025-09-10T13:55:23.988Z",
+  "updatedAt": "2025-09-10T13:55:23.988Z",
+  "username": "testuser",
+  "email": "test@example.com"
+}
+    Γ£à 200 OK
+  POST   http://localhost:3001/api/auth/check-email
+    Γñ╖ Request body: {
+  "id": "test-id-1757512524100",
+  "createdAt": "2025-09-10T13:55:24.100Z",
+  "updatedAt": "2025-09-10T13:55:24.100Z",
+  "username": "testuser",
+  "email": "test@example.com"
+}
+    Γ£à 200 OK
+  POST   http://localhost:3001/api/auth/check-username
+    Γñ╖ Request body: {
+  "id": "test-id-1757512524224",
+  "createdAt": "2025-09-10T13:55:24.224Z",
+  "updatedAt": "2025-09-10T13:55:24.224Z",
+  "username": "testuser",
+  "email": "test@example.com"
+}
+    Γ£à 200 OK
+  DELETE http://localhost:3001/api/auth/delete-account
+    Γ£à 200 OK
+  GET    http://localhost:3001/api/auth/health
+    Γ£à 200 OK
+
+≡ƒöì Testing sessions endpoints:
+  POST   http://localhost:3001/api/sessions/create
+    Γñ╖ Request body: {
+  "id": "test-id-1757512524601",
+  "createdAt": "2025-09-10T13:55:24.601Z",
+  "updatedAt": "2025-09-10T13:55:24.601Z",
+  "refresh_token": "rt-makdaysluj",
+  "refreshToken": "rt-makdaysluj",
+  "expires_at": "2025-09-11T13:55:24.601Z",
+  "expiresAt": "2025-09-11T13:55:24.601Z"
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "null value in column \"refresh_token\" of relation \"user_sessions\" violates not-null constraint"
+}
+  GET    http://localhost:3001/api/sessions/validate/:token
+    Γ£à 200 OK
+  DELETE http://localhost:3001/api/sessions/:token
+    Γ£à 200 OK
+
+≡ƒöì Testing achievements endpoints:
+  GET    http://localhost:3001/api/achievements/
+    Γ£à 200 OK
+  GET    http://localhost:3001/api/achievements/user/test-user-123
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "getUserAchievements not implemented"
+}
+  POST   http://localhost:3001/api/achievements/unlock
+    Γñ╖ Request body: {
+  "id": "test-id-1757512525188",
+  "createdAt": "2025-09-10T13:55:25.188Z",
+  "updatedAt": "2025-09-10T13:55:25.188Z",
+  "name": "Test Achievement",
+  "description": "Test item"
+}
+    Γ£à 200 OK
+
+≡ƒöì Testing progress endpoints:
+  GET    http://localhost:3001/api/progress/user/test-user-123
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "getUserProgress not implemented"
+}
+  PUT    http://localhost:3001/api/progress/update
+    Γñ╖ Request body: {
+  "id": "test-id-1757512525425",
+  "createdAt": "2025-09-10T13:55:25.425Z",
+  "updatedAt": "2025-09-10T13:55:25.425Z",
+  "name": "Test Progress",
+  "description": "Test item"
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "Progress not found"
+}
+  GET    http://localhost:3001/api/progress/stats/test-user-123
+    Γ£à 200 OK
+
+≡ƒöì Testing openings endpoints:
+  GET    http://localhost:3001/api/openings/
+    Γ£à 200 OK
+  GET    http://localhost:3001/api/openings/eco/:code
+    Γ£à 200 OK
+  GET    http://localhost:3001/api/openings/search
+    Γ£à 200 OK
+
+≡ƒöì Testing analysis endpoints:
+  POST   http://localhost:3001/api/analysis/position
+    Γñ╖ Request body: {
+  "id": "test-id-1757512526109",
+  "createdAt": "2025-09-10T13:55:26.109Z",
+  "updatedAt": "2025-09-10T13:55:26.109Z",
+  "name": "Test Analysis",
+  "description": "Test item"
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "analyzePosition not implemented"
+}
+  GET    http://localhost:3001/api/analysis/position/rnbqkbnr-pppppppp-8-8-8-8-PPPPPPPP-RNBQKBNR
+    Γ£à 200 OK
+
+≡ƒöì Testing ai-opponents endpoints:
+  GET    http://localhost:3001/api/aiOpponents/
+    Γ£à 200 OK
+  GET    http://localhost:3001/api/aiOpponents/test-id-123
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "Aiopponent not found"
+}
+  GET    http://localhost:3001/api/aiOpponents/difficulty/beginner
+    Γ£à 200 OK
+
+≡ƒöì Testing analytics endpoints:
+  POST   http://localhost:3001/api/analytics/track
+    Γñ╖ Request body: {
+  "id": "test-id-1757512526729",
+  "createdAt": "2025-09-10T13:55:26.729Z",
+  "updatedAt": "2025-09-10T13:55:26.729Z",
+  "name": "Test Analytics",
+  "description": "Test item"
+}
+    Γ£à 200 OK
+  GET    http://localhost:3001/api/analytics/user/test-user-123
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "getUserAnalytics not implemented"
+}
+
+≡ƒöì Testing profiles endpoints:
+  GET    http://localhost:3001/api/profiles/test-user-123
+    Γ£à 200 OK
+  PUT    http://localhost:3001/api/profiles/test-user-123
+    Γñ╖ Request body: {
+  "id": "test-id-1757512527089",
+  "createdAt": "2025-09-10T13:55:27.089Z",
+  "updatedAt": "2025-09-10T13:55:27.089Z",
+  "name": "Test Profile",
+  "description": "Test item"
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "Profile not found"
+}
+
+≡ƒöì Testing endgames endpoints:
+  GET    http://localhost:3001/api/endgames/
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "getAllEndgames not implemented"
+}
+  GET    http://localhost:3001/api/endgames/test-id-123
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "getEndgameById not implemented"
+}
+  GET    http://localhost:3001/api/endgames/category/endgame
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "getEndgamesByCategory not implemented"
+}
+
+≡ƒöì Testing game-reviews endpoints:
+  POST   http://localhost:3001/api/gameReviews/
+    Γñ╖ Request body: {
+  "id": "test-id-1757512527546",
+  "createdAt": "2025-09-10T13:55:27.546Z",
+  "updatedAt": "2025-09-10T13:55:27.546Z",
+  "ai_level": 1,
+  "user_color": "white",
+  "current_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+  "pgn": "",
+  "result": null
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "createReview not implemented"
+}
+  GET    http://localhost:3001/api/gameReviews/game/test-game-123
+    Γ£à 200 OK
+  GET    http://localhost:3001/api/gameReviews/test-id-123
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "getReviewById not implemented"
+}
+
+≡ƒöì Testing historic-games endpoints:
+  GET    http://localhost:3001/api/historicGames/
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "getAllHistoricGames not implemented"
+}
+  GET    http://localhost:3001/api/historicGames/test-id-123
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "Historicgame not found"
+}
+  GET    http://localhost:3001/api/historicGames/search
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "Historicgame not found"
+}
+  GET    http://localhost:3001/api/historicGames/player/kasparov
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "getGamesByPlayer not implemented"
+}
+
+≡ƒöì Testing puzzle-attempts endpoints:
+  POST   http://localhost:3001/api/puzzleAttempts/
+    Γñ╖ Request body: {
+  "id": "test-id-1757512528356",
+  "createdAt": "2025-09-10T13:55:28.356Z",
+  "updatedAt": "2025-09-10T13:55:28.356Z",
+  "puzzle_id": "test-puzzle-123",
+  "moves": "e2e4 e7e5",
+  "correct": true,
+  "time_taken": 30,
+  "rating_change": 5
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "recordAttempt not implemented"
+}
+  GET    http://localhost:3001/api/puzzleAttempts/user/test-user-123
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "getUserAttempts not implemented"
+}
+  GET    http://localhost:3001/api/puzzleAttempts/puzzle/test-puzzle-123
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "getPuzzleAttempts not implemented"
+}
+
+≡ƒöì Testing puzzle-sources endpoints:
+  GET    http://localhost:3001/api/puzzleSources/
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "getAllSources not implemented"
+}
+  GET    http://localhost:3001/api/puzzleSources/test-id-123
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "getSourceById not implemented"
+}
+
+≡ƒöì Testing learning-modules endpoints:
+  GET    http://localhost:3001/api/learningModules/path/test-path-123
+    Γ£à 200 OK
+  GET    http://localhost:3001/api/learningModules/test-id-123
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "Learningmodule not found"
+}
+  POST   http://localhost:3001/api/learningModules/test-id-123/complete
+    Γñ╖ Request body: {
+  "id": "test-id-1757512529151",
+  "createdAt": "2025-09-10T13:55:29.151Z",
+  "updatedAt": "2025-09-10T13:55:29.151Z",
+  "name": "Test LearningModule",
+  "description": "Test item"
+}
+    Γ£à 200 OK
+
+≡ƒöì Testing tutorial-steps endpoints:
+  GET    http://localhost:3001/api/tutorialSteps/tutorial/test-tutorial-123
+    Γ£à 200 OK
+  POST   http://localhost:3001/api/tutorialSteps/test-id-123/complete
+    Γñ╖ Request body: {
+  "id": "test-id-1757512529401",
+  "createdAt": "2025-09-10T13:55:29.401Z",
+  "updatedAt": "2025-09-10T13:55:29.401Z",
+  "name": "Test TutorialStep",
+  "description": "Test item"
+}
+    Γ£à 200 OK
+
+≡ƒöì Testing study-plans endpoints:
+  GET    http://localhost:3001/api/studyPlans/user/test-user-123
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "getUserStudyPlans not implemented"
+}
+  POST   http://localhost:3001/api/studyPlans/
+    Γñ╖ Request body: {
+  "id": "test-id-1757512529636",
+  "createdAt": "2025-09-10T13:55:29.636Z",
+  "updatedAt": "2025-09-10T13:55:29.636Z",
+  "name": "Default Study Plan",
+  "description": "Created by connectivity test",
+  "target_rating": 1500,
+  "estimated_weeks": 4
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "null value in column \"name\" of relation \"user_study_plans\" violates not-null constraint"
+}
+  PUT    http://localhost:3001/api/studyPlans/test-id-123
+    Γñ╖ Request body: {
+  "id": "test-id-1757512529761",
+  "createdAt": "2025-09-10T13:55:29.761Z",
+  "updatedAt": "2025-09-10T13:55:29.761Z",
+  "name": "Default Study Plan",
+  "description": "Created by connectivity test",
+  "target_rating": 1500,
+  "estimated_weeks": 4
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "Studyplan not found"
+}
+
+≡ƒöì Testing help endpoints:
+  GET    http://localhost:3001/api/help/
+    Γ£à 200 OK
+  GET    http://localhost:3001/api/help/category/endgame
+    Γ£à 200 OK
+  GET    http://localhost:3001/api/help/search
+    Γ£à 200 OK
+
+≡ƒöì Testing subscriptions endpoints:
+  GET    http://localhost:3001/api/subscriptions/user/test-user-123
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "getUserSubscription not implemented"
+}
+  POST   http://localhost:3001/api/subscriptions/
+    Γñ╖ Request body: {
+  "id": "test-id-1757512530369",
+  "createdAt": "2025-09-10T13:55:30.369Z",
+  "updatedAt": "2025-09-10T13:55:30.369Z",
+  "tier": "basic",
+  "name": "Test Subscription",
+  "price": 0,
+  "currency": "USD",
+  "is_active": true
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "null value in column \"name\" of relation \"subscriptions\" violates not-null constraint"
+}
+  PUT    http://localhost:3001/api/subscriptions/test-id-123
+    Γñ╖ Request body: {
+  "id": "test-id-1757512530511",
+  "createdAt": "2025-09-10T13:55:30.511Z",
+  "updatedAt": "2025-09-10T13:55:30.511Z",
+  "tier": "basic",
+  "name": "Test Subscription",
+  "price": 0,
+  "currency": "USD",
+  "is_active": true
+}
+    ΓÜá∩╕Å  400 Bad Request
+    Γñ╖ Response: {
+  "success": false,
+  "error": "Subscription not found"
+}
+
+============================================================
+≡ƒôè API CONNECTIVITY TEST RESULTS
+============================================================
+Total Endpoints Tested: 96
+Γ£à Successful: 40 (41.7%)
+Γ¥î Failed: 56 (58.3%)
+
+≡ƒöì ERROR DETAILS:
+1. GET http://localhost:3001/api/users/profile
+   Status: 400 Bad Request
+   Handler: getUserProfile
+   Response: {"success":false,"error":"User not found"}
+2. PUT http://localhost:3001/api/users/profile
+   Status: 400 Bad Request
+   Handler: updateUserProfile
+   Sent Body: {"id":"test-id-1757512518389","createdAt":"2025-09-10T13:55:18.389Z","updatedAt":"2025-09-10T13:55:18.389Z","username":"testuser","email":"test@example.com"}
+   Response: {"success":false,"error":"User not found"}
+3. GET http://localhost:3001/api/users/preferences
+   Status: 400 Bad Request
+   Handler: getUserPreferences
+   Response: {"success":false,"error":"User not found"}
+4. PUT http://localhost:3001/api/users/preferences
+   Status: 400 Bad Request
+   Handler: updateUserPreferences
+   Sent Body: {"id":"test-id-1757512518654","createdAt":"2025-09-10T13:55:18.654Z","updatedAt":"2025-09-10T13:55:18.654Z","username":"testuser","email":"test@example.com"}
+   Response: {"success":false,"error":"User not found"}
+5. GET http://localhost:3001/api/users/settings
+   Status: 400 Bad Request
+   Handler: getUserSettings
+   Response: {"success":false,"error":"User not found"}
+6. PUT http://localhost:3001/api/users/settings
+   Status: 400 Bad Request
+   Handler: updateUserSettings
+   Sent Body: {"id":"test-id-1757512518906","createdAt":"2025-09-10T13:55:18.906Z","updatedAt":"2025-09-10T13:55:18.906Z","username":"testuser","email":"test@example.com"}
+   Response: {"success":false,"error":"User not found"}
+7. POST http://localhost:3001/api/puzzles/test-id-123/solve
+   Status: 400 Bad Request
+   Handler: solvePuzzle
+   Sent Body: {"id":"test-id-1757512519735","createdAt":"2025-09-10T13:55:19.735Z","updatedAt":"2025-09-10T13:55:19.735Z","name":"Test Puzzle","description":"Test item"}
+   Response: {"success":false,"error":"Puzzle not found"}
+8. GET http://localhost:3001/api/puzzles/test-id-123/hint
+   Status: 400 Bad Request
+   Handler: getPuzzleHint
+   Response: {"success":false,"error":"Puzzle not found"}
+9. POST http://localhost:3001/api/puzzles/custom
+   Status: 400 Bad Request
+   Handler: createCustomPuzzle
+   Sent Body: {"id":"test-id-1757512520239","createdAt":"2025-09-10T13:55:20.239Z","updatedAt":"2025-09-10T13:55:20.239Z","name":"Test Puzzle","description":"Test item"}
+   Response: {"success":false,"error":"null value in column \"fen\" of relation \"puzzles\" violates not-null constraint"}
+10. GET http://localhost:3001/api/games/test-id-123
+   Status: 400 Bad Request
+   Handler: getGameById
+   Response: {"success":false,"error":"Game not found"}
+11. PUT http://localhost:3001/api/games/test-id-123
+   Status: 400 Bad Request
+   Handler: updateGame
+   Sent Body: {"id":"test-id-1757512520911","createdAt":"2025-09-10T13:55:20.911Z","updatedAt":"2025-09-10T13:55:20.911Z","ai_level":1,"user_color":"white","current_fen":"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1","pgn":"","result":null}
+   Response: {"success":false,"error":"Game not found"}
+12. POST http://localhost:3001/api/games/test-id-123/analyze
+   Status: 400 Bad Request
+   Handler: analyzeGame
+   Sent Body: {"id":"test-id-1757512521037","createdAt":"2025-09-10T13:55:21.037Z","updatedAt":"2025-09-10T13:55:21.037Z","ai_level":1,"user_color":"white","current_fen":"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1","pgn":"","result":null}
+   Response: {"success":false,"error":"Game not found"}
+13. GET http://localhost:3001/api/games/test-id-123/analysis
+   Status: 400 Bad Request
+   Handler: getGameAnalysis
+   Response: {"success":false,"error":"Game not found"}
+14. GET http://localhost:3001/api/games/reviews
+   Status: 400 Bad Request
+   Handler: getGameReviews
+   Response: {"success":false,"error":"Game not found"}
+15. GET http://localhost:3001/api/stats/games
+   Status: 400 Bad Request
+   Handler: getGameStats
+   Response: {"success":false,"error":"getGameStats not implemented"}
+16. GET http://localhost:3001/api/learningPaths/paths/test-id-123
+   Status: 400 Bad Request
+   Handler: getLearningPathById
+   Response: {"success":false,"error":"Learningpath not found"}
+17. POST http://localhost:3001/api/learningPaths/paths/test-id-123/enroll
+   Status: 400 Bad Request
+   Handler: enrollInPath
+   Sent Body: {"id":"test-id-1757512522393","createdAt":"2025-09-10T13:55:22.393Z","updatedAt":"2025-09-10T13:55:22.393Z","name":"Test LearningPath","description":"Test item"}
+   Response: {"success":false,"error":"column \"user_id\" does not exist"}
+18. PUT http://localhost:3001/api/learningPaths/paths/test-id-123/progress
+   Status: 400 Bad Request
+   Handler: updateProgress
+   Sent Body: {"id":"test-id-1757512522518","createdAt":"2025-09-10T13:55:22.518Z","updatedAt":"2025-09-10T13:55:22.518Z","name":"Test LearningPath","description":"Test item"}
+   Response: {"success":false,"error":"Learningpath not found"}
+19. GET http://localhost:3001/api/tutorials/test-id-123
+   Status: 400 Bad Request
+   Handler: getTutorialById
+   Response: {"success":false,"error":"Tutorial not found"}
+20. POST http://localhost:3001/api/tutorials/test-id-123/complete
+   Status: 400 Bad Request
+   Handler: completeTutorial
+   Sent Body: {"id":"test-id-1757512522892","createdAt":"2025-09-10T13:55:22.892Z","updatedAt":"2025-09-10T13:55:22.892Z","name":"Test Tutorial","description":"Test item"}
+   Response: {"success":false,"error":"Tutorial not found"}
+21. POST http://localhost:3001/api/auth/register
+   Status: 400 Bad Request
+   Handler: register
+   Sent Body: {"id":"test-id-1757512523017","createdAt":"2025-09-10T13:55:23.017Z","updatedAt":"2025-09-10T13:55:23.017Z","username":"testuser","email":"test@example.com"}
+   Response: {"success":false,"error":"User with this email or username already exists"}
+22. POST http://localhost:3001/api/auth/login
+   Status: 400 Bad Request
+   Handler: login
+   Sent Body: {"id":"test-id-1757512523140","createdAt":"2025-09-10T13:55:23.140Z","updatedAt":"2025-09-10T13:55:23.140Z","username":"testuser","email":"test@example.com"}
+   Response: {"success":false,"error":"data and hash arguments required"}
+23. GET http://localhost:3001/api/auth/me
+   Status: 400 Bad Request
+   Handler: getCurrentUser
+   Response: {"success":false,"error":"User not found"}
+24. PUT http://localhost:3001/api/auth/profile
+   Status: 400 Bad Request
+   Handler: updateProfile
+   Sent Body: {"id":"test-id-1757512523391","createdAt":"2025-09-10T13:55:23.391Z","updatedAt":"2025-09-10T13:55:23.391Z","username":"testuser","email":"test@example.com"}
+   Response: {"success":false,"error":"syntax error at or near \"2\""}
+25. POST http://localhost:3001/api/auth/change-password
+   Status: 400 Bad Request
+   Handler: changePassword
+   Sent Body: {"id":"test-id-1757512523516","createdAt":"2025-09-10T13:55:23.516Z","updatedAt":"2025-09-10T13:55:23.516Z","username":"testuser","email":"test@example.com"}
+   Response: {"success":false,"error":"User not found"}
+26. POST http://localhost:3001/api/auth/verify-token
+   Status: 400 Bad Request
+   Handler: verifyToken
+   Sent Body: {"id":"test-id-1757512523641","createdAt":"2025-09-10T13:55:23.641Z","updatedAt":"2025-09-10T13:55:23.641Z","username":"testuser","email":"test@example.com"}
+   Response: {"success":false,"error":"Invalid token"}
+27. POST http://localhost:3001/api/auth/reset-password
+   Status: 400 Bad Request
+   Handler: resetPassword
+   Sent Body: {"id":"test-id-1757512523877","createdAt":"2025-09-10T13:55:23.877Z","updatedAt":"2025-09-10T13:55:23.877Z","username":"testuser","email":"test@example.com"}
+   Response: {"success":false,"error":"Password reset functionality requires email service integration"}
+28. POST http://localhost:3001/api/sessions/create
+   Status: 400 Bad Request
+   Handler: createSession
+   Sent Body: {"id":"test-id-1757512524601","createdAt":"2025-09-10T13:55:24.601Z","updatedAt":"2025-09-10T13:55:24.601Z","refresh_token":"rt-makdaysluj","refreshToken":"rt-makdaysluj","expires_at":"2025-09-11T13:55:24.601Z","expiresAt":"2025-09-11T13:55:24.601Z"}
+   Response: {"success":false,"error":"null value in column \"refresh_token\" of relation \"user_sessions\" violates not-null constraint"}
+29. GET http://localhost:3001/api/achievements/user/test-user-123
+   Status: 400 Bad Request
+   Handler: getUserAchievements
+   Response: {"success":false,"error":"getUserAchievements not implemented"}
+30. GET http://localhost:3001/api/progress/user/test-user-123
+   Status: 400 Bad Request
+   Handler: getUserProgress
+   Response: {"success":false,"error":"getUserProgress not implemented"}
+31. PUT http://localhost:3001/api/progress/update
+   Status: 400 Bad Request
+   Handler: updateProgress
+   Sent Body: {"id":"test-id-1757512525425","createdAt":"2025-09-10T13:55:25.425Z","updatedAt":"2025-09-10T13:55:25.425Z","name":"Test Progress","description":"Test item"}
+   Response: {"success":false,"error":"Progress not found"}
+32. POST http://localhost:3001/api/analysis/position
+   Status: 400 Bad Request
+   Handler: analyzePosition
+   Sent Body: {"id":"test-id-1757512526109","createdAt":"2025-09-10T13:55:26.109Z","updatedAt":"2025-09-10T13:55:26.109Z","name":"Test Analysis","description":"Test item"}
+   Response: {"success":false,"error":"analyzePosition not implemented"}
+33. GET http://localhost:3001/api/aiOpponents/test-id-123
+   Status: 400 Bad Request
+   Handler: getOpponentById
+   Response: {"success":false,"error":"Aiopponent not found"}
+34. GET http://localhost:3001/api/analytics/user/test-user-123
+   Status: 400 Bad Request
+   Handler: getUserAnalytics
+   Response: {"success":false,"error":"getUserAnalytics not implemented"}
+35. PUT http://localhost:3001/api/profiles/test-user-123
+   Status: 400 Bad Request
+   Handler: updateProfile
+   Sent Body: {"id":"test-id-1757512527089","createdAt":"2025-09-10T13:55:27.089Z","updatedAt":"2025-09-10T13:55:27.089Z","name":"Test Profile","description":"Test item"}
+   Response: {"success":false,"error":"Profile not found"}
+36. GET http://localhost:3001/api/endgames/
+   Status: 400 Bad Request
+   Handler: getAllEndgames
+   Response: {"success":false,"error":"getAllEndgames not implemented"}
+37. GET http://localhost:3001/api/endgames/test-id-123
+   Status: 400 Bad Request
+   Handler: getEndgameById
+   Response: {"success":false,"error":"getEndgameById not implemented"}
+38. GET http://localhost:3001/api/endgames/category/endgame
+   Status: 400 Bad Request
+   Handler: getEndgamesByCategory
+   Response: {"success":false,"error":"getEndgamesByCategory not implemented"}
+39. POST http://localhost:3001/api/gameReviews/
+   Status: 400 Bad Request
+   Handler: createReview
+   Sent Body: {"id":"test-id-1757512527546","createdAt":"2025-09-10T13:55:27.546Z","updatedAt":"2025-09-10T13:55:27.546Z","ai_level":1,"user_color":"white","current_fen":"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1","pgn":"","result":null}
+   Response: {"success":false,"error":"createReview not implemented"}
+40. GET http://localhost:3001/api/gameReviews/test-id-123
+   Status: 400 Bad Request
+   Handler: getReviewById
+   Response: {"success":false,"error":"getReviewById not implemented"}
+41. GET http://localhost:3001/api/historicGames/
+   Status: 400 Bad Request
+   Handler: getAllHistoricGames
+   Response: {"success":false,"error":"getAllHistoricGames not implemented"}
+42. GET http://localhost:3001/api/historicGames/test-id-123
+   Status: 400 Bad Request
+   Handler: getGameById
+   Response: {"success":false,"error":"Historicgame not found"}
+43. GET http://localhost:3001/api/historicGames/search
+   Status: 400 Bad Request
+   Handler: searchGames
+   Response: {"success":false,"error":"Historicgame not found"}
+44. GET http://localhost:3001/api/historicGames/player/kasparov
+   Status: 400 Bad Request
+   Handler: getGamesByPlayer
+   Response: {"success":false,"error":"getGamesByPlayer not implemented"}
+45. POST http://localhost:3001/api/puzzleAttempts/
+   Status: 400 Bad Request
+   Handler: recordAttempt
+   Sent Body: {"id":"test-id-1757512528356","createdAt":"2025-09-10T13:55:28.356Z","updatedAt":"2025-09-10T13:55:28.356Z","puzzle_id":"test-puzzle-123","moves":"e2e4 e7e5","correct":true,"time_taken":30,"rating_change":5}
+   Response: {"success":false,"error":"recordAttempt not implemented"}
+46. GET http://localhost:3001/api/puzzleAttempts/user/test-user-123
+   Status: 400 Bad Request
+   Handler: getUserAttempts
+   Response: {"success":false,"error":"getUserAttempts not implemented"}
+47. GET http://localhost:3001/api/puzzleAttempts/puzzle/test-puzzle-123
+   Status: 400 Bad Request
+   Handler: getPuzzleAttempts
+   Response: {"success":false,"error":"getPuzzleAttempts not implemented"}
+48. GET http://localhost:3001/api/puzzleSources/
+   Status: 400 Bad Request
+   Handler: getAllSources
+   Response: {"success":false,"error":"getAllSources not implemented"}
+49. GET http://localhost:3001/api/puzzleSources/test-id-123
+   Status: 400 Bad Request
+   Handler: getSourceById
+   Response: {"success":false,"error":"getSourceById not implemented"}
+50. GET http://localhost:3001/api/learningModules/test-id-123
+   Status: 400 Bad Request
+   Handler: getModuleById
+   Response: {"success":false,"error":"Learningmodule not found"}
+51. GET http://localhost:3001/api/studyPlans/user/test-user-123
+   Status: 400 Bad Request
+   Handler: getUserStudyPlans
+   Response: {"success":false,"error":"getUserStudyPlans not implemented"}
+52. POST http://localhost:3001/api/studyPlans/
+   Status: 400 Bad Request
+   Handler: createStudyPlan
+   Sent Body: {"id":"test-id-1757512529636","createdAt":"2025-09-10T13:55:29.636Z","updatedAt":"2025-09-10T13:55:29.636Z","name":"Default Study Plan","description":"Created by connectivity test","target_rating":1500,"estimated_weeks":4}
+   Response: {"success":false,"error":"null value in column \"name\" of relation \"user_study_plans\" violates not-null constraint"}
+53. PUT http://localhost:3001/api/studyPlans/test-id-123
+   Status: 400 Bad Request
+   Handler: updatePlan
+   Sent Body: {"id":"test-id-1757512529761","createdAt":"2025-09-10T13:55:29.761Z","updatedAt":"2025-09-10T13:55:29.761Z","name":"Default Study Plan","description":"Created by connectivity test","target_rating":1500,"estimated_weeks":4}
+   Response: {"success":false,"error":"Studyplan not found"}
+54. GET http://localhost:3001/api/subscriptions/user/test-user-123
+   Status: 400 Bad Request
+   Handler: getUserSubscription
+   Response: {"success":false,"error":"getUserSubscription not implemented"}
+55. POST http://localhost:3001/api/subscriptions/
+   Status: 400 Bad Request
+   Handler: createSubscription
+   Sent Body: {"id":"test-id-1757512530369","createdAt":"2025-09-10T13:55:30.369Z","updatedAt":"2025-09-10T13:55:30.369Z","tier":"basic","name":"Test Subscription","price":0,"currency":"USD","is_active":true}
+   Response: {"success":false,"error":"null value in column \"name\" of relation \"subscriptions\" violates not-null constraint"}
+56. PUT http://localhost:3001/api/subscriptions/test-id-123
+   Status: 400 Bad Request
+   Handler: updateSubscription
+   Sent Body: {"id":"test-id-1757512530511","createdAt":"2025-09-10T13:55:30.511Z","updatedAt":"2025-09-10T13:55:30.511Z","tier":"basic","name":"Test Subscription","price":0,"currency":"USD","is_active":true}
+   Response: {"success":false,"error":"Subscription not found"}
+
+≡ƒîÉ Testing Frontend Access:
+  Γ¥î Frontend not accessible: 404 Not Found
+
+≡ƒÄ» Overall Success Rate: 41.7%
+ΓÜá∩╕Å  Issues detected. Review the errors above.

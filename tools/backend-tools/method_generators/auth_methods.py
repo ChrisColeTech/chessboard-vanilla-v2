@@ -73,7 +73,7 @@ class AuthMethodGenerator(BaseMethodGenerator):
     const jwt = require('jsonwebtoken');
     const token = jwt.sign(
       {{ 
-        userId: user.id, 
+        id: user.id, 
         email: user.email,
         username: user.username 
       }},
@@ -137,23 +137,23 @@ class AuthMethodGenerator(BaseMethodGenerator):
     let paramCount = 1;
 
     if (username !== undefined) {{
-      updates.push(`username = $$${{paramCount++}}`);
+      updates.push(`username = $${{paramCount++}}`);
       values.push(username);
     }}
     if (email !== undefined) {{
-      updates.push(`email = $$${{paramCount++}}`);
+      updates.push(`email = $${{paramCount++}}`);
       values.push(email);
     }}
     if (chess_elo !== undefined) {{
-      updates.push(`chess_elo = $$${{paramCount++}}`);
+      updates.push(`chess_elo = $${{paramCount++}}`);
       values.push(chess_elo);
     }}
     if (puzzle_rating !== undefined) {{
-      updates.push(`puzzle_rating = $$${{paramCount++}}`);
+      updates.push(`puzzle_rating = $${{paramCount++}}`);
       values.push(puzzle_rating);
     }}
     if (preferences !== undefined) {{
-      updates.push(`preferences = $$${{paramCount++}}`);
+      updates.push(`preferences = $${{paramCount++}}`);
       values.push(typeof preferences === 'string' ? preferences : JSON.stringify(preferences));
     }}
 
@@ -167,7 +167,7 @@ class AuthMethodGenerator(BaseMethodGenerator):
     const query = `
       UPDATE {table_name} 
       SET ${{updates.join(', ')}}
-      WHERE id = $$${{paramCount}}
+      WHERE id = $${{paramCount}}
       RETURNING *
     `;
 
@@ -323,4 +323,4 @@ class AuthMethodGenerator(BaseMethodGenerator):
   }}'''
         
         else:
-            return self._create_stub_method(method_name)
+            return self._create_stub_method(method_name, table_name, entity_upper)

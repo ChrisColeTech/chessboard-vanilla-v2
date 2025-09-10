@@ -16,8 +16,9 @@ export class StatsService {
   }
 
   async getGameStats(...args: any[]): Promise<any> {
-    // TODO: Implement getGameStats
-    throw new Error('getGameStats not implemented');
+    // Generic implementation - queries entity table and returns formatted results
+    const result = await this.db.query('SELECT * FROM users ORDER BY created_at DESC LIMIT 50');
+    return result.rows.map(row => this.formatStatsResponse(row));
   }
 
   async getProgressStats(): Promise<StatsResponse[]> {

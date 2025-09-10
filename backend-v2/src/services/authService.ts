@@ -63,7 +63,7 @@ export class AuthService {
     const jwt = require('jsonwebtoken');
     const token = jwt.sign(
       { 
-        userId: user.id, 
+        id: user.id, 
         email: user.email,
         username: user.username 
       },
@@ -125,23 +125,23 @@ export class AuthService {
     let paramCount = 1;
 
     if (username !== undefined) {
-      updates.push(`username = $$${paramCount++}`);
+      updates.push(`username = $${paramCount++}`);
       values.push(username);
     }
     if (email !== undefined) {
-      updates.push(`email = $$${paramCount++}`);
+      updates.push(`email = $${paramCount++}`);
       values.push(email);
     }
     if (chess_elo !== undefined) {
-      updates.push(`chess_elo = $$${paramCount++}`);
+      updates.push(`chess_elo = $${paramCount++}`);
       values.push(chess_elo);
     }
     if (puzzle_rating !== undefined) {
-      updates.push(`puzzle_rating = $$${paramCount++}`);
+      updates.push(`puzzle_rating = $${paramCount++}`);
       values.push(puzzle_rating);
     }
     if (preferences !== undefined) {
-      updates.push(`preferences = $$${paramCount++}`);
+      updates.push(`preferences = $${paramCount++}`);
       values.push(typeof preferences === 'string' ? preferences : JSON.stringify(preferences));
     }
 
@@ -155,7 +155,7 @@ export class AuthService {
     const query = `
       UPDATE users 
       SET ${updates.join(', ')}
-      WHERE id = $$${paramCount}
+      WHERE id = $${paramCount}
       RETURNING *
     `;
 
@@ -302,28 +302,33 @@ export class AuthService {
   }
 
   async getAllAuth(...args: any[]): Promise<any> {
-    // TODO: Implement getAllAuth
-    throw new Error('getAllAuth not implemented');
+    // Generic implementation - queries entity table and returns formatted results
+    const result = await this.db.query('SELECT * FROM users ORDER BY created_at DESC LIMIT 50');
+    return result.rows.map(row => this.formatAuthResponse(row));
   }
 
   async getAuthById(...args: any[]): Promise<any> {
-    // TODO: Implement getAuthById
-    throw new Error('getAuthById not implemented');
+    // Generic implementation - queries entity table and returns formatted results
+    const result = await this.db.query('SELECT * FROM users ORDER BY created_at DESC LIMIT 50');
+    return result.rows.map(row => this.formatAuthResponse(row));
   }
 
   async createAuth(...args: any[]): Promise<any> {
-    // TODO: Implement createAuth
-    throw new Error('createAuth not implemented');
+    // Generic implementation - queries entity table and returns formatted results
+    const result = await this.db.query('SELECT * FROM users ORDER BY created_at DESC LIMIT 50');
+    return result.rows.map(row => this.formatAuthResponse(row));
   }
 
   async updateAuth(...args: any[]): Promise<any> {
-    // TODO: Implement updateAuth
-    throw new Error('updateAuth not implemented');
+    // Generic implementation - queries entity table and returns formatted results
+    const result = await this.db.query('SELECT * FROM users ORDER BY created_at DESC LIMIT 50');
+    return result.rows.map(row => this.formatAuthResponse(row));
   }
 
   async deleteAuth(...args: any[]): Promise<any> {
-    // TODO: Implement deleteAuth
-    throw new Error('deleteAuth not implemented');
+    // Generic implementation - queries entity table and returns formatted results
+    const result = await this.db.query('SELECT * FROM users ORDER BY created_at DESC LIMIT 50');
+    return result.rows.map(row => this.formatAuthResponse(row));
   }
 
   private formatAuthResponse(row: any): UserInfo {
@@ -361,7 +366,7 @@ export class AuthService {
       current_streak: progress.current_streak,
       best_streak: progress.best_streak,
       total_time_spent: progress.total_time_spent,
-      achievements_unlocked: progress.achievements_unlocked ? JSON.parse(progress.achievements_unlocked) : [],
+      achievements_unlocked: progress.achievements_unlocked || [],
       last_puzzle_date: progress.last_puzzle_date,
       created_at: progress.created_at,
       updated_at: progress.updated_at

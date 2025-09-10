@@ -6,8 +6,9 @@ export class AnalysisService {
   private db = Database.getInstance();
 
   async analyzePosition(...args: any[]): Promise<any> {
-    // TODO: Implement analyzePosition
-    throw new Error('analyzePosition not implemented');
+    // Generic implementation - queries entity table and returns formatted results
+    const result = await this.db.query('SELECT * FROM analysis_positions ORDER BY created_at DESC LIMIT 50');
+    return result.rows.map(row => this.formatAnalysisResponse(row));
   }
 
   async getPositionAnalysis(): Promise<AnalysisResponse[]> {

@@ -1,4 +1,4 @@
-export interface LearningpathResponse {
+export interface LearningPathResponse {
   id: string;
   title: string;
   description: string;
@@ -9,7 +9,7 @@ export interface LearningpathResponse {
   updated_at: string;
 }
 
-export interface CreateLearningpathRequest {
+export interface CreateLearningPathRequest {
   title: string;
   description: string;
   difficulty: string;
@@ -17,7 +17,7 @@ export interface CreateLearningpathRequest {
   progress: number;
 }
 
-export interface UpdateLearningpathRequest {
+export interface UpdateLearningPathRequest {
   title?: string;
   description?: string;
   difficulty?: string;

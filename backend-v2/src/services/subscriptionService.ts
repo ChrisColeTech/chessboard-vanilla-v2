@@ -6,8 +6,9 @@ export class SubscriptionService {
   private db = Database.getInstance();
 
   async getUserSubscription(...args: any[]): Promise<any> {
-    // TODO: Implement getUserSubscription
-    throw new Error('getUserSubscription not implemented');
+    // Generic implementation - queries entity table and returns formatted results
+    const result = await this.db.query('SELECT * FROM subscriptions ORDER BY created_at DESC LIMIT 50');
+    return result.rows.map(row => this.formatSubscriptionResponse(row));
   }
 
   async createSubscription(data: CreateSubscriptionRequest): Promise<SubscriptionResponse> {

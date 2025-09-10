@@ -4,10 +4,6 @@
   "description": "Professional full-stack chess puzzle platform with TypeScript, PostgreSQL, and React - 32,000+ puzzles for skill development",
   "main": "electron/main.js",
   "type": "commonjs",
-  "engines": {
-    "node": "18.x",
-    "npm": "9.x"
-  },
   "scripts": {
     "build": "npm run build:frontend && npm run build:backend",
     "build:frontend": "cd frontend-v2 && npm install && npm run build",
@@ -21,8 +17,13 @@
     "build:electron": "npm run build:frontend && electron-builder",
     "start:electron": "electron .",
     "test": "npm run test:backend && npm run test:frontend",
+    "test:api": "node tools/test-api-connectivity-v3.js > api_test_output.txt 2>&1",
     "test:backend": "cd backend-v2 && npm test",
     "test:frontend": "cd frontend-v2 && npm test",
+    "backend:generator": "python3 tools/backend-tools/backend_generator_v2.py --config tools/backend_config.json --backend-path backend-v2 --all > backend_generator_output.txt 2>&1",
+    "frontend:generator": "python3 tools/frontend_generator_v4.py --frontend-path frontend-v2",
+    "payload:generator": "cd tools/backend-tools/payload-generator && python3 payload_generator.py",
+    "missing:columns": "python3 tools/backend-tools/missing-columns/missing-columns.py --backend-path backend-v2",
     "postinstall": "cd backend-v2 && npm install && cd ../frontend && npm install"
   },
   "keywords": [

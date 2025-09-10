@@ -62,7 +62,7 @@ app.use('/api/users', UsersRouter);
 app.use('/api/puzzles', PuzzlesRouter);
 app.use('/api/games', GamesRouter);
 app.use('/api/stats', StatsRouter);
-app.use('/api/learningPaths', LearningRouter);
+app.use('/api/learning', LearningRouter);
 app.use('/api/tutorials', TutorialsRouter);
 app.use('/api/auth', AuthRouter);
 app.use('/api/sessions', SessionsRouter);

@@ -1,0 +1,1164 @@
+{
+  "users": [
+    {
+      "entity": "users",
+      "method": "GET",
+      "path": "/profile",
+      "handler": "getUserProfile",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "users",
+      "method": "PUT",
+      "path": "/profile",
+      "handler": "updateUserProfile",
+      "auth_required": true,
+      "payload": {
+        "chess_elo": 1600,
+        "puzzle_rating": 1550
+      },
+      "url_params": {}
+    },
+    {
+      "entity": "users",
+      "method": "GET",
+      "path": "/preferences",
+      "handler": "getUserPreferences",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "users",
+      "method": "PUT",
+      "path": "/preferences",
+      "handler": "updateUserPreferences",
+      "auth_required": true,
+      "payload": {
+        "preferences": {
+          "theme": "dark",
+          "sound_enabled": true,
+          "auto_promotion": false
+        }
+      },
+      "url_params": {}
+    },
+    {
+      "entity": "users",
+      "method": "GET",
+      "path": "/settings",
+      "handler": "getUserSettings",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "users",
+      "method": "PUT",
+      "path": "/settings",
+      "handler": "updateUserSettings",
+      "auth_required": true,
+      "payload": {
+        "chess_elo": 1500,
+        "puzzle_rating": 1500
+      },
+      "url_params": {}
+    }
+  ],
+  "puzzles": [
+    {
+      "entity": "puzzles",
+      "method": "GET",
+      "path": "/next",
+      "handler": "getNextPuzzle",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "puzzles",
+      "method": "POST",
+      "path": "/:id/solve",
+      "handler": "solvePuzzle",
+      "auth_required": true,
+      "payload": {
+        "moves": "e2e4",
+        "time_taken": 30
+      },
+      "url_params": {
+        "id": "259923b5-1bd0-4fc9-b784-58b54777d90a"
+      }
+    },
+    {
+      "entity": "puzzles",
+      "method": "GET",
+      "path": "/:id/hint",
+      "handler": "getPuzzleHint",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "id": "259923b5-1bd0-4fc9-b784-58b54777d90a"
+      }
+    },
+    {
+      "entity": "puzzles",
+      "method": "GET",
+      "path": "/categories",
+      "handler": "getPuzzleCategories",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "puzzles",
+      "method": "GET",
+      "path": "/history",
+      "handler": "getPuzzleHistory",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "puzzles",
+      "method": "POST",
+      "path": "/custom",
+      "handler": "createCustomPuzzle",
+      "auth_required": true,
+      "payload": {
+        "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "solution_moves": "e2e4 e7e5",
+        "themes": "checkmate",
+        "rating": 1200,
+        "description": "Test custom puzzle"
+      },
+      "url_params": {}
+    },
+    {
+      "entity": "puzzles",
+      "method": "GET",
+      "path": "/custom",
+      "handler": "getCustomPuzzles",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    }
+  ],
+  "games": [
+    {
+      "entity": "games",
+      "method": "GET",
+      "path": "/",
+      "handler": "getGames",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "games",
+      "method": "GET",
+      "path": "/:id",
+      "handler": "getGameById",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "id": "0da4d1e4-b3ec-428f-8578-4304ac5472c9"
+      }
+    },
+    {
+      "entity": "games",
+      "method": "POST",
+      "path": "/",
+      "handler": "createGame",
+      "auth_required": true,
+      "payload": {
+        "ai_level": 1,
+        "user_color": "white",
+        "time_control": "blitz"
+      },
+      "url_params": {}
+    },
+    {
+      "entity": "games",
+      "method": "PUT",
+      "path": "/:id",
+      "handler": "updateGame",
+      "auth_required": true,
+      "payload": {
+        "user_id": "test-user_id-20250910141423",
+        "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+        "id": "test-id-20250910141423",
+        "ai_level": 1,
+        "user_color": "white",
+        "current_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "pgn": "1. e4 e5 2. Nf3 Nc6",
+        "status": "test_status",
+        "result": "test_result",
+        "time_control": "test_time_control",
+        "started_at": "test_started_at",
+        "completed_at": "test_completed_at"
+      },
+      "url_params": {
+        "id": "0da4d1e4-b3ec-428f-8578-4304ac5472c9"
+      }
+    },
+    {
+      "entity": "games",
+      "method": "POST",
+      "path": "/:id/analyze",
+      "handler": "analyzeGame",
+      "auth_required": true,
+      "payload": {
+        "depth": 15
+      },
+      "url_params": {
+        "id": "0da4d1e4-b3ec-428f-8578-4304ac5472c9"
+      }
+    },
+    {
+      "entity": "games",
+      "method": "GET",
+      "path": "/:id/analysis",
+      "handler": "getGameAnalysis",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "id": "0da4d1e4-b3ec-428f-8578-4304ac5472c9"
+      }
+    }
+  ],
+  "stats": [
+    {
+      "entity": "stats",
+      "method": "GET",
+      "path": "/overview",
+      "handler": "getOverviewStats",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "stats",
+      "method": "GET",
+      "path": "/puzzles",
+      "handler": "getPuzzleStats",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "stats",
+      "method": "GET",
+      "path": "/games",
+      "handler": "getGameStats",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "stats",
+      "method": "GET",
+      "path": "/progress",
+      "handler": "getProgressStats",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "stats",
+      "method": "GET",
+      "path": "/performance",
+      "handler": "getPerformanceStats",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "stats",
+      "method": "GET",
+      "path": "/ratings",
+      "handler": "getRatingStats",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    }
+  ],
+  "learning": [
+    {
+      "entity": "learning",
+      "method": "GET",
+      "path": "/paths",
+      "handler": "getLearningPaths",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "learning",
+      "method": "GET",
+      "path": "/paths/:id",
+      "handler": "getLearningPathById",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "id": "nu2i5slg3mewklnfk"
+      }
+    },
+    {
+      "entity": "learning",
+      "method": "POST",
+      "path": "/paths/:id/enroll",
+      "handler": "enrollInPath",
+      "auth_required": true,
+      "payload": {
+        "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1"
+      },
+      "url_params": {
+        "id": "nu2i5slg3mewklnfk"
+      }
+    },
+    {
+      "entity": "learning",
+      "method": "PUT",
+      "path": "/paths/:id/progress",
+      "handler": "updateProgress",
+      "auth_required": true,
+      "payload": {
+        "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+        "progress": 0.75
+      },
+      "url_params": {
+        "id": "nu2i5slg3mewklnfk"
+      }
+    }
+  ],
+  "tutorials": [
+    {
+      "entity": "tutorials",
+      "method": "GET",
+      "path": "/",
+      "handler": "getTutorials",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "tutorials",
+      "method": "GET",
+      "path": "/:id",
+      "handler": "getTutorialById",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "id": "79o1sdbtomewklmbb"
+      }
+    },
+    {
+      "entity": "tutorials",
+      "method": "POST",
+      "path": "/:id/complete",
+      "handler": "completeTutorial",
+      "auth_required": true,
+      "payload": {
+        "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+        "completion_time": 300
+      },
+      "url_params": {
+        "id": "79o1sdbtomewklmbb"
+      }
+    }
+  ],
+  "auth": [
+    {
+      "entity": "auth",
+      "method": "POST",
+      "path": "/register",
+      "handler": "register",
+      "auth_required": false,
+      "payload": {
+        "username": "testuser_141423_vm8jyz",
+        "email": "testuser_141423_vm8jyz@example.com",
+        "password": "password123"
+      },
+      "url_params": {}
+    },
+    {
+      "entity": "auth",
+      "method": "POST",
+      "path": "/login",
+      "handler": "login",
+      "auth_required": false,
+      "payload": {
+        "email": "testuser_141423_95mahy@example.com",
+        "password": "password123"
+      },
+      "url_params": {}
+    },
+    {
+      "entity": "auth",
+      "method": "GET",
+      "path": "/me",
+      "handler": "getCurrentUser",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "auth",
+      "method": "PUT",
+      "path": "/profile",
+      "handler": "updateProfile",
+      "auth_required": true,
+      "payload": {
+        "chess_elo": 1600,
+        "puzzle_rating": 1550
+      },
+      "url_params": {}
+    },
+    {
+      "entity": "auth",
+      "method": "POST",
+      "path": "/change-password",
+      "handler": "changePassword",
+      "auth_required": true,
+      "payload": {
+        "current_password": "password123",
+        "new_password": "newpassword123"
+      },
+      "url_params": {}
+    },
+    {
+      "entity": "auth",
+      "method": "POST",
+      "path": "/verify-token",
+      "handler": "verifyToken",
+      "auth_required": false,
+      "payload": {
+        "username": "testuser_141423_p3z7nx",
+        "email": "testuser_141423_p3z7nx@example.com",
+        "password_hash": "password123",
+        "chess_elo": 1500,
+        "puzzle_rating": 1500,
+        "preferences": "test_preferences"
+      },
+      "url_params": {}
+    },
+    {
+      "entity": "auth",
+      "method": "POST",
+      "path": "/forgot-password",
+      "handler": "forgotPassword",
+      "auth_required": false,
+      "payload": {
+        "email": "testuser_141423_c931w6@example.com"
+      },
+      "url_params": {}
+    },
+    {
+      "entity": "auth",
+      "method": "POST",
+      "path": "/reset-password",
+      "handler": "resetPassword",
+      "auth_required": false,
+      "payload": {
+        "token": "reset-token-123",
+        "new_password": "newpassword123"
+      },
+      "url_params": {}
+    },
+    {
+      "entity": "auth",
+      "method": "POST",
+      "path": "/logout",
+      "handler": "logout",
+      "auth_required": false,
+      "payload": {
+        "username": "testuser_141423_ytv4m2",
+        "email": "testuser_141423_ytv4m2@example.com",
+        "password_hash": "password123",
+        "chess_elo": 1500,
+        "puzzle_rating": 1500,
+        "preferences": "test_preferences"
+      },
+      "url_params": {}
+    },
+    {
+      "entity": "auth",
+      "method": "POST",
+      "path": "/check-email",
+      "handler": "checkEmailAvailability",
+      "auth_required": false,
+      "payload": {
+        "email": "testuser_141423_bv2adb@example.com"
+      },
+      "url_params": {}
+    },
+    {
+      "entity": "auth",
+      "method": "POST",
+      "path": "/check-username",
+      "handler": "checkUsernameAvailability",
+      "auth_required": false,
+      "payload": {
+        "username": "testuser_141423_ylxatd"
+      },
+      "url_params": {}
+    },
+    {
+      "entity": "auth",
+      "method": "DELETE",
+      "path": "/delete-account",
+      "handler": "deleteAccount",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "auth",
+      "method": "GET",
+      "path": "/health",
+      "handler": "healthCheck",
+      "auth_required": false,
+      "payload": null,
+      "url_params": {}
+    }
+  ],
+  "sessions": [
+    {
+      "entity": "sessions",
+      "method": "POST",
+      "path": "/create",
+      "handler": "createSession",
+      "auth_required": true,
+      "payload": {
+        "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+        "expires_at": "2025-09-11T14:14:23.582277"
+      },
+      "url_params": {}
+    },
+    {
+      "entity": "sessions",
+      "method": "GET",
+      "path": "/validate/:token",
+      "handler": "validateSession",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "token": "test-session-token"
+      }
+    },
+    {
+      "entity": "sessions",
+      "method": "DELETE",
+      "path": "/:token",
+      "handler": "expireSession",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "token": "test-session-token"
+      }
+    }
+  ],
+  "achievements": [
+    {
+      "entity": "achievements",
+      "method": "GET",
+      "path": "/",
+      "handler": "getAllAchievements",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "achievements",
+      "method": "GET",
+      "path": "/user/:userId",
+      "handler": "getUserAchievements",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1"
+      }
+    },
+    {
+      "entity": "achievements",
+      "method": "POST",
+      "path": "/unlock",
+      "handler": "unlockAchievement",
+      "auth_required": true,
+      "payload": {
+        "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+        "achievement_id": "test-achievement-123"
+      },
+      "url_params": {}
+    }
+  ],
+  "progress": [
+    {
+      "entity": "progress",
+      "method": "GET",
+      "path": "/user/:userId",
+      "handler": "getUserProgress",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1"
+      }
+    },
+    {
+      "entity": "progress",
+      "method": "PUT",
+      "path": "/update",
+      "handler": "updateProgress",
+      "auth_required": true,
+      "payload": {
+        "user_id": "test-user_id-20250910141423",
+        "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+        "id": "test-id-20250910141423",
+        "puzzles_solved": 100,
+        "puzzles_correct": 100,
+        "current_streak": 100,
+        "best_streak": 100,
+        "total_time_spent": 30,
+        "achievements_unlocked": "test_achievements_unlocked",
+        "last_puzzle_date": "test_last_puzzle_date",
+        "created_at": "2025-09-10T14:14:23.581178",
+        "updated_at": "2025-09-10T14:14:23.581178"
+      },
+      "url_params": {}
+    },
+    {
+      "entity": "progress",
+      "method": "GET",
+      "path": "/stats/:userId",
+      "handler": "getProgressStats",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1"
+      }
+    }
+  ],
+  "openings": [
+    {
+      "entity": "openings",
+      "method": "GET",
+      "path": "/",
+      "handler": "getAllOpenings",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "openings",
+      "method": "GET",
+      "path": "/eco/:code",
+      "handler": "getOpeningByEco",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "code": "B92"
+      }
+    },
+    {
+      "entity": "openings",
+      "method": "GET",
+      "path": "/search",
+      "handler": "searchOpenings",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    }
+  ],
+  "analysis": [
+    {
+      "entity": "analysis",
+      "method": "POST",
+      "path": "/position",
+      "handler": "analyzePosition",
+      "auth_required": true,
+      "payload": {
+        "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "depth": 15
+      },
+      "url_params": {}
+    },
+    {
+      "entity": "analysis",
+      "method": "GET",
+      "path": "/position/:fen",
+      "handler": "getPositionAnalysis",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "fen": "rnbqkbnr-pppppppp-8-8-8-8-PPPPPPPP-RNBQKBNR"
+      }
+    }
+  ],
+  "ai-opponents": [
+    {
+      "entity": "ai-opponents",
+      "method": "GET",
+      "path": "/",
+      "handler": "getAllOpponents",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "ai-opponents",
+      "method": "GET",
+      "path": "/:id",
+      "handler": "getOpponentById",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "id": "0da4d1e4-b3ec-428f-8578-4304ac5472c9"
+      }
+    },
+    {
+      "entity": "ai-opponents",
+      "method": "GET",
+      "path": "/difficulty/:level",
+      "handler": "getOpponentsByDifficulty",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "level": "beginner"
+      }
+    }
+  ],
+  "analytics": [
+    {
+      "entity": "analytics",
+      "method": "POST",
+      "path": "/track",
+      "handler": "trackEvent",
+      "auth_required": true,
+      "payload": {
+        "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+        "event_type": "puzzle_solved",
+        "event_data": "{\"puzzle_id\": \"test-puzzle-123\", \"time\": 30}",
+        "session_id": "test-session-123"
+      },
+      "url_params": {}
+    },
+    {
+      "entity": "analytics",
+      "method": "GET",
+      "path": "/user/:userId",
+      "handler": "getUserAnalytics",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1"
+      }
+    }
+  ],
+  "profiles": [
+    {
+      "entity": "profiles",
+      "method": "GET",
+      "path": "/:userId",
+      "handler": "getProfile",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1"
+      }
+    },
+    {
+      "entity": "profiles",
+      "method": "PUT",
+      "path": "/:userId",
+      "handler": "updateProfile",
+      "auth_required": true,
+      "payload": {
+        "user_id": "test-user_id-20250910141423",
+        "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+        "id": "test-id-20250910141423",
+        "display_name": "test_display_name",
+        "avatar_url": "test_avatar_url",
+        "bio": "test_bio",
+        "country": "test_country",
+        "created_at": "2025-09-10T14:14:23.581178",
+        "updated_at": "2025-09-10T14:14:23.581178"
+      },
+      "url_params": {
+        "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1"
+      }
+    }
+  ],
+  "endgames": [
+    {
+      "entity": "endgames",
+      "method": "GET",
+      "path": "/",
+      "handler": "getAllEndgames",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "endgames",
+      "method": "GET",
+      "path": "/:id",
+      "handler": "getEndgameById",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "id": "0da4d1e4-b3ec-428f-8578-4304ac5472c9"
+      }
+    },
+    {
+      "entity": "endgames",
+      "method": "GET",
+      "path": "/category/:category",
+      "handler": "getEndgamesByCategory",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "category": "endgame"
+      }
+    }
+  ],
+  "game-reviews": [
+    {
+      "entity": "game-reviews",
+      "method": "POST",
+      "path": "/",
+      "handler": "createReview",
+      "auth_required": true,
+      "payload": {
+        "game_id": "test-game_id-20250910141423",
+        "reviewer_id": "test-reviewer_id-20250910141423",
+        "analysis": "test_analysis",
+        "rating": 1500,
+        "key_moments": "test_key_moments"
+      },
+      "url_params": {}
+    },
+    {
+      "entity": "game-reviews",
+      "method": "GET",
+      "path": "/game/:gameId",
+      "handler": "getGameReviews",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "gameId": "0da4d1e4-b3ec-428f-8578-4304ac5472c9"
+      }
+    },
+    {
+      "entity": "game-reviews",
+      "method": "GET",
+      "path": "/:id",
+      "handler": "getReviewById",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "id": "0da4d1e4-b3ec-428f-8578-4304ac5472c9"
+      }
+    }
+  ],
+  "historic-games": [
+    {
+      "entity": "historic-games",
+      "method": "GET",
+      "path": "/",
+      "handler": "getAllHistoricGames",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "historic-games",
+      "method": "GET",
+      "path": "/:id",
+      "handler": "getGameById",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "id": "0da4d1e4-b3ec-428f-8578-4304ac5472c9"
+      }
+    },
+    {
+      "entity": "historic-games",
+      "method": "GET",
+      "path": "/search",
+      "handler": "searchGames",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "historic-games",
+      "method": "GET",
+      "path": "/player/:player",
+      "handler": "getGamesByPlayer",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "player": "kasparov"
+      }
+    }
+  ],
+  "puzzle-attempts": [
+    {
+      "entity": "puzzle-attempts",
+      "method": "POST",
+      "path": "/",
+      "handler": "recordAttempt",
+      "auth_required": true,
+      "payload": {
+        "user_id": "test-user_id-20250910141423",
+        "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+        "puzzle_id": "test-puzzle_id-20250910141423",
+        "correct": true,
+        "time_spent": 30,
+        "moves_made": "test_moves_made",
+        "completed_at": "test_completed_at"
+      },
+      "url_params": {}
+    },
+    {
+      "entity": "puzzle-attempts",
+      "method": "GET",
+      "path": "/user/:userId",
+      "handler": "getUserAttempts",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1"
+      }
+    },
+    {
+      "entity": "puzzle-attempts",
+      "method": "GET",
+      "path": "/puzzle/:puzzleId",
+      "handler": "getPuzzleAttempts",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "puzzleId": "259923b5-1bd0-4fc9-b784-58b54777d90a"
+      }
+    }
+  ],
+  "puzzle-sources": [
+    {
+      "entity": "puzzle-sources",
+      "method": "GET",
+      "path": "/",
+      "handler": "getAllSources",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "puzzle-sources",
+      "method": "GET",
+      "path": "/:id",
+      "handler": "getSourceById",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "id": "0da4d1e4-b3ec-428f-8578-4304ac5472c9"
+      }
+    }
+  ],
+  "learning-modules": [
+    {
+      "entity": "learning-modules",
+      "method": "GET",
+      "path": "/path/:pathId",
+      "handler": "getModulesByPath",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "pathId": "nu2i5slg3mewklnfk"
+      }
+    },
+    {
+      "entity": "learning-modules",
+      "method": "GET",
+      "path": "/:id",
+      "handler": "getModuleById",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "id": "0da4d1e4-b3ec-428f-8578-4304ac5472c9"
+      }
+    },
+    {
+      "entity": "learning-modules",
+      "method": "POST",
+      "path": "/:id/complete",
+      "handler": "completeModule",
+      "auth_required": true,
+      "payload": {
+        "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+        "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1"
+      },
+      "url_params": {
+        "id": "0da4d1e4-b3ec-428f-8578-4304ac5472c9"
+      }
+    }
+  ],
+  "tutorial-steps": [
+    {
+      "entity": "tutorial-steps",
+      "method": "GET",
+      "path": "/tutorial/:tutorialId",
+      "handler": "getStepsByTutorial",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "tutorialId": "79o1sdbtomewklmbb"
+      }
+    },
+    {
+      "entity": "tutorial-steps",
+      "method": "POST",
+      "path": "/:id/complete",
+      "handler": "completeStep",
+      "auth_required": true,
+      "payload": {
+        "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+        "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1"
+      },
+      "url_params": {
+        "id": "0da4d1e4-b3ec-428f-8578-4304ac5472c9"
+      }
+    }
+  ],
+  "study-plans": [
+    {
+      "entity": "study-plans",
+      "method": "GET",
+      "path": "/user/:userId",
+      "handler": "getUserStudyPlans",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1"
+      }
+    },
+    {
+      "entity": "study-plans",
+      "method": "POST",
+      "path": "/",
+      "handler": "createStudyPlan",
+      "auth_required": true,
+      "payload": {
+        "user_id": "test-user_id-20250910141423",
+        "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+        "title": "test_title",
+        "goals": "test_goals",
+        "schedule": "test_schedule",
+        "progress": 0.5
+      },
+      "url_params": {}
+    },
+    {
+      "entity": "study-plans",
+      "method": "PUT",
+      "path": "/:id",
+      "handler": "updatePlan",
+      "auth_required": true,
+      "payload": {
+        "user_id": "test-user_id-20250910141423",
+        "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+        "id": "test-id-20250910141423",
+        "title": "test_title",
+        "goals": "test_goals",
+        "schedule": "test_schedule",
+        "progress": 0.5,
+        "created_at": "2025-09-10T14:14:23.581178",
+        "updated_at": "2025-09-10T14:14:23.581178"
+      },
+      "url_params": {
+        "id": "0da4d1e4-b3ec-428f-8578-4304ac5472c9"
+      }
+    }
+  ],
+  "help": [
+    {
+      "entity": "help",
+      "method": "GET",
+      "path": "/",
+      "handler": "getAllHelp",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    },
+    {
+      "entity": "help",
+      "method": "GET",
+      "path": "/category/:category",
+      "handler": "getHelpByCategory",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "category": "endgame"
+      }
+    },
+    {
+      "entity": "help",
+      "method": "GET",
+      "path": "/search",
+      "handler": "searchHelp",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {}
+    }
+  ],
+  "subscriptions": [
+    {
+      "entity": "subscriptions",
+      "method": "GET",
+      "path": "/user/:userId",
+      "handler": "getUserSubscription",
+      "auth_required": true,
+      "payload": null,
+      "url_params": {
+        "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1"
+      }
+    },
+    {
+      "entity": "subscriptions",
+      "method": "POST",
+      "path": "/",
+      "handler": "createSubscription",
+      "auth_required": true,
+      "payload": {
+        "user_id": "test-user_id-20250910141423",
+        "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+        "plan_type": "test_plan_type",
+        "status": "test_status",
+        "expires_at": "2025-09-10T14:14:23.581178"
+      },
+      "url_params": {}
+    },
+    {
+      "entity": "subscriptions",
+      "method": "PUT",
+      "path": "/:id",
+      "handler": "updateSubscription",
+      "auth_required": true,
+      "payload": {
+        "user_id": "test-user_id-20250910141423",
+        "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+        "id": "test-id-20250910141423",
+        "plan_type": "test_plan_type",
+        "status": "test_status",
+        "expires_at": "2025-09-10T14:14:23.581178",
+        "created_at": "2025-09-10T14:14:23.581178",
+        "updated_at": "2025-09-10T14:14:23.581178"
+      },
+      "url_params": {
+        "id": "0da4d1e4-b3ec-428f-8578-4304ac5472c9"
+      }
+    }
+  ]
+}

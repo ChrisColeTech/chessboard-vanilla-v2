@@ -70,7 +70,7 @@ class ServiceGenerator:
       current_streak: progress.current_streak,
       best_streak: progress.best_streak,
       total_time_spent: progress.total_time_spent,
-      achievements_unlocked: progress.achievements_unlocked ? JSON.parse(progress.achievements_unlocked) : [],
+      achievements_unlocked: progress.achievements_unlocked || [],
       last_puzzle_date: progress.last_puzzle_date,
       created_at: progress.created_at,
       updated_at: progress.updated_at
@@ -79,23 +79,36 @@ class ServiceGenerator:
             ]
             service_methods.extend(auth_helpers)
         
-        # Handle Auth special case for imports
+        # Handle special cases for imports
         if entity_lower == 'auth':
             model_types = f"LoginRequest, RegisterRequest, UserInfo, AuthResponse"
+            model_import_name = entity_upper
+        elif entity_lower == 'learningpath':
+            # Use proper LearningPath naming throughout
+            model_types = f"LearningPathResponse, CreateLearningPathRequest, UpdateLearningPathRequest"
+            model_import_name = 'LearningPath'
+            entity_upper = 'LearningPath'  # Override entity_upper for consistent naming
         else:
             model_types = f"{entity_upper}Response, Create{entity_upper}Request, Update{entity_upper}Request"
+            model_import_name = entity_upper
         
         template = '''import {{ Database }} from '../utils/database';
-import {{ {MODEL_TYPES} }} from '../models/{MODEL_NAME}';
+import {{ {MODEL_TYPES} }} from '../models/{MODEL_IMPORT_NAME}';
 
 export class {SERVICE_CLASS} {{
   private db = Database.getInstance();
 
 {SERVICE_METHODS}
 }}'''
+        # Handle special class naming for LearningPath
+        if entity_lower == 'learningpath':
+            service_class_name = f"{entity_upper}Service"  # This will be "LearningPathService"
+        else:
+            service_class_name = f"{entity_upper}Service"
+        
         content = template.format(
-            SERVICE_CLASS=f"{entity_upper}Service",
-            MODEL_NAME=entity_upper,
+            SERVICE_CLASS=service_class_name,
+            MODEL_IMPORT_NAME=model_import_name,
             MODEL_TYPES=model_types,
             SERVICE_METHODS='\n\n'.join(service_methods)
         )
@@ -124,6 +137,7 @@ export class {SERVICE_CLASS} {{
         from game_methods import GameMethodGenerator
         from auth_methods import AuthMethodGenerator
         from user_methods import UserMethodGenerator
+        from learning_path_methods import LearningPathMethodGenerator
         from generic_methods import GenericMethodGenerator
         
         # Determine which generator to use based on entity or method name
@@ -135,6 +149,8 @@ export class {SERVICE_CLASS} {{
             generator = AuthMethodGenerator()
         elif 'user' in entity_lower or method_name.startswith(('getUser', 'updateUser')):
             generator = UserMethodGenerator()
+        elif entity_lower == 'learningpath' or method_name in ['getLearningPaths', 'getLearningPathById', 'enrollInPath', 'updateProgress']:
+            generator = LearningPathMethodGenerator()
         else:
             generator = GenericMethodGenerator()
         
@@ -171,7 +187,15 @@ export class {SERVICE_CLASS} {{
             else:
                 format_fields.append(f"      {prop_name}: row.{prop_name},")
         
-        return f'''  private format{entity_upper}Response(row: any): {entity_upper}Response {{
+        # Special case for LearningPath - use proper naming
+        if entity_upper == 'LearningPath':
+            format_method_name = 'formatLearningPathResponse'
+            response_type = 'LearningPathResponse'
+        else:
+            format_method_name = f'format{entity_upper}Response'
+            response_type = f'{entity_upper}Response'
+        
+        return f'''  private {format_method_name}(row: any): {response_type} {{
     return {{
 {chr(10).join(format_fields)}
     }};

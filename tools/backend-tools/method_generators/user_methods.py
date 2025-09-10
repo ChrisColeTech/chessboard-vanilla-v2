@@ -14,44 +14,40 @@ class UserMethodGenerator(BaseMethodGenerator):
         """Generate user-specific service method"""
         
         if method_name == "getUserProfile":
-            return f'''  async {method_name}(): Promise<{entity_upper}Response> {{
-    // TODO: Get user ID from authentication context
-    const result = await this.db.query('SELECT * FROM {table_name} WHERE id = $1', ['current_user_id']);
-    if (!result.rows.length) throw new Error('{entity_upper} not found');
+            return f'''  async {method_name}(userId: string): Promise<{entity_upper}Response> {{
+    const result = await this.db.query('SELECT * FROM {table_name} WHERE id = $1', [userId]);
+    if (!result.rows.length) throw new Error('User not found');
     
     return this.format{entity_upper}Response(result.rows[0]);
   }}'''
         
         elif method_name == "updateUserProfile":
-            return f'''  async {method_name}(profileData: any): Promise<{entity_upper}Response> {{
-    // TODO: Get user ID from authentication context
+            return f'''  async {method_name}(userId: string, profileData: any): Promise<{entity_upper}Response> {{
     const result = await this.db.query(`
       UPDATE {table_name} 
-      SET username = $1, email = $2, updated_at = NOW()
+      SET chess_elo = $1, puzzle_rating = $2, updated_at = NOW()
       WHERE id = $3
       RETURNING *
     `, [
-      profileData.username,
-      profileData.email,
-      'current_user_id'
+      profileData.chess_elo,
+      profileData.puzzle_rating,
+      userId
     ]);
     
-    if (!result.rows.length) throw new Error('{entity_upper} not found');
+    if (!result.rows.length) throw new Error('User not found');
     return this.format{entity_upper}Response(result.rows[0]);
   }}'''
         
         elif method_name == "getUserPreferences":
-            return f'''  async {method_name}(): Promise<{entity_upper}Response> {{
-    // TODO: Get user ID from authentication context
-    const result = await this.db.query('SELECT * FROM {table_name} WHERE id = $1', ['current_user_id']);
-    if (!result.rows.length) throw new Error('{entity_upper} not found');
+            return f'''  async {method_name}(userId: string): Promise<{entity_upper}Response> {{
+    const result = await this.db.query('SELECT * FROM {table_name} WHERE id = $1', [userId]);
+    if (!result.rows.length) throw new Error('User not found');
     
     return this.format{entity_upper}Response(result.rows[0]);
   }}'''
         
         elif method_name == "updateUserPreferences":
-            return f'''  async {method_name}(preferencesData: any): Promise<{entity_upper}Response> {{
-    // TODO: Get user ID from authentication context
+            return f'''  async {method_name}(userId: string, preferencesData: any): Promise<{entity_upper}Response> {{
     const result = await this.db.query(`
       UPDATE {table_name} 
       SET preferences = $1, updated_at = NOW()
@@ -59,25 +55,23 @@ class UserMethodGenerator(BaseMethodGenerator):
       RETURNING *
     `, [
       JSON.stringify(preferencesData),
-      'current_user_id'
+      userId
     ]);
     
-    if (!result.rows.length) throw new Error('{entity_upper} not found');
+    if (!result.rows.length) throw new Error('User not found');
     return this.format{entity_upper}Response(result.rows[0]);
   }}'''
         
         elif method_name == "getUserSettings":
-            return f'''  async {method_name}(): Promise<{entity_upper}Response> {{
-    // TODO: Get user ID from authentication context  
-    const result = await this.db.query('SELECT * FROM {table_name} WHERE id = $1', ['current_user_id']);
-    if (!result.rows.length) throw new Error('{entity_upper} not found');
+            return f'''  async {method_name}(userId: string): Promise<{entity_upper}Response> {{
+    const result = await this.db.query('SELECT * FROM {table_name} WHERE id = $1', [userId]);
+    if (!result.rows.length) throw new Error('User not found');
     
     return this.format{entity_upper}Response(result.rows[0]);
   }}'''
         
         elif method_name == "updateUserSettings":
-            return f'''  async {method_name}(settingsData: any): Promise<{entity_upper}Response> {{
-    // TODO: Get user ID from authentication context
+            return f'''  async {method_name}(userId: string, settingsData: any): Promise<{entity_upper}Response> {{
     const result = await this.db.query(`
       UPDATE {table_name} 
       SET chess_elo = $1, puzzle_rating = $2, updated_at = NOW()
@@ -86,12 +80,12 @@ class UserMethodGenerator(BaseMethodGenerator):
     `, [
       settingsData.chess_elo,
       settingsData.puzzle_rating,
-      'current_user_id'
+      userId
     ]);
     
-    if (!result.rows.length) throw new Error('{entity_upper} not found');
+    if (!result.rows.length) throw new Error('User not found');
     return this.format{entity_upper}Response(result.rows[0]);
   }}'''
         
         else:
-            return self._create_stub_method(method_name)
+            return self._create_stub_method(method_name, table_name, entity_upper)

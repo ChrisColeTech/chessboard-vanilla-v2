@@ -22,6 +22,10 @@ class TemplateGenerator:
         if entity.lower() == 'auth':
             content = self._generate_auth_model()
         else:
+            # Special case for LearningPath - use proper naming
+            if entity.lower() == 'learningpath':
+                entity_upper = 'LearningPath'
+            
             # Build property strings
             entity_props = []
             create_props = []
@@ -69,8 +73,12 @@ export interface Update{ENTITY}Request {{
                 UPDATE_PROPERTIES='\n'.join(update_props)
             )
         
-        # Write model file
-        model_path = self.backend_path / "src/models" / f"{entity_upper}.ts"
+        # Write model file - handle special case for LearningPath file name
+        if entity.lower() == 'learningpath':
+            model_filename = 'LearningPath.ts'
+        else:
+            model_filename = f"{entity_upper}.ts"
+        model_path = self.backend_path / "src/models" / model_filename
         model_path.parent.mkdir(parents=True, exist_ok=True)
         model_path.write_text(content)
         
@@ -130,17 +138,24 @@ router.{method}('{path}', {auth_middleware}async (req: any, res) => {{
 }});"""
             route_methods.append(route_method)
         
-        # Handle Auth special case for imports
+        # Handle special cases for imports
         if entity_lower == 'auth':
             request_types = "LoginRequest, RegisterRequest"
+            model_import_name = entity_upper
+        elif entity_lower == 'learningpath':
+            # Use proper LearningPath naming throughout
+            entity_upper = 'LearningPath'  # Override for consistent naming
+            request_types = f"CreateLearningPathRequest, UpdateLearningPathRequest"
+            model_import_name = 'LearningPath'
         else:
             request_types = f"Create{entity_upper}Request, Update{entity_upper}Request"
+            model_import_name = entity_upper
         
         template = '''import {{ Router }} from 'express';
 import {{ authenticate }} from '../middleware/auth';
 import {{ validate }} from '../middleware/validation';
 import {{ {SERVICE_CLASS} }} from '../services/{service_name}Service';
-import {{ {REQUEST_TYPES} }} from '../models/{MODEL_NAME}';
+import {{ {REQUEST_TYPES} }} from '../models/{MODEL_IMPORT_NAME}';
 
 const router = Router();
 const {service_instance} = new {SERVICE_CLASS}();
@@ -148,11 +163,19 @@ const {service_instance} = new {SERVICE_CLASS}();
 {ROUTE_METHODS}
 
 export default router;'''
+        # Handle special service naming for LearningPath
+        if entity_lower == 'learningpath':
+            service_class_name = f"{entity_upper}Service"
+            service_instance_name = f"{entity_lower}Service"
+        else:
+            service_class_name = f"{entity_upper}Service"
+            service_instance_name = f"{entity_lower}Service"
+        
         content = template.format(
-            SERVICE_CLASS=f"{entity_upper}Service",
+            SERVICE_CLASS=service_class_name,
             service_name=entity_lower,
-            service_instance=f"{entity_lower}Service",
-            MODEL_NAME=entity_upper,
+            service_instance=service_instance_name,
+            MODEL_IMPORT_NAME=model_import_name,
             REQUEST_TYPES=request_types,
             ROUTE_METHODS='\n'.join(route_methods)
         )
@@ -328,19 +351,24 @@ export interface AuthResponse<T = any> {
         elif handler_name == "healthCheck":
             return ""
         
-        # User-specific handlers
-        elif handler_name == "getUserProfile":
-            return ""
-        elif handler_name == "updateUserProfile":
-            return "req.body"
-        elif handler_name == "getUserPreferences":
-            return ""
-        elif handler_name == "updateUserPreferences":
-            return "req.body"
-        elif handler_name == "getUserSettings":
-            return ""
-        elif handler_name == "updateUserSettings":
-            return "req.body"
+        # User-specific handlers (use parameter mapper for correct parameters)
+        elif handler_name in ["getUserProfile", "updateUserProfile", "getUserPreferences", 
+                              "updateUserPreferences", "getUserSettings", "updateUserSettings"]:
+            return get_route_parameters(method, path, handler_name)
+        
+        # Learning path specific handlers
+        elif handler_name == "updateProgress" and ":id" in path:
+            return "req.params.id, req.userId, req.body"
+        elif handler_name == "enrollInPath" and ":id" in path:
+            return "req.params.id, req.userId"
+        
+        # Progress entity specific handlers
+        elif handler_name == "getUserProgress":
+            return "req.params.userId" if ":userId" in path else ""
+        elif handler_name == "updateProgress" and "/update" in path:
+            return "req.userId, req.body"
+        elif handler_name == "getProgressStats":
+            return "req.params.userId" if ":userId" in path else ""
         
         # Handle standard CRUD operations by pattern
         elif handler_name.startswith('update') and ':id' in path:

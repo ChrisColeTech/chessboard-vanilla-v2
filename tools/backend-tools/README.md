@@ -1,6 +1,6 @@
 # Backend Tools - Modular Architecture
 
-This directory contains the refactored, modular version of the backend generator.
+This directory contains the refactored, modular version of the backend generator and database management tools.
 
 ## Architecture
 
@@ -23,6 +23,61 @@ Located in `method_generators/`:
 - **`auth_methods.py`** - Generates authentication-specific service methods
 - **`user_methods.py`** - Generates user-specific service methods
 - **`generic_methods.py`** - Generates generic CRUD service methods
+
+### Database Tools
+
+- **`missing-columns.py`** - Tool to add missing database columns when schema errors occur
+
+## Missing Columns Tool
+
+A tool to help manage database schema updates when encountering missing column errors.
+
+### Usage
+
+```bash
+# Add a single column
+python3 missing-columns.py add <table> <column> <type> [--default <value>] [--not-null]
+
+# Add multiple columns from JSON
+python3 missing-columns.py batch <table> '<json>'
+
+# Show table schema
+python3 missing-columns.py schema <table>
+
+# Add common columns for known entities
+python3 missing-columns.py common <entity>
+```
+
+### Examples
+
+```bash
+# Add a single column
+python3 missing-columns.py add user_progress total_time_spent INTEGER --default 0
+
+# Add multiple columns
+python3 missing-columns.py batch user_progress '[
+  {"name": "total_time_spent", "type": "INTEGER", "default": "0"},
+  {"name": "achievements_unlocked", "type": "JSONB", "default": "'\''[]'\''"}
+]'
+
+# Add common columns for user_progress table
+python3 missing-columns.py common user_progress
+
+# Check table schema
+python3 missing-columns.py schema user_progress
+```
+
+### Common Entity Types
+
+- `user_progress`: Adds total_time_spent, achievements_unlocked, last_puzzle_date
+- `users`: Adds preferences, created_at, updated_at  
+- `puzzles`: Adds created_at, updated_at, difficulty
+
+### Notes
+
+- The tool automatically uses `ADD COLUMN IF NOT EXISTS` to avoid errors if column already exists
+- Database connection uses the .env file from the backend directory
+- All operations are logged for transparency
 
 ## Benefits
 

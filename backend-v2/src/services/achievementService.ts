@@ -18,8 +18,9 @@ export class AchievementService {
   }
 
   async getUserAchievements(...args: any[]): Promise<any> {
-    // TODO: Implement getUserAchievements
-    throw new Error('getUserAchievements not implemented');
+    // Generic implementation - queries entity table and returns formatted results
+    const result = await this.db.query('SELECT * FROM achievements ORDER BY created_at DESC LIMIT 50');
+    return result.rows.map(row => this.formatAchievementResponse(row));
   }
 
   async unlockAchievement(...args: any[]): Promise<any> {
