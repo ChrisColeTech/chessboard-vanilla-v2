@@ -97,7 +97,7 @@ export function AppLayout({
       </header>
 
       {/* Main Content Area - constrained between fixed header and footer */}
-      <div className="absolute top-10 bottom-[84px] left-0 right-0 z-10">
+      <div className="absolute top-10 bottom-[57px] left-0 right-0 z-10">
         {/* Primary Content - scrollable within the constrained area */}
         <main className="w-full h-full overflow-auto">
           <div className="w-full px-4 pt-20 pb-4 sm:px-8 sm:pt-24 sm:pb-8 lg:px-20 lg:pt-16 lg:pb-16">{children}</div>

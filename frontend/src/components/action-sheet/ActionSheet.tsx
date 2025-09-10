@@ -82,7 +82,7 @@ export function ActionSheet({
       className={`relative z-50 ${className ?? ""}`}
     >
       {/* Responsive positioning: left on desktop, full width on mobile */}
-      <div className="fixed bottom-[84px] left-0 right-0 md:left-0 md:right-auto md:w-80 md:bottom-[84px]">
+      <div className="fixed bottom-[57px] left-0 right-0 md:left-0 md:right-auto md:w-80 md:bottom-[57px]">
         <DialogPanel
           ref={panelRef}
           className="w-full action-sheet md:rounded-none p-4 md:p-0 space-y-2 select-none"

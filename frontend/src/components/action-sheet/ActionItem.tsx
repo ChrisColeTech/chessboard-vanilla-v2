@@ -39,7 +39,7 @@ export function ActionItem({ action, onSelect, onHover }: ActionItemProps) {
       className={className}
       role="menuitem"
       aria-label={action.label}
-      {...(action.hasOwnAudio && { 'data-no-sound': true })}
+      data-no-sound="true"
     >
       <IconComponent className="action-item-icon w-6 h-6" />
       <span className="action-item-text">{action.label}</span>

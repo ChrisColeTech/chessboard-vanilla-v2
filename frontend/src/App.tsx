@@ -58,7 +58,6 @@ function AppContent() {
     }
   });
 
-  // Use use-sound library for simple, reliable UI click sounds
 
   // Initialize audio system on first user interaction (application-wide)
   useEffect(() => {

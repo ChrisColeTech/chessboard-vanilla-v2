@@ -8,7 +8,9 @@ export function useUIClickSound() {
   const { playMove } = useChessAudio()
   
   const playUIClick = (_context?: string) => {
+    console.log(`🔊 [UI CLICK HOOK] playUIClick called with context:`, _context);
     try {
+      console.log(`🔊 [UI CLICK HOOK] Calling playMove(true) for capture sound`);
       // Play chess capture sound for UI click feedback
       playMove(true) // true = capture sound for pronounced click feedback
     } catch (error) {

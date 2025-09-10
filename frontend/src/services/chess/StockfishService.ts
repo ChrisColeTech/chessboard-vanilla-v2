@@ -34,19 +34,35 @@ export class StockfishService {
   private initializeEngine(): void {
     console.log("🧠 [STOCKFISH] Starting engine initialization...");
     try {
-      // Use improved Stockfish worker with proper error handling (copied from working v1)
+      // Use public directory worker to avoid import.meta.url issues
       const workerUrl = new URL(
-        "../workers/stockfish-worker.js",
-        import.meta.url
+        "/stockfish-worker.js",
+        window.location.origin
       );
       console.log("🧠 [STOCKFISH] Worker URL resolved:", workerUrl.href);
 
       // Use classic worker (not ES module) to support importScripts()
       console.log("🧠 [STOCKFISH] Creating new Worker...");
-      this.stockfish = new Worker(workerUrl);
-      this.stockfish.addEventListener("message", this.handleMessage.bind(this));
-      this.stockfish.addEventListener("error", this.handleError.bind(this));
-      console.log("🧠 [STOCKFISH] Worker created and event listeners attached");
+      try {
+        this.stockfish = new Worker(workerUrl);
+        console.log("🧠 [STOCKFISH] Worker instance created successfully");
+        
+        this.stockfish.addEventListener("message", this.handleMessage.bind(this));
+        this.stockfish.addEventListener("error", this.handleError.bind(this));
+        console.log("🧠 [STOCKFISH] Worker event listeners attached");
+        
+        // Test worker is alive
+        setTimeout(() => {
+          if (this.stockfish && this.workerState === "initializing") {
+            console.log("🧠 [STOCKFISH] Worker appears to be silent, checking state...");
+          }
+        }, 2000);
+        
+      } catch (workerError) {
+        console.error("❌ [STOCKFISH] Failed to create worker:", workerError);
+        this.workerState = "error";
+        throw workerError;
+      }
 
       // Initialize UCI protocol (no response expected) - v1 pattern
       this.sendCommand("uci", false);
@@ -82,15 +98,15 @@ export class StockfishService {
         }
       });
 
-      // Wait for readiness with timeout
+      // Wait for readiness with timeout (increased for slower systems)
       const initTimeout = setTimeout(() => {
         if (this.workerState === "initializing") {
           console.error(
-            "⏰ [STOCKFISH] Worker initialization timeout - no response after 10 seconds"
+            "⏰ [STOCKFISH] Worker initialization timeout - no response after 15 seconds"
           );
           this.workerState = "error";
         }
-      }, 10000); // Increased timeout
+      }, 15000); // Increased timeout to 15 seconds
     } catch (error) {
       console.error("❌ [STOCKFISH] Failed to initialize worker:", error);
       this.workerState = "error";
@@ -109,11 +125,14 @@ export class StockfishService {
 
   private handleMessage(event: MessageEvent): void {
     const message = event.data;
+    console.log("📨 [STOCKFISH] Received message:", message);
 
     // Handle structured messages from our improved worker (copied from v1)
     if (typeof message === "object" && message.type) {
+      console.log("📨 [STOCKFISH] Structured message type:", message.type);
       switch (message.type) {
         case "log":
+          console.log("📝 [WORKER LOG]", message.message);
           return;
         case "error":
           console.error("❌ [WORKER]", message.message);

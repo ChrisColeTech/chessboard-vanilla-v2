@@ -21,8 +21,8 @@ import { useLuxurysplashActions } from '../../hooks/splash/useLuxurysplashAction
 import { useFunctionalSplashActions } from '../../hooks/splash/useFunctionalSplashActions'
 import { useMobileDragTestActions } from '../../hooks/uitests/useMobileDragTestActions'
 import { useDesktopLayoutTestActions } from '../../hooks/uitests/useDesktopLayoutTestActions'
-import { useUIClickSound } from '../../hooks/audio/useUIClickSound'
-import { useUIHoverSound } from '../../hooks/audio/useUIHoverSound'
+import { useUIClickSoundOptimized } from '../../hooks/audio/useUIClickSoundOptimized'
+import { useUIHoverSoundOptimized } from '../../hooks/audio/useUIHoverSoundOptimized'
 import { useAppStore } from '../../stores/appStore'
 import { useAuthStore } from '../../store/auth.store'
 import type { ActionSheetContainerProps, ActionSheetAction } from '../../types/core/action-sheet.types'
@@ -80,8 +80,8 @@ export function ActionSheetContainer({ currentPage, className, onClose, isOpen, 
   const desktopLayoutTestActions = useDesktopLayoutTestActions()
   
   // Audio for action clicks and hovers
-  const { playUIClick } = useUIClickSound()
-  const { playUIHover } = useUIHoverSound()
+  const { playUIClick } = useUIClickSoundOptimized()
+  const { playUIHover } = useUIHoverSoundOptimized()
   
   // Auth store for logout
   const logout = useAuthStore((state) => state.logout)

@@ -161,3 +161,4 @@ temp/
 # Tool generated files
 tools/__pycache__/
 tools/*.pyc
+/tools/css-analyzer-env/bin

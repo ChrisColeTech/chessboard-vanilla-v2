@@ -63,7 +63,7 @@ export function TabBar({ currentTab, onTabChange, isMenuOpen, onToggleMenu }: Ta
   return (
     <div
       className="
-        w-full h-[84px] 
+        w-full h-[57px] 
         grid grid-cols-5 
       "
       role="tablist"

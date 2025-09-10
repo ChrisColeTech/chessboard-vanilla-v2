@@ -7,9 +7,7 @@ import { ThemeSelector } from "../settings/ThemeSelector";
 import { PieceSetSelector } from "../settings/PieceSetSelector";
 import { SegmentedControl, type SegmentedControlOption } from "../ui/SegmentedControl";
 import { SETTINGS_SECTIONS } from "../../data/themeConfig";
-import { useGlobalUIAudio } from "../../hooks/audio/useGlobalUIAudio";
-import { useChessAudio } from "../../services/audio/audioService";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 
 interface SettingsPanelProps {
   isOpen: boolean;
@@ -38,29 +36,7 @@ export function SettingsPanel({ onClose }: SettingsPanelProps) {
   const audioEnabled = useAppStore((state) => state.audioEnabled);
   const setAudioEnabled = useAppStore((state) => state.setAudioEnabled);
   
-  // Get chess audio service methods
-  const { setEnabled: setChessAudioEnabled } = useChessAudio();
-  
-  // Initialize global UI audio with store state
-  const { configure } = useGlobalUIAudio({
-    autoInitialize: true,
-    initialConfig: {
-      enabled: audioEnabled,
-      autoDetection: audioEnabled
-    }
-  });
-  
-  // Sync both audio systems with store state
-  useEffect(() => {
-    // Update global UI audio service
-    configure({
-      enabled: audioEnabled,
-      autoDetection: audioEnabled
-    });
-    
-    // Update chess audio service
-    setChessAudioEnabled(audioEnabled);
-  }, [audioEnabled, configure, setChessAudioEnabled]);
+  // Audio state is managed by the global audioService automatically
 
   const handleModeToggle = () => {
     // Note: UI click sound is handled automatically by Global UI Audio System

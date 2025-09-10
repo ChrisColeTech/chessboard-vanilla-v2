@@ -403,7 +403,7 @@
 
   /* Tab and Menu Button Base Styles */
   .tab-button {
-    @apply flex flex-col items-center justify-center gap-1 py-2 border-none;
+    @apply flex flex-col items-center justify-center gap-0 py-0.5 border-none;
     @apply bg-transparent cursor-pointer transition-all duration-300 text-xs font-medium;
     @apply focus:outline-none;
   }
@@ -425,11 +425,11 @@
   }
 
   .tab-icon-active {
-    @apply w-6 h-6 mb-1 transition-all duration-300 scale-110 text-primary drop-shadow-lg;
+    @apply w-4 h-4 mb-0 transition-all duration-300 scale-110 text-primary drop-shadow-lg;
   }
 
   .tab-icon-inactive {
-    @apply w-6 h-6 mb-1 transition-all duration-300 text-muted-foreground;
+    @apply w-4 h-4 mb-0 transition-all duration-300 text-muted-foreground;
   }
 
   .tab-icon-inactive:hover {

@@ -48,7 +48,6 @@ export class GlobalUIAudioService implements IGlobalUIAudioService {
   private initialized = false;
   private globalClickHandler: GlobalClickHandler;
   private globalHoverHandler: (event: Event) => void;
-  private lastHoveredElement: Element | null = null;
   private lastHoveredElementId: string | null = null; // More robust element tracking
   private lastHoverSoundTime = 0;
   private readonly HOVER_SOUND_COOLDOWN_MS = 300; // Increased cooldown to prevent retriggering
@@ -195,7 +194,6 @@ export class GlobalUIAudioService implements IGlobalUIAudioService {
       return;
     }
     
-    this.lastHoveredElement = target;
     this.lastHoveredElementId = elementId;
     
     if (!this.config.enabled || !this.config.autoDetection) {
@@ -335,11 +333,10 @@ export class GlobalUIAudioService implements IGlobalUIAudioService {
    * Create a unique identifier for an element to prevent duplicate sounds
    */
   private createElementIdentifier(element: Element): string {
-    // Use a combination of tag, id, class, and position to create a unique identifier
+    // Use a stable combination of tag, id, class, and position (exclude textContent which can vary)
     const tagName = element.tagName.toLowerCase();
     const id = element.id || '';
     const className = element.className || '';
-    const textContent = (element.textContent || '').substring(0, 20); // First 20 chars
     
     // Get element's position in DOM tree for uniqueness
     let position = '';
@@ -349,14 +346,14 @@ export class GlobalUIAudioService implements IGlobalUIAudioService {
       position = siblings.indexOf(element).toString();
     }
     
-    return `${tagName}#${id}.${className}[${position}]:${textContent}`;
+    // Create a stable identifier without textContent to prevent rapid-fire sounds
+    return `${tagName}#${id}.${className}[${position}]`;
   }
 
   /**
    * Reset hover state to allow new hover sounds (called on mouseleave-like events)
    */
   private resetHoverState(): void {
-    this.lastHoveredElement = null;
     this.lastHoveredElementId = null;
   }
 

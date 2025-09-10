@@ -61,13 +61,13 @@ export const useStockfish = (): UseStockfishHook => {
         }
       }, 100);
 
-      // Cleanup timeout
+      // Cleanup timeout - align with service timeout
       const timeout = setTimeout(() => {
         clearInterval(checkReady);
         if (!service.isEngineReady()) {
           setError('Stockfish initialization timeout');
         }
-      }, 5000);
+      }, 12000); // Increased to be longer than service timeout
 
       return () => {
         clearInterval(checkReady);

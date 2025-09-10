@@ -29,7 +29,7 @@ export function MenuButton({ isMenuOpen, onToggleMenu }: MenuButtonProps) {
       }`}
     >
       <Menu
-        className={`w-6 h-6 mb-1 transition-all duration-300 ${
+        className={`w-4 h-4 mb-0 transition-all duration-300 ${
           isMenuOpen
             ? "scale-110 text-primary"
             : "text-muted-foreground hover:scale-105 hover:text-foreground"

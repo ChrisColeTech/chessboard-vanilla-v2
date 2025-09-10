@@ -1,10 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChessboardLayout } from '../../components/chess/ChessboardLayout';
 import { MobileChessBoard } from '../../components/chess/MobileChessBoard';
 import { CapturedPieces } from '../../components/chess/CapturedPieces';
 
 export const DesktopLayoutTestPage: React.FC = () => {
   const [showElements, setShowElements] = useState(true);
+
+  // Listen for toggle events from the action sheet
+  useEffect(() => {
+    const handleToggle = () => {
+      setShowElements(prev => !prev);
+    };
+
+    window.addEventListener('desktop-layout-toggle-elements', handleToggle);
+    
+    return () => {
+      window.removeEventListener('desktop-layout-toggle-elements', handleToggle);
+    };
+  }, []);
 
   // Mock captured pieces for testing
   const mockCapturedPieces = [
@@ -19,25 +32,6 @@ export const DesktopLayoutTestPage: React.FC = () => {
 
   return (
     <div className="relative h-full flex flex-col">
-      {/* Test Header */}
-      <div className="flex-shrink-0 bg-card border-b border-border px-4 py-2">
-        <div className="flex items-center justify-between">
-          <h1 className="text-lg font-semibold text-foreground">Desktop Layout Test</h1>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setShowElements(!showElements)}
-              className="text-xs bg-primary text-primary-foreground px-3 py-1 rounded hover:bg-primary/90 transition-colors"
-            >
-              {showElements ? 'Hide' : 'Show'} Elements
-            </button>
-          </div>
-        </div>
-        <p className="text-sm text-muted-foreground mt-1">
-          Testing desktop chess layout with AuthLayout pinning pattern
-        </p>
-      </div>
-
-      {/* Desktop Chess Layout Test - Following AuthLayout pattern */}
       <div className="flex-1 flex flex-col py-4 px-4 relative">
         <div className="flex-1 flex items-stretch justify-center">
           <div className="w-full max-w-6xl flex flex-col">
@@ -63,16 +57,6 @@ export const DesktopLayoutTestPage: React.FC = () => {
               />
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Layout Info Panel */}
-      <div className="flex-shrink-0 bg-muted border-t border-border px-4 py-2">
-        <div className="text-xs text-muted-foreground">
-          <strong>Layout Structure:</strong> flex-1 → flex items-stretch justify-center → max-w-6xl flex-col → flex-1 flex-col justify-center items-center
-        </div>
-        <div className="text-xs text-muted-foreground mt-1">
-          <strong>Pattern:</strong> AuthLayout three-layer nesting with proper pinning between header and tabbar
         </div>
       </div>
     </div>

@@ -9,9 +9,9 @@ export function useDesktopLayoutTestActions() {
   const setCurrentChildPage = useAppStore((state) => state.setCurrentChildPage)
 
   const toggleLayoutElements = useCallback(() => {
-    console.log('🖥️ [DESKTOP LAYOUT TEST] Toggle layout elements - handled by component state')
-    // This action is handled by the component's internal state
-    // The toggle button is directly in the DesktopLayoutTestPage component
+    console.log('🖥️ [DESKTOP LAYOUT TEST] Toggle layout elements')
+    // Dispatch custom event to the DesktopLayoutTestPage component
+    window.dispatchEvent(new CustomEvent('desktop-layout-toggle-elements'))
   }, [])
 
   // Navigation actions to other UI test pages
