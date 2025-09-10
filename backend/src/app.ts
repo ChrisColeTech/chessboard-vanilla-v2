@@ -94,7 +94,7 @@ import statsRoutes from './routes/stats';
 import learningPathRoutes from './routes/learning_paths';
 import tutorialRoutes from './routes/tutorials';
 
-app.use('/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/puzzles', puzzleRoutes);
 app.use('/api/games', gameRoutes);
 app.use('/api/users', userRoutes);

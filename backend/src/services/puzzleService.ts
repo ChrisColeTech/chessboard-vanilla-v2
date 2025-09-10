@@ -7,12 +7,21 @@ export class PuzzleService {
 
   async getNextPuzzle(userId: string): Promise<PuzzleResponse> {
     // Get next puzzle for user based on rating and history
-    const result = await this.db.query(`
+    let result = await this.db.query(`
       SELECT * FROM puzzles 
       WHERE rating BETWEEN $1 AND $2 
       ORDER BY RANDOM() 
       LIMIT 1
     `, [800, 2000]);
+    
+    // If no puzzles in that range, try any puzzle
+    if (!result.rows.length) {
+      result = await this.db.query(`
+        SELECT * FROM puzzles 
+        ORDER BY RANDOM() 
+        LIMIT 1
+      `);
+    }
     
     if (!result.rows.length) {
       throw new Error('No puzzles available');
@@ -64,6 +73,7 @@ export class PuzzleService {
       }
     });
     
+    // Return empty array if no themes found instead of throwing error
     return Array.from(allThemes).slice(0, 20);
   }
 
@@ -98,6 +108,7 @@ export class PuzzleService {
       LIMIT 20
     `);
     
+    // Return empty array if no custom puzzles found
     return result.rows.map(row => this.formatPuzzleResponse(row));
   }
 

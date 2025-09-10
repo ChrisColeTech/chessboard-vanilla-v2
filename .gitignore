@@ -162,3 +162,6 @@ temp/
 tools/__pycache__/
 tools/*.pyc
 /tools/css-analyzer-env/bin
+tools/css-analyzer-env/bin/python
+tools/css-analyzer-env/bin/python3
+tools/css-analyzer-env/bin/python3.12

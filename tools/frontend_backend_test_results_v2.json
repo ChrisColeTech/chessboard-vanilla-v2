@@ -1,0 +1,1983 @@
+{
+  "summary": {
+    "total_endpoints": 97,
+    "successful": 3,
+    "failed": 94,
+    "errors": 0,
+    "success_rate": 3.09,
+    "average_response_time": 2.44
+  },
+  "successful_endpoints": [
+    {
+      "endpoint": "health_check",
+      "method": "GET",
+      "path": "/health",
+      "status": "SUCCESS",
+      "status_code": 200,
+      "response_time": 2.77,
+      "requires_auth": false,
+      "response_data": {
+        "status": "OK",
+        "timestamp": "2025-09-10T09:49:08.852Z"
+      }
+    },
+    {
+      "endpoint": "Auth_logout",
+      "method": "POST",
+      "path": "/api/auth/logout",
+      "status": "SUCCESS",
+      "status_code": 200,
+      "response_time": 2.48,
+      "requires_auth": false,
+      "response_data": {
+        "success": true
+      }
+    },
+    {
+      "endpoint": "Auth_healthCheck",
+      "method": "GET",
+      "path": "/api/auth/health",
+      "status": "SUCCESS",
+      "status_code": 200,
+      "response_time": 2.07,
+      "requires_auth": false,
+      "response_data": {
+        "success": true,
+        "data": {
+          "status": "healthy",
+          "timestamp": "2025-09-10T09:49:08.959Z",
+          "version": "1.0.0",
+          "service": "auth"
+        }
+      }
+    }
+  ],
+  "failed_endpoints": [
+    {
+      "endpoint": "User_getUserProfile",
+      "method": "GET",
+      "path": "/api/users/profile",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.79,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "User_updateUserProfile",
+      "method": "PUT",
+      "path": "/api/users/profile",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.08,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "User_getUserPreferences",
+      "method": "GET",
+      "path": "/api/users/preferences",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.78,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "User_updateUserPreferences",
+      "method": "PUT",
+      "path": "/api/users/preferences",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.06,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "User_getUserSettings",
+      "method": "GET",
+      "path": "/api/users/settings",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.84,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "User_updateUserSettings",
+      "method": "PUT",
+      "path": "/api/users/settings",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.35,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Puzzle_getNextPuzzle",
+      "method": "GET",
+      "path": "/api/puzzles/next",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.93,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Puzzle_solvePuzzle",
+      "method": "POST",
+      "path": "/api/puzzles/test-id-123/solve",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.42,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Puzzle_getPuzzleHint",
+      "method": "GET",
+      "path": "/api/puzzles/test-id-123/hint",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.8,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Puzzle_getPuzzleCategories",
+      "method": "GET",
+      "path": "/api/puzzles/categories",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.04,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Puzzle_getPuzzleHistory",
+      "method": "GET",
+      "path": "/api/puzzles/history",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.95,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Puzzle_createCustomPuzzle",
+      "method": "POST",
+      "path": "/api/puzzles/custom",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.09,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Puzzle_getCustomPuzzles",
+      "method": "GET",
+      "path": "/api/puzzles/custom",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.84,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Game_getGames",
+      "method": "GET",
+      "path": "/api/games/",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.86,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Game_getGameById",
+      "method": "GET",
+      "path": "/api/games/test-id-123",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.73,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Game_createGame",
+      "method": "POST",
+      "path": "/api/games/",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.0,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Game_updateGame",
+      "method": "PUT",
+      "path": "/api/games/test-id-123",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.88,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Game_analyzeGame",
+      "method": "POST",
+      "path": "/api/games/test-id-123/analyze",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.0,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Game_getGameAnalysis",
+      "method": "GET",
+      "path": "/api/games/test-id-123/analysis",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.81,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Game_getGameReviews",
+      "method": "GET",
+      "path": "/api/games/reviews",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.63,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Stats_getOverviewStats",
+      "method": "GET",
+      "path": "/api/stats/overview",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.89,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Stats_getPuzzleStats",
+      "method": "GET",
+      "path": "/api/stats/puzzles",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.82,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Stats_getGameStats",
+      "method": "GET",
+      "path": "/api/stats/games",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.09,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Stats_getProgressStats",
+      "method": "GET",
+      "path": "/api/stats/progress",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.9,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Stats_getPerformanceStats",
+      "method": "GET",
+      "path": "/api/stats/performance",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.87,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Stats_getRatingStats",
+      "method": "GET",
+      "path": "/api/stats/ratings",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.08,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "LearningPath_getLearningPaths",
+      "method": "GET",
+      "path": "/api/learning_paths/paths",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.85,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "LearningPath_getLearningPathById",
+      "method": "GET",
+      "path": "/api/learning_paths/paths/test-id-123",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.75,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "LearningPath_enrollInPath",
+      "method": "POST",
+      "path": "/api/learning_paths/paths/test-id-123/enroll",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 3.53,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "LearningPath_updateProgress",
+      "method": "PUT",
+      "path": "/api/learning_paths/paths/test-id-123/progress",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 2.1,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "Tutorial_getTutorials",
+      "method": "GET",
+      "path": "/api/tutorials/",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.9,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Tutorial_getTutorialById",
+      "method": "GET",
+      "path": "/api/tutorials/test-id-123",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.74,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Tutorial_completeTutorial",
+      "method": "POST",
+      "path": "/api/tutorials/test-id-123/complete",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.05,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Auth_register",
+      "method": "POST",
+      "path": "/api/auth/register",
+      "status": "FAILED",
+      "status_code": 400,
+      "response_time": 3.1,
+      "requires_auth": false,
+      "error": "connect ECONNREFUSED 127.0.0.1:5432"
+    },
+    {
+      "endpoint": "Auth_login",
+      "method": "POST",
+      "path": "/api/auth/login",
+      "status": "FAILED",
+      "status_code": 400,
+      "response_time": 2.92,
+      "requires_auth": false,
+      "error": "connect ECONNREFUSED 127.0.0.1:5432"
+    },
+    {
+      "endpoint": "Auth_getCurrentUser",
+      "method": "GET",
+      "path": "/api/auth/me",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.87,
+      "requires_auth": false,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Auth_updateProfile",
+      "method": "PUT",
+      "path": "/api/auth/profile",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.07,
+      "requires_auth": false,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Auth_changePassword",
+      "method": "POST",
+      "path": "/api/auth/change-password",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.01,
+      "requires_auth": false,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Auth_verifyToken",
+      "method": "POST",
+      "path": "/api/auth/verify-token",
+      "status": "FAILED",
+      "status_code": 400,
+      "response_time": 2.19,
+      "requires_auth": false,
+      "error": "Invalid token"
+    },
+    {
+      "endpoint": "Auth_forgotPassword",
+      "method": "POST",
+      "path": "/api/auth/forgot-password",
+      "status": "FAILED",
+      "status_code": 400,
+      "response_time": 3.59,
+      "requires_auth": false,
+      "error": "connect ECONNREFUSED 127.0.0.1:5432"
+    },
+    {
+      "endpoint": "Auth_resetPassword",
+      "method": "POST",
+      "path": "/api/auth/reset-password",
+      "status": "FAILED",
+      "status_code": 400,
+      "response_time": 2.28,
+      "requires_auth": false,
+      "error": "Password reset functionality requires email service integration"
+    },
+    {
+      "endpoint": "Auth_checkEmailAvailability",
+      "method": "POST",
+      "path": "/api/auth/check-email",
+      "status": "FAILED",
+      "status_code": 400,
+      "response_time": 3.52,
+      "requires_auth": false,
+      "error": "connect ECONNREFUSED 127.0.0.1:5432"
+    },
+    {
+      "endpoint": "Auth_checkUsernameAvailability",
+      "method": "POST",
+      "path": "/api/auth/check-username",
+      "status": "FAILED",
+      "status_code": 400,
+      "response_time": 3.72,
+      "requires_auth": false,
+      "error": "connect ECONNREFUSED 127.0.0.1:5432"
+    },
+    {
+      "endpoint": "Auth_deleteAccount",
+      "method": "DELETE",
+      "path": "/api/auth/delete-account",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.44,
+      "requires_auth": false,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Session_createSession",
+      "method": "POST",
+      "path": "/api/sessions/create",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.18,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Session_validateSession",
+      "method": "GET",
+      "path": "/api/sessions/validate/:token",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.89,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Session_expireSession",
+      "method": "DELETE",
+      "path": "/api/sessions/:token",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.2,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Achievement_getAllAchievements",
+      "method": "GET",
+      "path": "/api/achievements/",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.74,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Achievement_getUserAchievements",
+      "method": "GET",
+      "path": "/api/achievements/user/:userId",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.84,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Achievement_unlockAchievement",
+      "method": "POST",
+      "path": "/api/achievements/unlock",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.16,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Progress_getUserProgress",
+      "method": "GET",
+      "path": "/api/progress/user/:userId",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.89,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Progress_updateProgress",
+      "method": "PUT",
+      "path": "/api/progress/update",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.1,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Progress_getProgressStats",
+      "method": "GET",
+      "path": "/api/progress/stats/:userId",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.86,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Opening_getAllOpenings",
+      "method": "GET",
+      "path": "/api/openings/",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.79,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Opening_getOpeningByEco",
+      "method": "GET",
+      "path": "/api/openings/eco/:code",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.83,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Opening_searchOpenings",
+      "method": "GET",
+      "path": "/api/openings/search",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.81,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Analysis_analyzePosition",
+      "method": "POST",
+      "path": "/api/analysis/position",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.17,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Analysis_getPositionAnalysis",
+      "method": "GET",
+      "path": "/api/analysis/position/:fen",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.97,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "AIOpponent_getAllOpponents",
+      "method": "GET",
+      "path": "/api/ai_opponents/",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.94,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "AIOpponent_getOpponentById",
+      "method": "GET",
+      "path": "/api/ai_opponents/test-id-123",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.79,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "AIOpponent_getOpponentsByDifficulty",
+      "method": "GET",
+      "path": "/api/ai_opponents/difficulty/:level",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.63,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "Analytics_trackEvent",
+      "method": "POST",
+      "path": "/api/analytics/track",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.01,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Analytics_getUserAnalytics",
+      "method": "GET",
+      "path": "/api/analytics/user/:userId",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.68,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Profile_getProfile",
+      "method": "GET",
+      "path": "/api/profiles/:userId",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.75,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Profile_updateProfile",
+      "method": "PUT",
+      "path": "/api/profiles/:userId",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.86,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Endgame_getAllEndgames",
+      "method": "GET",
+      "path": "/api/endgames/",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.59,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Endgame_getEndgameById",
+      "method": "GET",
+      "path": "/api/endgames/test-id-123",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.93,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Endgame_getEndgamesByCategory",
+      "method": "GET",
+      "path": "/api/endgames/category/:category",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.1,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "GameReview_createReview",
+      "method": "POST",
+      "path": "/api/game_reviews/",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 2.3,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "GameReview_getGameReviews",
+      "method": "GET",
+      "path": "/api/game_reviews/game/:gameId",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 2.02,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "GameReview_getReviewById",
+      "method": "GET",
+      "path": "/api/game_reviews/test-id-123",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 2.09,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "HistoricGame_getAllHistoricGames",
+      "method": "GET",
+      "path": "/api/historic_games/",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.81,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "HistoricGame_getGameById",
+      "method": "GET",
+      "path": "/api/historic_games/test-id-123",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.81,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "HistoricGame_searchGames",
+      "method": "GET",
+      "path": "/api/historic_games/search",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.94,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "HistoricGame_getGamesByPlayer",
+      "method": "GET",
+      "path": "/api/historic_games/player/:player",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.87,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "PuzzleAttempt_recordAttempt",
+      "method": "POST",
+      "path": "/api/puzzle_attempts/",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 2.37,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "PuzzleAttempt_getUserAttempts",
+      "method": "GET",
+      "path": "/api/puzzle_attempts/user/:userId",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.97,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "PuzzleAttempt_getPuzzleAttempts",
+      "method": "GET",
+      "path": "/api/puzzle_attempts/puzzle/:puzzleId",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 2.15,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "PuzzleSource_getAllSources",
+      "method": "GET",
+      "path": "/api/puzzle_sources/",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.94,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "PuzzleSource_getSourceById",
+      "method": "GET",
+      "path": "/api/puzzle_sources/test-id-123",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.93,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "LearningModule_getModulesByPath",
+      "method": "GET",
+      "path": "/api/learning_modules/path/:pathId",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.96,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "LearningModule_getModuleById",
+      "method": "GET",
+      "path": "/api/learning_modules/test-id-123",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.81,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "LearningModule_completeModule",
+      "method": "POST",
+      "path": "/api/learning_modules/test-id-123/complete",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 2.06,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "TutorialStep_getStepsByTutorial",
+      "method": "GET",
+      "path": "/api/tutorial_steps/tutorial/:tutorialId",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.77,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "TutorialStep_completeStep",
+      "method": "POST",
+      "path": "/api/tutorial_steps/test-id-123/complete",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 2.1,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "StudyPlan_getUserStudyPlans",
+      "method": "GET",
+      "path": "/api/study_plans/user/:userId",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 2.17,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "StudyPlan_createStudyPlan",
+      "method": "POST",
+      "path": "/api/study_plans/",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 2.42,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "StudyPlan_updatePlan",
+      "method": "PUT",
+      "path": "/api/study_plans/test-id-123",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 2.22,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "Help_getAllHelp",
+      "method": "GET",
+      "path": "/api/help/",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.93,
+      "requires_auth": false,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Help_getHelpByCategory",
+      "method": "GET",
+      "path": "/api/help/category/:category",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.85,
+      "requires_auth": false,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Help_searchHelp",
+      "method": "GET",
+      "path": "/api/help/search",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.81,
+      "requires_auth": false,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Subscription_getUserSubscription",
+      "method": "GET",
+      "path": "/api/subscriptions/user/:userId",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.74,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Subscription_createSubscription",
+      "method": "POST",
+      "path": "/api/subscriptions/",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.06,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Subscription_updateSubscription",
+      "method": "PUT",
+      "path": "/api/subscriptions/test-id-123",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.51,
+      "requires_auth": true,
+      "error": "Access token required"
+    }
+  ],
+  "error_endpoints": [],
+  "all_results": [
+    {
+      "endpoint": "health_check",
+      "method": "GET",
+      "path": "/health",
+      "status": "SUCCESS",
+      "status_code": 200,
+      "response_time": 2.77,
+      "requires_auth": false,
+      "response_data": {
+        "status": "OK",
+        "timestamp": "2025-09-10T09:49:08.852Z"
+      }
+    },
+    {
+      "endpoint": "User_getUserProfile",
+      "method": "GET",
+      "path": "/api/users/profile",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.79,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "User_updateUserProfile",
+      "method": "PUT",
+      "path": "/api/users/profile",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.08,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "User_getUserPreferences",
+      "method": "GET",
+      "path": "/api/users/preferences",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.78,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "User_updateUserPreferences",
+      "method": "PUT",
+      "path": "/api/users/preferences",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.06,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "User_getUserSettings",
+      "method": "GET",
+      "path": "/api/users/settings",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.84,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "User_updateUserSettings",
+      "method": "PUT",
+      "path": "/api/users/settings",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.35,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Puzzle_getNextPuzzle",
+      "method": "GET",
+      "path": "/api/puzzles/next",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.93,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Puzzle_solvePuzzle",
+      "method": "POST",
+      "path": "/api/puzzles/test-id-123/solve",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.42,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Puzzle_getPuzzleHint",
+      "method": "GET",
+      "path": "/api/puzzles/test-id-123/hint",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.8,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Puzzle_getPuzzleCategories",
+      "method": "GET",
+      "path": "/api/puzzles/categories",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.04,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Puzzle_getPuzzleHistory",
+      "method": "GET",
+      "path": "/api/puzzles/history",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.95,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Puzzle_createCustomPuzzle",
+      "method": "POST",
+      "path": "/api/puzzles/custom",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.09,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Puzzle_getCustomPuzzles",
+      "method": "GET",
+      "path": "/api/puzzles/custom",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.84,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Game_getGames",
+      "method": "GET",
+      "path": "/api/games/",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.86,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Game_getGameById",
+      "method": "GET",
+      "path": "/api/games/test-id-123",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.73,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Game_createGame",
+      "method": "POST",
+      "path": "/api/games/",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.0,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Game_updateGame",
+      "method": "PUT",
+      "path": "/api/games/test-id-123",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.88,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Game_analyzeGame",
+      "method": "POST",
+      "path": "/api/games/test-id-123/analyze",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.0,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Game_getGameAnalysis",
+      "method": "GET",
+      "path": "/api/games/test-id-123/analysis",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.81,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Game_getGameReviews",
+      "method": "GET",
+      "path": "/api/games/reviews",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.63,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Stats_getOverviewStats",
+      "method": "GET",
+      "path": "/api/stats/overview",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.89,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Stats_getPuzzleStats",
+      "method": "GET",
+      "path": "/api/stats/puzzles",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.82,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Stats_getGameStats",
+      "method": "GET",
+      "path": "/api/stats/games",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.09,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Stats_getProgressStats",
+      "method": "GET",
+      "path": "/api/stats/progress",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.9,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Stats_getPerformanceStats",
+      "method": "GET",
+      "path": "/api/stats/performance",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.87,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Stats_getRatingStats",
+      "method": "GET",
+      "path": "/api/stats/ratings",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.08,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "LearningPath_getLearningPaths",
+      "method": "GET",
+      "path": "/api/learning_paths/paths",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.85,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "LearningPath_getLearningPathById",
+      "method": "GET",
+      "path": "/api/learning_paths/paths/test-id-123",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.75,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "LearningPath_enrollInPath",
+      "method": "POST",
+      "path": "/api/learning_paths/paths/test-id-123/enroll",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 3.53,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "LearningPath_updateProgress",
+      "method": "PUT",
+      "path": "/api/learning_paths/paths/test-id-123/progress",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 2.1,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "Tutorial_getTutorials",
+      "method": "GET",
+      "path": "/api/tutorials/",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.9,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Tutorial_getTutorialById",
+      "method": "GET",
+      "path": "/api/tutorials/test-id-123",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.74,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Tutorial_completeTutorial",
+      "method": "POST",
+      "path": "/api/tutorials/test-id-123/complete",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.05,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Auth_register",
+      "method": "POST",
+      "path": "/api/auth/register",
+      "status": "FAILED",
+      "status_code": 400,
+      "response_time": 3.1,
+      "requires_auth": false,
+      "error": "connect ECONNREFUSED 127.0.0.1:5432"
+    },
+    {
+      "endpoint": "Auth_login",
+      "method": "POST",
+      "path": "/api/auth/login",
+      "status": "FAILED",
+      "status_code": 400,
+      "response_time": 2.92,
+      "requires_auth": false,
+      "error": "connect ECONNREFUSED 127.0.0.1:5432"
+    },
+    {
+      "endpoint": "Auth_getCurrentUser",
+      "method": "GET",
+      "path": "/api/auth/me",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.87,
+      "requires_auth": false,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Auth_updateProfile",
+      "method": "PUT",
+      "path": "/api/auth/profile",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.07,
+      "requires_auth": false,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Auth_changePassword",
+      "method": "POST",
+      "path": "/api/auth/change-password",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.01,
+      "requires_auth": false,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Auth_verifyToken",
+      "method": "POST",
+      "path": "/api/auth/verify-token",
+      "status": "FAILED",
+      "status_code": 400,
+      "response_time": 2.19,
+      "requires_auth": false,
+      "error": "Invalid token"
+    },
+    {
+      "endpoint": "Auth_forgotPassword",
+      "method": "POST",
+      "path": "/api/auth/forgot-password",
+      "status": "FAILED",
+      "status_code": 400,
+      "response_time": 3.59,
+      "requires_auth": false,
+      "error": "connect ECONNREFUSED 127.0.0.1:5432"
+    },
+    {
+      "endpoint": "Auth_resetPassword",
+      "method": "POST",
+      "path": "/api/auth/reset-password",
+      "status": "FAILED",
+      "status_code": 400,
+      "response_time": 2.28,
+      "requires_auth": false,
+      "error": "Password reset functionality requires email service integration"
+    },
+    {
+      "endpoint": "Auth_logout",
+      "method": "POST",
+      "path": "/api/auth/logout",
+      "status": "SUCCESS",
+      "status_code": 200,
+      "response_time": 2.48,
+      "requires_auth": false,
+      "response_data": {
+        "success": true
+      }
+    },
+    {
+      "endpoint": "Auth_checkEmailAvailability",
+      "method": "POST",
+      "path": "/api/auth/check-email",
+      "status": "FAILED",
+      "status_code": 400,
+      "response_time": 3.52,
+      "requires_auth": false,
+      "error": "connect ECONNREFUSED 127.0.0.1:5432"
+    },
+    {
+      "endpoint": "Auth_checkUsernameAvailability",
+      "method": "POST",
+      "path": "/api/auth/check-username",
+      "status": "FAILED",
+      "status_code": 400,
+      "response_time": 3.72,
+      "requires_auth": false,
+      "error": "connect ECONNREFUSED 127.0.0.1:5432"
+    },
+    {
+      "endpoint": "Auth_deleteAccount",
+      "method": "DELETE",
+      "path": "/api/auth/delete-account",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.44,
+      "requires_auth": false,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Auth_healthCheck",
+      "method": "GET",
+      "path": "/api/auth/health",
+      "status": "SUCCESS",
+      "status_code": 200,
+      "response_time": 2.07,
+      "requires_auth": false,
+      "response_data": {
+        "success": true,
+        "data": {
+          "status": "healthy",
+          "timestamp": "2025-09-10T09:49:08.959Z",
+          "version": "1.0.0",
+          "service": "auth"
+        }
+      }
+    },
+    {
+      "endpoint": "Session_createSession",
+      "method": "POST",
+      "path": "/api/sessions/create",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.18,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Session_validateSession",
+      "method": "GET",
+      "path": "/api/sessions/validate/:token",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.89,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Session_expireSession",
+      "method": "DELETE",
+      "path": "/api/sessions/:token",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.2,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Achievement_getAllAchievements",
+      "method": "GET",
+      "path": "/api/achievements/",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.74,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Achievement_getUserAchievements",
+      "method": "GET",
+      "path": "/api/achievements/user/:userId",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.84,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Achievement_unlockAchievement",
+      "method": "POST",
+      "path": "/api/achievements/unlock",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.16,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Progress_getUserProgress",
+      "method": "GET",
+      "path": "/api/progress/user/:userId",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.89,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Progress_updateProgress",
+      "method": "PUT",
+      "path": "/api/progress/update",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.1,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Progress_getProgressStats",
+      "method": "GET",
+      "path": "/api/progress/stats/:userId",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.86,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Opening_getAllOpenings",
+      "method": "GET",
+      "path": "/api/openings/",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.79,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Opening_getOpeningByEco",
+      "method": "GET",
+      "path": "/api/openings/eco/:code",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.83,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Opening_searchOpenings",
+      "method": "GET",
+      "path": "/api/openings/search",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.81,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Analysis_analyzePosition",
+      "method": "POST",
+      "path": "/api/analysis/position",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.17,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Analysis_getPositionAnalysis",
+      "method": "GET",
+      "path": "/api/analysis/position/:fen",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.97,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "AIOpponent_getAllOpponents",
+      "method": "GET",
+      "path": "/api/ai_opponents/",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.94,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "AIOpponent_getOpponentById",
+      "method": "GET",
+      "path": "/api/ai_opponents/test-id-123",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.79,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "AIOpponent_getOpponentsByDifficulty",
+      "method": "GET",
+      "path": "/api/ai_opponents/difficulty/:level",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.63,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "Analytics_trackEvent",
+      "method": "POST",
+      "path": "/api/analytics/track",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.01,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Analytics_getUserAnalytics",
+      "method": "GET",
+      "path": "/api/analytics/user/:userId",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.68,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Profile_getProfile",
+      "method": "GET",
+      "path": "/api/profiles/:userId",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.75,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Profile_updateProfile",
+      "method": "PUT",
+      "path": "/api/profiles/:userId",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.86,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Endgame_getAllEndgames",
+      "method": "GET",
+      "path": "/api/endgames/",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.59,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Endgame_getEndgameById",
+      "method": "GET",
+      "path": "/api/endgames/test-id-123",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.93,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Endgame_getEndgamesByCategory",
+      "method": "GET",
+      "path": "/api/endgames/category/:category",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.1,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "GameReview_createReview",
+      "method": "POST",
+      "path": "/api/game_reviews/",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 2.3,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "GameReview_getGameReviews",
+      "method": "GET",
+      "path": "/api/game_reviews/game/:gameId",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 2.02,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "GameReview_getReviewById",
+      "method": "GET",
+      "path": "/api/game_reviews/test-id-123",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 2.09,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "HistoricGame_getAllHistoricGames",
+      "method": "GET",
+      "path": "/api/historic_games/",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.81,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "HistoricGame_getGameById",
+      "method": "GET",
+      "path": "/api/historic_games/test-id-123",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.81,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "HistoricGame_searchGames",
+      "method": "GET",
+      "path": "/api/historic_games/search",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.94,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "HistoricGame_getGamesByPlayer",
+      "method": "GET",
+      "path": "/api/historic_games/player/:player",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.87,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "PuzzleAttempt_recordAttempt",
+      "method": "POST",
+      "path": "/api/puzzle_attempts/",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 2.37,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "PuzzleAttempt_getUserAttempts",
+      "method": "GET",
+      "path": "/api/puzzle_attempts/user/:userId",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.97,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "PuzzleAttempt_getPuzzleAttempts",
+      "method": "GET",
+      "path": "/api/puzzle_attempts/puzzle/:puzzleId",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 2.15,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "PuzzleSource_getAllSources",
+      "method": "GET",
+      "path": "/api/puzzle_sources/",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.94,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "PuzzleSource_getSourceById",
+      "method": "GET",
+      "path": "/api/puzzle_sources/test-id-123",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.93,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "LearningModule_getModulesByPath",
+      "method": "GET",
+      "path": "/api/learning_modules/path/:pathId",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.96,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "LearningModule_getModuleById",
+      "method": "GET",
+      "path": "/api/learning_modules/test-id-123",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.81,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "LearningModule_completeModule",
+      "method": "POST",
+      "path": "/api/learning_modules/test-id-123/complete",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 2.06,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "TutorialStep_getStepsByTutorial",
+      "method": "GET",
+      "path": "/api/tutorial_steps/tutorial/:tutorialId",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 1.77,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "TutorialStep_completeStep",
+      "method": "POST",
+      "path": "/api/tutorial_steps/test-id-123/complete",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 2.1,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "StudyPlan_getUserStudyPlans",
+      "method": "GET",
+      "path": "/api/study_plans/user/:userId",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 2.17,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "StudyPlan_createStudyPlan",
+      "method": "POST",
+      "path": "/api/study_plans/",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 2.42,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "StudyPlan_updatePlan",
+      "method": "PUT",
+      "path": "/api/study_plans/test-id-123",
+      "status": "FAILED",
+      "status_code": 404,
+      "response_time": 2.22,
+      "requires_auth": true,
+      "error": "Route not found"
+    },
+    {
+      "endpoint": "Help_getAllHelp",
+      "method": "GET",
+      "path": "/api/help/",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.93,
+      "requires_auth": false,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Help_getHelpByCategory",
+      "method": "GET",
+      "path": "/api/help/category/:category",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.85,
+      "requires_auth": false,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Help_searchHelp",
+      "method": "GET",
+      "path": "/api/help/search",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.81,
+      "requires_auth": false,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Subscription_getUserSubscription",
+      "method": "GET",
+      "path": "/api/subscriptions/user/:userId",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 1.74,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Subscription_createSubscription",
+      "method": "POST",
+      "path": "/api/subscriptions/",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.06,
+      "requires_auth": true,
+      "error": "Access token required"
+    },
+    {
+      "endpoint": "Subscription_updateSubscription",
+      "method": "PUT",
+      "path": "/api/subscriptions/test-id-123",
+      "status": "FAILED",
+      "status_code": 401,
+      "response_time": 2.51,
+      "requires_auth": true,
+      "error": "Access token required"
+    }
+  ]
+}

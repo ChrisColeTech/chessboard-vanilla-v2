@@ -5,14 +5,16 @@ import { UserResponse, CreateUserRequest, UpdateUserRequest } from '../models/Us
 export class UserService {
   private db = Database.getInstance();
 
-  async getUserProfile(userId: string): Promise<UserResponse> {
-    const result = await this.db.query('SELECT * FROM users WHERE id = $1', [userId]);
+  async getUserProfile(): Promise<UserResponse> {
+    // TODO: Get user ID from authentication context
+    const result = await this.db.query('SELECT * FROM users WHERE id = $1', ['current_user_id']);
     if (!result.rows.length) throw new Error('User not found');
     
     return this.formatUserResponse(result.rows[0]);
   }
 
-  async updateUserProfile(userId: string, profileData: any): Promise<UserResponse> {
+  async updateUserProfile(profileData: any): Promise<UserResponse> {
+    // TODO: Get user ID from authentication context
     const result = await this.db.query(`
       UPDATE users 
       SET username = $1, email = $2, updated_at = NOW()
@@ -21,21 +23,23 @@ export class UserService {
     `, [
       profileData.username,
       profileData.email,
-      userId
+      'current_user_id'
     ]);
     
     if (!result.rows.length) throw new Error('User not found');
     return this.formatUserResponse(result.rows[0]);
   }
 
-  async getUserPreferences(userId: string): Promise<UserResponse> {
-    const result = await this.db.query('SELECT * FROM users WHERE id = $1', [userId]);
+  async getUserPreferences(): Promise<UserResponse> {
+    // TODO: Get user ID from authentication context
+    const result = await this.db.query('SELECT * FROM users WHERE id = $1', ['current_user_id']);
     if (!result.rows.length) throw new Error('User not found');
     
     return this.formatUserResponse(result.rows[0]);
   }
 
-  async updateUserPreferences(userId: string, preferencesData: any): Promise<UserResponse> {
+  async updateUserPreferences(preferencesData: any): Promise<UserResponse> {
+    // TODO: Get user ID from authentication context
     const result = await this.db.query(`
       UPDATE users 
       SET preferences = $1, updated_at = NOW()
@@ -43,21 +47,23 @@ export class UserService {
       RETURNING *
     `, [
       JSON.stringify(preferencesData),
-      userId
+      'current_user_id'
     ]);
     
     if (!result.rows.length) throw new Error('User not found');
     return this.formatUserResponse(result.rows[0]);
   }
 
-  async getUserSettings(userId: string): Promise<UserResponse> {
-    const result = await this.db.query('SELECT * FROM users WHERE id = $1', [userId]);
+  async getUserSettings(): Promise<UserResponse> {
+    // TODO: Get user ID from authentication context  
+    const result = await this.db.query('SELECT * FROM users WHERE id = $1', ['current_user_id']);
     if (!result.rows.length) throw new Error('User not found');
     
     return this.formatUserResponse(result.rows[0]);
   }
 
-  async updateUserSettings(userId: string, settingsData: any): Promise<UserResponse> {
+  async updateUserSettings(settingsData: any): Promise<UserResponse> {
+    // TODO: Get user ID from authentication context
     const result = await this.db.query(`
       UPDATE users 
       SET chess_elo = $1, puzzle_rating = $2, updated_at = NOW()
@@ -66,7 +72,7 @@ export class UserService {
     `, [
       settingsData.chess_elo,
       settingsData.puzzle_rating,
-      userId
+      'current_user_id'
     ]);
     
     if (!result.rows.length) throw new Error('User not found');

@@ -8,6 +8,16 @@ const router = Router();
 const gameService = new GameService();
 
 
+// GET /reviews - Must be before /:id route
+router.get('/reviews', authenticate, async (req: any, res) => {
+  try {
+    const result = await gameService.getGameReviews();
+    res.json({ success: true, data: result });
+  } catch (error: any) {
+    res.status(400).json({ success: false, error: error.message });
+  }
+});
+
 // GET /
 router.get('/', authenticate, async (req: any, res) => {
   try {
@@ -18,7 +28,7 @@ router.get('/', authenticate, async (req: any, res) => {
   }
 });
 
-// GET /:id
+// GET /:id - Must be after specific routes
 router.get('/:id', authenticate, async (req: any, res) => {
   try {
     const result = await gameService.getGameById(req.params.id);
@@ -62,16 +72,6 @@ router.post('/:id/analyze', authenticate, async (req: any, res) => {
 router.get('/:id/analysis', authenticate, async (req: any, res) => {
   try {
     const result = await gameService.getGameAnalysis(req.params.id);
-    res.json({ success: true, data: result });
-  } catch (error: any) {
-    res.status(400).json({ success: false, error: error.message });
-  }
-});
-
-// GET /reviews
-router.get('/reviews', authenticate, async (req: any, res) => {
-  try {
-    const result = await gameService.getGameReviews();
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });

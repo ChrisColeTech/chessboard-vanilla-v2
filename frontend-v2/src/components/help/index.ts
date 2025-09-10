@@ -1,0 +1,1 @@
+export { HelpComponent } from './HelpComponent';

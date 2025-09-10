@@ -1,0 +1,256 @@
+{
+  "summary": {
+    "total_tests": 35,
+    "passed_tests": 23,
+    "failed_tests": 12,
+    "success_rate": 65.71428571428571
+  },
+  "test_results": [
+    {
+      "endpoint": "/api/health",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response: {\"success\": true, \"status\": \"healthy\", \"timestamp\": \"2025-09-10T03:18:27.931Z\", \"version\": \"2.0.0\"}",
+      "timestamp": "2025-09-09 23:18:27"
+    },
+    {
+      "endpoint": "/api",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response: {\"success\": true, \"name\": \"Chessboard Vanilla Backend V2\", \"version\": \"2.0.0\", \"description\": \"Backe",
+      "timestamp": "2025-09-09 23:18:27"
+    },
+    {
+      "endpoint": "/auth/register",
+      "method": "POST",
+      "status": "FAIL",
+      "details": "Expected [200, 201, 400, 409], got 404: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /auth/register</pre>\n</body>\n</html>\n",
+      "timestamp": "2025-09-09 23:18:27"
+    },
+    {
+      "endpoint": "/auth/login",
+      "method": "POST",
+      "status": "FAIL",
+      "details": "Expected [200, 401], got 404: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /auth/login</pre>\n</body>\n</html>\n",
+      "timestamp": "2025-09-09 23:18:27"
+    },
+    {
+      "endpoint": "/auth/logout",
+      "method": "POST",
+      "status": "FAIL",
+      "details": "Expected [200, 401], got 404: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /auth/logout</pre>\n</body>\n</html>\n",
+      "timestamp": "2025-09-09 23:18:27"
+    },
+    {
+      "endpoint": "/auth/profile",
+      "method": "GET",
+      "status": "FAIL",
+      "details": "Expected [200, 401], got 500: {\"success\":false,\"error\":\"Internal server error\",\"timestamp\":\"2025-09-10T03:18:27.950Z\"}",
+      "timestamp": "2025-09-09 23:18:27"
+    },
+    {
+      "endpoint": "/auth/verify-token",
+      "method": "POST",
+      "status": "FAIL",
+      "details": "Expected [200, 401, 400], got 404: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /auth/verify-token</pre>\n</body>\n</html>\n",
+      "timestamp": "2025-09-09 23:18:27"
+    },
+    {
+      "endpoint": "/auth/forgot-password",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 404, Non-JSON response",
+      "timestamp": "2025-09-09 23:18:27"
+    },
+    {
+      "endpoint": "/auth/reset-password",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 404, Non-JSON response",
+      "timestamp": "2025-09-09 23:18:27"
+    },
+    {
+      "endpoint": "/api/users",
+      "method": "GET",
+      "status": "FAIL",
+      "details": "Expected [200, 401], got 404: {\"success\":false,\"error\":\"API endpoint not found\"}",
+      "timestamp": "2025-09-09 23:18:27"
+    },
+    {
+      "endpoint": "/api/users/1",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Response: {\"success\": false, \"error\": \"API endpoint not found\"}",
+      "timestamp": "2025-09-09 23:18:27"
+    },
+    {
+      "endpoint": "/api/users",
+      "method": "POST",
+      "status": "FAIL",
+      "details": "Expected [200, 201, 400, 401], got 404: {\"success\":false,\"error\":\"API endpoint not found\"}",
+      "timestamp": "2025-09-09 23:18:27"
+    },
+    {
+      "endpoint": "/api/users/1",
+      "method": "PUT",
+      "status": "PASS",
+      "details": "Status: 404, Response: {\"success\": false, \"error\": \"API endpoint not found\"}",
+      "timestamp": "2025-09-09 23:18:27"
+    },
+    {
+      "endpoint": "/api/users/999",
+      "method": "DELETE",
+      "status": "PASS",
+      "details": "Status: 404, Response: {\"success\": false, \"error\": \"API endpoint not found\"}",
+      "timestamp": "2025-09-09 23:18:27"
+    },
+    {
+      "endpoint": "/api/puzzles",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response: {\"success\": true, \"data\": [{\"id\": \"lichess_0auQ4\", \"fen\": \"8/8/4p3/8/4k1P1/r7/4K3/6R1 w - - 5 60\", \"",
+      "timestamp": "2025-09-09 23:18:28"
+    },
+    {
+      "endpoint": "/api/puzzles/next",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 401, Response: {\"success\": false, \"error\": \"Authentication required\"}",
+      "timestamp": "2025-09-09 23:18:28"
+    },
+    {
+      "endpoint": "/api/puzzles/1",
+      "method": "GET",
+      "status": "FAIL",
+      "details": "Expected [200, 404, 401], got 400: {\"success\":false,\"error\":\"Puzzle not found\"}",
+      "timestamp": "2025-09-09 23:18:28"
+    },
+    {
+      "endpoint": "/api/puzzles/1/solve",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 401, Response: {\"success\": false, \"error\": \"Authentication required\"}",
+      "timestamp": "2025-09-09 23:18:28"
+    },
+    {
+      "endpoint": "/api/puzzles/1/hint",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 401, Response: {\"success\": false, \"error\": \"Authentication required\"}",
+      "timestamp": "2025-09-09 23:18:28"
+    },
+    {
+      "endpoint": "/api/games",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 401, Response: {\"success\": false, \"error\": \"Authentication required\"}",
+      "timestamp": "2025-09-09 23:18:28"
+    },
+    {
+      "endpoint": "/api/games/1",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 401, Response: {\"success\": false, \"error\": \"Authentication required\"}",
+      "timestamp": "2025-09-09 23:18:28"
+    },
+    {
+      "endpoint": "/api/games",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 401, Response: {\"success\": false, \"error\": \"Authentication required\"}",
+      "timestamp": "2025-09-09 23:18:28"
+    },
+    {
+      "endpoint": "/api/games/1",
+      "method": "PUT",
+      "status": "PASS",
+      "details": "Status: 401, Response: {\"success\": false, \"error\": \"Authentication required\"}",
+      "timestamp": "2025-09-09 23:18:28"
+    },
+    {
+      "endpoint": "/api/games/1/analyze",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 401, Response: {\"success\": false, \"error\": \"Authentication required\"}",
+      "timestamp": "2025-09-09 23:18:28"
+    },
+    {
+      "endpoint": "/api/stats",
+      "method": "GET",
+      "status": "FAIL",
+      "details": "Expected [200, 401], got 404: {\"success\":false,\"error\":\"API endpoint not found\"}",
+      "timestamp": "2025-09-09 23:18:28"
+    },
+    {
+      "endpoint": "/api/stats/user/1",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Response: {\"success\": false, \"error\": \"API endpoint not found\"}",
+      "timestamp": "2025-09-09 23:18:28"
+    },
+    {
+      "endpoint": "/api/stats",
+      "method": "POST",
+      "status": "FAIL",
+      "details": "Expected [200, 201, 400, 401], got 404: {\"success\":false,\"error\":\"API endpoint not found\"}",
+      "timestamp": "2025-09-09 23:18:28"
+    },
+    {
+      "endpoint": "/api/stats/1",
+      "method": "PUT",
+      "status": "PASS",
+      "details": "Status: 404, Response: {\"success\": false, \"error\": \"API endpoint not found\"}",
+      "timestamp": "2025-09-09 23:18:28"
+    },
+    {
+      "endpoint": "/api/learning",
+      "method": "GET",
+      "status": "FAIL",
+      "details": "Expected [200, 401], got 404: {\"success\":false,\"error\":\"API endpoint not found\"}",
+      "timestamp": "2025-09-09 23:18:28"
+    },
+    {
+      "endpoint": "/api/learning/1",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Response: {\"success\": false, \"error\": \"API endpoint not found\"}",
+      "timestamp": "2025-09-09 23:18:28"
+    },
+    {
+      "endpoint": "/api/tutorials",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 401, Response: {\"success\": false, \"error\": \"Authentication required\"}",
+      "timestamp": "2025-09-09 23:18:28"
+    },
+    {
+      "endpoint": "/api/tutorials/1",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 401, Response: {\"success\": false, \"error\": \"Authentication required\"}",
+      "timestamp": "2025-09-09 23:18:28"
+    },
+    {
+      "endpoint": "/api/tutorials",
+      "method": "POST",
+      "status": "FAIL",
+      "details": "Expected [200, 201, 400, 401], got 404: {\"success\":false,\"error\":\"API endpoint not found\"}",
+      "timestamp": "2025-09-09 23:18:28"
+    },
+    {
+      "endpoint": "/api/tutorials/1",
+      "method": "PUT",
+      "status": "PASS",
+      "details": "Status: 404, Response: {\"success\": false, \"error\": \"API endpoint not found\"}",
+      "timestamp": "2025-09-09 23:18:28"
+    },
+    {
+      "endpoint": "/src/main.tsx",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Frontend assets accessible",
+      "timestamp": "2025-09-09 23:18:28"
+    }
+  ],
+  "timestamp": "2025-09-09 23:18:28"
+}

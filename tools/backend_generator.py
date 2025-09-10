@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Backend Pattern Generator
+Backend Pattern Generator (Legacy - now uses modular components)
 Generates TypeScript backend files (routes, services, models) based on established patterns
 """
 
@@ -9,22 +9,37 @@ import json
 from typing import Dict, List, Any
 from pathlib import Path
 
+# Import the refactored modular components
+try:
+    from backend_tools import BackendGeneratorRefactored
+    REFACTORED_AVAILABLE = True
+except ImportError:
+    REFACTORED_AVAILABLE = False
+
 class BackendGenerator:
     def __init__(self, backend_path: str = "../backend"):
         self.backend_path = Path(backend_path)
         self.templates = {}
         
+        # Use refactored generator if available
+        if REFACTORED_AVAILABLE:
+            self.refactored_generator = BackendGeneratorRefactored(backend_path)
+        
     def analyze_existing_pattern(self, reference_service: str = "puzzles"):
         """Analyze existing files to extract patterns"""
-        print(f"🔍 Analyzing existing {reference_service} pattern...")
-        
-        patterns = {
-            'route': self._analyze_route_pattern(f"{reference_service}.ts"),
-            'service': self._analyze_service_pattern(f"{reference_service}Service.ts"),
-            'model': self._analyze_model_pattern("Puzzle.ts")
-        }
-        
-        return patterns
+        # Use refactored pattern analyzer if available
+        if REFACTORED_AVAILABLE:
+            return self.refactored_generator.analyze_existing_pattern(reference_service)
+        else:
+            print(f"🔍 Analyzing existing {reference_service} pattern...")
+            
+            patterns = {
+                'route': self._analyze_route_pattern(f"{reference_service}.ts"),
+                'service': self._analyze_service_pattern(f"{reference_service}Service.ts"),
+                'model': self._analyze_model_pattern("Puzzle.ts")
+            }
+            
+            return patterns
     
     def _analyze_route_pattern(self, filename: str) -> Dict:
         """Extract route pattern from existing route file"""
@@ -170,25 +185,31 @@ export interface Update{ENTITY}Request {{
     
     def generate_endpoint(self, config: Dict[str, Any]):
         """Generate a complete endpoint (route + service + model)"""
-        # Store config for use in other methods
-        self.current_config = config
-        
-        entity = config['entity']
-        entities = config.get('entities', f"{entity.lower()}s")
-        table_name = config.get('table_name', entities)
-        
-        print(f"🔧 Generating {entity} endpoint...")
-        
-        # Generate model
-        self._generate_model(entity, config.get('properties', {}))
-        
-        # Generate service  
-        self._generate_service(entity, entities, table_name, config.get('methods', ['getAll', 'getById', 'create', 'update', 'delete']))
-        
-        # Generate route
-        self._generate_route(entity, entities, config.get('endpoints', []))
-        
-        print(f"✅ Generated {entity} endpoint files")
+        # Use refactored generator if available, otherwise use legacy code
+        if REFACTORED_AVAILABLE:
+            print("🔄 Using refactored modular generator...")
+            return self.refactored_generator.generate_endpoint(config)
+        else:
+            print("⚠️  Using legacy generator (modular components not found)...")
+            # Store config for use in other methods
+            self.current_config = config
+            
+            entity = config['entity']
+            entities = config.get('entities', f"{entity.lower()}s")
+            table_name = config.get('table_name', entities)
+            
+            print(f"🔧 Generating {entity} endpoint...")
+            
+            # Generate model
+            self._generate_model(entity, config.get('properties', {}))
+            
+            # Generate service  
+            self._generate_service(entity, entities, table_name, config.get('methods', ['getAll', 'getById', 'create', 'update', 'delete']))
+            
+            # Generate route
+            self._generate_route(entity, entities, config.get('endpoints', []))
+            
+            print(f"✅ Generated {entity} endpoint files")
     
     def _generate_model(self, entity: str, properties: Dict[str, str]):
         """Generate TypeScript model file"""
@@ -353,11 +374,50 @@ export interface AuthResponse<T = any> {
         format_method = self._generate_format_method(entity_upper, entity_properties)
         service_methods.append(format_method)
         
+        # Add special helper methods for Auth service
+        if entity_lower == 'auth':
+            auth_helpers = [
+                '''  private formatUserInfo(user: any): any {
+    return {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      chess_elo: user.chess_elo,
+      puzzle_rating: user.puzzle_rating,
+      preferences: user.preferences,
+      created_at: user.created_at,
+      updated_at: user.updated_at
+    };
+  }''',
+                '''  private formatUserProgress(progress: any): any {
+    return {
+      id: progress.id,
+      user_id: progress.user_id,
+      puzzles_solved: progress.puzzles_solved,
+      puzzles_correct: progress.puzzles_correct,
+      current_streak: progress.current_streak,
+      best_streak: progress.best_streak,
+      total_time_spent: progress.total_time_spent,
+      achievements_unlocked: progress.achievements_unlocked ? JSON.parse(progress.achievements_unlocked) : [],
+      last_puzzle_date: progress.last_puzzle_date,
+      created_at: progress.created_at,
+      updated_at: progress.updated_at
+    };
+  }'''
+            ]
+            service_methods.extend(auth_helpers)
+        
+        # Handle Auth special case for imports
+        if entity_lower == 'auth':
+            model_types = f"LoginRequest, RegisterRequest, UserInfo, AuthResponse"
+        else:
+            model_types = f"{entity_upper}Response, Create{entity_upper}Request, Update{entity_upper}Request"
+        
         template = self._create_default_service_pattern()['template']
         content = template.format(
             SERVICE_CLASS=f"{entity_upper}Service",
             MODEL_NAME=entity_upper,
-            MODEL_TYPES=f"{entity_upper}Response, Create{entity_upper}Request, Update{entity_upper}Request",
+            MODEL_TYPES=model_types,
             SERVICE_METHODS='\n\n'.join(service_methods)
         )
         
@@ -416,13 +476,19 @@ router.{method}('{path}', {auth_middleware}async (req: any, res) => {{
 }});"""
             route_methods.append(route_method)
         
+        # Handle Auth special case for imports
+        if entity_lower == 'auth':
+            request_types = "LoginRequest, RegisterRequest"
+        else:
+            request_types = f"Create{entity_upper}Request, Update{entity_upper}Request"
+        
         template = self._create_default_route_pattern()['template']
         content = template.format(
             SERVICE_CLASS=f"{entity_upper}Service",
             service_name=entity_lower,
             service_instance=f"{entity_lower}Service",
             MODEL_NAME=entity_upper,
-            REQUEST_TYPES=f"Create{entity_upper}Request, Update{entity_upper}Request",
+            REQUEST_TYPES=request_types,
             ROUTE_METHODS='\n'.join(route_methods)
         )
         
@@ -728,7 +794,7 @@ router.{method}('{path}', {auth_middleware}async (req: any, res) => {{
       throw new Error('Failed to create user');
     }}
 
-    return this.formatUserInfo(result.rows[0]);
+    return this.format{entity_upper}Response(result.rows[0]);
   }}'''
 
         elif method_name == "login":
@@ -862,7 +928,7 @@ router.{method}('{path}', {auth_middleware}async (req: any, res) => {{
       throw new Error('User not found');
     }}
 
-    return this.formatUserInfo(result.rows[0]);
+    return this.format{entity_upper}Response(result.rows[0]);
   }}'''
 
         elif method_name == "changePassword":
@@ -1119,6 +1185,21 @@ router.{method}('{path}', {auth_middleware}async (req: any, res) => {{
     def _generate_format_method(self, entity_upper: str, properties: dict) -> str:
         """Generate entity-specific format method"""
         
+        # Special case for Auth - return UserInfo, not AuthResponse
+        if entity_upper == 'Auth':
+            return '''  private formatAuthResponse(row: any): UserInfo {
+    return {
+      id: row.id,
+      username: row.username,
+      email: row.email,
+      chess_elo: row.chess_elo,
+      puzzle_rating: row.puzzle_rating,
+      preferences: row.preferences,
+      created_at: row.created_at,
+      updated_at: row.updated_at
+    };
+  }'''
+        
         format_fields = []
         for prop_name, prop_type in properties.items():
             if prop_name == "solutionMoves":
@@ -1142,6 +1223,12 @@ def main():
     """Main function to run the generator"""
     import sys
     
+    print("🚀 Backend Generator Starting...")
+    if REFACTORED_AVAILABLE:
+        print("✅ Using refactored modular architecture")
+    else:
+        print("⚠️  Using legacy generator (install backend_tools for improved functionality)")
+    
     if len(sys.argv) < 2:
         print("Usage: python backend_generator.py <endpoint_name>")
         print("Available endpoints: users, puzzles, games, stats, learning, tutorials")
@@ -1158,10 +1245,10 @@ def main():
         print(f"Available endpoints: {', '.join(config['endpoints'].keys())}")
         return
     
-    generator = BackendGenerator()
+    target_dir = config.get('target_directory', '../backend')
+    generator = BackendGenerator(target_dir)
     endpoint_config = config['endpoints'][endpoint_name]
     
-    print("🚀 Backend Generator Starting...")
     print(f"🔧 Generating {endpoint_config['entity']} endpoint...")
     success = generator.generate_endpoint(endpoint_config)
     

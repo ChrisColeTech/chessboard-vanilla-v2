@@ -1,0 +1,157 @@
+{
+  "summary": {
+    "total_tests": 21,
+    "passed_tests": 18,
+    "failed_tests": 3,
+    "success_rate": 85.71428571428571
+  },
+  "results": [
+    {
+      "endpoint": "/api/auth/health",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:22:42"
+    },
+    {
+      "endpoint": "/api/auth/login",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:22:42"
+    },
+    {
+      "endpoint": "/api/auth/check-email",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:22:42"
+    },
+    {
+      "endpoint": "/api/auth/check-username",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:22:43"
+    },
+    {
+      "endpoint": "/api/users/profile",
+      "method": "GET",
+      "status": "FAIL",
+      "details": "Status: 400, Error: User not found",
+      "timestamp": "2025-09-09 23:22:43"
+    },
+    {
+      "endpoint": "/api/users/preferences",
+      "method": "GET",
+      "status": "FAIL",
+      "details": "Status: 400, Error: User not found",
+      "timestamp": "2025-09-09 23:22:43"
+    },
+    {
+      "endpoint": "/api/users/settings",
+      "method": "GET",
+      "status": "FAIL",
+      "details": "Status: 400, Error: User not found",
+      "timestamp": "2025-09-09 23:22:43"
+    },
+    {
+      "endpoint": "/api/puzzles/next",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:22:43"
+    },
+    {
+      "endpoint": "/api/puzzles/categories",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:22:44"
+    },
+    {
+      "endpoint": "/api/puzzles/history",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:22:44"
+    },
+    {
+      "endpoint": "/api/puzzles/custom",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:22:44"
+    },
+    {
+      "endpoint": "/api/games",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:22:44"
+    },
+    {
+      "endpoint": "/api/games/reviews",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:22:44"
+    },
+    {
+      "endpoint": "/api/stats/overview",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:22:44"
+    },
+    {
+      "endpoint": "/api/stats/puzzles",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:22:44"
+    },
+    {
+      "endpoint": "/api/stats/games",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:22:44"
+    },
+    {
+      "endpoint": "/api/stats/progress",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:22:45"
+    },
+    {
+      "endpoint": "/api/stats/performance",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:22:45"
+    },
+    {
+      "endpoint": "/api/stats/ratings",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:22:45"
+    },
+    {
+      "endpoint": "/api/learning/paths",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:22:45"
+    },
+    {
+      "endpoint": "/api/tutorials",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:22:45"
+    }
+  ]
+}

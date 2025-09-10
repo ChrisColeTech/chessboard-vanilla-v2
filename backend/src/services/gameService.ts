@@ -70,6 +70,7 @@ export class GameService {
 
   async getGameReviews(): Promise<GameResponse[]> {
     const result = await this.db.query('SELECT * FROM games WHERE status = $1 ORDER BY created_at DESC LIMIT 20', ['completed']);
+    // Return empty array if no completed games found
     return result.rows.map(row => this.formatGameResponse(row));
   }
 

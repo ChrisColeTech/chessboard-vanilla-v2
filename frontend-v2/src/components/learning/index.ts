@@ -1,0 +1,1 @@
+export { LearningPathComponent } from './LearningPathComponent';

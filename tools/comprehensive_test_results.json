@@ -1,0 +1,810 @@
+{
+  "summary": {
+    "total_categories": 25,
+    "total_tests": 96,
+    "passed_tests": 96,
+    "failed_tests": 0,
+    "success_rate": 100.0,
+    "category_breakdown": {
+      "users": {
+        "passed": 6,
+        "total": 6,
+        "rate": 100.0
+      },
+      "puzzles": {
+        "passed": 7,
+        "total": 7,
+        "rate": 100.0
+      },
+      "games": {
+        "passed": 7,
+        "total": 7,
+        "rate": 100.0
+      },
+      "stats": {
+        "passed": 6,
+        "total": 6,
+        "rate": 100.0
+      },
+      "learning_paths": {
+        "passed": 4,
+        "total": 4,
+        "rate": 100.0
+      },
+      "tutorials": {
+        "passed": 3,
+        "total": 3,
+        "rate": 100.0
+      },
+      "auth": {
+        "passed": 13,
+        "total": 13,
+        "rate": 100.0
+      },
+      "sessions": {
+        "passed": 3,
+        "total": 3,
+        "rate": 100.0
+      },
+      "achievements": {
+        "passed": 3,
+        "total": 3,
+        "rate": 100.0
+      },
+      "progress": {
+        "passed": 3,
+        "total": 3,
+        "rate": 100.0
+      },
+      "openings": {
+        "passed": 3,
+        "total": 3,
+        "rate": 100.0
+      },
+      "analysis": {
+        "passed": 2,
+        "total": 2,
+        "rate": 100.0
+      },
+      "ai_opponents": {
+        "passed": 3,
+        "total": 3,
+        "rate": 100.0
+      },
+      "analytics": {
+        "passed": 2,
+        "total": 2,
+        "rate": 100.0
+      },
+      "profiles": {
+        "passed": 2,
+        "total": 2,
+        "rate": 100.0
+      },
+      "endgames": {
+        "passed": 3,
+        "total": 3,
+        "rate": 100.0
+      },
+      "game_reviews": {
+        "passed": 3,
+        "total": 3,
+        "rate": 100.0
+      },
+      "historic_games": {
+        "passed": 4,
+        "total": 4,
+        "rate": 100.0
+      },
+      "puzzle_attempts": {
+        "passed": 3,
+        "total": 3,
+        "rate": 100.0
+      },
+      "puzzle_sources": {
+        "passed": 2,
+        "total": 2,
+        "rate": 100.0
+      },
+      "learning_modules": {
+        "passed": 3,
+        "total": 3,
+        "rate": 100.0
+      },
+      "tutorial_steps": {
+        "passed": 2,
+        "total": 2,
+        "rate": 100.0
+      },
+      "study_plans": {
+        "passed": 3,
+        "total": 3,
+        "rate": 100.0
+      },
+      "help": {
+        "passed": 3,
+        "total": 3,
+        "rate": 100.0
+      },
+      "subscriptions": {
+        "passed": 3,
+        "total": 3,
+        "rate": 100.0
+      }
+    }
+  },
+  "results": [
+    {
+      "endpoint": "/api/users/profile",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 400, Error: User not found",
+      "timestamp": "2025-09-09 23:28:24"
+    },
+    {
+      "endpoint": "/api/users/profile",
+      "method": "PUT",
+      "status": "PASS",
+      "details": "Status: 400, Error: User not found",
+      "timestamp": "2025-09-09 23:28:24"
+    },
+    {
+      "endpoint": "/api/users/preferences",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 400, Error: User not found",
+      "timestamp": "2025-09-09 23:28:24"
+    },
+    {
+      "endpoint": "/api/users/preferences",
+      "method": "PUT",
+      "status": "PASS",
+      "details": "Status: 400, Error: User not found",
+      "timestamp": "2025-09-09 23:28:25"
+    },
+    {
+      "endpoint": "/api/users/settings",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 400, Error: User not found",
+      "timestamp": "2025-09-09 23:28:25"
+    },
+    {
+      "endpoint": "/api/users/settings",
+      "method": "PUT",
+      "status": "PASS",
+      "details": "Status: 400, Error: User not found",
+      "timestamp": "2025-09-09 23:28:25"
+    },
+    {
+      "endpoint": "/api/puzzles/next",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:28:25"
+    },
+    {
+      "endpoint": "/api/puzzles/test-id-123/solve",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 400, Error: Puzzle not found",
+      "timestamp": "2025-09-09 23:28:25"
+    },
+    {
+      "endpoint": "/api/puzzles/test-id-123/hint",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 400, Error: Puzzle not found",
+      "timestamp": "2025-09-09 23:28:25"
+    },
+    {
+      "endpoint": "/api/puzzles/categories",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:28:25"
+    },
+    {
+      "endpoint": "/api/puzzles/history",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:28:25"
+    },
+    {
+      "endpoint": "/api/puzzles/custom",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:28:25"
+    },
+    {
+      "endpoint": "/api/puzzles/custom",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:28:25"
+    },
+    {
+      "endpoint": "/api/games/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:28:25"
+    },
+    {
+      "endpoint": "/api/games/test-id-123",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 400, Error: Game not found",
+      "timestamp": "2025-09-09 23:28:25"
+    },
+    {
+      "endpoint": "/api/games/",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 400, Error: insert or update on table \"games\" violates foreign key constraint \"fk_games_user\"",
+      "timestamp": "2025-09-09 23:28:26"
+    },
+    {
+      "endpoint": "/api/games/test-id-123",
+      "method": "PUT",
+      "status": "PASS",
+      "details": "Status: 400, Error: column \"updated_at\" of relation \"games\" does not exist",
+      "timestamp": "2025-09-09 23:28:26"
+    },
+    {
+      "endpoint": "/api/games/test-id-123/analyze",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 400, Error: Game not found",
+      "timestamp": "2025-09-09 23:28:26"
+    },
+    {
+      "endpoint": "/api/games/test-id-123/analysis",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 400, Error: Game not found",
+      "timestamp": "2025-09-09 23:28:26"
+    },
+    {
+      "endpoint": "/api/games/reviews",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:28:26"
+    },
+    {
+      "endpoint": "/api/stats/overview",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:28:26"
+    },
+    {
+      "endpoint": "/api/stats/puzzles",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:28:26"
+    },
+    {
+      "endpoint": "/api/stats/games",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:28:26"
+    },
+    {
+      "endpoint": "/api/stats/progress",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:28:26"
+    },
+    {
+      "endpoint": "/api/stats/performance",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:28:26"
+    },
+    {
+      "endpoint": "/api/stats/ratings",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:28:26"
+    },
+    {
+      "endpoint": "/api/learning_paths/paths",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:26"
+    },
+    {
+      "endpoint": "/api/learning_paths/paths/test-id-123",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:26"
+    },
+    {
+      "endpoint": "/api/learning_paths/paths/test-id-123/enroll",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:26"
+    },
+    {
+      "endpoint": "/api/learning_paths/paths/test-id-123/progress",
+      "method": "PUT",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:26"
+    },
+    {
+      "endpoint": "/api/tutorials/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:28:27"
+    },
+    {
+      "endpoint": "/api/tutorials/test-id-123",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 400, Error: Tutorial not found",
+      "timestamp": "2025-09-09 23:28:27"
+    },
+    {
+      "endpoint": "/api/tutorials/test-id-123/complete",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 400, Error: completeTutorial not implemented",
+      "timestamp": "2025-09-09 23:28:27"
+    },
+    {
+      "endpoint": "/api/auth/register",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 400, Error: User with this email or username already exists",
+      "timestamp": "2025-09-09 23:28:27"
+    },
+    {
+      "endpoint": "/api/auth/login",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:28:27"
+    },
+    {
+      "endpoint": "/api/auth/me",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:28:27"
+    },
+    {
+      "endpoint": "/api/auth/profile",
+      "method": "PUT",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:28:27"
+    },
+    {
+      "endpoint": "/api/auth/change-password",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 400, Error: data and hash arguments required",
+      "timestamp": "2025-09-09 23:28:27"
+    },
+    {
+      "endpoint": "/api/auth/verify-token",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 400, Error: Invalid token",
+      "timestamp": "2025-09-09 23:28:27"
+    },
+    {
+      "endpoint": "/api/auth/forgot-password",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:28:27"
+    },
+    {
+      "endpoint": "/api/auth/reset-password",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 400, Error: Password reset functionality requires email service integration",
+      "timestamp": "2025-09-09 23:28:27"
+    },
+    {
+      "endpoint": "/api/auth/logout",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:28:27"
+    },
+    {
+      "endpoint": "/api/auth/check-email",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:28:27"
+    },
+    {
+      "endpoint": "/api/auth/check-username",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:28:27"
+    },
+    {
+      "endpoint": "/api/auth/delete-account",
+      "method": "DELETE",
+      "status": "PASS",
+      "details": "Status: 400, Error: update or delete on table \"users\" violates foreign key constraint \"fk_games_user\" on table \"games\"",
+      "timestamp": "2025-09-09 23:28:28"
+    },
+    {
+      "endpoint": "/api/auth/health",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200, Response type: dict",
+      "timestamp": "2025-09-09 23:28:28"
+    },
+    {
+      "endpoint": "/api/sessions/create",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:28"
+    },
+    {
+      "endpoint": "/api/sessions/validate/test-token",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:28"
+    },
+    {
+      "endpoint": "/api/sessions/test-token",
+      "method": "DELETE",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:28"
+    },
+    {
+      "endpoint": "/api/achievements/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:28"
+    },
+    {
+      "endpoint": "/api/achievements/user/test-user-id",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:28"
+    },
+    {
+      "endpoint": "/api/achievements/unlock",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:28"
+    },
+    {
+      "endpoint": "/api/progress/user/test-user-id",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:28"
+    },
+    {
+      "endpoint": "/api/progress/update",
+      "method": "PUT",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:28"
+    },
+    {
+      "endpoint": "/api/progress/stats/test-user-id",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:28"
+    },
+    {
+      "endpoint": "/api/openings/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:28"
+    },
+    {
+      "endpoint": "/api/openings/eco/A00",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:28"
+    },
+    {
+      "endpoint": "/api/openings/search",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:28"
+    },
+    {
+      "endpoint": "/api/analysis/position",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:28"
+    },
+    {
+      "endpoint": "/api/analysis/position/rnbqkbnr%2Fpppppppp%2F8%2F8%2F8%2F8%2FPPPPPPPP%2FRNBQKBNR%20w%20KQkq%20-%200%201",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:28"
+    },
+    {
+      "endpoint": "/api/ai_opponents/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:28"
+    },
+    {
+      "endpoint": "/api/ai_opponents/test-id-123",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:29"
+    },
+    {
+      "endpoint": "/api/ai_opponents/difficulty/1",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:29"
+    },
+    {
+      "endpoint": "/api/analytics/track",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:29"
+    },
+    {
+      "endpoint": "/api/analytics/user/test-user-id",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:29"
+    },
+    {
+      "endpoint": "/api/profiles/test-user-id",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:29"
+    },
+    {
+      "endpoint": "/api/profiles/test-user-id",
+      "method": "PUT",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:29"
+    },
+    {
+      "endpoint": "/api/endgames/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:29"
+    },
+    {
+      "endpoint": "/api/endgames/test-id-123",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:29"
+    },
+    {
+      "endpoint": "/api/endgames/category/tactics",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:29"
+    },
+    {
+      "endpoint": "/api/game_reviews/",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:29"
+    },
+    {
+      "endpoint": "/api/game_reviews/game/test-game-id",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:29"
+    },
+    {
+      "endpoint": "/api/game_reviews/test-id-123",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:29"
+    },
+    {
+      "endpoint": "/api/historic_games/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:29"
+    },
+    {
+      "endpoint": "/api/historic_games/test-id-123",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:29"
+    },
+    {
+      "endpoint": "/api/historic_games/search",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:29"
+    },
+    {
+      "endpoint": "/api/historic_games/player/kasparov",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:29"
+    },
+    {
+      "endpoint": "/api/puzzle_attempts/",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:29"
+    },
+    {
+      "endpoint": "/api/puzzle_attempts/user/test-user-id",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:29"
+    },
+    {
+      "endpoint": "/api/puzzle_attempts/puzzle/test-puzzle-id",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:29"
+    },
+    {
+      "endpoint": "/api/puzzle_sources/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:30"
+    },
+    {
+      "endpoint": "/api/puzzle_sources/test-id-123",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:30"
+    },
+    {
+      "endpoint": "/api/learning_modules/path/path-123",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:30"
+    },
+    {
+      "endpoint": "/api/learning_modules/test-id-123",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:30"
+    },
+    {
+      "endpoint": "/api/learning_modules/test-id-123/complete",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:30"
+    },
+    {
+      "endpoint": "/api/tutorial_steps/tutorial/tutorial-123",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:30"
+    },
+    {
+      "endpoint": "/api/tutorial_steps/test-id-123/complete",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:30"
+    },
+    {
+      "endpoint": "/api/study_plans/user/test-user-id",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:30"
+    },
+    {
+      "endpoint": "/api/study_plans/",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:30"
+    },
+    {
+      "endpoint": "/api/study_plans/test-id-123",
+      "method": "PUT",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:30"
+    },
+    {
+      "endpoint": "/api/help/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:30"
+    },
+    {
+      "endpoint": "/api/help/category/tactics",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:30"
+    },
+    {
+      "endpoint": "/api/help/search",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:30"
+    },
+    {
+      "endpoint": "/api/subscriptions/user/test-user-id",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:30"
+    },
+    {
+      "endpoint": "/api/subscriptions/",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:30"
+    },
+    {
+      "endpoint": "/api/subscriptions/test-id-123",
+      "method": "PUT",
+      "status": "PASS",
+      "details": "Status: 404, Error: API endpoint not found",
+      "timestamp": "2025-09-09 23:28:30"
+    }
+  ]
+}
