@@ -19,6 +19,10 @@ class ServiceGenerator:
         entity_lower = entity.lower()
         entities_lower = entities.lower()
         
+        # Apply entity naming fix early - BEFORE any method generation
+        if entity_lower == 'learningpath':
+            entity_upper = 'LearningPath'  # Fix entity naming consistently
+        
         service_methods = []
         
         # Ensure all standard CRUD methods are included
@@ -87,7 +91,6 @@ class ServiceGenerator:
             # Use proper LearningPath naming throughout
             model_types = f"LearningPathResponse, CreateLearningPathRequest, UpdateLearningPathRequest"
             model_import_name = 'LearningPath'
-            entity_upper = 'LearningPath'  # Override entity_upper for consistent naming
         else:
             model_types = f"{entity_upper}Response, Create{entity_upper}Request, Update{entity_upper}Request"
             model_import_name = entity_upper
@@ -138,10 +141,15 @@ export class {SERVICE_CLASS} {{
         from auth_methods import AuthMethodGenerator
         from user_methods import UserMethodGenerator
         from learning_path_methods import LearningPathMethodGenerator
+        from progress_methods import ProgressMethodGenerator
+        from profile_methods import ProfileMethodGenerator
+        from historicgame_methods import HistoricgameMethodGenerator
         from generic_methods import GenericMethodGenerator
         
-        # Determine which generator to use based on entity or method name
-        if 'puzzle' in entity_lower or method_name.startswith(('getNext', 'solve', 'getHint', 'getCategories')):
+        # Determine which generator to use based on entity or method name (most specific first)
+        if 'historicgame' in entity_lower or entity_lower == 'historic-games' or 'historic' in entity_lower:
+            generator = HistoricgameMethodGenerator()
+        elif 'puzzle' in entity_lower or method_name.startswith(('getNext', 'solve', 'getHint', 'getCategories')):
             generator = PuzzleMethodGenerator()
         elif 'game' in entity_lower or method_name.startswith(('getGame', 'createGame', 'updateGame', 'analyze')):
             generator = GameMethodGenerator()
@@ -149,8 +157,12 @@ export class {SERVICE_CLASS} {{
             generator = AuthMethodGenerator()
         elif 'user' in entity_lower or method_name.startswith(('getUser', 'updateUser')):
             generator = UserMethodGenerator()
-        elif entity_lower == 'learningpath' or method_name in ['getLearningPaths', 'getLearningPathById', 'enrollInPath', 'updateProgress']:
+        elif entity_lower == 'learningpath':
             generator = LearningPathMethodGenerator()
+        elif entity_lower == 'progress':
+            generator = ProgressMethodGenerator()
+        elif entity_lower == 'profiles' or entity_lower == 'profile':
+            generator = ProfileMethodGenerator()
         else:
             generator = GenericMethodGenerator()
         

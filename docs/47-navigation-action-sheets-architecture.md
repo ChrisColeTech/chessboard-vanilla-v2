@@ -682,15 +682,223 @@ The current system easily supports:
 3. **Component Tests**: Test context hook integration
 4. **Manual Testing**: Test actual user workflows
 
+## Phase 2: Mobile Switching Architecture
+
+### Overview
+
+Phase 2 introduces automatic mobile/desktop page switching that eliminates duplicate actions and instructions while maintaining seamless responsive behavior.
+
+### Problem Solved
+
+**Before Phase 2:**
+- Separate mobile pages required manual navigation (`go-to-mobile-drag-test`)
+- Duplicate action configurations for mobile variants
+- Separate instruction sets for mobile/desktop versions
+- Users had to manually choose mobile vs desktop experience
+
+**After Phase 2:**
+- Single page action automatically switches between mobile/desktop versions
+- Unified action configurations and instructions
+- Automatic device detection and page switching
+- Seamless responsive experience
+
+### Implementation Architecture
+
+#### 1. Unified Page Routing
+
+```typescript
+// UITestPage.tsx - Parent routing with mobile detection
+const currentChildPage = useAppStore((state) => state.currentChildPage)
+const isMobile = useIsMobile()
+
+if (currentChildPage === "dragtest") {
+  // Automatically switch between desktop and mobile versions
+  CurrentPageComponent = isMobile ? MobileDragTestPageWrapper : DragTestPageWrapper;
+}
+```
+
+#### 2. Shared Page Context
+
+```typescript
+// Both wrappers use the same pageId
+// DragTestPageWrapper.tsx (Desktop)
+usePageInstructions("dragtest")  // Shared instructions
+usePageActions("dragtest")       // Shared actions
+
+// MobileDragTestPageWrapper.tsx (Mobile)  
+usePageInstructions("dragtest")  // Same instructions
+usePageActions("dragtest")       // Same actions
+```
+
+#### 3. Component Re-mounting Strategy
+
+```typescript
+// Force proper re-mounting when switching device types
+<CurrentPageComponent 
+  key={`${currentChildPage}-${isMobile ? 'mobile' : 'desktop'}`} 
+/>
+```
+
+#### 4. Reactive Mobile Detection
+
+```typescript
+// useIsMobile.ts - Enhanced with proper initialization
+export function useIsMobile(breakpoint: number = 768): boolean {
+  const [isMobile, setIsMobile] = useState(() => {
+    // Initialize with actual window width if available
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < breakpoint
+    }
+    return false
+  })
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < breakpoint)
+    }
+
+    // Check on mount
+    checkIsMobile()
+
+    // Add event listener for reactive updates
+    window.addEventListener('resize', checkIsMobile)
+
+    // Cleanup
+    return () => window.removeEventListener('resize', checkIsMobile)
+  }, [breakpoint])
+
+  return isMobile
+}
+```
+
+### Phase 2 Benefits
+
+#### Eliminated Duplication
+- **Actions**: Removed duplicate `go-to-mobile-drag-test` actions
+- **Instructions**: Single instruction set shared between mobile/desktop
+- **Navigation**: One action (`go-to-drag-test`) handles both experiences
+
+#### Improved User Experience
+- **Automatic**: No manual mobile/desktop selection required
+- **Reactive**: Real-time switching when resizing browser
+- **Seamless**: Proper component re-mounting preserves state integrity
+
+#### Developer Experience  
+- **Less Code**: No duplicate action/instruction configurations
+- **Maintainable**: Single source of truth for page behavior
+- **Extensible**: Easy to add mobile variants to existing pages
+
+### Phase 2 Implementation Checklist
+
+For adding mobile switching to any page:
+
+#### 1. Create Mobile Page Variant
+```typescript
+// src/pages/parentpage/MobileChildPage.tsx
+export const MobileChildPage: React.FC = () => {
+  // Mobile-specific implementation
+  return <MobileLayout>...</MobileLayout>
+}
+```
+
+#### 2. Create Mobile Wrapper
+```typescript  
+// src/components/parentpage/MobileChildPageWrapper.tsx
+export const MobileChildPageWrapper: React.FC = () => {
+  usePageInstructions("childpage")  // Same pageId as desktop
+  usePageActions("childpage")       // Same pageId as desktop
+  
+  return <MobileChildPage />
+}
+```
+
+#### 3. Update Parent Routing
+```typescript
+// Parent page component
+const isMobile = useIsMobile()
+
+if (currentChildPage === "childpage") {
+  CurrentPageComponent = isMobile ? MobileChildPageWrapper : ChildPageWrapper;
+}
+```
+
+#### 4. Remove Duplicate Configurations
+- Remove separate mobile action definitions from `common-actions.constants.ts`
+- Remove separate mobile action handlers from `ActionSheetContainer.tsx`
+- Remove separate mobile instructions from `InstructionsService.ts`
+- Remove `go-to-mobile-*` actions from action hook exports
+
+#### 5. Add Component Key
+```typescript
+// Ensure proper re-mounting
+<CurrentPageComponent 
+  key={`${currentChildPage}-${isMobile ? 'mobile' : 'desktop'}`} 
+/>
+```
+
+### Phase 2 Architecture Patterns
+
+#### Naming Convention
+- **Desktop pages**: `ChildPage.tsx` (default)
+- **Mobile pages**: `MobileChildPage.tsx` (explicit prefix)
+- **Wrappers**: `ChildPageWrapper.tsx` and `MobileChildPageWrapper.tsx`
+
+#### Shared Resources
+- **Page ID**: Both mobile/desktop use same identifier
+- **Instructions**: Single instruction set for both variants
+- **Actions**: Unified action configuration
+- **Navigation**: One action triggers responsive switching
+
+#### State Management
+- **Store**: No changes required - same `currentChildPage` state
+- **Persistence**: Mobile/desktop switching preserved across reloads
+- **Reactivity**: Automatic updates via `useIsMobile` hook
+
+### Phase 2 Testing Strategy
+
+#### Functional Testing
+1. **Responsive Switching**: Resize browser to test mobile/desktop transitions
+2. **Action Consolidation**: Verify no duplicate mobile actions in action sheets
+3. **Instruction Sharing**: Confirm same instructions appear for both variants
+4. **State Persistence**: Test navigation state survives page reloads
+
+#### Integration Testing  
+1. **Component Mounting**: Verify proper re-mounting with device type changes
+2. **Hook Integration**: Test `useIsMobile` reactivity across components
+3. **Store Integration**: Confirm store state remains consistent
+4. **Navigation Flow**: Test complete user journeys across device types
+
+### Phase 2 Lessons Learned
+
+#### What Worked Well
+- **Unified pageId approach**: Eliminated configuration duplication effectively
+- **Component key strategy**: Forced proper re-mounting without performance issues
+- **Reactive hook pattern**: `useIsMobile` provided seamless device detection
+- **Incremental rollout**: Proof of concept with dragtest validated approach
+
+#### Key Insights
+- **Single source of truth**: Sharing pageId between mobile/desktop eliminated inconsistencies
+- **Automatic switching**: Users prefer transparent responsive behavior over manual selection
+- **Clean separation**: Mobile/desktop pages can have completely different implementations
+- **Maintainable duplication**: Where needed, duplication happens at the component level, not configuration
+
+#### Future Considerations
+- **Performance**: Consider lazy loading for mobile page variants
+- **Customization**: Some pages may need different instructions for mobile/desktop
+- **Animation**: Could add transition animations between mobile/desktop switches
+- **Breakpoints**: May need multiple breakpoints for tablet/desktop distinctions
+
 ## Architecture Benefits
 
 This navigation system provides:
 
 - **Scalability** - Easy to add new tabs and child pages
-- **Maintainability** - Clear separation of concerns
+- **Maintainability** - Clear separation of concerns  
 - **User Experience** - Smooth navigation with persistence
 - **Developer Experience** - Consistent patterns and hooks
 - **Performance** - Efficient re-renders and state updates
 - **Accessibility** - Built on HeadlessUI primitives
+- **Responsive Design** - Automatic mobile/desktop switching (Phase 2)
+- **Code Efficiency** - Eliminated duplicate actions and instructions (Phase 2)
 
-The architecture successfully balances simplicity with flexibility, providing a robust foundation for complex navigation requirements while maintaining clean, maintainable code.
+The architecture successfully balances simplicity with flexibility, providing a robust foundation for complex navigation requirements while maintaining clean, maintainable code. Phase 2 extends this foundation with intelligent responsive behavior that adapts to user devices automatically.

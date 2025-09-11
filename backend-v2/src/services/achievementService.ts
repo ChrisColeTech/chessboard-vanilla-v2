@@ -34,7 +34,7 @@ export class AchievementService {
   }
 
   async createAchievement(data: CreateAchievementRequest): Promise<AchievementResponse> {
-    const id = require('uuid').v4();
+    const id = uuidv4();
     const result = await this.db.query(`
       INSERT INTO achievements (id, created_at, updated_at)
       VALUES ($1, NOW(), NOW())
@@ -57,7 +57,8 @@ export class AchievementService {
   }
 
   async deleteAchievement(id: string): Promise<void> {
-    await this.db.query('DELETE FROM achievements WHERE id = $1', [id]);
+    const result = await this.db.query('DELETE FROM achievements WHERE id = $1', [id]);
+    if (result.rowCount === 0) throw new Error('Achievement not found');
   }
 
   private formatAchievementResponse(row: any): AchievementResponse {

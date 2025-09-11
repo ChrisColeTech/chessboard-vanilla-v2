@@ -1,6 +1,6 @@
 import { Howl } from 'howler';
 
-export type SoundEffect = 'move' | 'capture' | 'check' | 'gameStart' | 'gameEnd' | 'error' | 'uiClick';
+export type SoundEffect = 'move' | 'capture' | 'check' | 'gameStart' | 'gameEnd' | 'error' | 'uiClick' | 'dealCard' | 'chipBet' | 'chipCall' | 'fold' | 'winHand';
 
 interface AudioSettings {
   enabled: boolean;
@@ -65,6 +65,31 @@ class ChessAudioService {
         src: ['/sounds/ui-click.mp3', '/sounds/ui-click.wav'],
         volume: 0.4,
         fallback: () => this.generateTone(1000, 0.05, 'sine'),
+      },
+      dealCard: {
+        src: ['/sounds/card-deal.mp3', '/sounds/card-deal.wav'],
+        volume: 0.6,
+        fallback: () => this.generateTone(800, 0.1, 'triangle'),
+      },
+      chipBet: {
+        src: ['/sounds/chip-bet.mp3', '/sounds/chip-bet.wav'],
+        volume: 0.5,
+        fallback: () => this.generateTone(600, 0.2, 'square'),
+      },
+      chipCall: {
+        src: ['/sounds/chip-call.mp3', '/sounds/chip-call.wav'],
+        volume: 0.5,
+        fallback: () => this.generateTone(650, 0.15, 'square'),
+      },
+      fold: {
+        src: ['/sounds/fold.mp3', '/sounds/fold.wav'],
+        volume: 0.4,
+        fallback: () => this.generateTone(300, 0.3, 'sine'),
+      },
+      winHand: {
+        src: ['/sounds/win-hand.mp3', '/sounds/win-hand.wav'],
+        volume: 0.7,
+        fallback: () => this.generateTone(1200, 0.5, 'sine'),
       },
     };
 

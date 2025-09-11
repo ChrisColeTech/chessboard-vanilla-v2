@@ -23,7 +23,7 @@ export class AiopponentService {
   }
 
   async createOpponent(data: CreateAiopponentRequest): Promise<AiopponentResponse> {
-    const id = require('uuid').v4();
+    const id = uuidv4();
     const result = await this.db.query(`
       INSERT INTO ai_opponents (id, created_at, updated_at)
       VALUES ($1, NOW(), NOW())
@@ -46,7 +46,7 @@ export class AiopponentService {
   }
 
   async createAiopponent(data: CreateAiopponentRequest): Promise<AiopponentResponse> {
-    const id = require('uuid').v4();
+    const id = uuidv4();
     const result = await this.db.query(`
       INSERT INTO ai_opponents (id, created_at, updated_at)
       VALUES ($1, NOW(), NOW())
@@ -69,7 +69,8 @@ export class AiopponentService {
   }
 
   async deleteAiopponent(id: string): Promise<void> {
-    await this.db.query('DELETE FROM ai_opponents WHERE id = $1', [id]);
+    const result = await this.db.query('DELETE FROM ai_opponents WHERE id = $1', [id]);
+    if (result.rowCount === 0) throw new Error('Aiopponent not found');
   }
 
   private formatAiopponentResponse(row: any): AiopponentResponse {

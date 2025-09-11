@@ -1,0 +1,1 @@
+export { GameReviewComponent } from './GameReviewComponent';

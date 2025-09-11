@@ -21,7 +21,7 @@ router.get('/user/:userId', authenticate, async (req: any, res) => {
 // PUT /update
 router.put('/update', authenticate, async (req: any, res) => {
   try {
-    const result = await progressService.updateProgress(req.body.pathId, req.userId, req.body);
+    const result = await progressService.updateProgress(req.userId, req.body);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });
@@ -71,7 +71,7 @@ router.post('/', authenticate, async (req: any, res) => {
 // PUT /:id
 router.put('/:id', authenticate, async (req: any, res) => {
   try {
-    const result = await progressService.updateProgress(req.params.id, req.userId, req.body);
+    const result = await progressService.updateProgress(req.params.id, req.body);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });

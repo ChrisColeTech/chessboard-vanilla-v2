@@ -1,7 +1,7 @@
 // Common action configurations that can be reused across different page groups
 import { 
   Navigation, SkipForward, Clock, Target, Maximize2, RotateCcw,
-  Eye, Move, VolumeX, Coins, Spade, Crown, Disc, Dices, Gamepad2, Brain
+  Eye, VolumeX, Coins, Spade, Crown, Disc, Dices, Gamepad2, Brain
 } from 'lucide-react'
 import type { ActionSheetAction } from '../../types/core/action-sheet.types'
 
@@ -68,12 +68,6 @@ export const COMMON_ACTIONS: Record<string, ActionSheetAction> = {
     id: 'go-to-layout-test',
     label: 'Go to Layout Test',
     icon: Eye,
-    variant: 'secondary'
-  },
-  'go-to-mobile-drag-test': {
-    id: 'go-to-mobile-drag-test',
-    label: 'Go to Mobile Drag Test',
-    icon: Move,
     variant: 'secondary'
   },
   'go-to-desktop-layout-test': {
@@ -162,7 +156,6 @@ export const COMMON_ACTION_GROUPS = {
     'go-to-drag-test',
     'go-to-audio-test',
     'go-to-layout-test',
-    'go-to-mobile-drag-test',
     'go-to-desktop-layout-test'
   ],
   

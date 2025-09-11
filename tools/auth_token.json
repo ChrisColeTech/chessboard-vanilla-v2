@@ -1,0 +1,9 @@
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNlOGU1ZGY3LTI5NjYtNDAyNy04NTQyLWFlMDFkODQxMGNmNyIsImVtYWlsIjoidGVzdHVzZXJfMTc1NzU1MTYxMTYxMEBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoidGVzdHVzZXJfMTc1NzU1MTYxMTYxMCIsImlhdCI6MTc1NzU1MTYxMywiZXhwIjoxNzU4MTU2NDEzfQ.RUp44nxbP_-sM8UlaD_2fUVcoqL4pytpbYjmi88Xw8E",
+  "user": {
+    "username": "testuser_1757551611610",
+    "email": "testuser_1757551611610@example.com",
+    "password": "password123"
+  },
+  "timestamp": "2025-09-11T00:46:53.085Z"
+}

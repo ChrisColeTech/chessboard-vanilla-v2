@@ -44,7 +44,7 @@ def main():
     parser = argparse.ArgumentParser(description='Refactored Domain-Driven Frontend Generator V4')
     parser.add_argument('--domain', type=str, help='Generate specific domain only')
     parser.add_argument('--list', action='store_true', help='List available domains')
-    parser.add_argument('--frontend-path', type=str, default="../frontend-v2", 
+    parser.add_argument('--frontend-path', type=str, default="../../frontend-v2", 
                        help='Path to frontend directory')
     
     args = parser.parse_args()

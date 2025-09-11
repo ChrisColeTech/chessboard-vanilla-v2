@@ -6,6 +6,31 @@ import type { BackgroundEffectVariant } from '../types/core/backgroundEffects'
 import type { PIECE_SETS } from '../constants/pieces.constants'
 import type { BoardColorMode, PremiumBoardStyle } from '../data/boardColorConfig'
 
+// Poker Game Types
+export type Card = {
+  suit: 'hearts' | 'diamonds' | 'clubs' | 'spades'
+  rank: 'A' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | 'J' | 'Q' | 'K'
+}
+
+export type GamePhase = 'waiting' | 'preflop' | 'flop' | 'turn' | 'river' | 'showdown'
+
+export type BetAction = 
+  | { type: 'fold' }
+  | { type: 'check' }
+  | { type: 'call'; amount: number }
+  | { type: 'raise'; amount: number }
+  | { type: 'all-in'; amount: number }
+
+export type AIPlayer = {
+  id: string
+  name: string
+  chips: number
+  hand: [Card, Card] | null
+  position: number
+  isActive: boolean
+  lastAction: BetAction | null
+}
+
 interface AppState {
   // Navigation
   selectedTab: TabId
@@ -52,6 +77,22 @@ interface AppState {
   
   // Game State
   coinBalance: number
+  
+  // Poker Game State (Single-player vs Computer)
+  pokerGame: {
+    gamePhase: GamePhase
+    pot: number
+    playerBet: number
+    dealerBet: number
+    playerHand: [Card, Card] | null
+    dealerHand: [Card, Card] | null
+    communityCards: Card[]
+    isPlayerTurn: boolean
+    playerChips: number
+    handNumber: number
+    lastWinner: 'player' | 'dealer' | 'tie' | null
+    showDealerCards: boolean
+  }
 }
 
 interface AppActions {
@@ -102,6 +143,21 @@ interface AppActions {
   
   // Game actions
   setCoinBalance: (balance: number) => void
+  
+  // Poker actions
+  setPokerGamePhase: (phase: GamePhase) => void
+  setPlayerHand: (hand: [Card, Card] | null) => void
+  setDealerHand: (hand: [Card, Card] | null) => void
+  setCommunityCards: (cards: Card[]) => void
+  setPlayerChips: (chips: number) => void
+  setPot: (pot: number) => void
+  setPlayerBet: (bet: number) => void
+  setDealerBet: (bet: number) => void
+  setIsPlayerTurn: (isPlayerTurn: boolean) => void
+  setShowDealerCards: (show: boolean) => void
+  setLastWinner: (winner: 'player' | 'dealer' | 'tie' | null) => void
+  dealNewHand: () => void
+  resetPokerGame: () => void
 }
 
 type AppStore = AppState & AppActions
@@ -129,6 +185,20 @@ const initialState: AppState = {
   splashModalPage: null,
   coinsModalOpen: false,
   coinBalance: 350,
+  pokerGame: {
+    gamePhase: 'waiting',
+    pot: 0,
+    playerBet: 0,
+    dealerBet: 0,
+    playerHand: null,
+    dealerHand: null,
+    communityCards: [],
+    isPlayerTurn: false,
+    playerChips: 1000,
+    handNumber: 0,
+    lastWinner: null,
+    showDealerCards: false,
+  },
 }
 
 export const useAppStore = create<AppStore>()(
@@ -242,6 +312,63 @@ export const useAppStore = create<AppStore>()(
       
       // Game actions
       setCoinBalance: (balance) => set({ coinBalance: Math.max(0, balance) }),
+      
+      // Poker actions
+      setPokerGamePhase: (phase) => set((state) => ({
+        pokerGame: { ...state.pokerGame, gamePhase: phase }
+      })),
+      setPlayerHand: (hand) => set((state) => ({
+        pokerGame: { ...state.pokerGame, playerHand: hand }
+      })),
+      setDealerHand: (hand) => set((state) => ({
+        pokerGame: { ...state.pokerGame, dealerHand: hand }
+      })),
+      setCommunityCards: (cards) => set((state) => ({
+        pokerGame: { ...state.pokerGame, communityCards: cards }
+      })),
+      setPlayerChips: (chips) => set((state) => ({
+        pokerGame: { ...state.pokerGame, playerChips: chips }
+      })),
+      setPot: (pot) => set((state) => ({
+        pokerGame: { ...state.pokerGame, pot }
+      })),
+      setPlayerBet: (bet) => set((state) => ({
+        pokerGame: { ...state.pokerGame, playerBet: bet }
+      })),
+      setDealerBet: (bet) => set((state) => ({
+        pokerGame: { ...state.pokerGame, dealerBet: bet }
+      })),
+      setIsPlayerTurn: (isPlayerTurn) => set((state) => ({
+        pokerGame: { ...state.pokerGame, isPlayerTurn }
+      })),
+      setShowDealerCards: (show) => set((state) => ({
+        pokerGame: { ...state.pokerGame, showDealerCards: show }
+      })),
+      setLastWinner: (winner) => set((state) => ({
+        pokerGame: { ...state.pokerGame, lastWinner: winner }
+      })),
+      dealNewHand: () => set((state) => ({
+        pokerGame: {
+          ...state.pokerGame,
+          gamePhase: 'preflop',
+          pot: 0,
+          playerBet: 0,
+          dealerBet: 0,
+          playerHand: null,
+          dealerHand: null,
+          communityCards: [],
+          isPlayerTurn: true,
+          handNumber: state.pokerGame.handNumber + 1,
+          showDealerCards: false,
+          lastWinner: null,
+        }
+      })),
+      resetPokerGame: () => set((state) => ({
+        pokerGame: {
+          ...initialState.pokerGame,
+          playerChips: state.pokerGame.playerChips,
+        }
+      })),
     }),
     {
       name: 'chess-app-store',

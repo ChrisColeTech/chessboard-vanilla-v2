@@ -151,9 +151,108 @@ function buildEndpointUrl(entityName, endpoint) {
   return BACKEND_URL + fullPath;
 }
 
+// Generate fresh credentials for auth endpoints
+function generateFreshAuthCredentials() {
+  const timestamp = Date.now();
+  const randomStr = Math.random().toString(36).substring(2, 8);
+  const username = `testuser_${timestamp.toString().slice(-6)}_${randomStr}`;
+  const email = `${username}@example.com`;
+  
+  console.log(`  🆕 Generated fresh credentials: ${username}`);
+  
+  // Update auth endpoints with fresh credentials
+  for (const entityName in generatedPayloads) {
+    if (entityName === 'auth') {
+      const endpoints = generatedPayloads[entityName];
+      for (const endpoint of endpoints) {
+        if (endpoint.path === '/register' && endpoint.payload) {
+          endpoint.payload.username = username;
+          endpoint.payload.email = email;
+          endpoint.payload.password = 'password123';
+          console.log(`  🔄 Updated register payload with: ${username}`);
+        }
+        else if (endpoint.path === '/login' && endpoint.payload) {
+          endpoint.payload.email = email;
+          endpoint.payload.password = 'password123';
+          console.log(`  🔄 Updated login payload with: ${email}`);
+        }
+        else if (endpoint.handler === 'forgotPassword' && endpoint.payload) {
+          // Generate different email for forgot password to avoid conflicts
+          const forgotEmail = `forgot_${username}@example.com`;
+          endpoint.payload.email = forgotEmail;
+        }
+        else if (endpoint.handler === 'checkEmailAvailability' && endpoint.payload) {
+          const checkEmail = `check_${username}@example.com`;
+          endpoint.payload.email = checkEmail;
+        }
+        else if (endpoint.handler === 'checkUsernameAvailability' && endpoint.payload) {
+          const checkUsername = `check_${username}`;
+          endpoint.payload.username = checkUsername;
+        }
+        else if (endpoint.handler === 'logout' && endpoint.payload) {
+          const logoutUsername = `logout_${username}`;
+          const logoutEmail = `${logoutUsername}@example.com`;
+          endpoint.payload.username = logoutUsername;
+          endpoint.payload.email = logoutEmail;
+        }
+        else if (endpoint.handler === 'resetPassword' && endpoint.payload) {
+          // Use the same credentials as register/login for reset password testing
+          endpoint.payload.email = email;
+          endpoint.payload.currentPassword = 'password123';
+          endpoint.payload.newPassword = 'newpassword123';
+          console.log(`  🔄 Updated reset-password payload with: ${email}`);
+        }
+      }
+    }
+  }
+}
+
+// Load existing auth data if available
+function loadExistingAuthData() {
+  try {
+    const authFilePath = path.join(__dirname, 'auth_token.json');
+    if (fs.existsSync(authFilePath)) {
+      const authData = JSON.parse(fs.readFileSync(authFilePath, 'utf8'));
+      
+      // Check if token is recent (less than 1 hour old)
+      const tokenAge = Date.now() - new Date(authData.timestamp).getTime();
+      if (tokenAge < 60 * 60 * 1000) { // 1 hour
+        console.log('  📂 Found existing auth data, attempting to reuse...');
+        return authData;
+      } else {
+        console.log('  ⏰ Existing auth data is too old, creating new session...');
+      }
+    }
+  } catch (error) {
+    console.log('  ⚠️  Could not load existing auth data:', error.message);
+  }
+  return null;
+}
+
 // Enhanced authentication
 async function authenticate() {
   console.log('🔐 Setting up authentication...');
+
+  // Try to load existing auth data first
+  const existingAuth = loadExistingAuthData();
+  if (existingAuth) {
+    // Test if the existing token still works
+    authToken = existingAuth.token;
+    const testResult = await makeRequest('GET', `${BACKEND_URL}/api/auth/me`, null, true);
+    
+    if (testResult.ok && testResult.data) {
+      console.log('  ✅ Existing token is valid! Reusing authentication.');
+      testUserId = existingAuth.userId;
+      if (testUserId) {
+        console.log(`  🔄 Updating payloads with existing userId: ${testUserId}`);
+        updatePayloadsWithUserId(testUserId);
+      }
+      return true;
+    } else {
+      console.log('  ❌ Existing token is invalid, creating new session...');
+      authToken = null;
+    }
+  }
 
   // Generate a unique test user to avoid conflicts
   const timestamp = Date.now();
@@ -209,6 +308,13 @@ async function authenticate() {
     authToken = token;
     console.log('  ✅ Authentication successful! Token acquired.');
 
+    // Write token and user info to file for reuse
+    const authData = {
+      token: authToken,
+      user: testUser,
+      timestamp: new Date().toISOString()
+    };
+
     // Get user information
     console.log('  👤 Fetching user information...');
     const meResult = await makeRequest('GET', `${BACKEND_URL}/api/auth/me`, null, true);
@@ -223,10 +329,40 @@ async function authenticate() {
       if (testUserId) {
         console.log(`  ℹ️  Test user ID: ${testUserId}`);
         
+        // Update auth data with user ID
+        authData.userId = testUserId;
+        authData.userData = userData;
+        
         // Update payloads with the actual user ID
+        console.log(`  🔄 Updating payloads with userId: ${testUserId}`);
         updatePayloadsWithUserId(testUserId);
       }
     }
+
+    // Write auth data to file
+    try {
+      const authFilePath = path.join(__dirname, 'auth_token.json');
+      fs.writeFileSync(authFilePath, JSON.stringify(authData, null, 2));
+      console.log(`  💾 Auth data saved to: ${authFilePath}`);
+    } catch (writeError) {
+      console.log(`  ⚠️  Failed to write auth file: ${writeError.message}`);
+    }
+
+    // Force JWT token update in payloads regardless of whether userId was found
+    console.log(`  🔄 Forcing JWT token update in verify-token payload`);
+    for (const entityName in generatedPayloads) {
+      const endpoints = generatedPayloads[entityName];
+      for (const endpoint of endpoints) {
+        if (entityName === 'auth' && endpoint.path === '/verify-token' && endpoint.payload && endpoint.payload.token) {
+          console.log(`  🔄 Updated verify-token payload with real JWT: ${authToken.substring(0, 20)}...`);
+          endpoint.payload.token = authToken;
+        }
+      }
+    }
+
+    // Generate fresh credentials for auth endpoints
+    console.log(`  🔄 Generating fresh credentials for auth endpoints`);
+    generateFreshAuthCredentials();
 
     return true;
   } catch (error) {
@@ -235,14 +371,25 @@ async function authenticate() {
   }
 }
 
-// Update generated payloads with actual user ID
+// Update generated payloads with actual user ID and JWT token
 function updatePayloadsWithUserId(userId) {
+  console.log(`  🔍 Starting payload update for userId: ${userId}, authToken: ${authToken ? authToken.substring(0, 20) + '...' : 'null'}`);
+  
   for (const entityName in generatedPayloads) {
     const endpoints = generatedPayloads[entityName];
     for (const endpoint of endpoints) {
       if (endpoint.payload) {
         if (endpoint.payload.user_id) endpoint.payload.user_id = userId;
         if (endpoint.payload.userId) endpoint.payload.userId = userId;
+        
+        // Update verify-token endpoint with real JWT token
+        if (entityName === 'auth' && endpoint.path === '/verify-token') {
+          console.log(`  🔍 Found auth verify-token endpoint, current token: ${endpoint.payload.token}`);
+          if (endpoint.payload.token && authToken) {
+            console.log(`  🔄 Updating verify-token with real JWT: ${authToken.substring(0, 20)}...`);
+            endpoint.payload.token = authToken;
+          }
+        }
       }
       
       // Update URL parameters
@@ -292,20 +439,7 @@ async function testAllEndpoints() {
       const handler = endpoint.handler || '';
       const requireAuth = endpoint.auth_required !== false;
 
-      // Skip certain endpoints that are handled by authentication or are destructive
-      const skipPatterns = [
-        '/api/auth/register',        // Already handled in authentication
-        '/api/auth/login',           // Already handled in authentication
-        '/api/auth/delete-account',  // Don't delete test account
-        '/sessions/',                // Session management can be complex
-      ];
-
-      const shouldSkip = skipPatterns.some(pattern => url.includes(pattern));
-      if (shouldSkip) {
-        console.log(`  ${method.padEnd(6)} ${url} [SKIPPED - handled by auth]`);
-        results.skipped++;
-        continue;
-      }
+      // Test ALL endpoints - no skipping
 
       console.log(`  ${method.padEnd(6)} ${url}`);
 

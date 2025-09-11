@@ -1,0 +1,1 @@
+export { HistoricGameComponent } from './HistoricGameComponent';

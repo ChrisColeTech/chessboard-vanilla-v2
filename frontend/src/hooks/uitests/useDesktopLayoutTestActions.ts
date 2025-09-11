@@ -33,17 +33,10 @@ export function useDesktopLayoutTestActions() {
     }, 100)
   }, [setCurrentChildPage])
 
-  const goToMobileDragTest = useCallback(() => {
-    setTimeout(() => {
-      setCurrentChildPage('mobiledragtest')
-    }, 100)
-  }, [setCurrentChildPage])
-
   return {
     toggleLayoutElements,
     goToDragTest,
     goToAudioTest,
-    goToLayoutTest,
-    goToMobileDragTest
+    goToLayoutTest
   }
 }

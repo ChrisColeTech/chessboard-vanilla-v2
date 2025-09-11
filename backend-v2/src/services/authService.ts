@@ -159,10 +159,17 @@ export class AuthService {
       RETURNING *
     `;
 
-    const result = await this.db.query(query, values);
+    // First try to update existing profile
+    let result = await this.db.query(query, values);
 
+    // If no profile exists, create one
     if (!result.rows.length) {
-      throw new Error('User not found');
+      const profileId = require('uuid').v4();
+      result = await this.db.query(`
+        INSERT INTO users (id, username, email, chess_elo, puzzle_rating, preferences, created_at, updated_at)
+        VALUES ($1, $2, $3, $4, $5, $6, NOW(), NOW())
+        RETURNING *
+      `, [profileId, username, email, chess_elo, puzzle_rating, typeof preferences === 'string' ? preferences : JSON.stringify(preferences)]);
     }
 
     return this.formatUserInfo(result.rows[0]);
@@ -206,7 +213,7 @@ export class AuthService {
       // Get updated user info
       const result = await this.db.query(
         'SELECT * FROM users WHERE id = $1',
-        [decoded.userId]
+        [decoded.id]
       );
 
       if (!result.rows.length) {
@@ -244,16 +251,45 @@ export class AuthService {
   }
 
   async resetPassword(resetData: any): Promise<void> {
-    const { resetToken, password } = resetData;
+    const { email, username, currentPassword, newPassword } = resetData;
 
-    // In a real app, you would:
-    // 1. Verify reset token from database
-    // 2. Check if token is not expired
-    // 3. Update user password
-    // 4. Invalidate the reset token
+    // Find user by email or username
+    let query = 'SELECT * FROM users WHERE ';
+    let params = [];
     
-    // For now, we'll throw an error since token system isn't implemented
-    throw new Error('Password reset functionality requires email service integration');
+    if (email) {
+      query += 'email = $1';
+      params.push(email);
+    } else if (username) {
+      query += 'username = $1';
+      params.push(username);
+    } else {
+      throw new Error('Email or username is required');
+    }
+
+    const result = await this.db.query(query, params);
+
+    if (!result.rows.length) {
+      throw new Error('User not found');
+    }
+
+    const user = result.rows[0];
+
+    // Verify current password
+    const bcrypt = require('bcrypt');
+    const isValidPassword = await bcrypt.compare(currentPassword, user.password_hash);
+    if (!isValidPassword) {
+      throw new Error('Current password is incorrect');
+    }
+
+    // Hash new password
+    const newPasswordHash = await bcrypt.hash(newPassword, 12);
+
+    // Update password
+    await this.db.query(
+      'UPDATE users SET password_hash = $1, updated_at = NOW() WHERE id = $2',
+      [newPasswordHash, user.id]
+    );
   }
 
   async logout(): Promise<void> {

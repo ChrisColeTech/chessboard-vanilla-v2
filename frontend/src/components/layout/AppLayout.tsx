@@ -86,9 +86,13 @@ export function AppLayout({
         ✅ Fixed to top with proper z-index, below title bar
         Hide when settings panel is open
       */}
-      <header className={`fixed top-10 left-0 right-0 z-20 transition-transform duration-300 ease-out ${
-        isSettingsPanelOpen ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"
-      }`}>
+      <header
+        className={`fixed top-10 left-0 right-0 z-20 transition-transform duration-300 ease-out ${
+          isSettingsPanelOpen
+            ? "-translate-y-full opacity-0"
+            : "translate-y-0 opacity-100"
+        }`}
+      >
         <Header
           onOpenSettings={openSettings}
           isSettingsOpen={isSettingsPanelOpen}
@@ -99,8 +103,8 @@ export function AppLayout({
       {/* Main Content Area - constrained between fixed header and footer */}
       <div className="absolute top-10 bottom-[57px] left-0 right-0 z-10">
         {/* Primary Content - scrollable within the constrained area */}
-        <main className="w-full h-full overflow-auto">
-          <div className="w-full px-4 pt-20 pb-4 sm:px-8 sm:pt-24 sm:pb-8 lg:px-20 lg:pt-16 lg:pb-16">{children}</div>
+        <main className="w-full h-full overflow-auto  pt-20 sm:pt-24">
+          {children}
         </main>
 
         {/* Instructions FAB - positioned within main content area */}
@@ -136,7 +140,7 @@ export function AppLayout({
       </div>
 
       {/* ActionSheet - Always rendered, HeadlessUI manages show/hide */}
-      <ActionSheetContainer 
+      <ActionSheetContainer
         currentPage={currentTab}
         onClose={closeMenu}
         isOpen={isMenuOpen}
@@ -148,8 +152,8 @@ export function AppLayout({
           ✅ Fixed to bottom with proper z-index
         */}
       <footer className="fixed bottom-0 left-0 right-0 z-20 glass-layout">
-        <TabBar 
-          currentTab={currentTab} 
+        <TabBar
+          currentTab={currentTab}
           onTabChange={onTabChange}
           isMenuOpen={isMenuOpen}
           onToggleMenu={toggleMenu}

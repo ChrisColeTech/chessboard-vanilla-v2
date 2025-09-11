@@ -1,5 +1,40 @@
 # Backend Generator v2 - Comprehensive Guide
 
+## Project Structure
+
+```
+/mnt/c/Projects/chessboard-vanilla-v2/
+└── tools/
+    └── backend-tools/                           # Backend Generator v2 Root Directory
+        ├── backend_generator_v2.py              # Main orchestrator
+        ├── backend_config.json                  # Configuration file
+        ├── config.py                           # Configuration system
+        ├── pattern_analyzer.py                 # Pattern analysis
+        ├── template_generator.py               # Model & route generation
+        ├── service_generator.py                # Service class generation
+        ├── infrastructure_generator.py         # Infrastructure setup
+        ├── parameter_mapper.py                 # Route parameter mapping
+        ├── db_update_tool.py                   # Database utilities
+        ├── route_parameter_fixer.py            # Route parameter fixes
+        ├── backend_generator_refactored.py     # Alternative implementation
+        ├── method_generators/                  # Method generation modules
+        │   ├── __init__.py
+        │   ├── base_generator.py               # Abstract base class
+        │   ├── auth_methods.py                 # Authentication methods
+        │   ├── puzzle_methods.py               # Chess puzzle methods
+        │   ├── game_methods.py                 # Chess game methods
+        │   ├── user_methods.py                 # User management methods
+        │   ├── learning_path_methods.py        # Learning path methods
+        │   └── generic_methods.py              # Standard CRUD methods
+        ├── payload-generator/                  # Test payload generation
+        │   ├── payload_generator.py
+        │   ├── db_query.py
+        │   ├── generated_payloads.json
+        │   └── real_test_ids.json
+        └── missing-columns/                    # Database column utilities
+            └── missing-columns.py
+```
+
 ## Table of Contents
 
 1. [Overview](#overview)
@@ -22,7 +57,7 @@ The Backend Generator v2 is a sophisticated, modular Python system designed to a
 ### Key Features
 
 - **Configuration-Driven**: Generate entire backends from JSON configuration
-- **Modular Architecture**: 8 specialized modules working together
+- **Modular Architecture**: 11 specialized modules working together
 - **22+ Entity Support**: Users, Auth, Puzzles, Games, Learning, Analytics, and more
 - **Production Ready**: PostgreSQL, JWT auth, error handling, logging
 - **Extensible**: Plugin-based method generators for custom functionality
@@ -55,13 +90,16 @@ Backend Generator v2 (Main Orchestrator)
 ├── Infrastructure Generator # Sets up middleware and utilities
 ├── Parameter Mapper         # Maps HTTP params to service calls
 ├── Configuration System     # Manages paths and settings
+├── Database Tools           # Database utilities and column management
+├── Route Parameter Fixer    # Route parameter corrections
 └── Method Generators/       # Specialized method implementations
     ├── Base Generator       # Abstract interface
     ├── Generic Methods      # Standard CRUD operations
     ├── Auth Methods         # Authentication system
     ├── Puzzle Methods       # Chess puzzle functionality
     ├── Game Methods         # Chess game management
-    └── User Methods         # User profile management
+    ├── User Methods         # User profile management
+    └── Learning Path Methods # Learning path and tutorial system
 ```
 
 ---
@@ -128,6 +166,9 @@ Backend Generator v2 (Main Orchestrator)
 
 **Example Usage:**
 ```bash
+# Navigate to the backend tools directory
+cd tools/backend-tools
+
 # Generate all endpoints
 python backend_generator_v2.py --all
 
@@ -356,7 +397,7 @@ export class EntityService {
 
 - **`_generate_app_file(self)`**
   - Creates main `src/app.ts` file
-  - **Dynamic Route Registration**: Loads routes from backend_config.json
+  - **Dynamic Route Registration**: Loads routes from tools/backend-tools/backend_config.json
   - **Middleware Setup**: CORS, JSON parsing, request/response logging
   - **Error Handling**: Comprehensive error middleware
   - **Health Check**: Basic health check endpoint
@@ -434,6 +475,52 @@ export class EntityService {
 }
 ```
 
+### 8. Database Tools (`db_update_tool.py`)
+
+**Purpose**: Provides database utilities and column management functionality.
+
+#### Key Features
+- Database schema analysis
+- Column existence verification
+- Database update utilities
+- Schema migration support
+
+### 9. Route Parameter Fixer (`route_parameter_fixer.py`)
+
+**Purpose**: Fixes and validates route parameter mappings.
+
+#### Key Features
+- Route parameter validation
+- Parameter mapping corrections
+- Express.js route parameter compliance
+- Parameter type checking
+
+### 10. Payload Generator (`payload-generator/`)
+
+**Purpose**: Generates test payloads and manages test data for endpoint testing.
+
+#### Components
+- **`payload_generator.py`**: Main payload generation logic
+- **`db_query.py`**: Database query utilities for test data
+- **`generated_payloads.json`**: Generated test payload data
+- **`real_test_ids.json`**: Real database IDs for testing
+
+#### Key Features
+- Realistic test data generation
+- Database-backed test IDs
+- Endpoint-specific payload creation
+- Validation test data
+
+### 11. Missing Columns Tool (`missing-columns/`)
+
+**Purpose**: Identifies and manages missing database columns.
+
+#### Key Features
+- Database schema comparison
+- Missing column detection
+- Column addition suggestions
+- Schema synchronization
+
 ---
 
 ## Method Generation System
@@ -447,8 +534,10 @@ The method generation system uses a plugin-based architecture with specialized g
 **Methods:**
 - **`generate_method(self, method_name: str, entity_upper: str, entity_lower: str, table_name: str) -> str`**
   - Abstract method implemented by all generators
-- **`_create_stub_method(self, method_name: str) -> str`**
-  - Creates placeholder method for unimplemented functionality
+- **`_create_stub_method(self, method_name: str, table_name: str = None, entity_upper: str = None) -> str`**
+  - Creates production-ready generic method implementation
+  - When table_name and entity_upper provided: queries entity table and returns formatted results
+  - Fallback: returns empty array for backward compatibility
 
 ### Generic Methods (`generic_methods.py`)
 
@@ -589,11 +678,45 @@ async getEntityById(id: string): Promise<EntityResponse> {
 - **`getUserPreferences(userId: string) -> any`**
 - **`updateUserPreferences(userId: string, preferences: any) -> any`**
 
+### Learning Path Methods (`learning_path_methods.py`)
+
+**Purpose**: Learning path and tutorial system management.
+
+#### Core Learning Path Methods
+
+- **`getLearningPaths() -> LearningPathResponse[]`**
+  - Returns all available learning paths
+  - Ordered by creation date
+  - Limited to 50 results
+
+- **`getLearningPathById(id: string) -> LearningPathResponse`**
+  - Returns specific learning path details
+  - Throws error if path not found
+
+- **`enrollInPath(pathId: string, userId: string) -> any`**
+  - Enrolls user in a learning path
+  - Verifies path exists and user not already enrolled
+  - Creates enrollment record with initial progress
+  - Returns learning path with enrollment status
+
+- **`updateProgress(pathId: string, userId: string, progressData: any) -> any`**
+  - Updates user's progress in learning path
+  - Requires existing enrollment
+  - Updates progress percentage and timestamp
+  - Returns updated learning path with progress
+
+#### Standard CRUD Methods
+
+- **`getAllLearningPaths() -> LearningPathResponse[]`**
+- **`createLearningPath(data: CreateLearningPathRequest) -> LearningPathResponse`**
+- **`updateLearningPath(id: string, data: UpdateLearningPathRequest) -> LearningPathResponse`**
+- **`deleteLearningPath(id: string) -> void`**
+
 ---
 
 ## Configuration System
 
-The entire backend is driven by the `backend_config.json` file, which defines all entities, their properties, methods, and API endpoints.
+The entire backend is driven by the `tools/backend-tools/backend_config.json` file, which defines all entities, their properties, methods, and API endpoints.
 
 ### Configuration Structure
 
@@ -652,6 +775,7 @@ The system currently supports 22+ entities covering:
 - `tutorials` - Interactive tutorials
 - `learning` - Learning paths
 - `learning-modules` - Individual learning modules
+- `learning-paths` - Learning path management (with specialized methods)
 - `tutorial-steps` - Tutorial step management
 
 **Progress Tracking:**
@@ -717,12 +841,13 @@ The system currently supports 22+ entities covering:
 
 4. **Generate Specific Endpoint:**
    ```bash
+   cd tools/backend-tools
    python backend_generator_v2.py puzzles
    ```
 
 ### Configuration Workflow
 
-1. **Edit `backend_config.json`:**
+1. **Edit `tools/backend-tools/backend_config.json`:**
    ```json
    {
      "endpoints": {
@@ -1004,16 +1129,19 @@ python backend_generator_v2.py --backend-path /path/to/backend --all
 
 **Verbose Mode:**
 ```bash
+cd tools/backend-tools
 python backend_generator_v2.py --verbose --all
 ```
 
 **Dry Run Analysis:**
 ```bash
+cd tools/backend-tools
 python backend_generator_v2.py entity-name --dry-run
 ```
 
 **Configuration Validation:**
 ```bash
+cd tools/backend-tools
 python -m json.tool backend_config.json
 ```
 
@@ -1070,6 +1198,7 @@ psql $DATABASE_URL -c "SELECT 1;"
 
 2. **Generate Entity:**
    ```bash
+   cd tools/backend-tools
    python backend_generator_v2.py custom-entity
    ```
 

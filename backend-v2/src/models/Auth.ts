@@ -49,8 +49,10 @@ export interface ForgotPasswordRequest {
 }
 
 export interface ResetPasswordRequest {
-  resetToken: string;
-  password: string;
+  email?: string;
+  username?: string;
+  currentPassword: string;
+  newPassword: string;
 }
 
 export interface ChangePasswordRequest {

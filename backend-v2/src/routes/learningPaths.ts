@@ -61,7 +61,7 @@ router.get('/', authenticate, async (req: any, res) => {
 // GET /:id
 router.get('/:id', authenticate, async (req: any, res) => {
   try {
-    const result = await learningpathService.getLearningpathById(req.params.id);
+    const result = await learningpathService.getLearningPathById(req.params.id);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });
@@ -71,7 +71,7 @@ router.get('/:id', authenticate, async (req: any, res) => {
 // POST /
 router.post('/', authenticate, async (req: any, res) => {
   try {
-    const result = await learningpathService.createLearningpath(req.body);
+    const result = await learningpathService.createLearningPath(req.body);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });
@@ -81,7 +81,7 @@ router.post('/', authenticate, async (req: any, res) => {
 // PUT /:id
 router.put('/:id', authenticate, async (req: any, res) => {
   try {
-    const result = await learningpathService.updateLearningpath(req.params.id, req.body);
+    const result = await learningpathService.updateLearningPath(req.params.id, req.body);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });
@@ -91,7 +91,7 @@ router.put('/:id', authenticate, async (req: any, res) => {
 // DELETE /:id
 router.delete('/:id', authenticate, async (req: any, res) => {
   try {
-    const result = await learningpathService.deleteLearningpath(req.params.id);
+    const result = await learningpathService.deleteLearningPath(req.params.id);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });

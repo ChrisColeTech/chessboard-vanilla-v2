@@ -4,7 +4,7 @@ import { usePageActions } from "../../hooks/core/usePageActions";
 import { LayoutTestPage } from "../../pages/uitests/LayoutTestPage";
 
 export const LayoutTestPageWrapper: React.FC = () => {
-  usePageInstructions("layout");
+  usePageInstructions("layouttest");
   usePageActions("layouttest");
 
   return <LayoutTestPage />;

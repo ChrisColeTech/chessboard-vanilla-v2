@@ -5,6 +5,7 @@ export interface ProfileResponse {
   avatar_url: string;
   bio: string;
   country: string;
+  timezone: string;
   created_at: string;
   updated_at: string;
 }
@@ -15,6 +16,7 @@ export interface CreateProfileRequest {
   avatar_url: string;
   bio: string;
   country: string;
+  timezone: string;
 }
 
 export interface UpdateProfileRequest {
@@ -23,4 +25,5 @@ export interface UpdateProfileRequest {
   avatar_url?: string;
   bio?: string;
   country?: string;
+  timezone?: string;
 }

@@ -1,5 +1,25 @@
 # Frontend Generator V4 - Comprehensive Guide
 
+## Generator Location and Structure
+
+```
+chessboard-vanilla-v2/
+├── tools/
+│   ├── frontend_generator_v4.py               # Main entry point (lightweight wrapper)
+│   └── frontend-tools/                        # Modular generator components
+│       ├── __init__.py                        # Package initialization
+│       ├── README.md                          # Module documentation
+│       ├── frontend_orchestrator.py           # Main coordinator
+│       ├── base_generator.py                  # Common functionality
+│       ├── domain_mapping.py                  # Entity-domain relationships
+│       ├── types_generator.py                 # TypeScript type definitions
+│       ├── services_generator.py              # Business logic services
+│       ├── hooks_generator.py                 # React hooks for data management
+│       ├── components_generator.py            # React components
+│       ├── clients_generator.py               # API client classes
+│       └── stores_generator.py                # Zustand state management
+```
+
 ## Table of Contents
 
 1. [Overview](#overview)
@@ -95,9 +115,15 @@ Frontend Generator V4
 **Methods**:
 
 **`__init__(self, frontend_path: str = "../frontend-v2")`**
-- Initializes all specialized generators
-- Sets up domain mapping system
-- Establishes backend configuration loading
+- Inherits from `BaseFrontendGenerator`
+- Initializes `DomainMapping` instance
+- Creates all specialized generator instances:
+  - `TypesGenerator`
+  - `ServicesGenerator` 
+  - `HooksGenerator`
+  - `ComponentsGenerator`
+  - `ClientsGenerator`
+  - `StoresGenerator`
 
 **`create_directory_structure(self)`**
 - Creates complete domain-driven directory structure
@@ -186,7 +212,23 @@ domain_mapping = {
     'games': 'games',
     'stats': 'stats',
     'learning': 'learning',
-    # ... 22+ total mappings
+    'tutorials': 'tutorials',
+    'openings': 'openings',
+    'analysis': 'analysis',
+    'ai-opponents': 'ai-opponents',
+    'endgames': 'endgames',
+    'historic-games': 'historic-games',
+    'puzzle-attempts': 'puzzle-attempts',
+    'puzzle-sources': 'puzzle-sources',
+    'game-reviews': 'game-reviews',
+    'progress': 'progress',
+    'achievements': 'achievements',
+    'analytics': 'analytics',
+    'learning-modules': 'learning-modules',
+    'tutorial-steps': 'tutorial-steps',
+    'study-plans': 'study-plans',
+    'help': 'help',
+    'subscriptions': 'subscriptions'
 }
 ```
 
@@ -217,12 +259,19 @@ f"services/{domain}"
 f"hooks/{domain}"
 f"components/{domain}"
 
-# Common:
+# Common directories by priority layer:
+# Priority 1: Foundation Layer
 "types/common"
 "utils/common"
+
+# Priority 2: Infrastructure Layer
 "clients"
+
+# Priority 3: Data Layer
 "stores"
 "providers"
+
+# Priority 4: Presentation Layer
 "components/ui"
 ```
 
@@ -383,14 +432,40 @@ export interface DomainState<T = any> {
 ```python
 # Generate base entity interface
 base_interface = [f"export interface {entity} {{"]
+create_fields = []
+
 for prop_name, prop_type in properties.items():
     ts_type = self._convert_to_typescript_type(prop_type)
     base_interface.append(f"  {prop_name}: {ts_type};")
+    
+    # Collect non-auto-generated fields for create/update
+    if prop_name not in ['id', 'created_at', 'updated_at']:
+        create_fields.append((prop_name, ts_type))
+
 base_interface.append("}")
+backend_types.extend(base_interface)
 
 # Use utility types for efficiency
 backend_types.append(f"export type {entity}Response = {entity};")
-backend_types.append(f"export type Create{entity}Request = Omit<{entity}, 'id' | 'created_at' | 'updated_at'>;")
+
+# Smart Create Request generation
+if len(create_fields) > 3:
+    # Use Omit utility type for complex entities
+    excluded_fields = ["'id'"]
+    if 'created_at' in properties:
+        excluded_fields.append("'created_at'")
+    if 'updated_at' in properties:
+        excluded_fields.append("'updated_at'")
+    excluded_fields_str = " | ".join(excluded_fields)
+    backend_types.append(f"export type Create{entity}Request = Omit<{entity}, {excluded_fields_str}>;")
+else:
+    # Generate explicit interface for simple entities
+    create_interface = [f"export interface Create{entity}Request {{"]
+    for prop_name, ts_type in create_fields:
+        create_interface.append(f"  {prop_name}: {ts_type};")
+    create_interface.append("}")
+    backend_types.extend(create_interface)
+
 backend_types.append(f"export type Update{entity}Request = Partial<Create{entity}Request>;")
 ```
 
@@ -805,6 +880,72 @@ export const apiClient = new APIClient();
 
 **Purpose**: Creates Zustand stores for global state management.
 
+**Note**: The actual implementation focuses primarily on authentication store with persistence. Other domain stores are generated as needed based on requirements.
+
+## Missing Modules Documentation
+
+The following modules exist in the implementation but were not previously documented:
+
+### Main Entry Point (`frontend_generator_v4.py`)
+
+**Purpose**: Lightweight wrapper around the FrontendOrchestrator that provides command-line interface.
+
+#### Class: `RefactoredFrontendGenerator`
+
+**Methods**:
+
+**`__init__(self, frontend_path: str = "../frontend-v2")`**
+- Creates a wrapper around `FrontendOrchestrator`
+- Simple delegation pattern for main functionality
+
+**`generate_all_domains(self)`**
+- Delegates to `orchestrator.generate_all_domains()`
+- Generates complete frontend following domain-driven architecture
+
+**`generate_specific_domain(self, domain: str)`**
+- Delegates to `orchestrator.generate_specific_domain(domain)`
+- Allows incremental generation for development
+
+**`list_available_domains(self)`**
+- Delegates to `orchestrator.list_available_domains()`
+- Shows all domains and their endpoint counts
+
+**CLI Integration**:
+```python
+def main():
+    parser = argparse.ArgumentParser(description='Refactored Domain-Driven Frontend Generator V4')
+    parser.add_argument('--domain', type=str, help='Generate specific domain only')
+    parser.add_argument('--list', action='store_true', help='List available domains')
+    parser.add_argument('--frontend-path', type=str, default="../frontend-v2", 
+                       help='Path to frontend directory')
+    
+    args = parser.parse_args()
+    generator = RefactoredFrontendGenerator(args.frontend_path)
+    
+    if args.list:
+        generator.list_available_domains()
+    elif args.domain:
+        generator.generate_specific_domain(args.domain)
+    else:
+        generator.generate_all_domains()
+```
+
+### Package Initialization (`__init__.py`)
+
+**Purpose**: Marks the `frontend-tools` directory as a Python package and handles module imports.
+
+**Contents**: Standard package initialization file that enables the directory to be imported as a Python module.
+
+### Documentation (`README.md`)
+
+**Purpose**: Provides documentation specific to the frontend-tools module structure and usage.
+
+**Contents**: Module-level documentation explaining the architecture and individual generator responsibilities.
+
+### Stores Generator (`stores_generator.py`)
+
+**Purpose**: Creates Zustand stores for global state management.
+
 #### Key Methods
 
 **`generate_domain_stores(self)`**
@@ -1067,13 +1208,23 @@ The generator supports environment-based configuration:
 **Environment Variables**:
 ```bash
 # .env file in frontend directory
-VITE_API_BASE_URL=http://localhost:3001
-VITE_APP_NAME="Chess Platform"
+REACT_APP_API_BASE_URL=http://localhost:3001
+REACT_APP_NAME="Chess Platform"
 ```
 
 **Generated Environment Integration**:
 ```typescript
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+// Environment variable declarations in vite-env.d.ts
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      REACT_APP_API_BASE_URL?: string;
+    }
+  }
+}
+
+// Usage in components
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3001';
 ```
 
 ### Type Safety Features

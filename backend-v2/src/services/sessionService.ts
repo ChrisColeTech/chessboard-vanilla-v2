@@ -6,12 +6,12 @@ export class SessionService {
   private db = Database.getInstance();
 
   async createSession(data: CreateSessionRequest): Promise<SessionResponse> {
-    const id = require('uuid').v4();
+    const id = uuidv4();
     const result = await this.db.query(`
-      INSERT INTO user_sessions (id, created_at, updated_at)
-      VALUES ($1, NOW(), NOW())
+      INSERT INTO user_sessions (id, user_id, refresh_token, expires_at, created_at, updated_at)
+      VALUES ($1, $2, $3, $4, NOW(), NOW())
       RETURNING *
-    `, [id]);
+    `, [id, data.user_id, data.refresh_token, data.expires_at]);
     
     return this.formatSessionResponse(result.rows[0]);
   }
@@ -61,13 +61,15 @@ export class SessionService {
   }
 
   async deleteSession(id: string): Promise<void> {
-    await this.db.query('DELETE FROM user_sessions WHERE id = $1', [id]);
+    const result = await this.db.query('DELETE FROM user_sessions WHERE id = $1', [id]);
+    if (result.rowCount === 0) throw new Error('Session not found');
   }
 
   private formatSessionResponse(row: any): SessionResponse {
     return {
       id: row.id,
       user_id: row.user_id,
+      refresh_token: row.refresh_token,
       session_token: row.session_token,
       expires_at: row.expires_at,
       created_at: row.created_at,

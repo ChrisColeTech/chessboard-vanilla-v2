@@ -49,7 +49,7 @@ export class StatsService {
   }
 
   async createStats(data: CreateStatsRequest): Promise<StatsResponse> {
-    const id = require('uuid').v4();
+    const id = uuidv4();
     const result = await this.db.query(`
       INSERT INTO users (id, created_at, updated_at)
       VALUES ($1, NOW(), NOW())
@@ -72,7 +72,8 @@ export class StatsService {
   }
 
   async deleteStats(id: string): Promise<void> {
-    await this.db.query('DELETE FROM users WHERE id = $1', [id]);
+    const result = await this.db.query('DELETE FROM users WHERE id = $1', [id]);
+    if (result.rowCount === 0) throw new Error('Stats not found');
   }
 
   private formatStatsResponse(row: any): StatsResponse {

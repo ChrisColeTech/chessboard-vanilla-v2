@@ -34,7 +34,7 @@ export class AnalyticsService {
   }
 
   async createAnalytics(data: CreateAnalyticsRequest): Promise<AnalyticsResponse> {
-    const id = require('uuid').v4();
+    const id = uuidv4();
     const result = await this.db.query(`
       INSERT INTO user_analytics (id, created_at, updated_at)
       VALUES ($1, NOW(), NOW())
@@ -57,7 +57,8 @@ export class AnalyticsService {
   }
 
   async deleteAnalytics(id: string): Promise<void> {
-    await this.db.query('DELETE FROM user_analytics WHERE id = $1', [id]);
+    const result = await this.db.query('DELETE FROM user_analytics WHERE id = $1', [id]);
+    if (result.rowCount === 0) throw new Error('Analytics not found');
   }
 
   private formatAnalyticsResponse(row: any): AnalyticsResponse {

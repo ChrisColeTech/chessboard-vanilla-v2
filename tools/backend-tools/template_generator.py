@@ -18,13 +18,14 @@ class TemplateGenerator:
         """Generate TypeScript model file"""
         entity_upper = entity.capitalize()
         
+        # Apply entity naming fix early - BEFORE any template generation
+        if entity.lower() == 'learningpath':
+            entity_upper = 'LearningPath'  # Fix entity naming consistently
+        
         # For auth entity, use predefined auth models
         if entity.lower() == 'auth':
             content = self._generate_auth_model()
         else:
-            # Special case for LearningPath - use proper naming
-            if entity.lower() == 'learningpath':
-                entity_upper = 'LearningPath'
             
             # Build property strings
             entity_props = []
@@ -90,6 +91,10 @@ export interface Update{ENTITY}Request {{
         entity_lower = entity.lower()
         entities_lower = entities.lower()
         
+        # Apply entity naming fix early - BEFORE any route generation
+        if entity_lower == 'learningpath':
+            entity_upper = 'LearningPath'  # Fix entity naming consistently
+        
         route_methods = []
         
         # Always start with standard CRUD routes as foundation
@@ -121,7 +126,7 @@ export interface Update{ENTITY}Request {{
             auth_required = endpoint.get('auth_required', True)
             
             # Generate proper parameters based on handler name and path
-            params = self._get_handler_params(handler, path, method)
+            params = self._get_handler_params(handler, path, method, entity_lower)
             
             # Add authentication middleware only if required
             auth_middleware = 'authenticate, ' if auth_required else ''
@@ -144,7 +149,6 @@ router.{method}('{path}', {auth_middleware}async (req: any, res) => {{
             model_import_name = entity_upper
         elif entity_lower == 'learningpath':
             # Use proper LearningPath naming throughout
-            entity_upper = 'LearningPath'  # Override for consistent naming
             request_types = f"CreateLearningPathRequest, UpdateLearningPathRequest"
             model_import_name = 'LearningPath'
         else:
@@ -247,8 +251,10 @@ export interface ForgotPasswordRequest {
 }
 
 export interface ResetPasswordRequest {
-  resetToken: string;
-  password: string;
+  email?: string;
+  username?: string;
+  currentPassword: string;
+  newPassword: string;
 }
 
 export interface ChangePasswordRequest {
@@ -288,7 +294,7 @@ export interface AuthResponse<T = any> {
   message?: string;
 }'''
     
-    def _get_handler_params(self, handler_name: str, path: str, method: str) -> str:
+    def _get_handler_params(self, handler_name: str, path: str, method: str, entity_lower: str) -> str:
         """Generate correct parameters for route handler calls"""
         
         # Puzzle-specific handlers
@@ -322,6 +328,10 @@ export interface AuthResponse<T = any> {
             return "req.params.id"
         elif handler_name == "getGameReviews":
             return ""
+        elif handler_name == "getGamesByPlayer":
+            return "req.params.player"
+        elif handler_name == "searchGames":
+            return "req.query"
         
         # Authentication-specific handlers
         elif handler_name == "register":
@@ -356,8 +366,8 @@ export interface AuthResponse<T = any> {
                               "updateUserPreferences", "getUserSettings", "updateUserSettings"]:
             return get_route_parameters(method, path, handler_name)
         
-        # Learning path specific handlers
-        elif handler_name == "updateProgress" and ":id" in path:
+        # Learning path specific handlers - only apply to learning path entities
+        elif handler_name == "updateProgress" and ":id" in path and entity_lower == "learningpath":
             return "req.params.id, req.userId, req.body"
         elif handler_name == "enrollInPath" and ":id" in path:
             return "req.params.id, req.userId"
@@ -368,7 +378,7 @@ export interface AuthResponse<T = any> {
         elif handler_name == "updateProgress" and "/update" in path:
             return "req.userId, req.body"
         elif handler_name == "getProgressStats":
-            return "req.params.userId" if ":userId" in path else ""
+            return ""  # getProgressStats method takes no parameters according to investigation
         
         # Handle standard CRUD operations by pattern
         elif handler_name.startswith('update') and ':id' in path:

@@ -50,7 +50,8 @@ class DomainMapping:
                 f"constants/{domain}",
                 f"services/{domain}",
                 f"hooks/{domain}",
-                f"components/{domain}"
+                f"components/{domain}",
+                f"pages/{domain}"
             ]
         
         self.common_directories = [

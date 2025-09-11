@@ -35,7 +35,7 @@ export class LearningmoduleService {
   }
 
   async createLearningmodule(data: CreateLearningmoduleRequest): Promise<LearningmoduleResponse> {
-    const id = require('uuid').v4();
+    const id = uuidv4();
     const result = await this.db.query(`
       INSERT INTO learning_modules (id, created_at, updated_at)
       VALUES ($1, NOW(), NOW())
@@ -58,7 +58,8 @@ export class LearningmoduleService {
   }
 
   async deleteLearningmodule(id: string): Promise<void> {
-    await this.db.query('DELETE FROM learning_modules WHERE id = $1', [id]);
+    const result = await this.db.query('DELETE FROM learning_modules WHERE id = $1', [id]);
+    if (result.rowCount === 0) throw new Error('Learningmodule not found');
   }
 
   private formatLearningmoduleResponse(row: any): LearningmoduleResponse {

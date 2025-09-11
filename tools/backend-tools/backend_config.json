@@ -430,6 +430,7 @@
       "properties": {
         "id": "string",
         "user_id": "string",
+        "refresh_token": "string",
         "session_token": "string",
         "expires_at": "string",
         "created_at": "string",
@@ -687,6 +688,7 @@
         "avatar_url": "string",
         "bio": "string",
         "country": "string",
+        "timezone": "string",
         "created_at": "string",
         "updated_at": "string"
       },
@@ -790,6 +792,12 @@
         "id": "string",
         "white_player": "string",
         "black_player": "string",
+        "white_rating": "number",
+        "black_rating": "number",
+        "tournament_name": "string",
+        "tournament_year": "number",
+        "opening_name": "string",
+        "opening_eco": "string",
         "result": "string",
         "pgn": "string",
         "event": "string",

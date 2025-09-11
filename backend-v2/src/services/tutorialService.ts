@@ -35,7 +35,7 @@ export class TutorialService {
   }
 
   async createTutorial(data: CreateTutorialRequest): Promise<TutorialResponse> {
-    const id = require('uuid').v4();
+    const id = uuidv4();
     const result = await this.db.query(`
       INSERT INTO tutorials (id, created_at, updated_at)
       VALUES ($1, NOW(), NOW())
@@ -58,7 +58,8 @@ export class TutorialService {
   }
 
   async deleteTutorial(id: string): Promise<void> {
-    await this.db.query('DELETE FROM tutorials WHERE id = $1', [id]);
+    const result = await this.db.query('DELETE FROM tutorials WHERE id = $1', [id]);
+    if (result.rowCount === 0) throw new Error('Tutorial not found');
   }
 
   private formatTutorialResponse(row: any): TutorialResponse {

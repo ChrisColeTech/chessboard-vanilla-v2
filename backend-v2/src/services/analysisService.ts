@@ -39,7 +39,7 @@ export class AnalysisService {
   }
 
   async createAnalysis(data: CreateAnalysisRequest): Promise<AnalysisResponse> {
-    const id = require('uuid').v4();
+    const id = uuidv4();
     const result = await this.db.query(`
       INSERT INTO analysis_positions (id, created_at, updated_at)
       VALUES ($1, NOW(), NOW())
@@ -62,7 +62,8 @@ export class AnalysisService {
   }
 
   async deleteAnalysis(id: string): Promise<void> {
-    await this.db.query('DELETE FROM analysis_positions WHERE id = $1', [id]);
+    const result = await this.db.query('DELETE FROM analysis_positions WHERE id = $1', [id]);
+    if (result.rowCount === 0) throw new Error('Analysis not found');
   }
 
   private formatAnalysisResponse(row: any): AnalysisResponse {

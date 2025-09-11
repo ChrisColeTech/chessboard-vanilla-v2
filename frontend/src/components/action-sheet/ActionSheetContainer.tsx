@@ -171,7 +171,6 @@ export function ActionSheetContainer({ currentPage, className, onClose, isOpen, 
         'go-to-drag-test': uiTestsActions.goToDragTest,
         'go-to-audio-test': uiTestsActions.goToAudioTest,
         'go-to-layout-test': uiTestsActions.goToLayoutTest,
-        'go-to-mobile-drag-test': uiTestsActions.goToMobileDragTest,
         'go-to-desktop-layout-test': uiTestsActions.goToDesktopLayoutTest
       },
       layout: {
@@ -190,7 +189,6 @@ export function ActionSheetContainer({ currentPage, className, onClose, isOpen, 
         // Navigation actions
         'go-to-audio-test': uiTestsActions.goToAudioTest,
         'go-to-layout-test': uiTestsActions.goToLayoutTest,
-        'go-to-mobile-drag-test': uiTestsActions.goToMobileDragTest,
         'go-to-desktop-layout-test': uiTestsActions.goToDesktopLayoutTest
       },
       uiaudiotest: {
@@ -201,7 +199,6 @@ export function ActionSheetContainer({ currentPage, className, onClose, isOpen, 
         // Navigation actions
         'go-to-drag-test': uiTestsActions.goToDragTest,
         'go-to-layout-test': uiTestsActions.goToLayoutTest,
-        'go-to-mobile-drag-test': uiTestsActions.goToMobileDragTest,
         'go-to-desktop-layout-test': uiTestsActions.goToDesktopLayoutTest
       },
       splash: {
@@ -284,7 +281,6 @@ export function ActionSheetContainer({ currentPage, className, onClose, isOpen, 
         'go-to-drag-test': desktopLayoutTestActions.goToDragTest,
         'go-to-audio-test': desktopLayoutTestActions.goToAudioTest,
         'go-to-layout-test': desktopLayoutTestActions.goToLayoutTest,
-        'go-to-mobile-drag-test': desktopLayoutTestActions.goToMobileDragTest
       }
     }
     

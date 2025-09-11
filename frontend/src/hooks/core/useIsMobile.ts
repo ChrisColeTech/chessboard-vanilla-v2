@@ -5,7 +5,13 @@ import { useState, useEffect } from 'react'
  * Returns true for screens smaller than 768px (md breakpoint)
  */
 export function useIsMobile(breakpoint: number = 768): boolean {
-  const [isMobile, setIsMobile] = useState(false)
+  const [isMobile, setIsMobile] = useState(() => {
+    // Initialize with actual window width if available
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < breakpoint
+    }
+    return false
+  })
 
   useEffect(() => {
     const checkIsMobile = () => {

@@ -4,8 +4,8 @@ import { usePageActions } from "../../hooks/core/usePageActions";
 import { MobileDragTestPage } from "../../pages/uitests/MobileDragTestPage";
 
 export const MobileDragTestPageWrapper: React.FC = () => {
-  usePageInstructions("mobiledragtest");  // Loads instructions for this page
-  usePageActions("mobiledragtest");       // Sets action context for action sheet
+  usePageInstructions("dragtest");  // Shared instructions with desktop version
+  usePageActions("dragtest");       // Shared actions with desktop version
   
   return <MobileDragTestPage />;
 };

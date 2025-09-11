@@ -78,14 +78,7 @@ export class LearningPathService {
     return result.rows.map(row => this.formatLearningPathResponse(row));
   }
 
-  async getLearningpathById(id: string): Promise<LearningPathResponse> {
-    const result = await this.db.query('SELECT * FROM learning_paths WHERE id = $1', [id]);
-    if (!result.rows.length) throw new Error('Learningpath not found');
-    
-    return this.formatLearningPathResponse(result.rows[0]);
-  }
-
-  async createLearningpath(data: CreateLearningPathRequest): Promise<LearningPathResponse> {
+  async createLearningPath(data: CreateLearningPathRequest): Promise<LearningPathResponse> {
     const id = require('uuid').v4();
     const result = await this.db.query(`
       INSERT INTO learning_paths (id, title, description, difficulty, modules, progress, created_at, updated_at)
@@ -96,7 +89,7 @@ export class LearningPathService {
     return this.formatLearningPathResponse(result.rows[0]);
   }
 
-  async updateLearningpath(id: string, data: UpdateLearningPathRequest): Promise<LearningPathResponse> {
+  async updateLearningPath(id: string, data: UpdateLearningPathRequest): Promise<LearningPathResponse> {
     const updateFields = [];
     const updateValues = [];
     let paramIndex = 2;
@@ -132,11 +125,11 @@ export class LearningPathService {
     const query = `UPDATE learning_paths SET ${updateFields.join(', ')} WHERE id = $1 RETURNING *`;
     const result = await this.db.query(query, [id, ...updateValues]);
     
-    if (!result.rows.length) throw new Error('Learningpath not found');
+    if (!result.rows.length) throw new Error('LearningPath not found');
     return this.formatLearningPathResponse(result.rows[0]);
   }
 
-  async deleteLearningpath(id: string): Promise<void> {
+  async deleteLearningPath(id: string): Promise<void> {
     await this.db.query('DELETE FROM learning_paths WHERE id = $1', [id]);
   }
 

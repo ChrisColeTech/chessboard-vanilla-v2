@@ -22,6 +22,9 @@ class PayloadGenerator:
         self.real_ids = self._load_real_ids()
         self.test_user_id = self.real_ids['user_id']
         self.test_timestamp = datetime.now().isoformat()
+        
+        # Generate consistent test user credentials for register/login flow
+        self.test_user_credentials = self._generate_random_user_credentials()
     
     def _load_config(self) -> Dict:
         """Load the backend configuration file."""
@@ -93,6 +96,18 @@ class PayloadGenerator:
         if any(time_field in property_name.lower() for time_field in ['created_at', 'updated_at', 'expires_at', 'timestamp']):
             return self.test_timestamp
         
+        # Handle ID fields with real database IDs
+        if property_name == 'id':
+            if entity_name == 'progress':
+                return self.real_ids.get('progress_id', f"test_{property_name}")
+            elif entity_name == 'profiles':
+                return self.real_ids.get('profile_id', f"test_{property_name}")
+            elif entity_name == 'learning':
+                return self.real_ids.get('enrollment_id', f"test_{property_name}")
+            else:
+                # For other entities, still generate dynamic ID but check for entity-specific mapping
+                return f"test-{property_name}-{datetime.now().strftime('%Y%m%d%H%M%S')}"
+            
         # Handle type-based defaults
         if property_type == "string":
             return f"test_{property_name}"
@@ -169,23 +184,28 @@ class PayloadGenerator:
                     'puzzle_rating': 1550
                 }
             elif 'register' in handler:
-                username, email = self._generate_random_user_credentials()
+                # Use consistent test user credentials for register/login flow
+                username, email = self.test_user_credentials
                 return {
                     'username': username,
                     'email': email,
                     'password': 'password123'
                 }
             elif 'login' in handler:
-                # Login payload will be handled by test script - generate dummy data
-                username, email = self._generate_random_user_credentials()
+                # Use the SAME credentials as register for proper testing flow
+                username, email = self.test_user_credentials
                 return {
                     'email': email,
                     'password': 'password123'
                 }
             elif 'change-password' in path:
                 return {
-                    'current_password': 'password123',
-                    'new_password': 'newpassword123'
+                    'currentPassword': 'password123',
+                    'newPassword': 'newpassword123'
+                }
+            elif 'verify-token' in path:
+                return {
+                    'token': 'test-jwt-token-12345'
                 }
             elif 'forgot-password' in path:
                 username, email = self._generate_random_user_credentials()
@@ -193,9 +213,11 @@ class PayloadGenerator:
                     'email': email
                 }
             elif 'reset-password' in path:
+                username, email = self._generate_random_user_credentials()
                 return {
-                    'token': 'reset-token-123',
-                    'new_password': 'newpassword123'
+                    'email': email,
+                    'currentPassword': 'password123',
+                    'newPassword': 'newpassword123'
                 }
             elif 'check-email' in path:
                 username, email = self._generate_random_user_credentials()
@@ -264,7 +286,22 @@ class PayloadGenerator:
             if 'create' in path:
                 return {
                     'user_id': self.test_user_id,
+                    'refresh_token': f"refresh_token_{datetime.now().strftime('%Y%m%d%H%M%S')}",
                     'expires_at': (datetime.now() + timedelta(hours=24)).isoformat()
+                }
+        
+        # Progress endpoints
+        elif entity_name == 'progress':
+            if 'update' in path:
+                # Use existing progress record ID
+                return {
+                    'id': 'test-progress-001',  # Use existing record
+                    'user_id': self.test_user_id,
+                    'puzzles_solved': 100,
+                    'puzzles_correct': 90,
+                    'current_streak': 5,
+                    'best_streak': 15,
+                    'total_time_spent': 3600
                 }
         
         # Achievement endpoints
@@ -301,6 +338,17 @@ class PayloadGenerator:
                 return {
                     'fen': 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
                     'depth': 15
+                }
+        
+        # Profiles endpoints  
+        elif entity_name == 'profiles':
+            if method == 'PUT':
+                # Update existing profile, don't change user_id
+                return {
+                    'display_name': 'Updated Test User',
+                    'bio': 'Updated chess enthusiast',
+                    'country': 'US',
+                    'timezone': 'EST'
                 }
         
         # Analytics endpoints
@@ -381,6 +429,18 @@ class PayloadGenerator:
                     params[param] = self.real_ids['achievement_id']
                 elif entity_name == 'learning':
                     params[param] = self.real_ids['learning_path_id']
+                elif entity_name == 'ai-opponents':
+                    params[param] = self.real_ids['ai_opponent_id']
+                elif entity_name == 'historic-games':
+                    params[param] = self.real_ids['historic_game_id']
+                elif entity_name == 'learning-modules':
+                    params[param] = self.real_ids['learning_module_id']
+                elif entity_name == 'subscriptions':
+                    params[param] = self.real_ids['subscription_id']
+                elif entity_name == 'profiles':
+                    params[param] = self.real_ids['user_id']  # profiles use user_id
+                elif entity_name == 'study-plans':
+                    params[param] = self.real_ids['study_plan_id']
                 else:
                     params[param] = self.real_ids['game_id']  # Default fallback
             elif param == 'userId':

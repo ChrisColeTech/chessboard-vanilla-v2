@@ -12,7 +12,7 @@ export class SubscriptionService {
   }
 
   async createSubscription(data: CreateSubscriptionRequest): Promise<SubscriptionResponse> {
-    const id = require('uuid').v4();
+    const id = uuidv4();
     const result = await this.db.query(`
       INSERT INTO subscriptions (id, created_at, updated_at)
       VALUES ($1, NOW(), NOW())
@@ -52,7 +52,8 @@ export class SubscriptionService {
   }
 
   async deleteSubscription(id: string): Promise<void> {
-    await this.db.query('DELETE FROM subscriptions WHERE id = $1', [id]);
+    const result = await this.db.query('DELETE FROM subscriptions WHERE id = $1', [id]);
+    if (result.rowCount === 0) throw new Error('Subscription not found');
   }
 
   private formatSubscriptionResponse(row: any): SubscriptionResponse {

@@ -1,0 +1,1137 @@
+/* Foundational CSS - @layer base + @tailwind + @keyframes */
+/* This includes all infrastructure: themes, variables, base styles */
+
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-30px) scale(1.2);
+  }
+}
+
+@keyframes drift {
+  0% {
+    transform: translateX(0px) translateY(0px) scale(1);
+  }
+  33% {
+    transform: translateX(40px) translateY(-30px) scale(1.05);
+  }
+  66% {
+    transform: translateX(-25px) translateY(-45px) scale(0.95);
+  }
+  100% {
+    transform: translateX(60px) translateY(-20px) scale(1.02);
+  }
+}
+
+@keyframes hover {
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+  33% {
+    transform: translateY(-15px) scale(1.05);
+  }
+  66% {
+    transform: translateY(5px) scale(0.95);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes card-entrance {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+  }
+}
+
+@keyframes button-press {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@layer base {
+  :root {
+    --background: #ffffff;
+    --foreground: #0f172a;
+    --card: #ffffff;
+    --card-foreground: #0f172a;
+    --popover: #ffffff;
+    --popover-foreground: #0f172a;
+    --primary: #334155;
+    --primary-foreground: #ffffff;
+    --secondary: #64748b;
+    --secondary-foreground: #f8fafc;
+    --muted: #f1f5f9;
+    --muted-foreground: #64748b;
+    --accent: #475569;
+    --accent-foreground: #ffffff;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #e2e8f0;
+    --input: #e2e8f0;
+    --ring: #0099ff;
+    --radius: 0.75rem;
+    --titlebar: #f1f5f9;
+    --titlebar-foreground: #475569;
+    --titlebar-hover: #e2e8f0;
+    --titlebar-close-hover: #ef4444;
+
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", "Roboto", sans-serif;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .dark {
+    --background: #0f172a;
+    --foreground: #f8fafc;
+    --card: #1e293b;
+    --card-foreground: #f8fafc;
+    --popover: #1e293b;
+    --popover-foreground: #f8fafc;
+    --primary: #64748b;
+    --primary-foreground: #f8fafc;
+    --secondary: #94a3b8;
+    --secondary-foreground: #0f172a;
+    --muted: #334155;
+    --muted-foreground: #94a3b8;
+    --accent: #475569;
+    --accent-foreground: #f8fafc;
+    --destructive: #ef4444;
+    --destructive-foreground: #f8fafc;
+    --border: #334155;
+    --input: #334155;
+    --ring: #0099ff;
+    --titlebar: #1e293b;
+    --titlebar-foreground: #94a3b8;
+    --titlebar-hover: #334155;
+    --titlebar-close-hover: #ef4444;
+  }
+
+  .theme-cyber-neon {
+    --background: #0a0a0a;
+    --foreground: #ff0080;
+    --card: #1a0a1a;
+    --card-foreground: #ff0080;
+    --popover: #1a0a1a;
+    --popover-foreground: #ff0080;
+    --primary: #ff0080;
+    --primary-foreground: #000000;
+    --secondary: #00ff41;
+    --secondary-foreground: #000000;
+    --muted: #2a1a2a;
+    --muted-foreground: #ff0080;
+    --accent: #00bfff;
+    --accent-foreground: #000000;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #ff0080;
+    --input: #1a0a1a;
+    --ring: #ff0080;
+    --radius: 0.75rem;
+    --titlebar: #0a0a0a;
+    --titlebar-foreground: #ff0080;
+    --titlebar-hover: #1a0a1a;
+    --titlebar-close-hover: #ff0080;
+  }
+
+  .theme-dragon-gold {
+    --background: #1a0f0a;
+    --foreground: #fff4e6;
+    --card: #2d1a0f;
+    --card-foreground: #fff4e6;
+    --popover: #2d1a0f;
+    --popover-foreground: #fff4e6;
+    --primary: #ffd700;
+    --primary-foreground: #000000;
+    --secondary: #dc2626;
+    --secondary-foreground: #ffffff;
+    --muted: #4a2c1a;
+    --muted-foreground: #d97706;
+    --accent: #f59e0b;
+    --accent-foreground: #000000;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #dc2626;
+    --input: #2d1a0f;
+    --ring: #ffd700;
+    --radius: 0.75rem;
+    --titlebar: #1a0f0a;
+    --titlebar-foreground: #ffd700;
+    --titlebar-hover: #2d1a0f;
+    --titlebar-close-hover: #dc2626;
+  }
+
+  .theme-shadow-knight {
+    --background: #000000;
+    --foreground: #c0c0c0;
+    --card: #0f1419;
+    --card-foreground: #c0c0c0;
+    --popover: #0f1419;
+    --popover-foreground: #c0c0c0;
+    --primary: #4682b4;
+    --primary-foreground: #ffffff;
+    --secondary: #2f4f4f;
+    --secondary-foreground: #c0c0c0;
+    --muted: #1c1c1c;
+    --muted-foreground: #778899;
+    --accent: #708090;
+    --accent-foreground: #ffffff;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #4682b4;
+    --input: #0f1419;
+    --ring: #4682b4;
+    --radius: 0.75rem;
+    --titlebar: #000000;
+    --titlebar-foreground: #4682b4;
+    --titlebar-hover: #0f1419;
+    --titlebar-close-hover: #dc2626;
+  }
+
+  .theme-forest-mystique {
+    --background: #0f1a0f;
+    --foreground: #f5fbf5;
+    --card: #1a331a;
+    --card-foreground: #f5fbf5;
+    --popover: #1a331a;
+    --popover-foreground: #f5fbf5;
+    --primary: #34d058;
+    --primary-foreground: #0f1a0f;
+    --secondary: #1a331a;
+    --secondary-foreground: #f5fbf5;
+    --muted: #2d4a2d;
+    --muted-foreground: #94a394;
+    --accent: #22c55e;
+    --accent-foreground: #0f1a0f;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #4a6741;
+    --input: #2d4a2d;
+    --ring: #34d058;
+    --radius: 0.75rem;
+    --titlebar: #0f1a0f;
+    --titlebar-foreground: #34d058;
+    --titlebar-hover: #1a331a;
+    --titlebar-close-hover: #dc2626;
+  }
+
+  .theme-royal-purple {
+    --background: #1a0f1a;
+    --foreground: #fbf5fb;
+    --card: #2a1a33;
+    --card-foreground: #fbf5fb;
+    --popover: #2a1a33;
+    --popover-foreground: #fbf5fb;
+    --primary: #a855f7;
+    --primary-foreground: #1a0f1a;
+    --secondary: #2a1a33;
+    --secondary-foreground: #fbf5fb;
+    --muted: #3d2d4a;
+    --muted-foreground: #a394a3;
+    --accent: #c084fc;
+    --accent-foreground: #1a0f1a;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #5a4167;
+    --input: #3d2d4a;
+    --ring: #a855f7;
+    --radius: 0.75rem;
+    --titlebar: #1a0f1a;
+    --titlebar-foreground: #a855f7;
+    --titlebar-hover: #2a1a33;
+    --titlebar-close-hover: #dc2626;
+  }
+
+  .theme-cyber-neon-light {
+    --background: #f8f0ff;
+    --foreground: #800040;
+    --card: #f0e6ff;
+    --card-foreground: #800040;
+    --popover: #f0e6ff;
+    --popover-foreground: #800040;
+    --primary: #c0007f;
+    --primary-foreground: #ffffff;
+    --secondary: #00b341;
+    --secondary-foreground: #ffffff;
+    --muted: #e6ccff;
+    --muted-foreground: #600030;
+    --accent: #0080cc;
+    --accent-foreground: #ffffff;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #c0007f;
+    --input: #e6ccff;
+    --ring: #c0007f;
+    --radius: 0.75rem;
+    --titlebar: #f0e6ff;
+    --titlebar-foreground: #800040;
+    --titlebar-hover: #e6ccff;
+    --titlebar-close-hover: #ef4444;
+  }
+
+  .theme-dragon-gold-light {
+    --background: #fff8f0;
+    --foreground: #7c2d12;
+    --card: #fef3e2;
+    --card-foreground: #7c2d12;
+    --popover: #fef3e2;
+    --popover-foreground: #7c2d12;
+    --primary: #d97706;
+    --primary-foreground: #ffffff;
+    --secondary: #b91c1c;
+    --secondary-foreground: #ffffff;
+    --muted: #fed7aa;
+    --muted-foreground: #7c2d12;
+    --accent: #f59e0b;
+    --accent-foreground: #ffffff;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #b91c1c;
+    --input: #fed7aa;
+    --ring: #d97706;
+    --radius: 0.75rem;
+    --titlebar: #fef3e2;
+    --titlebar-foreground: #7c2d12;
+    --titlebar-hover: #fed7aa;
+    --titlebar-close-hover: #ef4444;
+  }
+
+  .theme-shadow-knight-light {
+    --background: #f0f8ff;
+    --foreground: #2f4f4f;
+    --card: #e6f3ff;
+    --card-foreground: #2f4f4f;
+    --popover: #e6f3ff;
+    --popover-foreground: #2f4f4f;
+    --primary: #4682b4;
+    --primary-foreground: #ffffff;
+    --secondary: #708090;
+    --secondary-foreground: #ffffff;
+    --muted: #ddeeff;
+    --muted-foreground: #2f4f4f;
+    --accent: #87ceeb;
+    --accent-foreground: #2f4f4f;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #4682b4;
+    --input: #ddeeff;
+    --ring: #4682b4;
+    --radius: 0.75rem;
+    --titlebar: #e6f3ff;
+    --titlebar-foreground: #2f4f4f;
+    --titlebar-hover: #ddeeff;
+    --titlebar-close-hover: #ef4444;
+  }
+
+  .theme-forest-mystique-light {
+    --background: #f5fbf5;
+    --foreground: #0f1a0f;
+    --card: #f0f8f0;
+    --card-foreground: #0f1a0f;
+    --popover: #f0f8f0;
+    --popover-foreground: #0f1a0f;
+    --primary: #15803d;
+    --primary-foreground: #ffffff;
+    --secondary: #0f1a0f;
+    --secondary-foreground: #f5fbf5;
+    --muted: #cbd5cb;
+    --muted-foreground: #475547;
+    --accent: #16a34a;
+    --accent-foreground: #ffffff;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #94a394;
+    --input: #e2e8e2;
+    --ring: #15803d;
+    --radius: 0.75rem;
+    --titlebar: #f0f8f0;
+    --titlebar-foreground: #0f1a0f;
+    --titlebar-hover: #e2e8e2;
+    --titlebar-close-hover: #ef4444;
+  }
+
+  .theme-royal-purple-light {
+    --background: #fbf5fb;
+    --foreground: #1a0f1a;
+    --card: #f5f0f8;
+    --card-foreground: #1a0f1a;
+    --popover: #f5f0f8;
+    --popover-foreground: #1a0f1a;
+    --primary: #7c3aed;
+    --primary-foreground: #ffffff;
+    --secondary: #1a0f1a;
+    --secondary-foreground: #fbf5fb;
+    --muted: #d5cbd5;
+    --muted-foreground: #554755;
+    --accent: #8b5cf6;
+    --accent-foreground: #ffffff;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #a394a3;
+    --input: #e8e2e8;
+    --ring: #7c3aed;
+    --radius: 0.75rem;
+    --titlebar: #f5f0f8;
+    --titlebar-foreground: #1a0f1a;
+    --titlebar-hover: #e8e2e8;
+    --titlebar-close-hover: #ef4444;
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  /* Title bar button styling - no rounded corners */
+  .titlebar-btn {
+    border-radius: 0 !important;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    min-height: 100vh;
+    margin: 0;
+  }
+
+  html,
+  body {
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+  }
+
+  #root {
+    width: 100%;
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  /* Used CSS Classes - From @layer components + @layer utilities */
+  /* Classes referenced in TSX files */
+
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  .glass {
+    backdrop-filter: blur(24px);
+    background-color: color-mix(in srgb, var(--card) 80%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 20%, transparent);
+  }
+
+  .glass-hover {
+    transition: all 0.5s;
+  }
+
+  .glass-hover:hover {
+    background-color: color-mix(in srgb, var(--card) 90%, transparent);
+    border-color: color-mix(in srgb, var(--border) 40%, transparent);
+  }
+
+  .hover-glow {
+    transition: all 0.3s;
+  }
+
+  .hover-glow:hover {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+      0 0 30px color-mix(in srgb, var(--primary) 30%, transparent);
+  }
+
+  .hover-grow {
+    transition: transform 0.2s;
+  }
+
+  .hover-grow:hover {
+    transform: scale(1.05);
+  }
+
+  .btn-gaming-primary {
+    width: 100%;
+    background: linear-gradient(135deg, #0099ff, #ff6600);
+    color: #ffffff;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 0 20px #0099ff40;
+    border: 1px solid #0099ff60;
+    transition: all 0.3s;
+  }
+
+  .btn-gaming-primary:hover {
+    opacity: 0.95;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 0 40px #0099ff80;
+    transform: translateY(-2px) scale(1.02);
+    border-color: #0099ff;
+  }
+
+  .btn-gaming-primary:active {
+    animation: button-press 0.2s ease-in-out;
+  }
+
+  .btn-gaming-secondary {
+    width: 100%;
+    background-color: rgb(0 0 0 / 0.2);
+    border: 1px solid rgb(255 255 255 / 0.2);
+    color: var(--foreground);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    transition: all 0.3s;
+  }
+
+  .btn-gaming-secondary:hover {
+    background-color: rgb(0 0 0 / 0.3);
+    border-color: rgb(255 255 255 / 0.3);
+    transform: scale(1.05);
+  }
+
+  .card-gaming {
+    backdrop-filter: blur(16px);
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px -8px rgb(0 0 0 / 0.15);
+    border-radius: 0.75rem;
+    transition: all 0.5s;
+    animation: card-entrance 0.6s ease-out;
+  }
+
+  .card-gaming:hover {
+    border-color: rgba(255, 255, 255, 0.08);
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .glass-layout {
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    background-color: rgb(var(--foreground) / 0.15);
+
+    background-color: rgb(var(--foreground) / 0.15);
+    border: 1px solid rgb(var(--border) / 0.2);
+
+    box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.15);
+    transition: all 0.5s;
+  }
+
+  .action-sheet {
+    backdrop-filter: blur(16px);
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 -8px 32px -8px rgb(0 0 0 / 0.15);
+    transition: all 0.3s;
+  }
+
+  .action-sheet:hover {
+    border-color: rgba(255, 255, 255, 0.08);
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .action-item {
+    @apply w-full text-left flex items-center transition-all duration-200 focus:outline-none rounded py-4 px-4 text-lg;
+  }
+
+  .action-item-default {
+    @apply text-foreground;
+  }
+
+  .action-item-default:hover {
+    background-color: color-mix(in srgb, var(--muted) 50%, transparent);
+  }
+
+  .action-item-secondary {
+    @apply text-muted-foreground;
+  }
+
+  .action-item-secondary:hover {
+    @apply text-foreground;
+    background-color: color-mix(in srgb, var(--muted) 50%, transparent);
+  }
+
+  .action-item-destructive {
+    @apply text-destructive;
+  }
+
+  .action-item-destructive:hover {
+    background-color: color-mix(in srgb, var(--destructive) 10%, transparent);
+  }
+
+  .action-item-icon {
+    @apply w-6 h-6 group-hover:scale-105 transition-transform;
+  }
+
+  .action-item-text {
+    @apply group-hover:translate-x-0.5 transition-transform ml-3;
+  }
+
+  .input-gaming {
+    background-color: rgb(0 0 0 / 0.3);
+    border: 1px solid rgb(255 255 255 / 0.2);
+    color: var(--foreground);
+    border-radius: 0.5rem;
+    transition: all 0.3s;
+  }
+
+  /* Tab and Menu Button Base Styles */
+  .tab-button {
+    @apply flex flex-col items-center justify-center gap-1 py-2 border-none;
+    @apply bg-transparent cursor-pointer transition-all duration-300 text-xs font-medium;
+    @apply focus:outline-none;
+  }
+
+  .tab-button-inactive {
+    @apply text-muted-foreground;
+  }
+
+  .tab-button-inactive:hover {
+    @apply text-foreground -translate-y-0.5;
+    backdrop-filter: blur(24px);
+    background-color: var(--titlebar);
+  }
+
+  .tab-button-active {
+    @apply text-foreground font-bold shadow-xl border-t-4 border-primary -translate-y-1;
+    backdrop-filter: blur(24px);
+    background-color: var(--titlebar);
+  }
+
+  .tab-icon-active {
+    @apply w-6 h-6 mb-1 transition-all duration-300 scale-110 text-primary drop-shadow-lg;
+  }
+
+  .tab-icon-inactive {
+    @apply w-6 h-6 mb-1 transition-all duration-300 text-muted-foreground;
+  }
+
+  .tab-icon-inactive:hover {
+    @apply scale-105 text-foreground;
+  }
+
+  .input-gaming::placeholder {
+    color: var(--muted-foreground);
+  }
+
+  .input-gaming:focus {
+    border-color: rgb(255 255 255 / 0.4);
+    outline: none;
+    box-shadow: 0 0 0 2px rgb(255 255 255 / 0.2);
+  }
+
+  .btn-standard {
+    @apply font-medium py-3 px-6 rounded-xl shadow-lg hover:shadow-xl;
+    @apply border border-border hover:border-primary;
+    @apply backdrop-blur-sm;
+    @apply transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98];
+    @apply disabled:opacity-50 disabled:cursor-not-allowed gpu-accelerated;
+  }
+
+  .btn-primary {
+    @apply btn-standard text-primary-foreground;
+    background-color: var(--primary);
+    opacity: 0.8;
+  }
+
+  .btn-primary:hover {
+    opacity: 0.9;
+  }
+
+  .btn-secondary {
+    @apply btn-standard text-secondary-foreground hover:text-primary;
+    background-color: var(--secondary);
+    opacity: 0.7;
+  }
+
+  .btn-secondary:hover {
+    opacity: 0.8;
+  }
+
+  .btn-muted {
+    @apply btn-standard text-muted-foreground;
+    background-color: var(--muted);
+    opacity: 0.9;
+  }
+
+  .btn-muted:hover {
+    opacity: 1;
+  }
+
+  .btn-destructive {
+    @apply btn-standard text-destructive-foreground;
+    background-color: var(--destructive);
+    opacity: 0.8;
+  }
+
+  .btn-destructive:hover {
+    opacity: 0.9;
+  }
+
+  .floating-particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.2;
+    filter: blur(12px);
+    animation: pulse-glow 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .floating-particle-primary {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+  }
+
+  .floating-particle-secondary {
+    background: linear-gradient(135deg, var(--secondary), var(--muted));
+  }
+
+  .sparkle {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  /* === UNIFIED EXTRACTION SYSTEM === */
+
+  /* 1. BACKGROUND EFFECTS (Priority 1 - Most Duplicated) */
+  .bg-overlay {
+    @apply absolute inset-0 overflow-hidden pointer-events-none;
+  }
+
+  /* Floating Orbs - Base */
+  .bg-orb {
+    @apply absolute rounded-full animate-pulse gpu-accelerated;
+  }
+  .bg-orb-sm {
+    @apply w-16 h-16 opacity-10 blur-md;
+  }
+  .bg-orb-md {
+    @apply w-24 h-24 opacity-15 blur-lg;
+  }
+  .bg-orb-lg {
+    @apply w-32 h-32 opacity-20 blur-xl;
+  }
+
+  /* Responsive Orbs (BackgroundEffects.tsx) */
+  .bg-orb-responsive-xs {
+    @apply w-6 h-6 sm:w-9 sm:h-9 lg:w-12 lg:h-12;
+  }
+  .bg-orb-responsive-sm {
+    @apply w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16;
+  }
+  .bg-orb-responsive-sm-alt {
+    @apply w-10 h-10 sm:w-16 sm:h-16 lg:w-20 lg:h-20;
+  }
+  .bg-orb-responsive-md {
+    @apply w-12 h-12 sm:w-20 sm:h-20 lg:w-24 lg:h-24;
+  }
+  .bg-orb-responsive-md-alt {
+    @apply w-14 h-14 sm:w-24 sm:h-24 lg:w-28 lg:h-28;
+  }
+  .bg-orb-responsive-lg {
+    @apply w-16 h-16 sm:w-24 sm:h-24 lg:w-32 lg:h-32;
+  }
+
+  /* Color Variants */
+  .bg-orb-primary {
+    background-color: color-mix(in srgb, var(--primary) 20%, transparent);
+  }
+  .bg-orb-accent {
+    background-color: color-mix(in srgb, var(--accent) 20%, transparent);
+  }
+  .bg-orb-primary-light {
+    background-color: color-mix(in srgb, var(--primary) 10%, transparent);
+  }
+  .bg-orb-foreground-40 {
+    background-color: color-mix(in srgb, var(--foreground) 40%, transparent);
+  }
+  .bg-orb-foreground-50 {
+    background-color: color-mix(in srgb, var(--foreground) 50%, transparent);
+  }
+  .bg-orb-foreground-60 {
+    background-color: color-mix(in srgb, var(--foreground) 60%, transparent);
+  }
+  .bg-orb-primary-60 {
+    background-color: color-mix(in srgb, var(--primary) 60%, transparent);
+  }
+  .bg-orb-accent-40 {
+    background-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+
+  /* Floating Particle Variants (BackgroundEffects.tsx - replaces .floating-particle) */
+  .bg-orb-floating {
+    @apply absolute rounded-full opacity-20;
+  }
+  .bg-orb-floating-primary {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+  }
+  .bg-orb-floating-secondary {
+    background: linear-gradient(135deg, var(--secondary), var(--muted));
+  }
+
+  /* Sparkles */
+  .bg-sparkle {
+    @apply absolute rounded-full animate-ping;
+  }
+  .bg-sparkle-sm {
+    @apply w-1 h-1;
+  }
+  .bg-sparkle-md {
+    @apply w-1.5 h-1.5;
+  }
+  .bg-sparkle-lg {
+    @apply w-2 h-2;
+  }
+
+  /* Chess Pieces Floating */
+  .bg-chess-piece {
+    @apply absolute animate-float;
+  }
+  .bg-chess-piece-sm {
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl;
+  }
+  .bg-chess-piece-md {
+    @apply text-4xl sm:text-5xl md:text-6xl lg:text-7xl;
+  }
+  .bg-chess-piece-lg {
+    @apply text-5xl sm:text-6xl md:text-7xl lg:text-8xl;
+  }
+
+  /* Chess Piece Color Mix Variants (BackgroundEffects.tsx) */
+  .chess-piece-color-foreground-15 {
+    color: color-mix(in srgb, var(--foreground) 15%, transparent);
+  }
+  .chess-piece-color-primary-30 {
+    color: color-mix(in srgb, var(--primary) 30%, transparent);
+  }
+  .chess-piece-color-primary-20 {
+    color: color-mix(in srgb, var(--primary) 20%, transparent);
+  }
+  .chess-piece-color-accent-20 {
+    color: color-mix(in srgb, var(--accent) 20%, transparent);
+  }
+
+  /* Sparkle Color Variants (BackgroundEffects.tsx) */
+  .bg-sparkle-primary {
+    background-color: var(--primary);
+  }
+  .bg-sparkle-accent {
+    background-color: var(--accent);
+  }
+
+  /* 2. MODAL SYSTEM (Priority 2) */
+  .modal-backdrop {
+    @apply fixed inset-0 z-50 flex items-center justify-center;
+  }
+  .modal-backdrop-dark {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(0.375rem);
+  }
+  .modal-backdrop-padding {
+    @apply p-4;
+  }
+  .modal-content {
+    @apply relative bg-background border border-border rounded-xl shadow-2xl p-6 w-full;
+  }
+  .modal-content-sm {
+    @apply max-w-sm mx-4;
+  }
+  .modal-content-md {
+    @apply max-w-md;
+  }
+  .modal-icon-container {
+    padding: 0.5rem;
+    background-color: color-mix(in srgb, var(--primary) 10%, transparent);
+    border-radius: 0.5rem;
+    border: 1px solid color-mix(in srgb, var(--primary) 20%, transparent);
+  }
+  .modal-icon-container-lg {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 9999px;
+    background-color: color-mix(in srgb, var(--primary) 10%, transparent);
+    border: 2px solid color-mix(in srgb, var(--primary) 20%, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 3. LAYOUT GRIDS (Priority 3) */
+  .grid-control {
+    @apply grid gap-3;
+  }
+  .grid-control-2-4 {
+    @apply grid-cols-2 sm:grid-cols-4;
+  }
+  .grid-control-1-4 {
+    @apply grid-cols-1 sm:grid-cols-2 lg:grid-cols-4;
+  }
+  .grid-control-responsive {
+    @apply gap-3 sm:gap-4;
+  }
+  .grid-demo {
+    @apply grid gap-6 animate-card-entrance;
+  }
+  .grid-demo-1-3 {
+    @apply grid-cols-1 md:grid-cols-2 lg:grid-cols-3;
+  }
+  .grid-settings {
+    @apply grid grid-cols-2 gap-3;
+  }
+
+  /* Settings Panel System */
+  .settings-panel {
+    @apply w-80 sm:w-96 h-full glass-layout border-l border-border shadow-2xl;
+  }
+
+  .settings-header {
+    @apply flex items-center justify-between p-4 border-b border-border;
+    background-color: var(--titlebar);
+  }
+
+  .settings-footer {
+    @apply flex items-center justify-between p-4 border-border;
+    background-color: var(--titlebar);
+  }
+
+  .settings-close-btn {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    background-color: color-mix(in srgb, var(--muted) 50%, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted-foreground);
+    transition: colors 0.2s;
+    &:hover {
+      background-color: var(--muted);
+      color: var(--foreground);
+    }
+  }
+
+  .settings-toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem;
+    background-color: color-mix(in srgb, var(--muted) 30%, transparent);
+    border-radius: 0.5rem;
+    border: 1px solid var(--border);
+  }
+
+  .settings-theme-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+    background-color: color-mix(in srgb, var(--muted) 30%, transparent);
+    color: var(--muted-foreground);
+    &:hover {
+      background-color: color-mix(in srgb, var(--muted) 50%, transparent);
+      border-color: color-mix(in srgb, var(--primary) 50%, transparent);
+      color: var(--foreground);
+    }
+  }
+
+  .settings-theme-btn-active {
+    background-color: color-mix(in srgb, var(--primary) 20%, transparent);
+    border-color: var(--primary);
+    color: var(--primary);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 30%, transparent);
+  }
+
+  /* 4. COMMON LAYOUTS */
+  .test-container {
+    border: 2px dashed color-mix(in srgb, var(--primary) 30%, transparent);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background-color: color-mix(in srgb, var(--background) 50%, transparent);
+    margin-bottom: 2rem;
+  }
+
+  .control-panel {
+    @apply mt-6 card-gaming p-4 md:p-6;
+  }
+
+  .control-header {
+    @apply flex items-center gap-2 mb-4;
+  }
+
+  .status-indicator {
+    @apply w-2 h-2 bg-primary rounded-full animate-pulse;
+  }
+
+  .icon-button-content {
+    @apply flex items-center gap-2;
+  }
+
+  /* Status Display Card */
+  .status-card {
+    background-color: color-mix(in srgb, var(--background) 50%, transparent);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+  }
+
+  /* Control Button Row */
+  .control-buttons-row {
+    @apply flex gap-3 mt-4;
+  }
+
+  /* 5. MENU SYSTEM (Priority 4) */
+  .menu-dropdown {
+    @apply fixed bottom-[84px] left-0 right-0 z-50 md:w-[25vw] md:right-auto border border-border;
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    background-color: rgb(var(--foreground) / 0.15);
+
+    background-color: rgb(var(--foreground) / 0.15);
+    border: 1px solid rgb(var(--border) / 0.2);
+  }
+
+  .menu-button-active {
+    @apply text-foreground font-bold  border-t-4 border-primary -translate-y-1;
+    z-index: 10;
+    backdrop-filter: blur(24px);
+    background-color: var(--titlebar);
+  }
+
+  .menu-button-inactive {
+    @apply text-muted-foreground;
+  }
+
+  .menu-item {
+    @apply w-full p-2 text-left text-muted-foreground hover:text-foreground hover:glass rounded transition-all duration-200 flex items-center gap-2 focus:outline-none;
+  }
+  .menu-item.group {
+    /* Group utility applied separately */
+  }
+
+  .menu-icon {
+    @apply w-4 h-4 group-hover:scale-105 transition-transform;
+  }
+
+  .menu-text {
+    @apply group-hover:translate-x-0.5 transition-transform;
+  }
+}
+
+@layer utilities {
+  .hover-grow {
+    @apply hover:scale-100;
+  }
+
+  .gpu-accelerated {
+    will-change: auto;
+  }
+
+  /* Animation Delays - Used 25+ times across all files */
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+  .animation-delay-500 {
+    animation-delay: 500ms;
+  }
+  .animation-delay-700 {
+    animation-delay: 700ms;
+  }
+  .animation-delay-800 {
+    animation-delay: 800ms;
+  }
+  .animation-delay-1000 {
+    animation-delay: 1000ms;
+  }
+  .animation-delay-1200 {
+    animation-delay: 1200ms;
+  }
+  .animation-delay-1500 {
+    animation-delay: 1500ms;
+  }
+  .animation-delay-1800 {
+    animation-delay: 1800ms;
+  }
+  .animation-delay-2000 {
+    animation-delay: 2000ms;
+  }
+}

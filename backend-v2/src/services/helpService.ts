@@ -28,7 +28,7 @@ export class HelpService {
   }
 
   async createHelp(data: CreateHelpRequest): Promise<HelpResponse> {
-    const id = require('uuid').v4();
+    const id = uuidv4();
     const result = await this.db.query(`
       INSERT INTO help_content (id, created_at, updated_at)
       VALUES ($1, NOW(), NOW())
@@ -51,7 +51,8 @@ export class HelpService {
   }
 
   async deleteHelp(id: string): Promise<void> {
-    await this.db.query('DELETE FROM help_content WHERE id = $1', [id]);
+    const result = await this.db.query('DELETE FROM help_content WHERE id = $1', [id]);
+    if (result.rowCount === 0) throw new Error('Help not found');
   }
 
   private formatHelpResponse(row: any): HelpResponse {

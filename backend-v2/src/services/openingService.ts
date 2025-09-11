@@ -38,7 +38,7 @@ export class OpeningService {
   }
 
   async createOpening(data: CreateOpeningRequest): Promise<OpeningResponse> {
-    const id = require('uuid').v4();
+    const id = uuidv4();
     const result = await this.db.query(`
       INSERT INTO openings (id, created_at, updated_at)
       VALUES ($1, NOW(), NOW())
@@ -61,7 +61,8 @@ export class OpeningService {
   }
 
   async deleteOpening(id: string): Promise<void> {
-    await this.db.query('DELETE FROM openings WHERE id = $1', [id]);
+    const result = await this.db.query('DELETE FROM openings WHERE id = $1', [id]);
+    if (result.rowCount === 0) throw new Error('Opening not found');
   }
 
   private formatOpeningResponse(row: any): OpeningResponse {

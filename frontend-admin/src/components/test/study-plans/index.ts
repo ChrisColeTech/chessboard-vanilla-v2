@@ -1,0 +1,1 @@
+export { StudyPlanComponent } from './StudyPlanComponent';

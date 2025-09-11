@@ -93,7 +93,7 @@ function AppContent() {
       onTabChange={setSelectedTab}
       coinBalance={coinBalance}
     >
-      {/* Page routing */}
+      {/* Page routing with mobile/desktop switching */}
       {selectedTab === "worker" && <WorkerTestPage />}
       {selectedTab === "uitests" && <UITestPage />}
       {selectedTab === "casino" && <CasinoPage />}

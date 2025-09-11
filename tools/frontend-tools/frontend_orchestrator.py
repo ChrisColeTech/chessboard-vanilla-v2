@@ -13,6 +13,8 @@ from hooks_generator import HooksGenerator
 from components_generator import ComponentsGenerator
 from clients_generator import ClientsGenerator
 from stores_generator import StoresGenerator
+from pages_generator import PagesGenerator
+from layout_generator import LayoutGenerator
 
 class FrontendOrchestrator(BaseFrontendGenerator):
     """Main orchestrator that coordinates all frontend generation"""
@@ -28,6 +30,8 @@ class FrontendOrchestrator(BaseFrontendGenerator):
         self.components_generator = ComponentsGenerator(frontend_path)
         self.clients_generator = ClientsGenerator(frontend_path)
         self.stores_generator = StoresGenerator(frontend_path)
+        self.pages_generator = PagesGenerator(frontend_path)
+        self.layout_generator = LayoutGenerator(frontend_path)
     
     def create_directory_structure(self):
         """Create domain-driven directory structure"""
@@ -77,6 +81,8 @@ class FrontendOrchestrator(BaseFrontendGenerator):
             
             # Priority 4: Presentation Layer
             self.components_generator.generate_domain_components(domain, endpoints)
+            
+            # Priority 5: Pages Layer (handled separately at the end)
         
         # Generate domain-specific clients (Priority 2)
         self.clients_generator.generate_domain_clients()
@@ -86,6 +92,18 @@ class FrontendOrchestrator(BaseFrontendGenerator):
         
         # Generate main React entry files
         self.components_generator.generate_main_entry_files()
+        
+        # Generate core infrastructure
+        self.pages_generator.generate_core_infrastructure()
+        
+        # Generate grouped pages (Priority 5)
+        all_endpoints = list(self.backend_config['endpoints'].keys())
+        page_domains = self.pages_generator.group_endpoints_by_page_domain(all_endpoints)
+        self.pages_generator.generate_all_domain_pages(all_endpoints)
+        
+        # Generate layout system (Priority 6) 
+        domain_list = list(page_domains.keys())
+        self.layout_generator.generate_complete_app_infrastructure(domain_list)
         
         # Generate index files for easier imports
         self._generate_final_indices()
@@ -100,7 +118,9 @@ class FrontendOrchestrator(BaseFrontendGenerator):
             self.hooks_generator,
             self.components_generator,
             self.clients_generator,
-            self.stores_generator
+            self.stores_generator,
+            self.pages_generator,
+            self.layout_generator
         ]
         
         for generator in generators:

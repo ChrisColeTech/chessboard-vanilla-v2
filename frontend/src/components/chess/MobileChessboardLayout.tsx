@@ -83,7 +83,7 @@ export const MobileChessboardLayout: React.FC<MobileChessboardLayoutProps> = ({
           boxSizing: 'border-box',
           overflow: 'hidden',
           transform: 'translateZ(0)', // Hardware acceleration
-          border: '2px solid var(--border)'
+          border: 'none'
         }}
       >
         {center}

@@ -31,34 +31,59 @@ export const DesktopLayoutTestPage: React.FC = () => {
   const blackCaptured = mockCapturedPieces.filter(p => p.color === 'black');
 
   return (
-    <div className="relative h-full flex flex-col">
-      <div className="flex-1 flex flex-col py-4 px-4 relative">
-        <div className="flex-1 flex items-stretch justify-center">
-          <div className="w-full max-w-6xl flex flex-col">
-            <div className="flex-1 flex flex-col justify-center items-center">
-              <ChessboardLayout
-                topLeft={showElements ? <div className="text-xs text-muted-foreground p-2">Top Left</div> : undefined}
-                top={showElements ? <CapturedPieces pieces={blackCaptured} position="normal" /> : undefined}
-                topRight={showElements ? <div className="text-xs text-muted-foreground p-2">Top Right</div> : undefined}
-                left={showElements ? <div className="text-xs text-muted-foreground p-2">Left</div> : undefined}
-                center={
-                  <div className="w-full h-full flex items-center justify-center min-h-0 min-w-0 overflow-hidden">
-                    <MobileChessBoard 
-                      gridSize={8} 
-                      pieceConfig="standard-chess"
-                    />
-                  </div>
-                }
-                right={showElements ? <div className="text-xs text-muted-foreground p-2">Right</div> : undefined}
-                bottomLeft={showElements ? <div className="text-xs text-muted-foreground p-2">Bottom Left</div> : undefined}
-                bottom={showElements ? <CapturedPieces pieces={whiteCaptured} position="normal" /> : undefined}
-                bottomRight={showElements ? <div className="text-xs text-muted-foreground p-2">Bottom Right</div> : undefined}
-                className="w-full h-full"
-              />
+      <div className="h-full">
+        <ChessboardLayout
+          topLeft={
+            showElements ? (
+              <div className="text-xs text-muted-foreground p-2">Top Left</div>
+            ) : undefined
+          }
+          top={
+            showElements ? (
+              <CapturedPieces pieces={blackCaptured} position="normal" />
+            ) : undefined
+          }
+          topRight={
+            showElements ? (
+              <div className="text-xs text-muted-foreground p-2">Top Right</div>
+            ) : undefined
+          }
+          left={
+            showElements ? (
+              <div className="text-xs text-muted-foreground p-2">Left</div>
+            ) : undefined
+          }
+          center={
+            <div className="w-full h-full flex items-center justify-center min-h-0 min-w-0 overflow-hidden">
+              <MobileChessBoard gridSize={8} pieceConfig="standard-chess" />
             </div>
-          </div>
-        </div>
+          }
+          right={
+            showElements ? (
+              <div className="text-xs text-muted-foreground p-2">Right</div>
+            ) : undefined
+          }
+          bottomLeft={
+            showElements ? (
+              <div className="text-xs text-muted-foreground p-2">
+                Bottom Left
+              </div>
+            ) : undefined
+          }
+          bottom={
+            showElements ? (
+              <CapturedPieces pieces={whiteCaptured} position="normal" />
+            ) : undefined
+          }
+          bottomRight={
+            showElements ? (
+              <div className="text-xs text-muted-foreground p-2">
+                Bottom Right
+              </div>
+            ) : undefined
+          }
+          className="w-full h-full"
+        />
       </div>
-    </div>
   );
 };

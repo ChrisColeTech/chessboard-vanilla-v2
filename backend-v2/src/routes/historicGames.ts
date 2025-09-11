@@ -31,7 +31,7 @@ router.get('/:id', authenticate, async (req: any, res) => {
 // GET /search
 router.get('/search', authenticate, async (req: any, res) => {
   try {
-    const result = await historicgameService.searchGames();
+    const result = await historicgameService.searchGames(req.query);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });
@@ -41,7 +41,7 @@ router.get('/search', authenticate, async (req: any, res) => {
 // GET /player/:player
 router.get('/player/:player', authenticate, async (req: any, res) => {
   try {
-    const result = await historicgameService.getGamesByPlayer();
+    const result = await historicgameService.getGamesByPlayer(req.params.player);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });

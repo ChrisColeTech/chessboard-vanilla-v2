@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { MobileChessBoard } from "../../components/chess/MobileChessBoard";
 import { CapturedPieces } from "../../components/chess/CapturedPieces";
 import { ChessboardLayout } from "../../components/chess/ChessboardLayout";
-import { MobileChessboardLayout } from "../../components/chess/MobileChessboardLayout";
 import { usePageInstructions } from "../../hooks/core/usePageInstructions";
-import { useIsMobile } from "../../hooks/core/useIsMobile";
 import { useChessGameStore } from "../../stores/chessGameStore";
 import type { ChessPosition } from "../../types";
 
@@ -29,7 +27,6 @@ export const DragTestPage: React.FC = () => {
   }, [setCapturedPieces]);
   
   const [piecesPosition, setPiecesPosition] = useState<'top-bottom' | 'left-right'>('top-bottom');
-  const isMobile = useIsMobile();
   usePageInstructions("uitests.drag-test");
 
   // Expose toggle function globally for actions to use
@@ -86,73 +83,54 @@ export const DragTestPage: React.FC = () => {
         <div className="bg-sparkle bg-sparkle-md bg-orb-foreground-50 top-2/3 right-1/3 animation-delay-1200"></div>
       </div>
 
-      {/* Mobile Layout fills entire page when on mobile */}
-      {isMobile ? (
-        <MobileChessboardLayout
-              topPieces={
-                <CapturedPieces
-                  pieces={whiteCapturedPieces}
-                  position="normal"
-                />
-              }
-              center={<MobileChessBoard gridSize={3} pieceConfig="drag-test" />}
-              bottomPieces={
-                <CapturedPieces
-                  pieces={blackCapturedPieces}
-                  position="normal"
-                />
-              }
-        />
-      ) : (
-        /* Desktop Layout - 3x3 Grid fills entire page */
-        <ChessboardLayout
-              top={
-                <CapturedPieces
-                  pieces={whiteCapturedPieces}
-                  position="normal"
-                />
-              }
-              left={
-                piecesPosition === 'left-right' ? (
-                  <CapturedPieces
-                    pieces={whiteCapturedPieces}
-                    position="normal"
-                    className="h-96 overflow-y-auto"
-                  />
-                ) : undefined
-              }
-              center={
-                <div style={{
-                  width: "100%",
-                  height: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  minHeight: "0",
-                  minWidth: "0",
-                  overflow: "hidden"
-                }}>
-                  <MobileChessBoard gridSize={3} pieceConfig="drag-test" />
-                </div>
-              }
-              right={
-                piecesPosition === 'left-right' ? (
-                  <CapturedPieces
-                    pieces={blackCapturedPieces}
-                    position="normal"
-                    className="h-96 overflow-y-auto"
-                  />
-                ) : undefined
-              }
-              bottom={
-                <CapturedPieces
-                  pieces={blackCapturedPieces}
-                  position="normal"
-                />
-              }
-              className="h-full"
-        />
-      )}
+      {/* Desktop Layout - 3x3 Grid fills entire page */}
+      <ChessboardLayout
+        top={
+          <CapturedPieces
+            pieces={whiteCapturedPieces}
+            position="normal"
+          />
+        }
+        left={
+          piecesPosition === 'left-right' ? (
+            <CapturedPieces
+              pieces={whiteCapturedPieces}
+              position="normal"
+              className="h-96 overflow-y-auto"
+            />
+          ) : undefined
+        }
+        center={
+          <div style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: "0",
+            minWidth: "0",
+            overflow: "hidden"
+          }}>
+            <MobileChessBoard gridSize={3} pieceConfig="drag-test" />
+          </div>
+        }
+        right={
+          piecesPosition === 'left-right' ? (
+            <CapturedPieces
+              pieces={blackCapturedPieces}
+              position="normal"
+              className="h-96 overflow-y-auto"
+            />
+          ) : undefined
+        }
+        bottom={
+          <CapturedPieces
+            pieces={blackCapturedPieces}
+            position="normal"
+          />
+        }
+        className="h-full"
+      />
     </div>
   );
 };

@@ -12,7 +12,7 @@ export class StudyplanService {
   }
 
   async createStudyPlan(data: CreateStudyplanRequest): Promise<StudyplanResponse> {
-    const id = require('uuid').v4();
+    const id = uuidv4();
     const result = await this.db.query(`
       INSERT INTO user_study_plans (id, created_at, updated_at)
       VALUES ($1, NOW(), NOW())
@@ -35,7 +35,8 @@ export class StudyplanService {
   }
 
   async deletePlan(id: string): Promise<void> {
-    await this.db.query('DELETE FROM user_study_plans WHERE id = $1', [id]);
+    const result = await this.db.query('DELETE FROM user_study_plans WHERE id = $1', [id]);
+    if (result.rowCount === 0) throw new Error('Studyplan not found');
   }
 
   async getAllStudy_plans(): Promise<StudyplanResponse[]> {
@@ -51,7 +52,7 @@ export class StudyplanService {
   }
 
   async createStudyplan(data: CreateStudyplanRequest): Promise<StudyplanResponse> {
-    const id = require('uuid').v4();
+    const id = uuidv4();
     const result = await this.db.query(`
       INSERT INTO user_study_plans (id, created_at, updated_at)
       VALUES ($1, NOW(), NOW())
@@ -74,7 +75,8 @@ export class StudyplanService {
   }
 
   async deleteStudyplan(id: string): Promise<void> {
-    await this.db.query('DELETE FROM user_study_plans WHERE id = $1', [id]);
+    const result = await this.db.query('DELETE FROM user_study_plans WHERE id = $1', [id]);
+    if (result.rowCount === 0) throw new Error('Studyplan not found');
   }
 
   private formatStudyplanResponse(row: any): StudyplanResponse {
