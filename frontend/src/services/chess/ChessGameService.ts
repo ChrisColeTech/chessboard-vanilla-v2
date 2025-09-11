@@ -1,5 +1,5 @@
 // ChessGameService.ts - Core chess game logic using chess.js v1.4.0
-import { Chess } from 'chess.js';
+import { Chess, type ChessInstance } from 'chess.js';
 import type { 
   ChessGameState, 
   ChessMove, 
@@ -13,7 +13,7 @@ import type {
 import { squareToPosition } from '../../utils';
 
 export class ChessGameService {
-  private gameEngine: Chess;
+  private gameEngine: ChessInstance;
   private moveHistory: ChessMove[] = [];
 
   constructor(initialFen?: string) {
@@ -24,9 +24,9 @@ export class ChessGameService {
     try {
       // Use chess.js v1.4.0 API
       const move = this.gameEngine.move({
-        from: moveInput.from,
-        to: moveInput.to,
-        promotion: moveInput.promotion ? moveInput.promotion[0] : undefined
+        from: moveInput.from as any,
+        to: moveInput.to as any,
+        promotion: moveInput.promotion ? moveInput.promotion[0] as any : undefined
       }) as any;
 
       if (!move) {
@@ -69,8 +69,8 @@ export class ChessGameService {
     }
     
     // Parse chess.js board() output
-    board.forEach((row, rankIndex) => {
-      row.forEach((piece, fileIndex) => {
+    board.forEach((row: any, rankIndex: number) => {
+      row.forEach((piece: any, fileIndex: number) => {
         if (piece) {
           const file = String.fromCharCode('a'.charCodeAt(0) + fileIndex);
           const rank = 8 - rankIndex;
@@ -98,11 +98,11 @@ export class ChessGameService {
       enPassantTarget: this.getEnPassantTarget(),
       halfmoveClock: this.getHalfmoveClock(),
       fullmoveNumber: this.getFullmoveNumber(),
-      isCheck: this.gameEngine.isCheck(),
-      isCheckmate: this.gameEngine.isCheckmate(),
-      isStalemate: this.gameEngine.isStalemate(),
-      isDraw: this.gameEngine.isDraw(),
-      isGameOver: this.gameEngine.isGameOver(),
+      isCheck: this.gameEngine.in_check(),
+      isCheckmate: this.gameEngine.in_checkmate(),
+      isStalemate: this.gameEngine.in_stalemate(),
+      isDraw: this.gameEngine.in_draw(),
+      isGameOver: this.gameEngine.game_over(),
       fen: this.gameEngine.fen(),
       history: [...this.moveHistory]
     };
@@ -180,8 +180,8 @@ export class ChessGameService {
       capturedPiece,
       captured: capturedPiece,
       promotion: move.promotion ? this.convertPieceType(move.promotion) : undefined,
-      isCheck: this.gameEngine.isCheck(),
-      isCheckmate: this.gameEngine.isCheckmate(),
+      isCheck: this.gameEngine.in_check(),
+      isCheckmate: this.gameEngine.in_checkmate(),
       notation: move.san,
       san: move.san,
       uci: `${move.from}${move.to}${move.promotion || ''}`

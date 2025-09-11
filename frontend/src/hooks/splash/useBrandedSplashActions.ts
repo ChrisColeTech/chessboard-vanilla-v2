@@ -53,8 +53,8 @@ export function useBrandedSplashActions() {
     })))
     setCurrentQuote(grandmasterQuotes[0])
 
-    const timeouts: NodeJS.Timeout[] = []
-    const intervals: NodeJS.Timeout[] = []
+    const timeouts: number[] = []
+    const intervals: number[] = []
 
     // Quote rotation
     let quoteIndex = 0

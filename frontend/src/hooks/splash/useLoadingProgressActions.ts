@@ -93,8 +93,8 @@ export function useLoadingProgressActions() {
     })))
     setCurrentStatus('Preparing training board...')
 
-    const timeouts: NodeJS.Timeout[] = []
-    const intervals: NodeJS.Timeout[] = []
+    const timeouts: number[] = []
+    const intervals: number[] = []
 
     const statusMessages = [
       'Placing the king...',

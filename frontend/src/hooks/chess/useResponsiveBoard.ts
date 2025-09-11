@@ -12,7 +12,7 @@ export const useResponsiveBoard = (maxWidth?: number): UseResponsiveBoardHook =>
   const [boardSize, setBoardSize] = useState({ width: 0, height: 0 });
   const [isResizing, setIsResizing] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const resizeTimeoutRef = useRef<NodeJS.Timeout>(undefined);
+  const resizeTimeoutRef = useRef<number | undefined>(undefined);
 
   const calculateBoardSize = useCallback(() => {
     if (!containerRef.current) {

@@ -45,7 +45,7 @@ const AnimatedSplashPage: React.FC<AnimatedSplashPageProps> = ({ variant = 'in-a
   useEffect(() => {
     setVisiblePieces(0);
     
-    const timeouts: NodeJS.Timeout[] = [];
+    const timeouts: number[] = [];
     
     chessPieces.forEach((_, index) => {
       const timeout = setTimeout(() => {

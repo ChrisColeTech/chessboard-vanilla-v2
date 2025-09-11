@@ -38,7 +38,7 @@ export function useAnimatedSplashActions() {
   useEffect(() => {
     setOrbitingPieces(initialOrbitPieces)
 
-    const timeouts: NodeJS.Timeout[] = []
+    const timeouts: number[] = []
 
     // Start orbital animation for each piece
     initialOrbitPieces.forEach((piece) => {

@@ -104,7 +104,7 @@ export const ForgotPasswordPageContent: React.FC<ForgotPasswordPageContentProps>
           <FormField
             control={form.control}
             name="email"
-            render={({ field }) => (
+            render={({ field }: { field: any }) => (
               <FormItem>
                 <FormControl>
                   <Input

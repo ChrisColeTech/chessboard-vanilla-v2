@@ -220,7 +220,7 @@ export const ProfilePage: React.FC = () => {
                   <FormField
                     control={profileForm.control}
                     name="username"
-                    render={({ field }) => (
+                    render={({ field }: { field: any }) => (
                       <FormItem>
                         <FormControl>
                           <Input
@@ -237,7 +237,7 @@ export const ProfilePage: React.FC = () => {
                   <FormField
                     control={profileForm.control}
                     name="email"
-                    render={({ field }) => (
+                    render={({ field }: { field: any }) => (
                       <FormItem>
                         <FormControl>
                           <Input
@@ -305,7 +305,7 @@ export const ProfilePage: React.FC = () => {
                   <FormField
                     control={passwordForm.control}
                     name="currentPassword"
-                    render={({ field }) => (
+                    render={({ field }: { field: any }) => (
                       <FormItem>
                         <FormControl>
                           <div className="relative">
@@ -336,7 +336,7 @@ export const ProfilePage: React.FC = () => {
                   <FormField
                     control={passwordForm.control}
                     name="newPassword"
-                    render={({ field }) => (
+                    render={({ field }: { field: any }) => (
                       <FormItem>
                         <FormControl>
                           <div className="relative">
@@ -367,7 +367,7 @@ export const ProfilePage: React.FC = () => {
                   <FormField
                     control={passwordForm.control}
                     name="confirmPassword"
-                    render={({ field }) => (
+                    render={({ field }: { field: any }) => (
                       <FormItem>
                         <FormControl>
                           <div className="relative">

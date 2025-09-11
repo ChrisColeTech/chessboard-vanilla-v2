@@ -42,7 +42,7 @@ export function useAppInitialization(): AppInitializationState & AppInitializati
   
   // Refs for cleanup
   const initializationStartTime = useRef<number>(0)
-  const minTimeTimer = useRef<NodeJS.Timeout | null>(null)
+  const minTimeTimer = useRef<number | null>(null)
   const isComponentMounted = useRef(true)
 
   // Derived state

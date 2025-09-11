@@ -87,7 +87,7 @@ export const RegisterPageContent: React.FC<RegisterPageContentProps> = ({ onNavi
           <FormField
             control={form.control}
             name="username"
-            render={({ field }) => (
+            render={({ field }: { field: any }) => (
               <FormItem>
                 <FormControl>
                   <Input
@@ -106,7 +106,7 @@ export const RegisterPageContent: React.FC<RegisterPageContentProps> = ({ onNavi
           <FormField
             control={form.control}
             name="email"
-            render={({ field }) => (
+            render={({ field }: { field: any }) => (
               <FormItem>
                 <FormControl>
                   <Input
@@ -125,7 +125,7 @@ export const RegisterPageContent: React.FC<RegisterPageContentProps> = ({ onNavi
           <FormField
             control={form.control}
             name="password"
-            render={({ field }) => (
+            render={({ field }: { field: any }) => (
               <FormItem>
                 <FormControl>
                   <div className="relative">
@@ -158,7 +158,7 @@ export const RegisterPageContent: React.FC<RegisterPageContentProps> = ({ onNavi
           <FormField
             control={form.control}
             name="confirmPassword"
-            render={({ field }) => (
+            render={({ field }: { field: any }) => (
               <FormItem>
                 <FormControl>
                   <div className="relative">
@@ -191,7 +191,7 @@ export const RegisterPageContent: React.FC<RegisterPageContentProps> = ({ onNavi
           <FormField
             control={form.control}
             name="agreeToTerms"
-            render={({ field }) => (
+            render={({ field }: { field: any }) => (
               <FormItem className="flex flex-row items-start space-x-3 space-y-0">
                 <FormControl>
                   <Checkbox

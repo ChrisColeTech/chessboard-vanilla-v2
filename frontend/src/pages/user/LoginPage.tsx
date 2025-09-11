@@ -124,7 +124,7 @@ const LoginMainPage: React.FC<{ onNavigate?: (page: AuthPage) => void }> = ({ on
                   <FormField
                     control={form.control}
                     name="email"
-                    render={({ field }) => (
+                    render={({ field }: { field: any }) => (
                       <FormItem>
                         <FormControl>
                           <Input
@@ -143,7 +143,7 @@ const LoginMainPage: React.FC<{ onNavigate?: (page: AuthPage) => void }> = ({ on
                   <FormField
                     control={form.control}
                     name="password"
-                    render={({ field }) => (
+                    render={({ field }: { field: any }) => (
                       <FormItem>
                         <FormControl>
                           <div className="relative">
@@ -177,7 +177,7 @@ const LoginMainPage: React.FC<{ onNavigate?: (page: AuthPage) => void }> = ({ on
                     <FormField
                       control={form.control}
                       name="rememberMe"
-                      render={({ field }) => (
+                      render={({ field }: { field: any }) => (
                         <FormItem className="flex flex-row items-center space-x-2 space-y-0">
                           <FormControl>
                             <Checkbox

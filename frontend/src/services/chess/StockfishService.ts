@@ -11,7 +11,7 @@ export interface StockfishHandlers {
 interface SearchPromise {
   resolve: (value: string) => void;
   reject: (reason?: Error) => void;
-  timeoutId?: NodeJS.Timeout;
+  timeoutId?: number;
   promise: Promise<string>;
 }
 

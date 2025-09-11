@@ -79,7 +79,7 @@ export function useMinimalSplashActions() {
     setVisiblePieces(chessPieces)
     setCurrentPieceDescription('The most important pieces in chess')
 
-    const timeouts: NodeJS.Timeout[] = []
+    const timeouts: number[] = []
 
     chessPieces.forEach((piece, index) => {
       const delay = 800 + (index * 500) // Staggered timing

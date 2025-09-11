@@ -1,7 +1,7 @@
 // MobileChessGameService.ts - Mobile-optimized chess game service
 // Phase 2: Mobile Chess Game Service - 8x8 chess with mobile optimizations
 
-import { Chess } from 'chess.js';
+import { Chess, type ChessInstance } from 'chess.js';
 import type { 
   ChessGameState, 
   ChessMove, 
@@ -25,7 +25,7 @@ import { squareToPosition } from '../../utils';
  * Extends standard chess with mobile-specific features and optimizations
  */
 export class MobileChessGameService {
-  private gameEngine: Chess;
+  private gameEngine: ChessInstance;
   private moveHistory: ChessMove[] = [];
   private mobileConfig: MobileChessConfig;
   private mobileState: MobileBoardState;
@@ -98,15 +98,19 @@ export class MobileChessGameService {
       }
     }
 
-    // Get castling rights
+    // Get castling rights from FEN string (workaround for missing getCastlingRights method)
+    const fen = this.gameEngine.fen();
+    const fenParts = fen.split(' ');
+    const castlingString = fenParts[2] || '-';
+    
     const castlingRights = {
       white: {
-        kingSide: this.gameEngine.getCastlingRights('w').k,
-        queenSide: this.gameEngine.getCastlingRights('w').q
+        kingSide: castlingString.includes('K'),
+        queenSide: castlingString.includes('Q')
       },
       black: {
-        kingSide: this.gameEngine.getCastlingRights('b').k,
-        queenSide: this.gameEngine.getCastlingRights('b').q
+        kingSide: castlingString.includes('k'),
+        queenSide: castlingString.includes('q')
       }
     };
 
@@ -118,11 +122,11 @@ export class MobileChessGameService {
       enPassantTarget: this.getEnPassantTarget(),
       halfmoveClock: this.getHalfmoveClock(),
       fullmoveNumber: this.getFullmoveNumber(),
-      isCheck: this.gameEngine.inCheck(),
-      isCheckmate: this.gameEngine.isCheckmate(),
-      isStalemate: this.gameEngine.isStalemate(),
-      isDraw: this.gameEngine.isDraw(),
-      isGameOver: this.gameEngine.isGameOver(),
+      isCheck: this.gameEngine.in_check(),
+      isCheckmate: this.gameEngine.in_checkmate(),
+      isStalemate: this.gameEngine.in_stalemate(),
+      isDraw: this.gameEngine.in_draw(),
+      isGameOver: this.gameEngine.game_over(),
       fen: this.gameEngine.fen(),
       history: [...this.moveHistory],
       lastMove: this.getLastMove()
@@ -150,9 +154,9 @@ export class MobileChessGameService {
     try {
       // Validate move using chess.js
       const move = this.gameEngine.move({
-        from: moveInput.from,
-        to: moveInput.to,
-        promotion: moveInput.promotion ? moveInput.promotion[0] : undefined
+        from: moveInput.from as any,
+        to: moveInput.to as any,
+        promotion: moveInput.promotion ? moveInput.promotion[0] as any : undefined
       }) as any;
 
       if (!move) {
@@ -258,7 +262,7 @@ export class MobileChessGameService {
       selectedSquare: null,
       validMoves: [],
       lastMove: { from, to },
-      highlightedSquares: this.gameEngine.inCheck() ? this.getCheckHighlights() : [],
+      highlightedSquares: this.gameEngine.in_check() ? this.getCheckHighlights() : [],
       animatingMove: null // Animation will be handled by UI layer
     };
   }
@@ -267,7 +271,7 @@ export class MobileChessGameService {
    * Get squares to highlight when in check
    */
   private getCheckHighlights(): ChessPosition[] {
-    if (!this.gameEngine.inCheck()) return [];
+    if (!this.gameEngine.in_check()) return [];
 
     // Find the king position
     const color = this.gameEngine.turn();
@@ -311,8 +315,8 @@ export class MobileChessGameService {
         position: squareToPosition(chessJsMove.to)
       } : undefined,
       promotion: chessJsMove.promotion as PieceType | undefined,
-      isCheck: this.gameEngine.inCheck(),
-      isCheckmate: this.gameEngine.isCheckmate(),
+      isCheck: this.gameEngine.in_check(),
+      isCheckmate: this.gameEngine.in_checkmate(),
       notation: chessJsMove.san,
       san: chessJsMove.san,
       uci: `${chessJsMove.from}${chessJsMove.to}${chessJsMove.promotion || ''}`

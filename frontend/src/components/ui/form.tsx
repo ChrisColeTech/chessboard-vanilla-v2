@@ -6,11 +6,20 @@ import {
   FormProvider,
   useFormContext,
 } from "react-hook-form"
-import type {
-  ControllerProps,
-  FieldPath,
-  FieldValues,
-} from "react-hook-form"
+// Define types locally since they're not exported in this version
+type FieldValues = Record<string, any>
+type FieldPath<TFieldValues extends FieldValues> = keyof TFieldValues & string
+type ControllerProps<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+> = {
+  name: TName
+  control?: any
+  render: ({ field }: { field: any }) => React.ReactElement
+  rules?: any
+  defaultValue?: any
+  shouldUnregister?: boolean
+}
 
 import { cn } from "../../lib/utils"
 import { Label } from "./label"
