@@ -1,1 +1,0 @@
-export { InstructionsFAB } from "./InstructionsFAB";

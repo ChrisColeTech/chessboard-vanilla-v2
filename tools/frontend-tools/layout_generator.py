@@ -346,8 +346,7 @@ export function MainContent({ children }: MainContentProps) {
     
     def get_title_bar_template(self) -> str:
         """Generate TitleBar component"""
-        return '''import React from "react";
-import { Coins } from "lucide-react";
+        return '''import { Coins } from "lucide-react";
 
 interface TitleBarProps {
   coinBalance: number;
@@ -371,8 +370,7 @@ export function TitleBar({ coinBalance }: TitleBarProps) {
     
     def get_menu_button_template(self) -> str:
         """Generate MenuButton component"""
-        return '''import React from "react";
-import { Menu, X } from "lucide-react";
+        return '''import { Menu, X } from "lucide-react";
 
 interface MenuButtonProps {
   isOpen: boolean;
@@ -396,9 +394,7 @@ export function MenuButton({ isOpen, onToggle }: MenuButtonProps) {
     
     def get_background_effects_template(self) -> str:
         """Generate BackgroundEffects component"""
-        return '''import React from "react";
-
-export function BackgroundEffects() {
+        return '''export function BackgroundEffects() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {/* Gradient background */}
@@ -602,7 +598,7 @@ export const ActionSheetContainer: React.FC = () => {
     
     def get_drag_provider_template(self) -> str:
         """Generate DragProvider context"""
-        return '''import React, { createContext, useContext, useState, ReactNode } from 'react';
+        return '''import React, { createContext, useContext, useState, type ReactNode } from 'react';
 
 interface DragContextType {
   draggedPiece: string | null;
@@ -663,7 +659,7 @@ export const DragProvider: React.FC<DragProviderProps> = ({ children }) => {
     
     def get_instructions_context_template(self) -> str:
         """Generate InstructionsContext"""
-        return '''import React, { createContext, useContext, ReactNode } from 'react';
+        return '''import React, { createContext, useContext, type ReactNode } from 'react';
 import { useInstructions } from '../hooks/useInstructions';
 
 interface InstructionsContextType {

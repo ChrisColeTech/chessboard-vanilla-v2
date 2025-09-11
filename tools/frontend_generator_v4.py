@@ -18,7 +18,7 @@ class RefactoredFrontendGenerator:
     This is a lightweight wrapper around the FrontendOrchestrator
     """
     
-    def __init__(self, frontend_path: str = "../frontend-v2"):
+    def __init__(self, frontend_path: str = "/mnt/c/Projects/chessboard-vanilla-v2/frontend-v2"):
         self.orchestrator = FrontendOrchestrator(frontend_path)
     
     def generate_all_domains(self):
@@ -36,6 +36,10 @@ class RefactoredFrontendGenerator:
     def load_backend_config(self, config_path: str = "backend_config.json"):
         """Load backend configuration"""
         return self.orchestrator.load_backend_config(config_path)
+    
+    def generate_mobile_page(self, page_name: str, parent: str, icon: str = "Navigation", description: str = ""):
+        """Generate mobile page variant with desktop/mobile switching support"""
+        return self.orchestrator.dynamic_system_generator.generate_mobile_page_variant(page_name, parent, icon, description)
 
 def main():
     """Main function to run the refactored generator"""
@@ -44,7 +48,7 @@ def main():
     parser = argparse.ArgumentParser(description='Refactored Domain-Driven Frontend Generator V4')
     parser.add_argument('--domain', type=str, help='Generate specific domain only')
     parser.add_argument('--list', action='store_true', help='List available domains')
-    parser.add_argument('--frontend-path', type=str, default="../../frontend-v2", 
+    parser.add_argument('--frontend-path', type=str, default="/mnt/c/Projects/chessboard-vanilla-v2/frontend-v2", 
                        help='Path to frontend directory')
     
     args = parser.parse_args()

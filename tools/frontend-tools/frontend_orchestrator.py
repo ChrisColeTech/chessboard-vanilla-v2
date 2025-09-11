@@ -5,6 +5,7 @@ Main orchestrator class that coordinates all generators
 """
 
 from pathlib import Path
+import os
 from base_generator import BaseFrontendGenerator
 from domain_mapping import DomainMapping
 from types_generator import TypesGenerator
@@ -15,6 +16,7 @@ from clients_generator import ClientsGenerator
 from stores_generator import StoresGenerator
 from pages_generator import PagesGenerator
 from layout_generator import LayoutGenerator
+from dynamic_system_generator import DynamicSystemGenerator
 
 class FrontendOrchestrator(BaseFrontendGenerator):
     """Main orchestrator that coordinates all frontend generation"""
@@ -32,6 +34,7 @@ class FrontendOrchestrator(BaseFrontendGenerator):
         self.stores_generator = StoresGenerator(frontend_path)
         self.pages_generator = PagesGenerator(frontend_path)
         self.layout_generator = LayoutGenerator(frontend_path)
+        self.dynamic_system_generator = DynamicSystemGenerator(frontend_path)
     
     def create_directory_structure(self):
         """Create domain-driven directory structure"""
@@ -108,7 +111,34 @@ class FrontendOrchestrator(BaseFrontendGenerator):
         # Generate index files for easier imports
         self._generate_final_indices()
         
+        # Generate dynamic system
+        self.dynamic_system_generator.generate_dynamic_system()
+        
+        # Clean up empty directories
+        self._cleanup_empty_directories()
+        
         print("✅ Domain-driven frontend generation complete!")
+
+    def _cleanup_empty_directories(self):
+        """Remove empty directories from src folder"""
+        print("🧹 Cleaning up empty directories...")
+        
+        src_path = self.frontend_path / "src"
+        if not src_path.exists():
+            return
+            
+        # Walk the directory tree from bottom up to remove empty dirs
+        for root, dirs, files in os.walk(str(src_path), topdown=False):
+            for dir_name in dirs:
+                dir_path = Path(root) / dir_name
+                try:
+                    # Try to remove directory if it's empty
+                    if dir_path.exists() and not any(dir_path.iterdir()):
+                        dir_path.rmdir()
+                        print(f"  🗑️  Removed empty directory: {dir_path.relative_to(src_path)}")
+                except OSError:
+                    # Directory not empty or permission issue
+                    pass
     
     def _share_backend_config(self):
         """Share backend config with all generators"""

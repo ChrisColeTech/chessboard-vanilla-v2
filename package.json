@@ -21,7 +21,7 @@
     "test:backend": "cd backend && npm test",
     "test:frontend": "cd frontend && npm test",
     "backend:generator": "python3 tools/backend-tools/backend_generator_v2.py --config tools/backend_config.json --backend-path backend --all > backend_generator_output.txt 2>&1",
-    "frontend:generator": "cd tools && python3 frontend_generator_v4.py --frontend-path ../frontend",
+    "frontend:generator": "cd tools && python3 frontend_generator_v4.py",
     "payload:generator": "cd tools/backend-tools/payload-generator && python3 payload_generator.py",
     "missing:columns": "python3 tools/backend-tools/missing-columns/missing-columns.py --backend-path backend",
     "postinstall": "cd backend && npm install && cd ../frontend && npm install"

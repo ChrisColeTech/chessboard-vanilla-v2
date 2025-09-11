@@ -153,15 +153,17 @@ export const {component_name}: React.FC = () => {{
 }};
 '''
     
-    def get_individual_page_template(self, endpoint_name: str, domain: str, page_name: str = None) -> str:
-        """Generate a template for individual endpoint pages"""
+    def get_individual_page_template(self, endpoint_name: str, domain: str, page_name: str = None) -> tuple:
+        """Generate templates for both desktop and mobile individual endpoint pages"""
         if page_name is None:
             page_name = endpoint_name.replace('-', ' ').replace('_', ' ').title().replace(' ', '')
             
         component_name = f"{page_name}Page"
+        mobile_component_name = f"Mobile{page_name}Page"
         hook_name = endpoint_name.lower().replace('-', '').replace('_', '')
         
-        return f'''import React from "react";
+        # Desktop template
+        desktop_template = f'''import React from "react";
 import {{ usePageInstructions }} from "../../hooks/core/usePageInstructions";
 
 export const {component_name}: React.FC = () => {{
@@ -181,20 +183,20 @@ export const {component_name}: React.FC = () => {{
           <div className="mt-6 p-4 bg-card border border-border rounded-lg">
             <h3 className="font-semibold text-sm mb-2">Endpoint: {endpoint_name}</h3>
             <p className="text-xs text-muted-foreground">
-              Domain Group: {domain.title()} | Individual Feature Page
+              Domain Group: {domain.title()} | Desktop Feature Page
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
             <div className="p-4 bg-card border border-border rounded-lg">
-              <h4 className="font-semibold text-sm">Features</h4>
+              <h4 className="font-semibold text-sm">Desktop Features</h4>
               <p className="text-xs text-muted-foreground mt-1">
-                {endpoint_name.replace('-', ' ').title()} functionality will be implemented here
+                Full {endpoint_name.replace('-', ' ').title()} functionality with enhanced desktop interface
               </p>
             </div>
             <div className="p-4 bg-card border border-border rounded-lg">
               <h4 className="font-semibold text-sm">Actions</h4>
               <p className="text-xs text-muted-foreground mt-1">
-                Use the action menu to navigate between features
+                Use the action sheet to navigate between features
               </p>
             </div>
           </div>
@@ -205,15 +207,64 @@ export const {component_name}: React.FC = () => {{
 }};
 '''
 
+        # Mobile template
+        mobile_template = f'''import React from "react";
+import {{ usePageInstructions }} from "../../hooks/core/usePageInstructions";
+
+export const {mobile_component_name}: React.FC = () => {{
+  usePageInstructions("{hook_name}");
+
+  return (
+    <section className="space-y-3 p-4">
+      <div className="bg-white rounded-lg shadow-sm p-4">
+        <div className="text-center space-y-3">
+          <h1 className="text-2xl font-bold text-gray-900">
+            {page_name}
+          </h1>
+          <p className="text-gray-600 text-sm">
+            Mobile {page_name.lower()} page for {endpoint_name} operations
+          </p>
+          <div className="mt-4 p-3 bg-gray-50 border border-gray-200 rounded-lg">
+            <h3 className="font-medium text-xs mb-1">Endpoint: {endpoint_name}</h3>
+            <p className="text-xs text-gray-500">
+              Domain: {domain.title()} | Mobile Optimized
+            </p>
+          </div>
+          <div className="space-y-3 mt-4">
+            <div className="p-3 bg-gray-50 border border-gray-200 rounded-lg">
+              <h4 className="font-medium text-xs">Mobile Features</h4>
+              <p className="text-xs text-gray-500 mt-1">
+                Touch-optimized {endpoint_name.replace('-', ' ').title()} interface
+              </p>
+            </div>
+            <div className="p-3 bg-gray-50 border border-gray-200 rounded-lg">
+              <h4 className="font-medium text-xs">Quick Actions</h4>
+              <p className="text-xs text-gray-500 mt-1">
+                Tap the action button for feature navigation
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}};
+'''
+        
+        return desktop_template, mobile_template
+
     def get_page_wrapper_template(self, endpoint_name: str, domain: str, page_name: str = None) -> str:
-        """Generate page wrapper template following architecture pattern"""
+        """Generate page wrapper template with mobile variant support"""
         if page_name is None:
             page_name = endpoint_name.replace('-', ' ').replace('_', ' ').title().replace(' ', '')
         
         wrapper_name = f"{page_name}PageWrapper"
+        mobile_wrapper_name = f"Mobile{page_name}PageWrapper"
         page_component = f"{page_name}Page"
+        mobile_page_component = f"Mobile{page_name}Page"
         
-        return f'''import React from "react";
+        # Generate desktop wrapper
+        desktop_wrapper = f'''import React from "react";
 import {{ usePageInstructions }} from "../../hooks/core/usePageInstructions";
 import {{ {page_component} }} from "../../pages/{domain}/{page_component}";
 
@@ -223,6 +274,20 @@ export const {wrapper_name}: React.FC = () => {{
   return <{page_component} />;
 }};
 '''
+
+        # Generate mobile wrapper  
+        mobile_wrapper = f'''import React from "react";
+import {{ usePageInstructions }} from "../../hooks/core/usePageInstructions";
+import {{ {mobile_page_component} }} from "../../pages/{domain}/{mobile_page_component}";
+
+export const {mobile_wrapper_name}: React.FC = () => {{
+  usePageInstructions("{endpoint_name}");
+  
+  return <{mobile_page_component} />;
+}};
+'''
+        
+        return desktop_wrapper, mobile_wrapper
 
     def get_domain_actions_hook_template(self, domain: str, endpoints: List[str]) -> str:
         """Generate domain actions hook template"""
@@ -316,25 +381,42 @@ export const {hook_name} = () => {{
                 page_name = f"{page_name}Feature"
             
             component_name = f"{page_name}Page"
+            mobile_component_name = f"Mobile{page_name}Page"
             
-            page_content = self.get_individual_page_template(endpoint_name, domain, page_name)
+            desktop_content, mobile_content = self.get_individual_page_template(endpoint_name, domain, page_name)
+            
+            # Write desktop page
             page_file = domain_dir / f"{component_name}.tsx"
-            
             with open(page_file, 'w') as f:
-                f.write(page_content)
+                f.write(desktop_content)
+            
+            # Write mobile page
+            mobile_page_file = domain_dir / f"{mobile_component_name}.tsx"
+            with open(mobile_page_file, 'w') as f:
+                f.write(mobile_content)
             
             generated_pages.append(component_name)
+            generated_pages.append(mobile_component_name)
             print(f"  📄 Generated {domain}/{component_name}.tsx")
+            print(f"  📱 Generated {domain}/{mobile_component_name}.tsx")
             
-            # 4. Generate page wrapper for each endpoint
+            # 4. Generate page wrappers (desktop and mobile) for each endpoint
             wrapper_name = f"{page_name}PageWrapper"
-            wrapper_content = self.get_page_wrapper_template(endpoint_name, domain, page_name)
-            wrapper_file = components_dir / f"{wrapper_name}.tsx"
+            mobile_wrapper_name = f"Mobile{page_name}PageWrapper"
+            desktop_wrapper_content, mobile_wrapper_content = self.get_page_wrapper_template(endpoint_name, domain, page_name)
             
+            # Write desktop wrapper
+            wrapper_file = components_dir / f"{wrapper_name}.tsx"
             with open(wrapper_file, 'w') as f:
-                f.write(wrapper_content)
+                f.write(desktop_wrapper_content)
+            
+            # Write mobile wrapper
+            mobile_wrapper_file = components_dir / f"{mobile_wrapper_name}.tsx"
+            with open(mobile_wrapper_file, 'w') as f:
+                f.write(mobile_wrapper_content)
             
             print(f"  🔧 Generated components/{domain}/{wrapper_name}.tsx")
+            print(f"  📱 Generated components/{domain}/{mobile_wrapper_name}.tsx")
         
         # 5. Generate domain actions hook
         actions_hook_name = f"use{domain.title()}Actions"

@@ -1,1 +1,0 @@
-export { LearningModuleComponent } from './LearningModuleComponent';

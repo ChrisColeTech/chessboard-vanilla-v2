@@ -1,1 +1,0 @@
-export { PuzzleComponent } from './PuzzleComponent';

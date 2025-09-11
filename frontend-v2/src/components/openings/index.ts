@@ -1,1 +1,0 @@
-export { OpeningComponent } from './OpeningComponent';
