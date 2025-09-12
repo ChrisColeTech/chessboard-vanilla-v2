@@ -92,7 +92,7 @@ export const MobileChessSquare: React.FC<MobileChessSquareProps> = ({
       onClick={handleClick}
       onTouchEnd={handleTouchEnd}
       style={getSquareStyle()}
-    >
+     id="mobile-chess-square-etarget-as-htmlimag-div">
       {piece && (
         <img
           src={getPieceImagePath(

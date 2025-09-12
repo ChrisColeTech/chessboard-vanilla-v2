@@ -237,7 +237,7 @@ export const SinglePlayerHoldemTable: React.FC = () => {
               <button
                 onClick={dealCards}
                 className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
-              >
+               id="single-player-holdem-table-deal-cards-ante-btn">
                 Deal Cards (${betAmount} ante)
               </button>
             </>
@@ -247,7 +247,7 @@ export const SinglePlayerHoldemTable: React.FC = () => {
             <button
               onClick={dealFlop}
               className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-bold shadow-lg transition-all"
-            >
+             id="single-player-holdem-table-deal-flop-btn">
               Deal Flop
             </button>
           )}
@@ -256,7 +256,7 @@ export const SinglePlayerHoldemTable: React.FC = () => {
             <button
               onClick={dealTurn}
               className="bg-green-600 hover:bg-green-500 text-white px-6 py-3 rounded-xl font-bold shadow-lg transition-all"
-            >
+             id="single-player-holdem-table-deal-turn-btn">
               Deal Turn
             </button>
           )}
@@ -265,7 +265,7 @@ export const SinglePlayerHoldemTable: React.FC = () => {
             <button
               onClick={dealRiver}
               className="bg-orange-600 hover:bg-orange-500 text-white px-6 py-3 rounded-xl font-bold shadow-lg transition-all"
-            >
+             id="single-player-holdem-table-deal-river-btn">
               Deal River
             </button>
           )}
@@ -274,7 +274,7 @@ export const SinglePlayerHoldemTable: React.FC = () => {
             <button
               onClick={showdown}
               className="bg-purple-600 hover:bg-purple-500 text-white px-6 py-3 rounded-xl font-bold shadow-lg transition-all"
-            >
+             id="single-player-holdem-table-showdown-btn">
               Showdown
             </button>
           )}
@@ -283,7 +283,7 @@ export const SinglePlayerHoldemTable: React.FC = () => {
             <button
               onClick={newGame}
               className="bg-green-600 hover:bg-green-500 text-white px-6 py-3 rounded-xl font-bold shadow-lg transition-all"
-            >
+             id="single-player-holdem-table-new-game-btn">
               New Game
             </button>
           )}

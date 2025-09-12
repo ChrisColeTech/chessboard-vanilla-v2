@@ -99,6 +99,7 @@ export const SlotMachine: React.FC<SlotMachineProps> = ({ coinBalance: _coinBala
           
           <button
             onClick={() => handleWagerChange(1)}
+            id="slot-machine-handlewagerchange1-classnamebtns-btn"
             className="btn-secondary w-10 h-10 rounded-full flex items-center justify-center"
             disabled={wager >= 100}
           >
@@ -117,7 +118,7 @@ export const SlotMachine: React.FC<SlotMachineProps> = ({ coinBalance: _coinBala
               : 'btn-primary hover:scale-105 active:scale-95'
             }
           `}
-        >
+         id="slot-machine-btn">
           <div className="flex items-center space-x-2">
             <Play className={`w-6 h-6 ${isSpinning ? 'animate-spin' : ''}`} />
             <span>{isSpinning ? 'SPINNING...' : 'SPIN'}</span>

@@ -21,7 +21,7 @@ from dynamic_system_generator import DynamicSystemGenerator
 class FrontendOrchestrator(BaseFrontendGenerator):
     """Main orchestrator that coordinates all frontend generation"""
     
-    def __init__(self, frontend_path: str = "../frontend-v2"):
+    def __init__(self, frontend_path: str = "/mnt/c/Projects/chessboard-vanilla-v2/frontend-v2"):
         super().__init__(frontend_path)
         self.domain_mapping = DomainMapping()
         
@@ -96,8 +96,20 @@ class FrontendOrchestrator(BaseFrontendGenerator):
         # Generate main React entry files
         self.components_generator.generate_main_entry_files()
         
+        # Generate chess components (required for pages)
+        self.components_generator.generate_chess_components()
+        
+        # Generate UI components (DataTable, etc.)
+        self.components_generator.generate_ui_components()
+        
         # Generate core infrastructure
         self.pages_generator.generate_core_infrastructure()
+        
+        # Generate core hooks
+        self.hooks_generator.generate_core_hooks()
+        
+        # Generate standalone hooks
+        self.hooks_generator.generate_standalone_hooks()
         
         # Generate grouped pages (Priority 5)
         all_endpoints = list(self.backend_config['endpoints'].keys())

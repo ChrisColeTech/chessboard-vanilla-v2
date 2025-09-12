@@ -150,7 +150,7 @@ export const PieceWrapper: React.FC<PieceWrapperProps> = ({ piece, size, gridSiz
       }}
       onMouseDown={handleMouseDown}
       onClick={handleClick}
-    >
+     id="piece-wrapper-div">
       <img
         className={`chess-piece ${piece.color === "white" ? "chess-piece-white chess-piece-white-shadow" : "chess-piece-black chess-piece-black-shadow"}`}
         src={getPieceImagePath(

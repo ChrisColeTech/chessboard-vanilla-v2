@@ -1,0 +1,1 @@
+export { OpeningComponent } from './OpeningComponent';

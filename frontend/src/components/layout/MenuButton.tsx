@@ -27,7 +27,7 @@ export function MenuButton({ isMenuOpen, onToggleMenu }: MenuButtonProps) {
       className={`w-full h-full tab-button ${
         isMenuOpen ? "menu-button-active" : "menu-button-inactive"
       }`}
-    >
+     id="menu-button-menu-btn">
       <Menu
         className={`w-4 h-4 mb-0 transition-all duration-300 ${
           isMenuOpen

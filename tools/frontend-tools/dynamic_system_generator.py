@@ -474,8 +474,12 @@ export const ActionSheetProvider: React.FC<ActionSheetProviderProps> = ({ childr
 interface InstructionsContextType {
   title: string;
   instructions: string[];
+  isOpen: boolean;
   setInstructions: (title: string, instructions: string[]) => void;
   clearInstructions: () => void;
+  showInstructions: (title: string, instructions: string[]) => void;
+  openInstructions: () => void;
+  closeInstructions: () => void;
 }
 
 const InstructionsContext = createContext<InstructionsContextType | undefined>(undefined);
@@ -495,6 +499,7 @@ interface InstructionsProviderProps {
 export const InstructionsProvider: React.FC<InstructionsProviderProps> = ({ children }) => {
   const [title, setTitle] = useState<string>('');
   const [instructions, setInstructionsState] = useState<string[]>([]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const setInstructions = (newTitle: string, newInstructions: string[]) => {
     setTitle(newTitle);
@@ -504,14 +509,33 @@ export const InstructionsProvider: React.FC<InstructionsProviderProps> = ({ chil
   const clearInstructions = () => {
     setTitle('');
     setInstructionsState([]);
+    setIsOpen(false);
+  };
+
+  const showInstructions = (newTitle: string, newInstructions: string[]) => {
+    setTitle(newTitle);
+    setInstructionsState(newInstructions);
+    setIsOpen(true);
+  };
+
+  const openInstructions = () => {
+    setIsOpen(true);
+  };
+
+  const closeInstructions = () => {
+    setIsOpen(false);
   };
 
   return (
     <InstructionsContext.Provider value={{
       title,
       instructions,
+      isOpen,
       setInstructions,
-      clearInstructions
+      clearInstructions,
+      showInstructions,
+      openInstructions,
+      closeInstructions
     }}>
       {children}
     </InstructionsContext.Provider>

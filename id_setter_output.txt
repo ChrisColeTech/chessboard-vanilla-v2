@@ -1,0 +1,436 @@
+Updated App.tsx with 3 IDs
+Updated main.tsx with 1 IDs
+Updated vite-env.d.ts with 1 IDs
+No interactive elements found in AchievementsAPIClient.ts
+No interactive elements found in AiOpponentsAPIClient.ts
+No interactive elements found in AnalysisAPIClient.ts
+No interactive elements found in AnalyticsAPIClient.ts
+No interactive elements found in AuthAPIClient.ts
+No interactive elements found in BaseAPIClient.ts
+No interactive elements found in EndgamesAPIClient.ts
+No interactive elements found in GameReviewsAPIClient.ts
+No interactive elements found in GamesAPIClient.ts
+No interactive elements found in HelpAPIClient.ts
+No interactive elements found in HistoricGamesAPIClient.ts
+No interactive elements found in index.ts
+No interactive elements found in LearningAPIClient.ts
+No interactive elements found in LearningModulesAPIClient.ts
+No interactive elements found in OpeningsAPIClient.ts
+No interactive elements found in ProfilesAPIClient.ts
+No interactive elements found in ProgressAPIClient.ts
+No interactive elements found in PuzzleAttemptsAPIClient.ts
+No interactive elements found in PuzzlesAPIClient.ts
+No interactive elements found in PuzzleSourcesAPIClient.ts
+No interactive elements found in SessionsAPIClient.ts
+No interactive elements found in StatsAPIClient.ts
+No interactive elements found in StudyPlansAPIClient.ts
+No interactive elements found in SubscriptionsAPIClient.ts
+No interactive elements found in TutorialsAPIClient.ts
+No interactive elements found in TutorialStepsAPIClient.ts
+No interactive elements found in UsersAPIClient.ts
+No interactive elements found in index.ts
+No interactive elements found in ActionSheetContext.tsx
+No interactive elements found in InstructionsContext.tsx
+No interactive elements found in index.ts
+No interactive elements found in useInstructions.ts
+No interactive elements found in index.ts
+No interactive elements found in DragProvider.tsx
+No interactive elements found in appStore.ts
+No interactive elements found in authStore.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+Updated AchievementComponent.tsx with 6 IDs
+No interactive elements found in index.ts
+Updated AIOpponentComponent.tsx with 6 IDs
+No interactive elements found in index.ts
+Updated AnalysisComponent.tsx with 6 IDs
+No interactive elements found in index.ts
+Updated AnalyticsComponent.tsx with 6 IDs
+No interactive elements found in index.ts
+Updated AuthComponent.tsx with 6 IDs
+Updated AuthRouter.tsx with 1 IDs
+No interactive elements found in index.ts
+Updated AnalysisPageWrapper.tsx with 1 IDs
+Updated DraggedPiece.tsx with 1 IDs
+Updated EndgamesPageWrapper.tsx with 1 IDs
+Updated GamesPageWrapper.tsx with 1 IDs
+Updated HistoricGamesPageWrapper.tsx with 1 IDs
+No interactive elements found in index.ts
+Updated MobileAnalysisPageWrapper.tsx with 1 IDs
+Updated MobileEndgamesPageWrapper.tsx with 1 IDs
+Updated MobileGamesPageWrapper.tsx with 1 IDs
+Updated MobileHistoricGamesPageWrapper.tsx with 1 IDs
+Updated MobileOpeningsPageWrapper.tsx with 1 IDs
+Updated MobilePuzzlesPageWrapper.tsx with 1 IDs
+Updated OpeningsPageWrapper.tsx with 1 IDs
+Updated PuzzlesPageWrapper.tsx with 1 IDs
+No interactive elements found in index.ts
+Updated InstructionsFAB.tsx with 1 IDs
+Updated EndgameComponent.tsx with 6 IDs
+No interactive elements found in index.ts
+Updated GameReviewComponent.tsx with 6 IDs
+No interactive elements found in index.ts
+Updated GameComponent.tsx with 6 IDs
+No interactive elements found in index.ts
+Updated HelpComponent.tsx with 6 IDs
+No interactive elements found in index.ts
+Updated HistoricGameComponent.tsx with 6 IDs
+No interactive elements found in index.ts
+Updated AppLayout.tsx with 2 IDs
+Updated BackgroundEffects.tsx with 1 IDs
+No interactive elements found in index.ts
+Updated MainContent.tsx with 1 IDs
+Updated MenuButton.tsx with 1 IDs
+Updated TabBar.tsx with 2 IDs
+Updated TitleBar.tsx with 2 IDs
+No interactive elements found in types.ts
+No interactive elements found in index.ts
+Updated LearningFeaturePageWrapper.tsx with 1 IDs
+Updated LearningModulesPageWrapper.tsx with 1 IDs
+Updated LearningPathComponent.tsx with 6 IDs
+Updated MobileLearningFeaturePageWrapper.tsx with 1 IDs
+Updated MobileLearningModulesPageWrapper.tsx with 1 IDs
+Updated MobileStudyPlansPageWrapper.tsx with 1 IDs
+Updated MobileTutorialsPageWrapper.tsx with 1 IDs
+Updated MobileTutorialStepsPageWrapper.tsx with 1 IDs
+Updated StudyPlansPageWrapper.tsx with 1 IDs
+Updated TutorialsPageWrapper.tsx with 1 IDs
+Updated TutorialStepsPageWrapper.tsx with 1 IDs
+No interactive elements found in index.ts
+Updated LearningModuleComponent.tsx with 6 IDs
+No interactive elements found in index.ts
+Updated OpeningComponent.tsx with 6 IDs
+Updated AiOpponentsPageWrapper.tsx with 1 IDs
+No interactive elements found in index.ts
+Updated MobileAiOpponentsPageWrapper.tsx with 1 IDs
+No interactive elements found in index.ts
+Updated ProfileComponent.tsx with 6 IDs
+Updated AchievementsPageWrapper.tsx with 1 IDs
+Updated AnalyticsPageWrapper.tsx with 1 IDs
+No interactive elements found in index.ts
+Updated MobileAchievementsPageWrapper.tsx with 1 IDs
+Updated MobileAnalyticsPageWrapper.tsx with 1 IDs
+Updated MobileProgressFeaturePageWrapper.tsx with 1 IDs
+Updated MobilePuzzleAttemptsPageWrapper.tsx with 1 IDs
+Updated MobileStatsPageWrapper.tsx with 1 IDs
+Updated ProgressComponent.tsx with 6 IDs
+Updated ProgressFeaturePageWrapper.tsx with 1 IDs
+Updated PuzzleAttemptsPageWrapper.tsx with 1 IDs
+Updated StatsPageWrapper.tsx with 1 IDs
+No interactive elements found in index.ts
+Updated PuzzleAttemptComponent.tsx with 6 IDs
+No interactive elements found in index.ts
+Updated PuzzleSourceComponent.tsx with 6 IDs
+No interactive elements found in index.ts
+Updated PuzzleComponent.tsx with 6 IDs
+No interactive elements found in index.ts
+Updated SessionComponent.tsx with 6 IDs
+No interactive elements found in SplashModal.tsx
+No interactive elements found in index.ts
+Updated StatsComponent.tsx with 6 IDs
+No interactive elements found in index.ts
+Updated StudyPlanComponent.tsx with 6 IDs
+No interactive elements found in index.ts
+Updated SubscriptionComponent.tsx with 6 IDs
+Updated GameReviewsPageWrapper.tsx with 1 IDs
+Updated HelpPageWrapper.tsx with 1 IDs
+No interactive elements found in index.ts
+Updated MobileGameReviewsPageWrapper.tsx with 1 IDs
+Updated MobileHelpPageWrapper.tsx with 1 IDs
+Updated MobilePuzzleSourcesPageWrapper.tsx with 1 IDs
+Updated MobileSubscriptionsPageWrapper.tsx with 1 IDs
+Updated PuzzleSourcesPageWrapper.tsx with 1 IDs
+Updated SubscriptionsPageWrapper.tsx with 1 IDs
+No interactive elements found in index.ts
+Updated TutorialStepComponent.tsx with 6 IDs
+No interactive elements found in index.ts
+Updated TutorialComponent.tsx with 6 IDs
+Updated ActionSheetContainer.tsx with 2 IDs
+No interactive elements found in index.ts
+Updated AuthPageWrapper.tsx with 1 IDs
+No interactive elements found in index.ts
+Updated MobileAuthPageWrapper.tsx with 1 IDs
+Updated MobileProfilesPageWrapper.tsx with 1 IDs
+Updated MobileSessionsPageWrapper.tsx with 1 IDs
+Updated MobileUsersPageWrapper.tsx with 1 IDs
+Updated ProfilesPageWrapper.tsx with 1 IDs
+Updated SessionsPageWrapper.tsx with 1 IDs
+Updated UsersPageWrapper.tsx with 1 IDs
+No interactive elements found in index.ts
+Updated UserComponent.tsx with 6 IDs
+No interactive elements found in page-actions.dynamic.ts
+No interactive elements found in casino.ts
+No interactive elements found in layout.ts
+No interactive elements found in play.ts
+No interactive elements found in playchess.ts
+No interactive elements found in playpuzzles.ts
+No interactive elements found in slots.ts
+No interactive elements found in splash.ts
+No interactive elements found in users.ts
+No interactive elements found in worker.ts
+No interactive elements found in index.ts
+No interactive elements found in useAchievements.ts
+No interactive elements found in useAchievementsMutations.ts
+No interactive elements found in useAchievementsQueries.ts
+No interactive elements found in index.ts
+No interactive elements found in useAiOpponents.ts
+No interactive elements found in useAiOpponentsMutations.ts
+No interactive elements found in useAiOpponentsQueries.ts
+No interactive elements found in index.ts
+No interactive elements found in useAnalysis.ts
+No interactive elements found in useAnalysisMutations.ts
+No interactive elements found in useAnalysisQueries.ts
+No interactive elements found in index.ts
+No interactive elements found in useAnalytics.ts
+No interactive elements found in useAnalyticsMutations.ts
+No interactive elements found in useAnalyticsQueries.ts
+No interactive elements found in useGlobalUIAudio.ts
+No interactive elements found in useUIClickSoundOptimized.ts
+No interactive elements found in index.ts
+No interactive elements found in useAuth.ts
+No interactive elements found in useAuthMutations.ts
+No interactive elements found in useAuthQueries.ts
+No interactive elements found in useChessActions.ts
+No interactive elements found in usePageInstructions.ts
+No interactive elements found in index.ts
+No interactive elements found in useEndgames.ts
+No interactive elements found in useEndgamesMutations.ts
+No interactive elements found in useEndgamesQueries.ts
+No interactive elements found in index.ts
+No interactive elements found in useGameReviews.ts
+No interactive elements found in useGameReviewsMutations.ts
+No interactive elements found in useGameReviewsQueries.ts
+No interactive elements found in index.ts
+No interactive elements found in useGames.ts
+No interactive elements found in useGamesMutations.ts
+No interactive elements found in useGamesQueries.ts
+No interactive elements found in index.ts
+No interactive elements found in useHelp.ts
+No interactive elements found in useHelpMutations.ts
+No interactive elements found in useHelpQueries.ts
+No interactive elements found in index.ts
+No interactive elements found in useHistoricGames.ts
+No interactive elements found in useHistoricGamesMutations.ts
+No interactive elements found in useHistoricGamesQueries.ts
+No interactive elements found in index.ts
+No interactive elements found in useLearning.ts
+No interactive elements found in useLearningActions.ts
+No interactive elements found in useLearningMutations.ts
+No interactive elements found in useLearningQueries.ts
+No interactive elements found in index.ts
+No interactive elements found in useLearningModules.ts
+No interactive elements found in useLearningModulesMutations.ts
+No interactive elements found in useLearningModulesQueries.ts
+No interactive elements found in index.ts
+No interactive elements found in useOpenings.ts
+No interactive elements found in useOpeningsMutations.ts
+No interactive elements found in useOpeningsQueries.ts
+No interactive elements found in useOtherActions.ts
+No interactive elements found in index.ts
+No interactive elements found in useProfiles.ts
+No interactive elements found in useProfilesMutations.ts
+No interactive elements found in useProfilesQueries.ts
+No interactive elements found in index.ts
+No interactive elements found in useProgress.ts
+No interactive elements found in useProgressActions.ts
+No interactive elements found in useProgressMutations.ts
+No interactive elements found in useProgressQueries.ts
+No interactive elements found in index.ts
+No interactive elements found in usePuzzleAttempts.ts
+No interactive elements found in usePuzzleAttemptsMutations.ts
+No interactive elements found in usePuzzleAttemptsQueries.ts
+No interactive elements found in index.ts
+No interactive elements found in usePuzzleSources.ts
+No interactive elements found in usePuzzleSourcesMutations.ts
+No interactive elements found in usePuzzleSourcesQueries.ts
+No interactive elements found in index.ts
+No interactive elements found in usePuzzles.ts
+No interactive elements found in usePuzzlesMutations.ts
+No interactive elements found in usePuzzlesQueries.ts
+No interactive elements found in index.ts
+No interactive elements found in useSessions.ts
+No interactive elements found in useSessionsMutations.ts
+No interactive elements found in useSessionsQueries.ts
+No interactive elements found in index.ts
+No interactive elements found in useStats.ts
+No interactive elements found in useStatsMutations.ts
+No interactive elements found in useStatsQueries.ts
+No interactive elements found in index.ts
+No interactive elements found in useStudyPlans.ts
+No interactive elements found in useStudyPlansMutations.ts
+No interactive elements found in useStudyPlansQueries.ts
+No interactive elements found in index.ts
+No interactive elements found in useSubscriptions.ts
+No interactive elements found in useSubscriptionsMutations.ts
+No interactive elements found in useSubscriptionsQueries.ts
+No interactive elements found in useSupportActions.ts
+No interactive elements found in index.ts
+No interactive elements found in useTutorialSteps.ts
+No interactive elements found in useTutorialStepsMutations.ts
+No interactive elements found in useTutorialStepsQueries.ts
+No interactive elements found in index.ts
+No interactive elements found in useTutorials.ts
+No interactive elements found in useTutorialsMutations.ts
+No interactive elements found in useTutorialsQueries.ts
+No interactive elements found in useUserActions.ts
+No interactive elements found in index.ts
+No interactive elements found in useUsers.ts
+No interactive elements found in useUsersMutations.ts
+No interactive elements found in useUsersQueries.ts
+Updated AnalysisPage.tsx with 1 IDs
+Updated ChessMainPage.tsx with 1 IDs
+Updated ChessPage.tsx with 1 IDs
+Updated EndgamesPage.tsx with 1 IDs
+Updated GamesPage.tsx with 1 IDs
+Updated HistoricGamesPage.tsx with 1 IDs
+No interactive elements found in index.ts
+Updated MobileAnalysisPage.tsx with 1 IDs
+Updated MobileEndgamesPage.tsx with 1 IDs
+Updated MobileGamesPage.tsx with 1 IDs
+Updated MobileHistoricGamesPage.tsx with 1 IDs
+Updated MobileOpeningsPage.tsx with 1 IDs
+Updated MobilePuzzlesPage.tsx with 1 IDs
+Updated OpeningsPage.tsx with 1 IDs
+Updated PuzzlesPage.tsx with 1 IDs
+No interactive elements found in index.ts
+Updated LearningFeaturePage.tsx with 1 IDs
+Updated LearningMainPage.tsx with 1 IDs
+Updated LearningModulesPage.tsx with 1 IDs
+Updated LearningPage.tsx with 1 IDs
+Updated MobileLearningFeaturePage.tsx with 1 IDs
+Updated MobileLearningModulesPage.tsx with 1 IDs
+Updated MobileStudyPlansPage.tsx with 1 IDs
+Updated MobileTutorialsPage.tsx with 1 IDs
+Updated MobileTutorialStepsPage.tsx with 1 IDs
+Updated StudyPlansPage.tsx with 1 IDs
+Updated TutorialsPage.tsx with 1 IDs
+Updated TutorialStepsPage.tsx with 1 IDs
+Updated AiOpponentsPage.tsx with 1 IDs
+No interactive elements found in index.ts
+Updated MobileAiOpponentsPage.tsx with 1 IDs
+Updated OtherMainPage.tsx with 1 IDs
+Updated OtherPage.tsx with 1 IDs
+Updated AchievementsPage.tsx with 1 IDs
+Updated AnalyticsPage.tsx with 1 IDs
+No interactive elements found in index.ts
+Updated MobileAchievementsPage.tsx with 1 IDs
+Updated MobileAnalyticsPage.tsx with 1 IDs
+Updated MobileProgressFeaturePage.tsx with 1 IDs
+Updated MobilePuzzleAttemptsPage.tsx with 1 IDs
+Updated MobileStatsPage.tsx with 1 IDs
+Updated ProgressFeaturePage.tsx with 1 IDs
+Updated ProgressMainPage.tsx with 1 IDs
+Updated ProgressPage.tsx with 1 IDs
+Updated PuzzleAttemptsPage.tsx with 1 IDs
+Updated StatsPage.tsx with 1 IDs
+Updated GameReviewsPage.tsx with 1 IDs
+Updated HelpPage.tsx with 1 IDs
+No interactive elements found in index.ts
+Updated MobileGameReviewsPage.tsx with 1 IDs
+Updated MobileHelpPage.tsx with 1 IDs
+Updated MobilePuzzleSourcesPage.tsx with 1 IDs
+Updated MobileSubscriptionsPage.tsx with 1 IDs
+Updated PuzzleSourcesPage.tsx with 1 IDs
+Updated SubscriptionsPage.tsx with 1 IDs
+Updated SupportMainPage.tsx with 1 IDs
+Updated SupportPage.tsx with 1 IDs
+Updated AuthPage.tsx with 1 IDs
+No interactive elements found in index.ts
+Updated MobileAuthPage.tsx with 1 IDs
+Updated MobileProfilesPage.tsx with 1 IDs
+Updated MobileSessionsPage.tsx with 1 IDs
+Updated MobileUsersPage.tsx with 1 IDs
+Updated ProfilesPage.tsx with 1 IDs
+Updated SessionsPage.tsx with 1 IDs
+Updated UserMainPage.tsx with 1 IDs
+Updated UserPage.tsx with 1 IDs
+Updated UsersPage.tsx with 1 IDs
+No interactive elements found in AchievementsService.ts
+No interactive elements found in index.ts
+No interactive elements found in AiOpponentsService.ts
+No interactive elements found in index.ts
+No interactive elements found in AnalysisService.ts
+No interactive elements found in index.ts
+No interactive elements found in AnalyticsService.ts
+No interactive elements found in index.ts
+No interactive elements found in audioService.ts
+No interactive elements found in AuthService.ts
+No interactive elements found in index.ts
+No interactive elements found in EndgamesService.ts
+No interactive elements found in index.ts
+No interactive elements found in GameReviewsService.ts
+No interactive elements found in index.ts
+No interactive elements found in GamesService.ts
+No interactive elements found in index.ts
+No interactive elements found in HelpService.ts
+No interactive elements found in index.ts
+No interactive elements found in HistoricGamesService.ts
+No interactive elements found in index.ts
+No interactive elements found in InstructionsService.dynamic.ts
+No interactive elements found in index.ts
+No interactive elements found in LearningService.ts
+No interactive elements found in index.ts
+No interactive elements found in LearningModulesService.ts
+No interactive elements found in index.ts
+No interactive elements found in OpeningsService.ts
+No interactive elements found in index.ts
+No interactive elements found in ProfilesService.ts
+No interactive elements found in index.ts
+No interactive elements found in ProgressService.ts
+No interactive elements found in index.ts
+No interactive elements found in PuzzleAttemptsService.ts
+No interactive elements found in index.ts
+No interactive elements found in PuzzleSourcesService.ts
+No interactive elements found in index.ts
+No interactive elements found in PuzzlesService.ts
+No interactive elements found in index.ts
+No interactive elements found in SessionsService.ts
+No interactive elements found in index.ts
+No interactive elements found in StatsService.ts
+No interactive elements found in index.ts
+No interactive elements found in StudyPlansService.ts
+No interactive elements found in index.ts
+No interactive elements found in SubscriptionsService.ts
+No interactive elements found in index.ts
+No interactive elements found in TutorialStepsService.ts
+No interactive elements found in index.ts
+No interactive elements found in TutorialsService.ts
+No interactive elements found in index.ts
+No interactive elements found in UsersService.ts
+No interactive elements found in casino.ts
+No interactive elements found in layout.ts
+No interactive elements found in play.ts
+No interactive elements found in playchess.ts
+No interactive elements found in playpuzzles.ts
+No interactive elements found in slots.ts
+No interactive elements found in splash.ts
+No interactive elements found in worker.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in action-sheet.types.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+No interactive elements found in index.ts
+Processed 150 files
+ID setting complete!

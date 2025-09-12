@@ -1,0 +1,619 @@
+🚀 Domain-Driven Frontend Generator Starting...
+📖 Loaded backend config with 25 endpoints
+📁 Created domain-driven directory structure
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/common/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/vite-env.d.ts
+📊 Organized 25 endpoints into 25 domains
+🔧 Generating users domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/users/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/users/UsersService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/users/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/users/useUsers.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/users/useUsersQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/users/useUsersMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/users/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/users/UserComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/users/index.ts
+🔧 Generating puzzles domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/puzzles/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/puzzles/PuzzlesService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/puzzles/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/puzzles/usePuzzles.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/puzzles/usePuzzlesQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/puzzles/usePuzzlesMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/puzzles/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/puzzles/PuzzleComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/puzzles/index.ts
+🔧 Generating games domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/games/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/games/GamesService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/games/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/games/useGames.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/games/useGamesQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/games/useGamesMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/games/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/games/GameComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/games/index.ts
+🔧 Generating stats domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/stats/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/stats/StatsService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/stats/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/stats/useStats.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/stats/useStatsQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/stats/useStatsMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/stats/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/stats/StatsComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/stats/index.ts
+🔧 Generating learning domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/learning/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/learning/LearningService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/learning/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/learning/useLearning.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/learning/useLearningQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/learning/useLearningMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/learning/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/learning/LearningPathComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/learning/index.ts
+🔧 Generating tutorials domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/tutorials/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/tutorials/TutorialsService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/tutorials/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/tutorials/useTutorials.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/tutorials/useTutorialsQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/tutorials/useTutorialsMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/tutorials/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/tutorials/TutorialComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/tutorials/index.ts
+🔧 Generating auth domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/auth/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/auth/AuthService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/auth/AuthService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/auth/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/auth/useAuth.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/auth/useAuthQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/auth/useAuthMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/auth/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/auth/AuthComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/auth/index.ts
+🔧 Generating sessions domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/sessions/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/sessions/SessionsService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/sessions/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/sessions/useSessions.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/sessions/useSessionsQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/sessions/useSessionsMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/sessions/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/sessions/SessionComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/sessions/index.ts
+🔧 Generating achievements domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/achievements/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/achievements/AchievementsService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/achievements/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/achievements/useAchievements.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/achievements/useAchievementsQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/achievements/useAchievementsMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/achievements/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/achievements/AchievementComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/achievements/index.ts
+🔧 Generating progress domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/progress/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/progress/ProgressService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/progress/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/progress/useProgress.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/progress/useProgressQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/progress/useProgressMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/progress/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/progress/ProgressComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/progress/index.ts
+🔧 Generating openings domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/openings/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/openings/OpeningsService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/openings/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/openings/useOpenings.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/openings/useOpeningsQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/openings/useOpeningsMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/openings/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/openings/OpeningComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/openings/index.ts
+🔧 Generating analysis domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/analysis/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/analysis/AnalysisService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/analysis/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/analysis/useAnalysis.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/analysis/useAnalysisQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/analysis/useAnalysisMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/analysis/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/analysis/AnalysisComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/analysis/index.ts
+🔧 Generating ai-opponents domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/ai-opponents/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/ai-opponents/AiOpponentsService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/ai-opponents/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/ai-opponents/useAiOpponents.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/ai-opponents/useAiOpponentsQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/ai-opponents/useAiOpponentsMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/ai-opponents/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/ai-opponents/AIOpponentComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/ai-opponents/index.ts
+🔧 Generating analytics domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/analytics/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/analytics/AnalyticsService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/analytics/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/analytics/useAnalytics.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/analytics/useAnalyticsQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/analytics/useAnalyticsMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/analytics/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/analytics/AnalyticsComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/analytics/index.ts
+🔧 Generating profiles domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/profiles/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/profiles/ProfilesService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/profiles/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/profiles/useProfiles.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/profiles/useProfilesQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/profiles/useProfilesMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/profiles/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/profiles/ProfileComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/profiles/index.ts
+🔧 Generating endgames domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/endgames/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/endgames/EndgamesService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/endgames/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/endgames/useEndgames.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/endgames/useEndgamesQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/endgames/useEndgamesMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/endgames/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/endgames/EndgameComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/endgames/index.ts
+🔧 Generating game-reviews domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/game-reviews/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/game-reviews/GameReviewsService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/game-reviews/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/game-reviews/useGameReviews.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/game-reviews/useGameReviewsQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/game-reviews/useGameReviewsMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/game-reviews/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/game-reviews/GameReviewComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/game-reviews/index.ts
+🔧 Generating historic-games domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/historic-games/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/historic-games/HistoricGamesService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/historic-games/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/historic-games/useHistoricGames.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/historic-games/useHistoricGamesQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/historic-games/useHistoricGamesMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/historic-games/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/historic-games/HistoricGameComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/historic-games/index.ts
+🔧 Generating puzzle-attempts domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/puzzle-attempts/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/puzzle-attempts/PuzzleAttemptsService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/puzzle-attempts/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/puzzle-attempts/usePuzzleAttempts.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/puzzle-attempts/usePuzzleAttemptsQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/puzzle-attempts/usePuzzleAttemptsMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/puzzle-attempts/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/puzzle-attempts/PuzzleAttemptComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/puzzle-attempts/index.ts
+🔧 Generating puzzle-sources domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/puzzle-sources/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/puzzle-sources/PuzzleSourcesService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/puzzle-sources/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/puzzle-sources/usePuzzleSources.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/puzzle-sources/usePuzzleSourcesQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/puzzle-sources/usePuzzleSourcesMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/puzzle-sources/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/puzzle-sources/PuzzleSourceComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/puzzle-sources/index.ts
+🔧 Generating learning-modules domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/learning-modules/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/learning-modules/LearningModulesService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/learning-modules/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/learning-modules/useLearningModules.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/learning-modules/useLearningModulesQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/learning-modules/useLearningModulesMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/learning-modules/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/learning-modules/LearningModuleComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/learning-modules/index.ts
+🔧 Generating tutorial-steps domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/tutorial-steps/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/tutorial-steps/TutorialStepsService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/tutorial-steps/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/tutorial-steps/useTutorialSteps.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/tutorial-steps/useTutorialStepsQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/tutorial-steps/useTutorialStepsMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/tutorial-steps/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/tutorial-steps/TutorialStepComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/tutorial-steps/index.ts
+🔧 Generating study-plans domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/study-plans/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/study-plans/StudyPlansService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/study-plans/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/study-plans/useStudyPlans.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/study-plans/useStudyPlansQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/study-plans/useStudyPlansMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/study-plans/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/study-plans/StudyPlanComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/study-plans/index.ts
+🔧 Generating help domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/help/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/help/HelpService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/help/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/help/useHelp.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/help/useHelpQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/help/useHelpMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/help/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/help/HelpComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/help/index.ts
+🔧 Generating subscriptions domain...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/subscriptions/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/subscriptions/SubscriptionsService.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/subscriptions/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/subscriptions/useSubscriptions.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/subscriptions/useSubscriptionsQueries.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/subscriptions/useSubscriptionsMutations.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/subscriptions/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/subscriptions/SubscriptionComponent.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/subscriptions/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/BaseAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/UsersAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/PuzzlesAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/GamesAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/StatsAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/LearningAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/TutorialsAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/AuthAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/SessionsAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/AchievementsAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/ProgressAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/OpeningsAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/AnalysisAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/AiOpponentsAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/AnalyticsAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/ProfilesAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/EndgamesAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/GameReviewsAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/HistoricGamesAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/PuzzleAttemptsAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/PuzzleSourcesAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/LearningModulesAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/TutorialStepsAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/StudyPlansAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/HelpAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/SubscriptionsAPIClient.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/clients/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/stores/authStore.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/stores/appStore.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/stores/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/main.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/App.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/App.css
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/index.css
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/chess/ChessboardLayout.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/chess/MobileChessboardLayout.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/chess/index.ts
+  📝 Generated chess layout components
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/ui/DataTable.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/ui/button.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/ui/index.ts
+  📝 Generated UI components (DataTable, Button)
+🛠️ Generating core infrastructure...
+  🎣 Generated hooks/core/usePageInstructions.ts
+  🎣 Generated hooks/useInstructions.ts
+  🏪 Skipped appStore generation (handled by stores_generator)
+  🔊 Generated hooks/audio/useUIClickSoundOptimized.ts
+✅ Core infrastructure generated successfully!
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/core/usePageData.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/core/useAuthStatus.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/core/index.ts
+  📝 Generated core hooks (usePageData, useAuthStatus)
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/useActionSheet.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/useInstructions.ts
+🚀 Generating grouped pages from backend config...
+📊 Grouped 25 endpoints into 6 page domains
+🔧 Generating chess pages (groups 6 endpoints)...
+  📄 Generated chess/ChessPage.tsx (parent router)
+  📄 Generated chess/ChessMainPage.tsx (main content)
+  📄 Generated chess/PuzzlesPage.tsx
+  📱 Generated chess/MobilePuzzlesPage.tsx
+  🔧 Generated components/chess/PuzzlesPageWrapper.tsx
+  📱 Generated components/chess/MobilePuzzlesPageWrapper.tsx
+  📄 Generated chess/GamesPage.tsx
+  📱 Generated chess/MobileGamesPage.tsx
+  🔧 Generated components/chess/GamesPageWrapper.tsx
+  📱 Generated components/chess/MobileGamesPageWrapper.tsx
+  📄 Generated chess/OpeningsPage.tsx
+  📱 Generated chess/MobileOpeningsPage.tsx
+  🔧 Generated components/chess/OpeningsPageWrapper.tsx
+  📱 Generated components/chess/MobileOpeningsPageWrapper.tsx
+  📄 Generated chess/AnalysisPage.tsx
+  📱 Generated chess/MobileAnalysisPage.tsx
+  🔧 Generated components/chess/AnalysisPageWrapper.tsx
+  📱 Generated components/chess/MobileAnalysisPageWrapper.tsx
+  📄 Generated chess/EndgamesPage.tsx
+  📱 Generated chess/MobileEndgamesPage.tsx
+  🔧 Generated components/chess/EndgamesPageWrapper.tsx
+  📱 Generated components/chess/MobileEndgamesPageWrapper.tsx
+  📄 Generated chess/HistoricGamesPage.tsx
+  📱 Generated chess/MobileHistoricGamesPage.tsx
+  🔧 Generated components/chess/HistoricGamesPageWrapper.tsx
+  📱 Generated components/chess/MobileHistoricGamesPageWrapper.tsx
+  🎣 Generated hooks/chess/useChessActions.ts
+  📝 Generated components/chess/index.ts
+  📝 Generated chess/index.ts
+🔧 Generating user pages (groups 4 endpoints)...
+  📄 Generated user/UserPage.tsx (parent router)
+  📄 Generated user/UserMainPage.tsx (main content)
+  📄 Generated user/UsersPage.tsx
+  📱 Generated user/MobileUsersPage.tsx
+  🔧 Generated components/user/UsersPageWrapper.tsx
+  📱 Generated components/user/MobileUsersPageWrapper.tsx
+  📄 Generated user/AuthPage.tsx
+  📱 Generated user/MobileAuthPage.tsx
+  🔧 Generated components/user/AuthPageWrapper.tsx
+  📱 Generated components/user/MobileAuthPageWrapper.tsx
+  📄 Generated user/SessionsPage.tsx
+  📱 Generated user/MobileSessionsPage.tsx
+  🔧 Generated components/user/SessionsPageWrapper.tsx
+  📱 Generated components/user/MobileSessionsPageWrapper.tsx
+  📄 Generated user/ProfilesPage.tsx
+  📱 Generated user/MobileProfilesPage.tsx
+  🔧 Generated components/user/ProfilesPageWrapper.tsx
+  📱 Generated components/user/MobileProfilesPageWrapper.tsx
+  🎣 Generated hooks/user/useUserActions.ts
+  📝 Generated components/user/index.ts
+  📝 Generated user/index.ts
+🔧 Generating learning pages (groups 5 endpoints)...
+  📄 Generated learning/LearningPage.tsx (parent router)
+  📄 Generated learning/LearningMainPage.tsx (main content)
+  📄 Generated learning/LearningFeaturePage.tsx
+  📱 Generated learning/MobileLearningFeaturePage.tsx
+  🔧 Generated components/learning/LearningFeaturePageWrapper.tsx
+  📱 Generated components/learning/MobileLearningFeaturePageWrapper.tsx
+  📄 Generated learning/TutorialsPage.tsx
+  📱 Generated learning/MobileTutorialsPage.tsx
+  🔧 Generated components/learning/TutorialsPageWrapper.tsx
+  📱 Generated components/learning/MobileTutorialsPageWrapper.tsx
+  📄 Generated learning/LearningModulesPage.tsx
+  📱 Generated learning/MobileLearningModulesPage.tsx
+  🔧 Generated components/learning/LearningModulesPageWrapper.tsx
+  📱 Generated components/learning/MobileLearningModulesPageWrapper.tsx
+  📄 Generated learning/TutorialStepsPage.tsx
+  📱 Generated learning/MobileTutorialStepsPage.tsx
+  🔧 Generated components/learning/TutorialStepsPageWrapper.tsx
+  📱 Generated components/learning/MobileTutorialStepsPageWrapper.tsx
+  📄 Generated learning/StudyPlansPage.tsx
+  📱 Generated learning/MobileStudyPlansPage.tsx
+  🔧 Generated components/learning/StudyPlansPageWrapper.tsx
+  📱 Generated components/learning/MobileStudyPlansPageWrapper.tsx
+  🎣 Generated hooks/learning/useLearningActions.ts
+  📝 Generated components/learning/index.ts
+  📝 Generated learning/index.ts
+🔧 Generating progress pages (groups 5 endpoints)...
+  📄 Generated progress/ProgressPage.tsx (parent router)
+  📄 Generated progress/ProgressMainPage.tsx (main content)
+  📄 Generated progress/StatsPage.tsx
+  📱 Generated progress/MobileStatsPage.tsx
+  🔧 Generated components/progress/StatsPageWrapper.tsx
+  📱 Generated components/progress/MobileStatsPageWrapper.tsx
+  📄 Generated progress/AchievementsPage.tsx
+  📱 Generated progress/MobileAchievementsPage.tsx
+  🔧 Generated components/progress/AchievementsPageWrapper.tsx
+  📱 Generated components/progress/MobileAchievementsPageWrapper.tsx
+  📄 Generated progress/ProgressFeaturePage.tsx
+  📱 Generated progress/MobileProgressFeaturePage.tsx
+  🔧 Generated components/progress/ProgressFeaturePageWrapper.tsx
+  📱 Generated components/progress/MobileProgressFeaturePageWrapper.tsx
+  📄 Generated progress/AnalyticsPage.tsx
+  📱 Generated progress/MobileAnalyticsPage.tsx
+  🔧 Generated components/progress/AnalyticsPageWrapper.tsx
+  📱 Generated components/progress/MobileAnalyticsPageWrapper.tsx
+  📄 Generated progress/PuzzleAttemptsPage.tsx
+  📱 Generated progress/MobilePuzzleAttemptsPage.tsx
+  🔧 Generated components/progress/PuzzleAttemptsPageWrapper.tsx
+  📱 Generated components/progress/MobilePuzzleAttemptsPageWrapper.tsx
+  🎣 Generated hooks/progress/useProgressActions.ts
+  📝 Generated components/progress/index.ts
+  📝 Generated progress/index.ts
+🔧 Generating support pages (groups 4 endpoints)...
+  📄 Generated support/SupportPage.tsx (parent router)
+  📄 Generated support/SupportMainPage.tsx (main content)
+  📄 Generated support/GameReviewsPage.tsx
+  📱 Generated support/MobileGameReviewsPage.tsx
+  🔧 Generated components/support/GameReviewsPageWrapper.tsx
+  📱 Generated components/support/MobileGameReviewsPageWrapper.tsx
+  📄 Generated support/PuzzleSourcesPage.tsx
+  📱 Generated support/MobilePuzzleSourcesPage.tsx
+  🔧 Generated components/support/PuzzleSourcesPageWrapper.tsx
+  📱 Generated components/support/MobilePuzzleSourcesPageWrapper.tsx
+  📄 Generated support/HelpPage.tsx
+  📱 Generated support/MobileHelpPage.tsx
+  🔧 Generated components/support/HelpPageWrapper.tsx
+  📱 Generated components/support/MobileHelpPageWrapper.tsx
+  📄 Generated support/SubscriptionsPage.tsx
+  📱 Generated support/MobileSubscriptionsPage.tsx
+  🔧 Generated components/support/SubscriptionsPageWrapper.tsx
+  📱 Generated components/support/MobileSubscriptionsPageWrapper.tsx
+  🎣 Generated hooks/support/useSupportActions.ts
+  📝 Generated components/support/index.ts
+  📝 Generated support/index.ts
+🔧 Generating other pages (groups 1 endpoints)...
+  📄 Generated other/OtherPage.tsx (parent router)
+  📄 Generated other/OtherMainPage.tsx (main content)
+  📄 Generated other/AiOpponentsPage.tsx
+  📱 Generated other/MobileAiOpponentsPage.tsx
+  🔧 Generated components/other/AiOpponentsPageWrapper.tsx
+  📱 Generated components/other/MobileAiOpponentsPageWrapper.tsx
+  🎣 Generated hooks/other/useOtherActions.ts
+  📝 Generated components/other/index.ts
+  📝 Generated other/index.ts
+📝 Generated main pages/index.ts
+✅ All grouped pages generated successfully!
+🏗️ Generating complete app infrastructure...
+🎨 Generating layout components...
+  📝 Generated components/layout/types.ts
+  📝 Generated components/layout/TabBar.tsx
+  📝 Generated components/layout/AppLayout.tsx
+  📝 Generated components/layout/MainContent.tsx
+  📝 Generated components/layout/TitleBar.tsx
+  📝 Generated components/layout/MenuButton.tsx
+  📝 Generated components/layout/Header.tsx
+  📝 Generated components/layout/BackgroundEffects.tsx
+  📝 Generated components/layout/index.ts
+✅ Layout components generated successfully!
+🔧 Generating supporting components for AppLayout...
+  📝 Generated components/core/SettingsPanel.tsx
+  📝 Generated components/core/InstructionsFAB.tsx
+  📝 Generated components/core/InstructionsModal.tsx
+  📝 Generated components/casino/CoinsModal.tsx
+  📝 Generated components/action-sheet/ActionSheetContainer.tsx
+  📝 Generated components/core/index.ts
+  📝 Generated components/casino/index.ts
+  📝 Generated components/action-sheet/index.ts
+  📝 Generated contexts/InstructionsContext.tsx
+  📝 Generated hooks/useActionSheet.ts
+✅ Supporting components generated successfully!
+🎯 Generating core components...
+  📝 Generated components/core/InstructionsFAB.tsx
+  📝 Generated components/ui/ActionSheetContainer.tsx
+  📝 Generated components/core/index.ts
+  📝 Generated components/ui/index.ts
+✅ Core components generated successfully!
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/ui/DataTable.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/ui/button.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/ui/index.ts
+  📝 Generated UI components (DataTable, Button)
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/core/usePageData.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/core/useAuthStatus.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/core/index.ts
+  📝 Generated core hooks (usePageData, useAuthStatus)
+🔧 Generating missing dependencies...
+  📝 Generated providers/DragProvider.tsx
+  📝 Generated contexts/InstructionsContext.tsx
+  📝 Generated hooks/audio/useGlobalUIAudio.ts
+  📝 Generated services/audio/audioService.ts
+  📝 Updated hooks/index.ts with useAuthStatus
+  📝 Generated components/auth/AuthRouter.tsx
+  📝 Generated components/chess/DraggedPiece.tsx
+  📝 Generated components/splash/SplashModal.tsx
+✅ Missing dependencies generated successfully!
+🚀 Generating main App.tsx...
+  📝 Generated App.tsx with dynamic routing
+  🎯 Configured tabs: chess, user, learning, progress, support, other
+✅ Main app generated successfully!
+✅ Complete app infrastructure generated successfully!
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/index.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/index.ts
+📝 Generated final index files
+🔧 Setting up dynamic system...
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/types/core/action-sheet.types.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/contexts/ActionSheetContext.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/contexts/InstructionsContext.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/instructions/InstructionsService.dynamic.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/constants/actions/page-actions.dynamic.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/core/usePageInstructions.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/ui/ActionSheetContainer.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/constants/actions/pages/play.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/constants/actions/pages/playchess.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/constants/actions/pages/playpuzzles.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/constants/actions/pages/casino.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/constants/actions/pages/slots.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/constants/actions/pages/worker.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/constants/actions/pages/uitests.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/constants/actions/pages/dragtest.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/constants/actions/pages/uiaudiotest.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/constants/actions/pages/layout.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/constants/actions/pages/splash.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/constants/actions/pages/users.ts
+✅ Created 12 basic action files
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/instructions/pages/play.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/instructions/pages/playchess.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/instructions/pages/playpuzzles.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/instructions/pages/casino.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/instructions/pages/slots.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/instructions/pages/worker.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/instructions/pages/uitests.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/instructions/pages/dragtest.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/instructions/pages/uiaudiotest.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/instructions/pages/layout.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/instructions/pages/splash.ts
+✅ Created 11 basic instruction files
+✅ Dynamic system setup complete!
+🧹 Cleaning up empty directories...
+  🗑️  Removed empty directory: constants/achievements
+  🗑️  Removed empty directory: constants/ai-opponents
+  🗑️  Removed empty directory: constants/analysis
+  🗑️  Removed empty directory: constants/analytics
+  🗑️  Removed empty directory: constants/auth
+  🗑️  Removed empty directory: constants/endgames
+  🗑️  Removed empty directory: constants/game-reviews
+  🗑️  Removed empty directory: constants/games
+  🗑️  Removed empty directory: constants/help
+  🗑️  Removed empty directory: constants/historic-games
+  🗑️  Removed empty directory: constants/learning
+  🗑️  Removed empty directory: constants/learning-modules
+  🗑️  Removed empty directory: constants/openings
+  🗑️  Removed empty directory: constants/profiles
+  🗑️  Removed empty directory: constants/progress
+  🗑️  Removed empty directory: constants/puzzle-attempts
+  🗑️  Removed empty directory: constants/puzzle-sources
+  🗑️  Removed empty directory: constants/puzzles
+  🗑️  Removed empty directory: constants/sessions
+  🗑️  Removed empty directory: constants/stats
+  🗑️  Removed empty directory: constants/study-plans
+  🗑️  Removed empty directory: constants/subscriptions
+  🗑️  Removed empty directory: constants/tutorial-steps
+  🗑️  Removed empty directory: constants/tutorials
+  🗑️  Removed empty directory: constants/users
+  🗑️  Removed empty directory: pages/achievements
+  🗑️  Removed empty directory: pages/ai-opponents
+  🗑️  Removed empty directory: pages/analysis
+  🗑️  Removed empty directory: pages/analytics
+  🗑️  Removed empty directory: pages/auth
+  🗑️  Removed empty directory: pages/endgames
+  🗑️  Removed empty directory: pages/game-reviews
+  🗑️  Removed empty directory: pages/games
+  🗑️  Removed empty directory: pages/help
+  🗑️  Removed empty directory: pages/historic-games
+  🗑️  Removed empty directory: pages/learning-modules
+  🗑️  Removed empty directory: pages/openings
+  🗑️  Removed empty directory: pages/profiles
+  🗑️  Removed empty directory: pages/puzzle-attempts
+  🗑️  Removed empty directory: pages/puzzle-sources
+  🗑️  Removed empty directory: pages/puzzles
+  🗑️  Removed empty directory: pages/sessions
+  🗑️  Removed empty directory: pages/stats
+  🗑️  Removed empty directory: pages/study-plans
+  🗑️  Removed empty directory: pages/subscriptions
+  🗑️  Removed empty directory: pages/tutorial-steps
+  🗑️  Removed empty directory: pages/tutorials
+  🗑️  Removed empty directory: pages/users
+  🗑️  Removed empty directory: utils/achievements
+  🗑️  Removed empty directory: utils/ai-opponents
+  🗑️  Removed empty directory: utils/analysis
+  🗑️  Removed empty directory: utils/analytics
+  🗑️  Removed empty directory: utils/auth
+  🗑️  Removed empty directory: utils/common
+  🗑️  Removed empty directory: utils/endgames
+  🗑️  Removed empty directory: utils/game-reviews
+  🗑️  Removed empty directory: utils/games
+  🗑️  Removed empty directory: utils/help
+  🗑️  Removed empty directory: utils/historic-games
+  🗑️  Removed empty directory: utils/learning
+  🗑️  Removed empty directory: utils/learning-modules
+  🗑️  Removed empty directory: utils/openings
+  🗑️  Removed empty directory: utils/profiles
+  🗑️  Removed empty directory: utils/progress
+  🗑️  Removed empty directory: utils/puzzle-attempts
+  🗑️  Removed empty directory: utils/puzzle-sources
+  🗑️  Removed empty directory: utils/puzzles
+  🗑️  Removed empty directory: utils/sessions
+  🗑️  Removed empty directory: utils/stats
+  🗑️  Removed empty directory: utils/study-plans
+  🗑️  Removed empty directory: utils/subscriptions
+  🗑️  Removed empty directory: utils/tutorial-steps
+  🗑️  Removed empty directory: utils/tutorials
+  🗑️  Removed empty directory: utils/users
+  🗑️  Removed empty directory: utils
+✅ Domain-driven frontend generation complete!

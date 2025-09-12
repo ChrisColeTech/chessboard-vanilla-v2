@@ -94,6 +94,7 @@ class PageGenerator:
         self._update_parent_actions(config)
         self._update_action_constants(config)
         self._update_action_handlers(config)
+        self._update_parent_page_action_constants(config)
         
         # Update instructions
         self._update_instructions(config)
@@ -437,44 +438,71 @@ export const {mobile_config.name}PageWrapper: React.FC = () => {{
 
     def _update_action_handlers(self, config: PageConfig) -> None:
         """Update action sheet handlers"""
-        handler_file = self.components_dir / "action-sheet" / "ActionSheetContainer.tsx"
+        # Try multiple possible locations for ActionSheetContainer
+        possible_paths = [
+            self.components_dir / "action-sheet" / "ActionSheetContainer.tsx",
+            self.components_dir / "ui" / "ActionSheetContainer.tsx"
+        ]
         
-        if not handler_file.exists():
-            print(f"⚠️  Action sheet container file not found: {handler_file}")
+        handler_file = None
+        for path in possible_paths:
+            if path.exists():
+                handler_file = path
+                break
+                
+        if not handler_file:
+            # Create ActionSheetContainer in the preferred location
+            handler_file = self.components_dir / "ui" / "ActionSheetContainer.tsx"
+            print(f"📝 ActionSheetContainer.tsx not found - creating at: {handler_file}")
+            self._create_action_sheet_container(handler_file, config)
             return
         
         content = handler_file.read_text()
+        page_id = config.name.lower()
         
-        # Add action handler mapping
-        handler_mapping = f'''      {config.name.lower()}: {{
-        'toggle-{config.name.lower()}': () => {{
-          window.dispatchEvent(new CustomEvent('{config.name.lower()}-toggle'));
+        # Check if this is a dynamic action system (frontend-v2) or static actionMap system (frontend)
+        if 'DYNAMIC_PAGE_ACTIONS' in content:
+            # Frontend-v2 uses dynamic action system - no need to update ActionSheetContainer
+            # Actions are handled through the dynamic page action files
+            print(f"  ✅ Detected dynamic action system - ActionSheetContainer uses DYNAMIC_PAGE_ACTIONS")
+            print(f"     Child page actions will be loaded automatically from pages/{page_id}.ts")
+            return
+        
+        # Legacy frontend system with actionMap
+        # Add action handler mapping for child page
+        handler_mapping = f'''      {page_id}: {{
+        'toggle-{page_id}': () => {{
+          window.dispatchEvent(new CustomEvent('{page_id}-toggle'));
         }},
         // Navigation actions
-        'go-to-{config.parent.lower()}': {config.parent.lower()}Actions.goTo{config.parent}
+        'go-to-{config.parent.lower()}': {config.parent.lower()}Actions.goTo{config.parent.capitalize()}
       }},'''
         
-        # Insert before the closing brace of actionMap
-        if f'{config.name.lower()}:' not in content:
-            # Find the actionMap closing brace
+        # Find the actionMap and insert before the closing brace
+        if f'{page_id}:' not in content:
             lines = content.split('\n')
+            
+            # Find the actionMap object and its closing brace
             for i, line in enumerate(lines):
-                if 'actionMap:' in line and '{' in line:
-                    # Find matching closing brace
-                    brace_count = 1
-                    start_idx = i + 1
-                    for j in range(start_idx, len(lines)):
+                if 'const actionMap:' in line and 'Record<string, Record<string, Fn>>' in line:
+                    # Find the matching closing brace for actionMap
+                    brace_count = 0
+                    for j in range(i, len(lines)):
                         if '{' in lines[j]:
                             brace_count += lines[j].count('{')
                         if '}' in lines[j]:
                             brace_count -= lines[j].count('}')
                             if brace_count == 0:
+                                # Insert before the closing brace
                                 lines.insert(j, handler_mapping)
                                 break
                     break
-            content = '\n'.join(lines)
-        
-        self._write_file(handler_file, content)
+            
+            updated_content = '\n'.join(lines)
+            handler_file.write_text(updated_content)
+            print(f"  📝 Updated ActionSheetContainer.tsx with {config.name} handlers")
+        else:
+            print(f"  ⚠️  Could not find actionMap in ActionSheetContainer.tsx")
 
     def _update_instructions(self, config: PageConfig) -> None:
         """Update instructions service with child page instructions"""
@@ -534,6 +562,167 @@ export const {mobile_config.name}PageWrapper: React.FC = () => {{
             )
         
         self._write_file(common_actions_file, content)
+
+    def _update_parent_page_action_constants(self, config: PageConfig) -> None:
+        """Update parent page action constants to include navigation to child page"""
+        constants_file = self.constants_dir / "actions" / "page-actions.constants.ts"
+        
+        if not constants_file.exists():
+            print(f"⚠️  page-actions.constants.ts not found: {constants_file}")
+            return
+        
+        content = constants_file.read_text()
+        page_id = config.name.lower()
+        parent_id = config.parent.lower()
+        
+        # Add navigation action to parent page actions
+        nav_action = f"""    {{
+      id: 'go-to-{page_id}',
+      label: 'Go to {config.name}',
+      icon: Navigation,
+      variant: 'secondary'
+    }}"""
+        
+        # Find the parent page actions and add the navigation action
+        if f"'go-to-{page_id}'" not in content:
+            # Look for the parent page actions section
+            parent_section_start = f'{parent_id}: ['
+            parent_section_merging = f'{parent_id}: mergeWithCommonActions(['
+            
+            if parent_section_start in content:
+                # Simple array format
+                insertion_point = content.find(parent_section_start) + len(parent_section_start)
+                # Insert after the opening bracket
+                updated_content = (content[:insertion_point] + 
+                                 f'\n{nav_action},' + 
+                                 content[insertion_point:])
+                
+            elif parent_section_merging in content:
+                # mergeWithCommonActions format - add to first parameter array
+                lines = content.split('\n')
+                for i, line in enumerate(lines):
+                    if f'{parent_id}: mergeWithCommonActions([' in line:
+                        # Find the closing bracket of the first array parameter
+                        brace_count = 0
+                        start_found = False
+                        for j in range(i, len(lines)):
+                            if '[' in lines[j]:
+                                brace_count += lines[j].count('[')
+                                start_found = True
+                            if ']' in lines[j]:
+                                brace_count -= lines[j].count(']')
+                                if brace_count == 0 and start_found:
+                                    # Insert before the closing bracket
+                                    if not lines[j-1].strip().endswith(','):
+                                        lines[j-1] += ','
+                                    lines.insert(j, f'{nav_action}')
+                                    break
+                        break
+                        
+                updated_content = '\n'.join(lines)
+            else:
+                print(f"⚠️  Could not find {parent_id} actions section in page-actions.constants.ts")
+                return
+                
+            constants_file.write_text(updated_content)
+            print(f"  📝 Updated {config.parent} actions with go-to-{page_id} navigation")
+
+    def _create_action_sheet_container(self, container_path: Path, config: PageConfig) -> None:
+        """Create a new ActionSheetContainer.tsx with dynamic action system support"""
+        content = '''import React, { useEffect, useState } from 'react';
+import { DYNAMIC_PAGE_ACTIONS } from '../../constants/actions/page-actions.dynamic';
+import { useActionSheet } from '../../contexts/ActionSheetContext';
+import { useAppStore } from '../../stores/appStore';
+import type { ActionSheetAction } from '../../types/core/action-sheet.types';
+
+export const ActionSheetContainer: React.FC = () => {
+  const { isOpen, currentPage, closeActionSheet } = useActionSheet();
+  const currentChildPage = useAppStore((state) => state.currentChildPage);
+  const [delayedActionSheetPage, setDelayedActionSheetPage] = useState<string | null>(null);
+
+  // Use child page if it exists, otherwise use current tab
+  const actionSheetPage = currentChildPage || currentPage;
+
+  // Delay loading to ensure dynamic system is initialized
+  useEffect(() => {
+    if (actionSheetPage) {
+      const timer = setTimeout(() => {
+        setDelayedActionSheetPage(actionSheetPage);
+      }, 100);
+      return () => clearTimeout(timer);
+    } else {
+      setDelayedActionSheetPage(null);
+    }
+  }, [actionSheetPage]);
+
+  if (!isOpen || !delayedActionSheetPage) {
+    return null;
+  }
+
+  // Get actions from dynamic system
+  const actions = DYNAMIC_PAGE_ACTIONS[delayedActionSheetPage] || [];
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end justify-center p-4 pointer-events-auto">
+      {/* Backdrop */}
+      <div 
+        className="absolute inset-0 bg-black bg-opacity-50"
+        onClick={closeActionSheet}
+      />
+      
+      {/* Action Sheet */}
+      <div className="relative bg-white rounded-lg shadow-xl max-w-md w-full max-h-96 overflow-y-auto">
+        <div className="p-4">
+          <h3 className="text-lg font-semibold mb-4">
+            Actions for {delayedActionSheetPage}
+          </h3>
+          
+          {actions.length === 0 ? (
+            <p className="text-gray-500 text-center py-8">
+              No actions available for this page
+            </p>
+          ) : (
+            <div className="space-y-2">
+              {actions.map((action: ActionSheetAction) => (
+                <button
+                  key={action.id}
+                  className={`w-full flex items-center justify-between p-3 rounded-lg transition-colors ${
+                    action.variant === 'primary' 
+                      ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                      : action.variant === 'destructive'
+                      ? 'bg-red-600 hover:bg-red-700 text-white'
+                      : 'bg-gray-100 hover:bg-gray-200 text-gray-900'
+                  }`}
+                  onClick={() => {
+                    action.onPress?.();
+                    console.log(`Action pressed: ${action.id}`);
+                    closeActionSheet();
+                  }}
+                >
+                  <span className="flex items-center">
+                    {action.icon && <action.icon className="w-5 h-5 mr-3" />}
+                    {action.label}
+                  </span>
+                </button>
+              ))}
+            </div>
+          )}
+          
+          <button
+            className="w-full mt-4 p-3 bg-gray-200 hover:bg-gray-300 rounded-lg transition-colors"
+            onClick={closeActionSheet}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+'''
+        
+        self._write_file(container_path, content)
+        print(f"  ✅ Created new ActionSheetContainer.tsx with dynamic action support")
 
     def _write_file(self, file_path: Path, content: str) -> None:
         """Write content to file, creating directories if needed"""

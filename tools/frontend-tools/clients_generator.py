@@ -11,7 +11,7 @@ from domain_mapping import DomainMapping
 class ClientsGenerator(BaseFrontendGenerator):
     """Generates API clients for all domains"""
     
-    def __init__(self, frontend_path: str = "../frontend-v2"):
+    def __init__(self, frontend_path: str = "/mnt/c/Projects/chessboard-vanilla-v2/frontend-v2"):
         super().__init__(frontend_path)
         self.domain_mapping_obj = DomainMapping()
     

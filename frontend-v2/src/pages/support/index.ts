@@ -1,0 +1,10 @@
+export { SupportPage } from "./SupportPage";
+export { SupportMainPage } from "./SupportMainPage";
+export { GameReviewsPage } from "./GameReviewsPage";
+export { MobileGameReviewsPage } from "./MobileGameReviewsPage";
+export { PuzzleSourcesPage } from "./PuzzleSourcesPage";
+export { MobilePuzzleSourcesPage } from "./MobilePuzzleSourcesPage";
+export { HelpPage } from "./HelpPage";
+export { MobileHelpPage } from "./MobileHelpPage";
+export { SubscriptionsPage } from "./SubscriptionsPage";
+export { MobileSubscriptionsPage } from "./MobileSubscriptionsPage";

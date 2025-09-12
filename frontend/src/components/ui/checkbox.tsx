@@ -15,7 +15,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         )}
         ref={ref}
         {...props}
-      />
+       id="checkbox-checkbox"/>
     )
   }
 )

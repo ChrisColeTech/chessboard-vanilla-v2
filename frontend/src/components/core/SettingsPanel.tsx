@@ -66,7 +66,7 @@ export function SettingsPanel({ onClose }: SettingsPanelProps) {
             <Settings className="w-5 h-5 text-primary" />
             <h2 className="text-lg font-semibold text-foreground">Settings</h2>
           </div>
-          <button onClick={handleCloseClick} className="settings-close-btn">
+          <button onClick={handleCloseClick} className="settings-close-btn" id="settings-panel-btn">
             <X className="w-4 h-4" />
           </button>
         </div>

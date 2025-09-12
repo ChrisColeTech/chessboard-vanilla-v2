@@ -80,7 +80,7 @@ export function ActionSheet({
       open={isOpen}
       onClose={handleClose}
       className={`relative z-50 ${className ?? ""}`}
-    >
+     id="action-sheet-onhover-dialog">
       {/* Responsive positioning: left on desktop, full width on mobile */}
       <div className="fixed bottom-[57px] left-0 right-0 md:left-0 md:right-auto md:w-80 md:bottom-[57px]">
         <DialogPanel

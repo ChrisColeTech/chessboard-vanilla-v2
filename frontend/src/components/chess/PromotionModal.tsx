@@ -66,7 +66,7 @@ export function PromotionModal({ isOpen, color, onSelect, onCancel }: PromotionM
             onClick={handleCancel}
             className="p-1 hover:bg-muted rounded-lg transition-colors"
             aria-label="Cancel promotion"
-          >
+           id="promotion-modal-btn">
             <X className="w-5 h-5 text-muted-foreground" />
           </button>
         </div>
@@ -113,7 +113,7 @@ export function PromotionModal({ isOpen, color, onSelect, onCancel }: PromotionM
         <button
           onClick={handleCancel}
           className="w-full px-4 py-2 text-sm text-muted-foreground hover:text-foreground border border-border rounded-lg hover:bg-muted/30 transition-colors"
-        >
+         id="promotion-modal-cancel-move-btn">
           Cancel Move
         </button>
       </div>

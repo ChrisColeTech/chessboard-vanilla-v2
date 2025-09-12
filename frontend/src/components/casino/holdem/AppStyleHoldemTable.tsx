@@ -244,6 +244,7 @@ export const AppStyleHoldemTable: React.FC = () => {
                   variant="outline"
                   size="sm"
                   onClick={() => setBetAmount(Math.min(100, betAmount + 5))}
+                  id="app-style-holdem-table-setbetamountmathmin100-betamount-5-btn"
                   className="w-8 h-8 p-0"
                 >
                   +

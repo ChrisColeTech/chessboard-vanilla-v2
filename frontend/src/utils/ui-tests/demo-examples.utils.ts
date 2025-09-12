@@ -16,7 +16,7 @@ export const generateDemoButtons = (): readonly DemoButtonExample[] => {
       label: 'Standard Button',
       element: 'button',
       description: 'Automatically gets uiClick sound via Global UI Audio',
-      codeExample: '<button>Click me</button>'
+      codeExample: '<button id="demo-examples-utils-click-me-btn">Click me</button>'
     },
     {
       id: 'aria-button',
@@ -32,7 +32,7 @@ export const generateDemoButtons = (): readonly DemoButtonExample[] => {
       element: 'a',
       attributes: { href: '#demo' },
       description: 'Links with href automatically get click sounds',
-      codeExample: '<a href="#demo">Link Button</a>'
+      codeExample: '<a href="#demo" id="demo-examples-utils-link-button-link">Link Button</a>'
     },
     {
       id: 'submit-input',
@@ -40,7 +40,7 @@ export const generateDemoButtons = (): readonly DemoButtonExample[] => {
       element: 'input',
       attributes: { type: 'submit', value: 'Submit' },
       description: 'Submit inputs automatically detected',
-      codeExample: '<input type="submit" value="Submit" />'
+      codeExample: '<input type="submit" value="Submit"  id="demo-examples-utils-submit"/>'
     },
     {
       id: 'button-input',
@@ -48,7 +48,7 @@ export const generateDemoButtons = (): readonly DemoButtonExample[] => {
       element: 'input',
       attributes: { type: 'button', value: 'Button Input' },
       description: 'Button inputs automatically detected',
-      codeExample: '<input type="button" value="Button Input" />'
+      codeExample: '<input type="button" value="Button Input"  id="demo-examples-utils-button"/>'
     }
   ];
 };
@@ -64,7 +64,7 @@ export const generateExclusionExamples = (): readonly ExclusionExample[] => {
       element: 'button',
       attributes: { 'data-no-sound': '' },
       description: 'Use data-no-sound to exclude elements',
-      codeExample: '<button data-no-sound>Silent Button</button>'
+      codeExample: '<button data-no-sound id="demo-examples-utils-silent-button-btn-2">Silent Button</button>'
     },
     {
       id: 'no-sound-class',
@@ -72,7 +72,7 @@ export const generateExclusionExamples = (): readonly ExclusionExample[] => {
       element: 'button',
       attributes: { className: 'no-sound' },
       description: 'Use .no-sound class to exclude elements',
-      codeExample: '<button class="no-sound">Silent Button</button>'
+      codeExample: '<button class="no-sound" id="demo-examples-utils-silent-button-btn-1">Silent Button</button>'
     },
     {
       id: 'chess-piece',
@@ -88,7 +88,7 @@ export const generateExclusionExamples = (): readonly ExclusionExample[] => {
       element: 'button',
       attributes: { disabled: 'true' },
       description: 'Disabled elements automatically excluded',
-      codeExample: '<button disabled>Disabled Button</button>'
+      codeExample: '<button disabled id="demo-examples-utils-disabled-button-btn-1">Disabled Button</button>'
     }
   ];
 };
@@ -125,12 +125,12 @@ playError();`
       title: 'Excluding Elements',
       language: 'html',
       code: `<!-- Manual exclusion -->
-<button data-no-sound>Silent Button</button>
+<button data-no-sound id="demo-examples-utils-silent-button-btn">Silent Button</button>
 <div class="no-sound">Silent Element</div>
 
 <!-- Automatic exclusions -->
 <div class="chess-piece">Game Element</div>
-<button disabled>Disabled Button</button>`
+<button disabled id="demo-examples-utils-disabled-button-btn">Disabled Button</button>`
     },
     {
       title: 'Service Configuration',

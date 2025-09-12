@@ -1,0 +1,1 @@
+export { PuzzleAttemptComponent } from './PuzzleAttemptComponent';

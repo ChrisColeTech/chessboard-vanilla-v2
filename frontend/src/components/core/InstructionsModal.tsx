@@ -37,7 +37,7 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
             onClick={onClose}
             className="p-1 hover:bg-muted rounded-lg transition-colors"
             aria-label="Close instructions"
-          >
+           id="instructions-modal-btn">
             <X className="w-5 h-5 text-muted-foreground" />
           </button>
         </div>
@@ -54,7 +54,7 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
         <button
           onClick={onClose}
           className="mt-6 w-full px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
-        >
+         id="instructions-modal-got-it-btn">
           Got it!
         </button>
       </div>

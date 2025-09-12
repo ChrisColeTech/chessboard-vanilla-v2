@@ -1,0 +1,1 @@
+export { AIOpponentComponent } from './AIOpponentComponent';

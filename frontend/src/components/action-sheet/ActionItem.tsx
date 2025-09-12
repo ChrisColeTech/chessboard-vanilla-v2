@@ -40,7 +40,7 @@ export function ActionItem({ action, onSelect, onHover }: ActionItemProps) {
       role="menuitem"
       aria-label={action.label}
       data-no-sound="true"
-    >
+     id="action-item-btn">
       <IconComponent className="action-item-icon w-6 h-6" />
       <span className="action-item-text">{action.label}</span>
       {action.badge && (

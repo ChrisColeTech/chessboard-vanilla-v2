@@ -100,6 +100,7 @@ export const BettingControls: React.FC = () => {
             
             <button
               onClick={() => adjustBetAmount(10)}
+              id="betting-controls-adjustbetamount10-classnamew10-btn"
               className="w-10 h-10 bg-secondary hover:bg-secondary/80 rounded-full flex items-center justify-center transition-colors"
               disabled={betAmount >= pokerGame.playerChips}
             >

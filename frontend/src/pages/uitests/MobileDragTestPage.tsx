@@ -35,7 +35,7 @@ export const MobileDragTestPage: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-full">
+    <div className="uitest-mobile-container">
       {/* Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="bg-sparkle bg-sparkle-lg bg-orb-foreground-30 top-1/4 left-1/4 animation-delay-300"></div>

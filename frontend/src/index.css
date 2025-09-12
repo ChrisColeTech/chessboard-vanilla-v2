@@ -249,6 +249,48 @@
     transform: scale(1.05);
   }
 
+  /* UI Test Layout Classes */
+  .uitest-layout-container {
+    height: 100%;
+    padding-bottom: 5rem;
+  }
+
+  .uitest-layout-corner {
+    @apply text-xs text-muted-foreground p-2;
+  }
+
+  .uitest-layout-center {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  /* Mobile UI Test Layout Classes */
+  .uitest-mobile-container {
+    @apply relative min-h-full;
+  }
+
+  .uitest-mobile-container-padded {
+    @apply h-full pb-20;
+  }
+
+  .uitest-mobile-center {
+    @apply w-full h-full flex items-center justify-center min-h-0 min-w-0 overflow-hidden;
+  }
+
+  .uitest-mobile-center-card {
+    @apply w-full h-full flex items-center justify-center bg-card border;
+  }
+
+  .uitest-mobile-pieces {
+    @apply text-xs text-muted-foreground p-2 text-center;
+  }
+
   .btn-gaming-primary {
     width: 100%;
     background: linear-gradient(135deg, #0099ff, #ff6600);

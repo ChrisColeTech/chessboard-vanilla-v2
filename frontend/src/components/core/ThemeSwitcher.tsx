@@ -282,7 +282,7 @@ export function ThemeSwitcher({ onOpenSettings, isSettingsOpen = false }: ThemeS
       onClick={handleSettingsClick}
       className={`flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 text-primary hover:bg-primary/20 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/20 hover:scale-105 transition-all duration-300 ${isSettingsOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
       title="Change Theme"
-    >
+     id="theme-switcher-btn">
       <Settings className="w-5 h-5" />
     </button>
   )

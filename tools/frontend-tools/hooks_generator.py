@@ -256,6 +256,176 @@ export const {hook_name} = () => {{
         index_file = hooks_path / "index.ts"
         self.write_file(index_file, index_content)
     
+    def generate_core_hooks(self):
+        """Generate core hooks like usePageData"""
+        src_path = self.get_src_path()
+        core_hooks_path = src_path / "hooks" / "core"
+        core_hooks_path.mkdir(parents=True, exist_ok=True)
+        
+        # Generate usePageData hook
+        use_page_data_content = '''import { useState, useEffect } from "react";
+
+export interface UsePageDataResult {
+  data: any[];
+  loading: boolean;
+  error: string | null;
+}
+
+export const usePageData = (endpoint: string): UsePageDataResult => {
+  const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        // For testing, generate mock data based on endpoint name
+        const mockData = generateMockData(endpoint);
+        
+        // Simulate API delay
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        setData(mockData);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Failed to fetch data");
+        setData([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [endpoint]);
+
+  return { data, loading, error };
+};
+
+// Helper function to generate mock data for testing
+function generateMockData(endpoint: string): any[] {
+  const baseData = {
+    id: Math.floor(Math.random() * 1000),
+    name: `${endpoint} Item`,
+    status: Math.random() > 0.5 ? "active" : "inactive",
+    createdAt: new Date().toISOString(),
+    endpoint: endpoint,
+  };
+
+  // Generate 5-15 mock items
+  const count = Math.floor(Math.random() * 10) + 5;
+  return Array.from({ length: count }, (_, index) => ({
+    ...baseData,
+    id: baseData.id + index,
+    name: `${endpoint} Item ${index + 1}`,
+    sortOrder: index,
+  }));
+}'''
+        
+        use_page_data_file = core_hooks_path / "usePageData.ts"
+        self.write_file(use_page_data_file, use_page_data_content)
+        
+        # Generate useAuthStatus hook
+        auth_hook_content = '''import { useState, useEffect } from "react";
+
+export const useAuthStatus = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    // Simulate auth check
+    setTimeout(() => {
+      setIsAuthenticated(true);
+      setUser({ name: 'Demo User', email: 'demo@example.com' });
+      setIsLoading(false);
+    }, 500);
+  }, []);
+
+  return {
+    isAuthenticated,
+    isLoading,
+    user
+  };
+};'''
+        
+        auth_hook_file = core_hooks_path / "useAuthStatus.ts"
+        self.write_file(auth_hook_file, auth_hook_content)
+
+        # Generate core hooks index
+        core_index_content = '''export { usePageData, type UsePageDataResult } from "./usePageData";
+export { useAuthStatus } from "./useAuthStatus";
+'''
+        core_index_file = core_hooks_path / "index.ts"
+        self.write_file(core_index_file, core_index_content)
+        
+        print("  📝 Generated core hooks (usePageData, useAuthStatus)")
+
+    def generate_standalone_hooks(self):
+        """Generate standalone utility hooks"""
+        src_path = self.get_src_path()
+        hooks_path = src_path / "hooks"
+        
+        # Generate useActionSheet hook
+        use_action_sheet_content = '''import { useState } from "react";
+
+export const useActionSheet = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSheet = () => setIsOpen(!isOpen);
+  const closeSheet = () => setIsOpen(false);
+  const openSheet = () => setIsOpen(true);
+
+  return {
+    isOpen,
+    toggleSheet,
+    closeSheet,
+    openSheet,
+  };
+};'''
+        
+        use_action_sheet_file = hooks_path / "useActionSheet.ts"
+        self.write_file(use_action_sheet_file, use_action_sheet_content)
+        
+        # Generate useInstructions hook
+        use_instructions_content = '''import { useState } from "react";
+
+export const useInstructions = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [title, setTitle] = useState("");
+  const [instructions, setInstructions] = useState<string[]>([]);
+
+  const showInstructions = (instructionTitle: string, instructionList: string[]) => {
+    setTitle(instructionTitle);
+    setInstructions(instructionList);
+    setIsOpen(true);
+  };
+
+  const openInstructions = () => setIsOpen(true);
+  const closeInstructions = () => setIsOpen(false);
+
+  return {
+    isOpen,
+    title,
+    instructions,
+    showInstructions,
+    openInstructions,
+    closeInstructions,
+    setInstructions: (instructionTitle: string, instructionList: string[]) => {
+      setTitle(instructionTitle);
+      setInstructions(instructionList);
+    },
+    clearInstructions: () => {
+      setTitle("");
+      setInstructions([]);
+    },
+  };
+};'''
+        
+        use_instructions_file = hooks_path / "useInstructions.ts"
+        self.write_file(use_instructions_file, use_instructions_content)
+
     def generate_main_hooks_index(self):
         """Generate main hooks index file dynamically"""
         src_path = self.get_src_path()
@@ -269,6 +439,13 @@ export const {hook_name} = () => {{
         exports = []
         for domain in domains.keys():
             exports.append(f"export * from './{domain}';")
+        
+        # Add core hooks export
+        exports.append("export * from './core';")
+        
+        # Add standalone hooks exports
+        exports.append("export { useActionSheet } from './useActionSheet';")
+        exports.append("export { useInstructions } from './useInstructions';")
         
         main_hooks_index = chr(10).join(exports) + chr(10)
         

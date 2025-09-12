@@ -383,7 +383,7 @@ class ServiceManager:
         """Start the frontend service"""
         self.log("Starting frontend service...")
         
-        frontend_dir = Path("../frontend-v2")
+        frontend_dir = Path("/mnt/c/Projects/chessboard-vanilla-v2/frontend-v2")
         if not frontend_dir.exists():
             self.log("Frontend directory not found", "ERROR")
             return None

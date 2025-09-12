@@ -35,7 +35,7 @@ export const CoinsModal: React.FC<CoinsModalProps> = ({
             onClick={onClose}
             className="p-1 hover:bg-muted rounded-lg transition-colors"
             aria-label="Close coins modal"
-          >
+           id="coins-modal-btn">
             <X className="w-5 h-5 text-muted-foreground" />
           </button>
         </div>
@@ -77,7 +77,7 @@ export const CoinsModal: React.FC<CoinsModalProps> = ({
         <button
           onClick={onClose}
           className="w-full px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
-        >
+         id="coins-modal-close-btn">
           Close
         </button>
       </div>

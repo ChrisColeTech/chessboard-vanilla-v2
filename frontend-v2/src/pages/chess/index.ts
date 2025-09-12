@@ -1,0 +1,14 @@
+export { ChessPage } from "./ChessPage";
+export { ChessMainPage } from "./ChessMainPage";
+export { PuzzlesPage } from "./PuzzlesPage";
+export { MobilePuzzlesPage } from "./MobilePuzzlesPage";
+export { GamesPage } from "./GamesPage";
+export { MobileGamesPage } from "./MobileGamesPage";
+export { OpeningsPage } from "./OpeningsPage";
+export { MobileOpeningsPage } from "./MobileOpeningsPage";
+export { AnalysisPage } from "./AnalysisPage";
+export { MobileAnalysisPage } from "./MobileAnalysisPage";
+export { EndgamesPage } from "./EndgamesPage";
+export { MobileEndgamesPage } from "./MobileEndgamesPage";
+export { HistoricGamesPage } from "./HistoricGamesPage";
+export { MobileHistoricGamesPage } from "./MobileHistoricGamesPage";

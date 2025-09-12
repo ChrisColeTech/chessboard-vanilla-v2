@@ -47,7 +47,7 @@ export function MenuDropdown({ onClose }: MenuDropdownProps) {
       aria-label="Navigation menu"
       onKeyDown={handleKeyDown}
       className="menu-dropdown"
-    >
+     id="menu-dropdown-rolemenuitem-classnamem-div">
       <div className="space-y-1">
         <button
           onClick={() => {

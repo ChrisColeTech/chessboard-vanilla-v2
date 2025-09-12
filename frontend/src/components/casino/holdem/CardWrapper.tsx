@@ -80,6 +80,7 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
       }}
       onClick={handleCardClick}
       onMouseDown={() => !isAnimating && onDragStart?.(card)}
+      id="card-wrapper-isanimating-ondragstartcard-div"
     >
       <div
         style={{

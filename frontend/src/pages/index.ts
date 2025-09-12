@@ -10,6 +10,7 @@ export { DragTestPage } from "./uitests/DragTestPage";
 export { HoldemPage } from "./casino/HoldemPage";
 export { MobileDragTestPage } from "./uitests/MobileDragTestPage";
 export { LayoutTestPage } from "./uitests/LayoutTestPage";
+export { ChessLayoutTestPage } from "./uitests/ChessLayoutTestPage";
 export { LoadingProgressPage } from "./splash/LoadingProgressPage";
 export { LuxurysplashPage } from "./splash/LuxurysplashPage";
 export { MinimalSplashPage } from "./splash/MinimalSplashPage";

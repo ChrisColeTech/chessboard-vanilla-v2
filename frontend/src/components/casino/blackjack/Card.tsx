@@ -31,7 +31,7 @@ export const Card: React.FC<CardProps> = ({
       `}
       style={animationStyle}
       onClick={onClick}
-    >
+     id="card-cardisvisible-div">
       {/* Card Image */}
       <img
         src={cardImagePath}

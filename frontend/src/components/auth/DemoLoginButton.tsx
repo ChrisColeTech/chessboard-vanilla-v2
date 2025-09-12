@@ -35,7 +35,7 @@ export const DemoLoginButton: React.FC<DemoLoginButtonProps> = ({
         variant={variant}
         size={size}
         className={className}
-      >
+       id="demo-login-button-btn">
         {isLoading ? (
           <div className="flex items-center space-x-2">
             <div className="w-3 h-3 border-2 border-current/30 border-t-current rounded-full animate-spin" />

@@ -38,16 +38,16 @@ class ComponentsGenerator(BaseFrontendGenerator):
         """Generate component content for an entity"""
         domain_capitalized = self.capitalize_domain(domain)
         
-        return f"""import React, {{ useEffect }} from 'react';
+        return f"""import {{ useEffect }} from 'react';
 import {{ use{domain_capitalized}Queries }} from '../../hooks/{domain}';
 
 interface {entity}ComponentProps {{
   className?: string;
 }}
 
-export const {entity}Component: React.FC<{entity}ComponentProps> = ({{
+export const {entity}Component = ({{
   className
-}}) => {{
+}}: {entity}ComponentProps) => {{
   const {{ data, loading, error, refetch }} = use{domain_capitalized}Queries();
   
   // Load data on component mount
@@ -161,15 +161,15 @@ export const {entity}Component: React.FC<{entity}ComponentProps> = ({{
         src_path = self.get_src_path()
         
         # Generate main.tsx
-        main_content = """import React from 'react'
+        main_content = """import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  <StrictMode>
     <App />
-  </React.StrictMode>,
+  </StrictMode>,
 )"""
         
         main_file = src_path / "main.tsx"
@@ -430,6 +430,214 @@ code {
         index_css_file = src_path / "index.css"
         self.write_file(index_css_file, index_css)
     
+    def generate_ui_components(self):
+        """Generate UI components like DataTable"""
+        src_path = self.get_src_path()
+        ui_components_path = src_path / "components" / "ui"
+        ui_components_path.mkdir(parents=True, exist_ok=True)
+        
+        # Generate DataTable component
+        data_table_content = '''
+interface Column {
+  key: string;
+  header: string;
+  render?: (value: any, row: any) => React.ReactNode;
+}
+
+interface DataTableProps {
+  data: any[];
+  columns?: Column[];
+  loading?: boolean;
+  error?: string | null;
+  className?: string;
+}
+
+export const DataTable: React.FC<DataTableProps> = ({
+  data = [],
+  columns = [],
+  loading = false,
+  error = null,
+  className = ""
+}) => {
+  // Auto-generate columns if not provided
+  const finalColumns = columns.length > 0 ? columns : generateColumnsFromData(data);
+
+  if (loading) {
+    return (
+      <div className={`w-full h-full flex items-center justify-center ${className}`}>
+        <div className="text-muted-foreground">Loading data...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={`w-full h-full flex items-center justify-center ${className}`}>
+        <div className="text-red-500 text-center">
+          <div className="font-semibold">Error loading data</div>
+          <div className="text-sm mt-1">{error}</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (data.length === 0) {
+    return (
+      <div className={`w-full h-full flex items-center justify-center ${className}`}>
+        <div className="text-muted-foreground">No data available</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`w-full h-full overflow-auto ${className}`}>
+      <div className="min-w-full">
+        <table className="w-full border-collapse">
+          <thead>
+            <tr className="border-b border-border bg-card/50">
+              {finalColumns.map((column) => (
+                <th
+                  key={column.key}
+                  className="text-left p-3 font-semibold text-sm text-foreground"
+                >
+                  {column.header}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((row, index) => (
+              <tr
+                key={index}
+                className="border-b border-border/50 hover:bg-card/30 transition-colors"
+              >
+                {finalColumns.map((column) => (
+                  <td key={column.key} className="p-3 text-sm text-muted-foreground">
+                    {column.render
+                      ? column.render(row[column.key], row)
+                      : formatValue(row[column.key])}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+// Helper function to auto-generate columns from data
+function generateColumnsFromData(data: any[]): Column[] {
+  if (data.length === 0) return [];
+
+  const firstRow = data[0];
+  const keys = Object.keys(firstRow);
+
+  return keys.slice(0, 6).map((key) => ({
+    key,
+    header: key.charAt(0).toUpperCase() + key.slice(1).replace(/[_-]/g, ' ')
+  }));
+}
+
+// Helper function to format values for display
+function formatValue(value: any): string {
+  if (value === null || value === undefined) return '-';
+  if (typeof value === 'boolean') return value ? 'Yes' : 'No';
+  if (typeof value === 'object') return JSON.stringify(value);
+  if (typeof value === 'string' && value.length > 50) {
+    return value.substring(0, 50) + '...';
+  }
+  return String(value);
+}'''
+        
+        data_table_file = ui_components_path / "DataTable.tsx"
+        self.write_file(data_table_file, data_table_content)
+        
+        # Generate Button component
+        button_content = '''import type { ButtonHTMLAttributes } from "react";
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: "primary" | "secondary" | "destructive" | "ghost";
+  size?: "sm" | "md" | "lg";
+  isLoading?: boolean;
+}
+
+export const Button: React.FC<ButtonProps> = ({
+  children,
+  variant = "primary",
+  size = "md",
+  isLoading = false,
+  disabled,
+  className = "",
+  ...props
+}) => {
+  const baseClasses = "inline-flex items-center justify-center font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none";
+  
+  const variantClasses = {
+    primary: "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500",
+    secondary: "bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500",
+    destructive: "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500",
+    ghost: "text-gray-700 hover:bg-gray-100 focus:ring-gray-500"
+  };
+  
+  const sizeClasses = {
+    sm: "px-3 py-1.5 text-sm rounded",
+    md: "px-4 py-2 text-base rounded-md",
+    lg: "px-6 py-3 text-lg rounded-lg"
+  };
+  
+  const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
+  
+  return (
+    <button
+      className={classes}
+      disabled={disabled || isLoading}
+      {...props}
+    >
+      {isLoading ? (
+        <>
+          <svg
+            className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            ></circle>
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+          Loading...
+        </>
+      ) : (
+        children
+      )}
+    </button>
+  );
+};'''
+        
+        button_file = ui_components_path / "button.tsx"
+        self.write_file(button_file, button_content)
+        
+        # Generate UI components index
+        ui_index_content = '''export { DataTable } from "./DataTable";
+export { Button } from "./button";
+'''
+        ui_index_file = ui_components_path / "index.ts"
+        self.write_file(ui_index_file, ui_index_content)
+        
+        print("  📝 Generated UI components (DataTable, Button)")
+
     def generate_main_components_index(self):
         """Generate main components index file dynamically"""
         src_path = self.get_src_path()
@@ -444,7 +652,181 @@ code {
         for domain in domains.keys():
             exports.append(f"export * from './{domain}';")
         
+        # Add UI components export
+        exports.append("export * from './ui';")
+        
         main_components_index = chr(10).join(exports) + chr(10)
         
         components_index_file = src_path / "components" / "index.ts"
         self.write_file(components_index_file, main_components_index)
+
+    def generate_chess_components(self):
+        """Generate chess layout components"""
+        src_path = self.get_src_path()
+        chess_components_path = src_path / "components" / "chess"
+        chess_components_path.mkdir(parents=True, exist_ok=True)
+        
+        # Generate ChessboardLayout component
+        chessboard_layout_content = '''
+interface ChessboardLayoutProps {
+  children?: React.ReactNode
+  topLeft?: React.ReactNode
+  top?: React.ReactNode
+  topRight?: React.ReactNode
+  left?: React.ReactNode
+  center: React.ReactNode
+  right?: React.ReactNode
+  bottomLeft?: React.ReactNode
+  bottom?: React.ReactNode
+  bottomRight?: React.ReactNode
+  className?: string
+}
+
+export const ChessboardLayout: React.FC<ChessboardLayoutProps> = ({
+  topLeft,
+  top,
+  topRight,
+  left,
+  center,
+  right,
+  bottomLeft,
+  bottom,
+  bottomRight,
+  className = ""
+}) => {
+  return (
+    <div 
+      className={`w-full h-full border-2 border-border p-2 ${className}`}
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '100px 1fr 100px',
+        gridTemplateRows: '80px 1fr 80px',
+        gap: '8px',
+        minHeight: '100%'
+      }}
+    >
+      {/* Row 1 */}
+      <div 
+        className="flex items-center justify-center border border-border/50 p-2 rounded"
+        style={{ minHeight: '0', minWidth: '0' }}
+      >
+        {topLeft}
+      </div>
+      <div 
+        className="flex items-center justify-center border border-border/50 p-2 rounded"
+        style={{ minHeight: '0', minWidth: '0' }}
+      >
+        {top}
+      </div>
+      <div 
+        className="flex items-center justify-center border border-border/50 p-2 rounded"
+        style={{ minHeight: '0', minWidth: '0' }}
+      >
+        {topRight}
+      </div>
+
+      {/* Row 2 */}
+      <div 
+        className="flex items-center justify-center border border-border/50 p-2 rounded"
+        style={{ minHeight: '0', minWidth: '0' }}
+      >
+        {left}
+      </div>
+      <div 
+        className="flex items-center justify-center border border-border/50 p-2 rounded"
+        style={{ minHeight: '0', minWidth: '0' }}
+      >
+        {center}
+      </div>
+      <div 
+        className="flex items-center justify-center border border-border/50 p-2 rounded"
+        style={{ minHeight: '0', minWidth: '0' }}
+      >
+        {right}
+      </div>
+
+      {/* Row 3 */}
+      <div 
+        className="flex items-center justify-center border border-border/50 p-2 rounded"
+        style={{ minHeight: '0', minWidth: '0' }}
+      >
+        {bottomLeft}
+      </div>
+      <div 
+        className="flex items-center justify-center border border-border/50 p-2 rounded"
+        style={{ minHeight: '0', minWidth: '0' }}
+      >
+        {bottom}
+      </div>
+      <div 
+        className="flex items-center justify-center border border-border/50 p-2 rounded"
+        style={{ minHeight: '0', minWidth: '0' }}
+      >
+        {bottomRight}
+      </div>
+    </div>
+  )
+}'''
+        
+        chessboard_file = chess_components_path / "ChessboardLayout.tsx"
+        self.write_file(chessboard_file, chessboard_layout_content)
+
+        # Generate MobileChessboardLayout component  
+        mobile_chessboard_content = '''
+interface MobileChessboardLayoutProps {
+  children?: React.ReactNode
+  topPieces?: React.ReactNode
+  center: React.ReactNode
+  bottomPieces?: React.ReactNode
+  className?: string
+}
+
+export const MobileChessboardLayout: React.FC<MobileChessboardLayoutProps> = ({
+  topPieces,
+  center,
+  bottomPieces,
+  className = ""
+}) => {
+  return (
+    <div 
+      className={`w-full h-full flex flex-col gap-2 p-2 ${className}`}
+      style={{ minHeight: '100%' }}
+    >
+      {/* Top pieces area */}
+      <div 
+        className="w-full flex items-center justify-center border border-border/50 p-4 rounded"
+        style={{ minHeight: '80px' }}
+      >
+        {topPieces}
+      </div>
+
+      {/* Center board area */}
+      <div 
+        className="w-full flex-1 flex items-center justify-center border border-border/50 p-4 rounded"
+        style={{ minHeight: '300px' }}
+      >
+        {center}
+      </div>
+
+      {/* Bottom pieces area */}
+      <div 
+        className="w-full flex items-center justify-center border border-border/50 p-4 rounded"
+        style={{ minHeight: '80px' }}
+      >
+        {bottomPieces}
+      </div>
+    </div>
+  )
+}'''
+        
+        mobile_chessboard_file = chess_components_path / "MobileChessboardLayout.tsx"
+        self.write_file(mobile_chessboard_file, mobile_chessboard_content)
+        
+        # Generate chess components index
+        chess_index_content = '''export { ChessboardLayout } from "./ChessboardLayout";
+export { MobileChessboardLayout } from "./MobileChessboardLayout";
+'''
+        chess_index_file = chess_components_path / "index.ts"
+        self.write_file(chess_index_file, chess_index_content)
+        
+        print("  📝 Generated chess layout components")

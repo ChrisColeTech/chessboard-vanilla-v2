@@ -11,7 +11,7 @@ from base_generator import BaseFrontendGenerator
 class LayoutGenerator(BaseFrontendGenerator):
     """Generates layout components and main app structure"""
     
-    def __init__(self, frontend_path: str = "../frontend-v2"):
+    def __init__(self, frontend_path: str = "/mnt/c/Projects/chessboard-vanilla-v2/frontend-v2"):
         super().__init__(frontend_path)
         
         # Map domain names to tab icons and descriptions
@@ -272,54 +272,179 @@ export default App;
     
     def get_app_layout_template(self) -> str:
         """Generate AppLayout component"""
-        return '''import React, { useState } from "react";
+        return '''import type { ReactNode } from "react";
 import { BackgroundEffects } from "./BackgroundEffects";
-import { MainContent } from "./MainContent";
-import { TabBar } from "./TabBar";
 import { TitleBar } from "./TitleBar";
-import { ActionSheetContainer } from "../ui/ActionSheetContainer";
+import { Header } from "./Header";
+import { TabBar } from "./TabBar";
+import { SettingsPanel } from "../core/SettingsPanel";
+import { ActionSheetContainer } from "../action-sheet";
+import { InstructionsFAB } from "../core/InstructionsFAB";
+import { InstructionsModal } from "../core/InstructionsModal";
+import { CoinsModal } from "../casino/CoinsModal";
+import { useSettings, useCoinsModal } from "../../stores/appStore";
+import { useInstructions } from "../../contexts/InstructionsContext";
+import { useActionSheet } from "../../hooks";
 import type { TabId } from "./types";
 
+/**
+ * GLASSMORPHISM DESIGN SYSTEM
+ * ===========================
+ *
+ * This app uses a consistent glassmorphism design system with two main classes:
+ *
+ * 1. `glass-layout` - For full-width layout elements (Header, TabBar)
+ *    - No rounded corners (sharp edges for layout)
+ *    - Subtle glassmorphism effect
+ *    - No entry animations
+ *
+ * 2. `card-gaming` - For content cards (modals, panels, cards)
+ *    - Rounded corners for content separation
+ *    - Same glassmorphism effect
+ *    - Entry animations for engagement
+ *
+ * USAGE RULES:
+ * - Header/TabBar: Use `glass-layout`
+ * - Content cards/panels: Use `card-gaming`
+ * - Modals/overlays: Use `card-gaming`
+ * - Never mix classes - stick to the designated purpose
+ */
+
 interface AppLayoutProps {
-  children: React.ReactNode;
+  children: ReactNode;
   currentTab: TabId;
   onTabChange: (tab: TabId) => void;
-  coinBalance: number;
+  coinBalance?: number;
 }
 
-export function AppLayout({ children, currentTab, onTabChange, coinBalance }: AppLayoutProps) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+export function AppLayout({
+  children,
+  currentTab,
+  onTabChange,
+  coinBalance,
+}: AppLayoutProps) {
+  const {
+    isOpen: isSettingsPanelOpen,
+    open: openSettings,
+    close: closeSettings,
+  } = useSettings();
+  const {
+    isOpen: isMenuOpen,
+    toggleSheet: toggleMenu,
+    closeSheet: closeMenu,
+  } = useActionSheet();
+  const {
+    instructions,
+    title,
+    isOpen: showInstructions,
+    openInstructions,
+    closeInstructions,
+  } = useInstructions();
+  const {
+    isOpen: isCoinsModalOpen,
+    close: closeCoinsModal,
+    coinBalance: currentCoinBalance,
+  } = useCoinsModal();
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-background text-foreground relative">
-      {/* Background effects */}
+    <div className="relative min-h-screen min-h-[100dvh] bg-background text-foreground">
       <BackgroundEffects />
-      
-      {/* Main app structure */}
-      <div className="relative z-10 flex flex-col h-full">
-        {/* Title bar */}
-        <TitleBar coinBalance={coinBalance} />
-        
-        {/* Tab navigation */}
-        <TabBar 
+
+      {/* Title Bar - Fixed positioning at the very top */}
+      <div className="fixed top-0 left-0 right-0 z-30">
+        <TitleBar coinBalance={coinBalance || 0} />
+      </div>
+
+      {/* 
+        Header - Fixed positioning for mobile compatibility
+        ✅ Fixed to top with proper z-index, below title bar
+        Hide when settings panel is open
+      */}
+      <header
+        className={`fixed top-10 left-0 right-0 z-20 transition-transform duration-300 ease-out ${
+          isSettingsPanelOpen
+            ? "-translate-y-full opacity-0"
+            : "translate-y-0 opacity-100"
+        }`}
+      >
+        <Header
+          onOpenSettings={openSettings}
+          coinBalance={coinBalance}
+        />
+      </header>
+
+      {/* Main Content Area - constrained between fixed header and footer */}
+      <div className="absolute top-10 bottom-[57px] left-0 right-0 z-10">
+        {/* Primary Content - scrollable within the constrained area */}
+        <main className="w-full h-full overflow-auto  pt-16 px-4 sm:pt-24">
+          {children}
+        </main>
+
+        {/* Instructions FAB - positioned within main content area */}
+        <InstructionsFAB onClick={openInstructions} />
+
+        {/* 
+            Settings Panel - Uses `card-gaming` for rounded corners and entry animations
+            ✅ Correct: Content overlay with rounded design
+          */}
+        <>
+          {/* Backdrop - covers entire main content */}
+          <div
+            className={`absolute inset-0 bg-black/20 backdrop-blur-sm z-20 transition-opacity duration-300 ease-out ${
+              isSettingsPanelOpen
+                ? "opacity-100"
+                : "opacity-0 pointer-events-none"
+            }`}
+            onClick={closeSettings}
+          />
+
+          {/* Settings Panel */}
+          <aside
+            className={`absolute top-0 right-0 h-full z-30 transform transition-transform duration-300 ease-out ${
+              isSettingsPanelOpen ? "translate-x-0" : "translate-x-full"
+            }`}
+          >
+            <SettingsPanel
+              onClose={closeSettings}
+            />
+          </aside>
+        </>
+      </div>
+
+      {/* ActionSheet - Always rendered, HeadlessUI manages show/hide */}
+      <ActionSheetContainer
+        onClose={closeMenu}
+        isOpen={isMenuOpen}
+        onOpenSettings={openSettings}
+      />
+
+      {/* 
+          TabBar - Fixed positioning for mobile compatibility  
+          ✅ Fixed to bottom with proper z-index
+        */}
+      <footer className="fixed bottom-0 left-0 right-0 z-20 glass-layout">
+        <TabBar
           currentTab={currentTab}
           onTabChange={onTabChange}
           isMenuOpen={isMenuOpen}
           onToggleMenu={toggleMenu}
         />
-        
-        {/* Main content area */}
-        <MainContent>
-          {children}
-        </MainContent>
-      </div>
-      
-      {/* Action sheets overlay */}
-      <ActionSheetContainer />
+      </footer>
+
+      {/* Global Instructions Modal */}
+      <InstructionsModal
+        isOpen={showInstructions}
+        onClose={closeInstructions}
+        title={title}
+        instructions={instructions}
+      />
+
+      {/* Global Coins Modal */}
+      <CoinsModal
+        isOpen={isCoinsModalOpen}
+        onClose={closeCoinsModal}
+        coinBalance={currentCoinBalance}
+      />
     </div>
   );
 }
@@ -467,6 +592,12 @@ export type { TabId } from "./types";
             f.write(menu_button_content)
         print("  📝 Generated components/layout/MenuButton.tsx")
         
+        # Generate Header.tsx
+        header_content = self.get_header_template()
+        with open(layout_dir / "Header.tsx", 'w') as f:
+            f.write(header_content)
+        print("  📝 Generated components/layout/Header.tsx")
+
         # Generate BackgroundEffects.tsx
         bg_effects_content = self.get_background_effects_template()
         with open(layout_dir / "BackgroundEffects.tsx", 'w') as f:
@@ -480,6 +611,9 @@ export type { TabId } from "./types";
         print("  📝 Generated components/layout/index.ts")
         
         print("✅ Layout components generated successfully!")
+        
+        # Generate all supporting components needed by AppLayout
+        self.generate_all_supporting_components()
     
     def generate_main_app(self, domains: List[str]):
         """Generate main App.tsx with dynamic routing"""
@@ -880,47 +1014,6 @@ export const SplashModal: React.FC = () => {
 };
 '''
     
-    def get_updated_app_store_template(self) -> str:
-        """Generate updated appStore with missing exports"""
-        return '''import { create } from "zustand";
-import { persist, subscribeWithSelector } from "zustand/middleware";
-
-export type TabId = 'chess' | 'user' | 'learning' | 'progress' | 'support' | 'other';
-
-interface AppState {
-  selectedTab: TabId;
-  currentChildPage: string | null;
-  coinBalance: number;
-  setSelectedTab: (tab: TabId) => void;
-  setCurrentChildPage: (childPage: string | null) => void;
-  setCoinBalance: (balance: number) => void;
-}
-
-export const useAppStore = create<AppState>()(
-  subscribeWithSelector(
-    persist(
-      (set) => ({
-        selectedTab: 'chess',
-        currentChildPage: null,
-        coinBalance: 1000,
-        setSelectedTab: (tab) => set({ selectedTab: tab }),
-        setCurrentChildPage: (childPage) => set({ currentChildPage: childPage }),
-        setCoinBalance: (balance) => set({ coinBalance: balance }),
-      }),
-      {
-        name: 'chess-app-store',
-        partialize: (state) => ({
-          selectedTab: state.selectedTab,
-          currentChildPage: state.currentChildPage,
-          coinBalance: state.coinBalance,
-        }),
-      }
-    )
-  )
-);
-
-export const useSelectedTab = () => useAppStore((state) => state.selectedTab);
-'''
     
     def generate_missing_dependencies(self):
         """Generate all missing providers, contexts, hooks, and components"""
@@ -1039,12 +1132,8 @@ export const useAuthStatus = () => {
             f.write(splash_modal_content)
         print("  📝 Generated components/splash/SplashModal.tsx")
         
-        # Update appStore with missing exports
-        app_store_content = self.get_updated_app_store_template()
-        stores_dir = self.get_src_path() / "stores"
-        with open(stores_dir / "appStore.ts", 'w') as f:
-            f.write(app_store_content)
-        print("  📝 Updated stores/appStore.ts with missing exports")
+        # Note: appStore.ts is generated by stores_generator.py - do not overwrite here
+        # to avoid coordination conflicts and missing exports (useSettings, useCoinsModal)
         
         print("✅ Missing dependencies generated successfully!")
     
@@ -1054,7 +1143,376 @@ export const useAuthStatus = () => {
         
         self.generate_layout_components(domains)
         self.generate_core_components()
+        self.generate_ui_components()  # Add UI components like DataTable
+        self.generate_core_hooks()     # Add core hooks like usePageData
         self.generate_missing_dependencies()
         self.generate_main_app(domains)
         
         print("✅ Complete app infrastructure generated successfully!")
+    
+    def generate_ui_components(self):
+        """Generate UI components using ComponentsGenerator"""
+        from components_generator import ComponentsGenerator
+        components_gen = ComponentsGenerator(str(self.frontend_path))
+        components_gen.backend_config = {'endpoints': []}  # Empty config for UI generation
+        components_gen.generate_ui_components()
+    
+    def generate_core_hooks(self):
+        """Generate core hooks using HooksGenerator"""
+        from hooks_generator import HooksGenerator
+        hooks_gen = HooksGenerator(str(self.frontend_path))
+        hooks_gen.backend_config = {'endpoints': []}  # Empty config for core hooks
+        hooks_gen.generate_core_hooks()
+    
+    def get_header_template(self) -> str:
+        """Generate Header component"""
+        return '''import { Settings } from "lucide-react";
+import { Button } from "../ui/button";
+
+interface HeaderProps {
+  onOpenSettings: () => void;
+  coinBalance?: number;
+}
+
+export function Header({ onOpenSettings, coinBalance }: HeaderProps) {
+  return (
+    <div className="glass-layout px-4 py-2 flex items-center justify-between">
+      <div className="flex-1" />
+      
+      <div className="flex items-center gap-2">
+        {coinBalance !== undefined && (
+          <div className="text-sm font-medium text-muted-foreground">
+            Balance: {coinBalance}
+          </div>
+        )}
+        
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={onOpenSettings}
+          className="h-8 w-8 p-0"
+        >
+          <Settings className="h-4 w-4" />
+        </Button>
+      </div>
+    </div>
+  );
+}
+'''
+
+    def generate_all_supporting_components(self):
+        """Generate all components required by the AppLayout"""
+        print("🔧 Generating supporting components for AppLayout...")
+        
+        src_path = self.get_src_path()
+        
+        # Create core components directory
+        core_dir = src_path / "components" / "core"
+        core_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Create SettingsPanel
+        settings_panel = '''
+interface SettingsPanelProps {
+  onClose: () => void;
+}
+
+export function SettingsPanel({ onClose }: SettingsPanelProps) {
+  return (
+    <div className="card-gaming w-80 h-full p-6">
+      <h2 className="text-xl font-bold mb-4">Settings</h2>
+      <p className="text-muted-foreground mb-4">Settings panel placeholder</p>
+      <button 
+        onClick={onClose}
+        className="px-4 py-2 bg-primary text-primary-foreground rounded"
+      >
+        Close
+      </button>
+    </div>
+  );
+}'''
+        
+        with open(core_dir / "SettingsPanel.tsx", 'w') as f:
+            f.write(settings_panel)
+        print("  📝 Generated components/core/SettingsPanel.tsx")
+        
+        # Create InstructionsFAB
+        instructions_fab = '''import { HelpCircle } from "lucide-react";
+
+interface InstructionsFABProps {
+  onClick: () => void;
+}
+
+export function InstructionsFAB({ onClick }: InstructionsFABProps) {
+  return (
+    <button
+      onClick={onClick}
+      className="fixed bottom-20 right-4 w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center shadow-lg z-10"
+    >
+      <HelpCircle className="h-6 w-6" />
+    </button>
+  );
+}'''
+        
+        with open(core_dir / "InstructionsFAB.tsx", 'w') as f:
+            f.write(instructions_fab)
+        print("  📝 Generated components/core/InstructionsFAB.tsx")
+        
+        # Create InstructionsModal
+        instructions_modal = '''
+interface InstructionsModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title?: string;
+  instructions?: string[];
+}
+
+export function InstructionsModal({ isOpen, onClose, title, instructions }: InstructionsModalProps) {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+      <div className="card-gaming max-w-md w-full p-6">
+        <h2 className="text-xl font-bold mb-4">{title || "Instructions"}</h2>
+        <div className="space-y-2 mb-6">
+          {instructions?.map((instruction, index) => (
+            <p key={index} className="text-muted-foreground">{instruction}</p>
+          ))}
+        </div>
+        <button 
+          onClick={onClose}
+          className="px-4 py-2 bg-primary text-primary-foreground rounded"
+        >
+          Got it
+        </button>
+      </div>
+    </div>
+  );
+}'''
+        
+        with open(core_dir / "InstructionsModal.tsx", 'w') as f:
+            f.write(instructions_modal)
+        print("  📝 Generated components/core/InstructionsModal.tsx")
+        
+        # Create casino directory and CoinsModal
+        casino_dir = src_path / "components" / "casino"
+        casino_dir.mkdir(parents=True, exist_ok=True)
+        
+        coins_modal = '''
+interface CoinsModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  coinBalance?: number;
+}
+
+export function CoinsModal({ isOpen, onClose, coinBalance }: CoinsModalProps) {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+      <div className="card-gaming max-w-md w-full p-6">
+        <h2 className="text-xl font-bold mb-4">Coin Balance</h2>
+        <p className="text-muted-foreground mb-6">
+          Current balance: {coinBalance || 0} coins
+        </p>
+        <button 
+          onClick={onClose}
+          className="px-4 py-2 bg-primary text-primary-foreground rounded"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  );
+}'''
+        
+        with open(casino_dir / "CoinsModal.tsx", 'w') as f:
+            f.write(coins_modal)
+        print("  📝 Generated components/casino/CoinsModal.tsx")
+        
+        # Create action-sheet directory and ActionSheetContainer
+        action_sheet_dir = src_path / "components" / "action-sheet"
+        action_sheet_dir.mkdir(parents=True, exist_ok=True)
+        
+        action_sheet = '''
+interface ActionSheetContainerProps {
+  onClose: () => void;
+  isOpen: boolean;
+  onOpenSettings: () => void;
+}
+
+export function ActionSheetContainer({ onClose, isOpen, onOpenSettings }: ActionSheetContainerProps) {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-40 bg-black/50 flex items-end justify-center p-4">
+      <div className="card-gaming w-full max-w-md p-6">
+        <h2 className="text-xl font-bold mb-4">Menu</h2>
+        <div className="space-y-2">
+          <button 
+            onClick={onOpenSettings}
+            className="w-full text-left px-4 py-2 hover:bg-accent rounded"
+          >
+            Settings
+          </button>
+          <button 
+            onClick={onClose}
+            className="w-full text-left px-4 py-2 hover:bg-accent rounded"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}'''
+        
+        with open(action_sheet_dir / "ActionSheetContainer.tsx", 'w') as f:
+            f.write(action_sheet)
+        print("  📝 Generated components/action-sheet/ActionSheetContainer.tsx")
+        
+        # Create index files
+        core_index = '''export { SettingsPanel } from "./SettingsPanel";
+export { InstructionsFAB } from "./InstructionsFAB";  
+export { InstructionsModal } from "./InstructionsModal";
+'''
+        with open(core_dir / "index.ts", 'w') as f:
+            f.write(core_index)
+        print("  📝 Generated components/core/index.ts")
+        
+        casino_index = '''export { CoinsModal } from "./CoinsModal";
+'''
+        with open(casino_dir / "index.ts", 'w') as f:
+            f.write(casino_index)
+        print("  📝 Generated components/casino/index.ts")
+        
+        action_sheet_index = '''export { ActionSheetContainer } from "./ActionSheetContainer";
+'''
+        with open(action_sheet_dir / "index.ts", 'w') as f:
+            f.write(action_sheet_index)
+        print("  📝 Generated components/action-sheet/index.ts")
+        
+        # Generate missing stores and contexts
+        self.generate_missing_stores_and_contexts()
+        
+        # Generate missing hooks  
+        self.generate_missing_hooks()
+        
+        print("✅ Supporting components generated successfully!")
+        
+    def generate_missing_stores_and_contexts(self):
+        """Generate missing stores and contexts"""
+        src_path = self.get_src_path()
+        
+        # Create stores directory
+        stores_dir = src_path / "stores"  
+        stores_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Note: appStore.ts is already generated by stores_generator.py with proper exports
+        # including useSettings and useCoinsModal. Do not overwrite to avoid coordination conflicts.
+        
+        # Create contexts directory
+        contexts_dir = src_path / "contexts"
+        contexts_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Generate InstructionsContext
+        instructions_context = '''import React, { createContext, useContext, useState, ReactNode } from "react";
+
+interface InstructionsContextType {
+  instructions: string[];
+  title: string;
+  showInstructions: boolean;
+  openInstructions: () => void;
+  closeInstructions: () => void;
+  setInstructions: (title: string, instructions: string[]) => void;
+}
+
+const InstructionsContext = createContext<InstructionsContextType | undefined>(undefined);
+
+interface InstructionsProviderProps {
+  children: ReactNode;
+}
+
+export function InstructionsProvider({ children }: InstructionsProviderProps) {
+  const [instructions, setInstructionsState] = useState<string[]>([]);
+  const [title, setTitle] = useState<string>("");
+  const [showInstructions, setShowInstructions] = useState(false);
+
+  const setInstructions = (newTitle: string, newInstructions: string[]) => {
+    setTitle(newTitle);
+    setInstructionsState(newInstructions);
+  };
+
+  const openInstructions = () => setShowInstructions(true);
+  const closeInstructions = () => setShowInstructions(false);
+
+  return (
+    <InstructionsContext.Provider
+      value={{
+        instructions,
+        title,
+        showInstructions,
+        openInstructions,
+        closeInstructions,
+        setInstructions,
+      }}
+    >
+      {children}
+    </InstructionsContext.Provider>
+  );
+}
+
+export function useInstructions(): InstructionsContextType {
+  const context = useContext(InstructionsContext);
+  if (!context) {
+    throw new Error("useInstructions must be used within InstructionsProvider");
+  }
+  return context;
+}
+'''
+        
+        with open(contexts_dir / "InstructionsContext.tsx", 'w') as f:
+            f.write(instructions_context)
+        print("  📝 Generated contexts/InstructionsContext.tsx")
+        
+    def generate_missing_hooks(self):
+        """Generate missing hooks"""
+        src_path = self.get_src_path()
+        
+        # Create hooks directory if it doesn't exist
+        hooks_dir = src_path / "hooks"
+        hooks_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Generate useActionSheet hook
+        action_sheet_hook = '''import { useState } from "react";
+
+export const useActionSheet = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSheet = () => setIsOpen(!isOpen);
+  const closeSheet = () => setIsOpen(false);
+  const openSheet = () => setIsOpen(true);
+
+  return {
+    isOpen,
+    toggleSheet,
+    closeSheet,
+    openSheet,
+  };
+};
+'''
+        
+        with open(hooks_dir / "useActionSheet.ts", 'w') as f:
+            f.write(action_sheet_hook)
+        print("  📝 Generated hooks/useActionSheet.ts")
+        
+        # Update hooks/index.ts to export the new hook
+        hooks_index = src_path / "hooks" / "index.ts"
+        if hooks_index.exists():
+            with open(hooks_index, 'r') as f:
+                current_content = f.read()
+            
+            if 'useActionSheet' not in current_content:
+                updated_content = current_content + '\nexport { useActionSheet } from "./useActionSheet";\n'
+                with open(hooks_index, 'w') as f:
+                    f.write(updated_content)
+                print("  📝 Updated hooks/index.ts to export useActionSheet")

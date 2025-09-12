@@ -29,7 +29,7 @@ The refactored generator follows a modular architecture with the following compo
 from frontend_tools import FrontendOrchestrator
 
 # Create orchestrator
-orchestrator = FrontendOrchestrator("../frontend-v2")
+orchestrator = FrontendOrchestrator("/mnt/c/Projects/chessboard-vanilla-v2/frontend-v2")
 
 # Generate all domains
 orchestrator.generate_all_domains()
@@ -47,7 +47,7 @@ orchestrator.list_available_domains()
 from frontend_tools import TypesGenerator, ServicesGenerator
 
 # Use individual generators
-types_gen = TypesGenerator("../frontend-v2")
+types_gen = TypesGenerator("/mnt/c/Projects/chessboard-vanilla-v2/frontend-v2")
 types_gen.load_backend_config("backend_config.json")
 types_gen.generate_common_types()
 types_gen.generate_domain_types("auth", ["auth", "users"])

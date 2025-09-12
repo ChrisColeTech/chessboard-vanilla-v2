@@ -11,7 +11,7 @@ from base_generator import BaseFrontendGenerator
 class PagesGenerator(BaseFrontendGenerator):
     """Generates React pages based on backend config endpoints"""
     
-    def __init__(self, frontend_path: str = "../frontend-v2"):
+    def __init__(self, frontend_path: str = "/mnt/c/Projects/chessboard-vanilla-v2/frontend-v2"):
         super().__init__(frontend_path)
         
         # Page domain mapper - groups related endpoints into logical page domains
@@ -31,6 +31,47 @@ class PagesGenerator(BaseFrontendGenerator):
             # Support and business
             'support': ['help', 'subscriptions', 'puzzle-sources', 'game-reviews']
         }
+        
+        # Page instruction mapping - provides meaningful instructions for each page type
+        self.page_instructions = {
+            # Chess domain
+            'puzzles': 'Solve chess puzzles to improve your tactical skills. Click on pieces to make moves.',
+            'games': 'Play chess games against opponents or review completed matches.',
+            'openings': 'Study chess opening theory and explore different opening variations.',
+            'endgames': 'Practice essential endgame positions and techniques.',
+            'analysis': 'Analyze chess positions using computer assistance and evaluation.',
+            'historic-games': 'Browse and study famous chess games from history.',
+            
+            # User domain
+            'auth': 'Sign in to your account or create a new account to access all features.',
+            'sessions': 'Manage your active sessions and device connections.',
+            'users': 'View and manage user profiles and information.',
+            'profiles': 'Customize your chess profile, ratings, and preferences.',
+            
+            # Learning domain
+            'tutorials': 'Interactive chess tutorials to learn fundamental concepts.',
+            'learning': 'Structured chess courses covering all aspects of the game.',
+            'learning-modules': 'Individual learning modules focusing on specific chess topics.',
+            'tutorial-steps': 'Step-by-step guidance through chess learning materials.',
+            'study-plans': 'Personalized study plans tailored to your chess level.',
+            
+            # Progress domain
+            'stats': 'View your chess statistics, ratings, and performance trends.',
+            'progress': 'Track your chess improvement over time with detailed metrics.',
+            'achievements': 'Browse your chess achievements and unlock new milestones.',
+            'analytics': 'Deep dive into your playing patterns and areas for improvement.',
+            'puzzle-attempts': 'Review your puzzle solving history and accuracy.',
+            
+            # Support domain
+            'help': 'Find answers to common questions and get support.',
+            'subscriptions': 'Manage your premium subscriptions and billing.',
+            'puzzle-sources': 'Explore different sources and databases of chess puzzles.',
+            'game-reviews': 'Professional game reviews and analysis from chess masters.',
+        }
+    
+    def get_page_instruction(self, endpoint_name: str) -> str:
+        """Get meaningful instruction for a specific page/endpoint"""
+        return self.page_instructions.get(endpoint_name, f'Navigate and interact with the {endpoint_name} interface.')
     
     def group_endpoints_by_page_domain(self, endpoints: List[str]) -> Dict[str, List[str]]:
         """Group endpoints into logical page domains"""
@@ -81,12 +122,11 @@ class PagesGenerator(BaseFrontendGenerator):
         wrapper_imports_str = '\n'.join(wrapper_imports)
         child_conditionals_str = ' else '.join(child_conditionals)
         
-        return f'''import React from "react";
-import {{ useAppStore }} from "../../stores/appStore";
+        return f'''import {{ useAppStore }} from "../../stores/appStore";
 import {{ {main_component} }} from "./{main_component}";
 {wrapper_imports_str}
 
-export const {component_name}: React.FC = () => {{
+export const {component_name} = () => {{
   const currentChildPage = useAppStore((state) => state.currentChildPage);
 
   // Determine which component to render
@@ -107,48 +147,32 @@ export const {component_name}: React.FC = () => {{
         """Generate main page template styled after LayoutTestPage"""
         component_name = f"{domain.title()}MainPage"
         hook_name = domain.lower()
-        endpoints_list = ", ".join(endpoints)
+        instruction = self.get_page_instruction(domain)
         
-        return f'''import React from "react";
-import {{ usePageInstructions }} from "../../hooks/core/usePageInstructions";
+        return f'''import {{ usePageInstructions }} from "../../hooks/core/usePageInstructions";
+import {{ usePageData }} from "../../hooks/core/usePageData";
+import {{ ChessboardLayout }} from "../../components/chess/ChessboardLayout";
+import {{ DataTable }} from "../../components/ui/DataTable";
 
-export const {component_name}: React.FC = () => {{
-  usePageInstructions("{hook_name}");
+export const {component_name} = () => {{
+  usePageInstructions("{domain}");
+  const {{ data, loading, error }} = usePageData("{domain}");
 
   return (
-    <section className="space-y-4">
-      <div className="card-gaming p-8">
-        <div className="text-center space-y-4">
-          <h1 className="text-3xl font-bold text-foreground">
-            {domain.title()}
-          </h1>
-          <p className="text-muted-foreground">
-            Welcome to the {domain.lower()} hub. This page groups related functionality 
-            and follows the domain-driven architecture.
-          </p>
-          <div className="mt-6 p-4 bg-card border border-border rounded-lg">
-            <h3 className="font-semibold text-sm mb-2">Page Domain: {domain.title()}</h3>
-            <p className="text-xs text-muted-foreground">
-              Endpoints: {endpoints_list}
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-            <div className="p-4 bg-card border border-border rounded-lg">
-              <h4 className="font-semibold text-sm">Related Features</h4>
-              <div className="text-xs text-muted-foreground mt-1 space-y-1">
-                {' '.join([f'<div>• {endpoint.replace("-", " ").title()}</div>' for endpoint in endpoints])}
-              </div>
-            </div>
-            <div className="p-4 bg-card border border-border rounded-lg">
-              <h4 className="font-semibold text-sm">Actions</h4>
-              <p className="text-xs text-muted-foreground mt-1">
-                Use the action menu to navigate between specific features
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <div className="uitest-layout-container">
+      <ChessboardLayout
+        topLeft={{<div className="uitest-layout-corner">{domain.title()} Main Top Left</div>}}
+        top={{<div className="uitest-layout-center"></div>}}
+        topRight={{<div className="uitest-layout-corner">{domain.title()} Main Top Right</div>}}
+        left={{<div className="uitest-layout-corner">{domain.title()} Main Left</div>}}
+        center={{<DataTable data={{data}} loading={{loading}} error={{error}} />}}
+        right={{<div className="uitest-layout-corner">{domain.title()} Main Right</div>}}
+        bottomLeft={{<div className="uitest-layout-corner">{domain.title()} Main Bottom Left</div>}}
+        bottom={{<div className="uitest-layout-center"></div>}}
+        bottomRight={{<div className="uitest-layout-corner">{domain.title()} Main Bottom Right</div>}}
+        className="w-full h-full"
+      />
+    </div>
   );
 }};
 '''
@@ -161,99 +185,62 @@ export const {component_name}: React.FC = () => {{
         component_name = f"{page_name}Page"
         mobile_component_name = f"Mobile{page_name}Page"
         hook_name = endpoint_name.lower().replace('-', '').replace('_', '')
+        instruction = self.get_page_instruction(endpoint_name)
         
         # Desktop template
-        desktop_template = f'''import React from "react";
-import {{ usePageInstructions }} from "../../hooks/core/usePageInstructions";
+        desktop_template = f'''import {{ usePageInstructions }} from "../../hooks/core/usePageInstructions";
+import {{ usePageData }} from "../../hooks/core/usePageData";
+import {{ ChessboardLayout }} from "../../components/chess/ChessboardLayout";
+import {{ DataTable }} from "../../components/ui/DataTable";
 
-export const {component_name}: React.FC = () => {{
-  usePageInstructions("{hook_name}");
+export const {component_name} = () => {{
+  usePageInstructions("{endpoint_name}");
+  const {{ data, loading, error }} = usePageData("{endpoint_name}");
 
   return (
-    <section className="space-y-4">
-      <div className="card-gaming p-8">
-        <div className="text-center space-y-4">
-          <h1 className="text-3xl font-bold text-foreground">
-            {page_name}
-          </h1>
-          <p className="text-muted-foreground">
-            Welcome to the {page_name.lower()} page. This page handles {endpoint_name} operations
-            and belongs to the {domain} domain group.
-          </p>
-          <div className="mt-6 p-4 bg-card border border-border rounded-lg">
-            <h3 className="font-semibold text-sm mb-2">Endpoint: {endpoint_name}</h3>
-            <p className="text-xs text-muted-foreground">
-              Domain Group: {domain.title()} | Desktop Feature Page
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-            <div className="p-4 bg-card border border-border rounded-lg">
-              <h4 className="font-semibold text-sm">Desktop Features</h4>
-              <p className="text-xs text-muted-foreground mt-1">
-                Full {endpoint_name.replace('-', ' ').title()} functionality with enhanced desktop interface
-              </p>
-            </div>
-            <div className="p-4 bg-card border border-border rounded-lg">
-              <h4 className="font-semibold text-sm">Actions</h4>
-              <p className="text-xs text-muted-foreground mt-1">
-                Use the action sheet to navigate between features
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <div className="uitest-layout-container">
+      <ChessboardLayout
+        topLeft={{<div className="uitest-layout-corner">{page_name} Top Left</div>}}
+        top={{<div className="uitest-layout-center"></div>}}
+        topRight={{<div className="uitest-layout-corner">{page_name} Top Right</div>}}
+        left={{<div className="uitest-layout-corner">{page_name} Left</div>}}
+        center={{<DataTable data={{data}} loading={{loading}} error={{error}} />}}
+        right={{<div className="uitest-layout-corner">{page_name} Right</div>}}
+        bottomLeft={{<div className="uitest-layout-corner">{page_name} Bottom Left</div>}}
+        bottom={{<div className="uitest-layout-center"></div>}}
+        bottomRight={{<div className="uitest-layout-corner">{page_name} Bottom Right</div>}}
+        className="w-full h-full"
+      />
+    </div>
   );
 }};
 '''
 
         # Mobile template
-        mobile_template = f'''import React from "react";
-import {{ usePageInstructions }} from "../../hooks/core/usePageInstructions";
+        mobile_template = f'''import {{ usePageInstructions }} from "../../hooks/core/usePageInstructions";
+import {{ usePageData }} from "../../hooks/core/usePageData";
+import {{ MobileChessboardLayout }} from "../../components/chess/MobileChessboardLayout";
+import {{ DataTable }} from "../../components/ui/DataTable";
 
-export const {mobile_component_name}: React.FC = () => {{
-  usePageInstructions("{hook_name}");
+export const {mobile_component_name} = () => {{
+  usePageInstructions("{endpoint_name}");
+  const {{ data, loading, error }} = usePageData("{endpoint_name}");
 
   return (
-    <section className="space-y-3 p-4">
-      <div className="bg-white rounded-lg shadow-sm p-4">
-        <div className="text-center space-y-3">
-          <h1 className="text-2xl font-bold text-gray-900">
-            {page_name}
-          </h1>
-          <p className="text-gray-600 text-sm">
-            Mobile {page_name.lower()} page for {endpoint_name} operations
-          </p>
-          <div className="mt-4 p-3 bg-gray-50 border border-gray-200 rounded-lg">
-            <h3 className="font-medium text-xs mb-1">Endpoint: {endpoint_name}</h3>
-            <p className="text-xs text-gray-500">
-              Domain: {domain.title()} | Mobile Optimized
-            </p>
-          </div>
-          <div className="space-y-3 mt-4">
-            <div className="p-3 bg-gray-50 border border-gray-200 rounded-lg">
-              <h4 className="font-medium text-xs">Mobile Features</h4>
-              <p className="text-xs text-gray-500 mt-1">
-                Touch-optimized {endpoint_name.replace('-', ' ').title()} interface
-              </p>
-            </div>
-            <div className="p-3 bg-gray-50 border border-gray-200 rounded-lg">
-              <h4 className="font-medium text-xs">Quick Actions</h4>
-              <p className="text-xs text-gray-500 mt-1">
-                Tap the action button for feature navigation
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <div className="uitest-mobile-container-padded">
+      <MobileChessboardLayout
+        topPieces={{<div className="uitest-mobile-pieces">{page_name} Top Pieces</div>}}
+        center={{<DataTable data={{data}} loading={{loading}} error={{error}} />}}
+        bottomPieces={{<div className="uitest-mobile-pieces">{page_name} Bottom Pieces</div>}}
+      />
+    </div>
   );
 }};
 '''
         
         return desktop_template, mobile_template
 
-    def get_page_wrapper_template(self, endpoint_name: str, domain: str, page_name: str = None) -> str:
+    def get_page_wrapper_template(self, endpoint_name: str, domain: str, page_name: str = None) -> tuple:
         """Generate page wrapper template with mobile variant support"""
         if page_name is None:
             page_name = endpoint_name.replace('-', ' ').replace('_', ' ').title().replace(' ', '')
@@ -262,13 +249,13 @@ export const {mobile_component_name}: React.FC = () => {{
         mobile_wrapper_name = f"Mobile{page_name}PageWrapper"
         page_component = f"{page_name}Page"
         mobile_page_component = f"Mobile{page_name}Page"
+        instruction = self.get_page_instruction(endpoint_name)
         
         # Generate desktop wrapper
-        desktop_wrapper = f'''import React from "react";
-import {{ usePageInstructions }} from "../../hooks/core/usePageInstructions";
+        desktop_wrapper = f'''import {{ usePageInstructions }} from "../../hooks/core/usePageInstructions";
 import {{ {page_component} }} from "../../pages/{domain}/{page_component}";
 
-export const {wrapper_name}: React.FC = () => {{
+export const {wrapper_name} = () => {{
   usePageInstructions("{endpoint_name}");
   
   return <{page_component} />;
@@ -276,11 +263,10 @@ export const {wrapper_name}: React.FC = () => {{
 '''
 
         # Generate mobile wrapper  
-        mobile_wrapper = f'''import React from "react";
-import {{ usePageInstructions }} from "../../hooks/core/usePageInstructions";
+        mobile_wrapper = f'''import {{ usePageInstructions }} from "../../hooks/core/usePageInstructions";
 import {{ {mobile_page_component} }} from "../../pages/{domain}/{mobile_page_component}";
 
-export const {mobile_wrapper_name}: React.FC = () => {{
+export const {mobile_wrapper_name} = () => {{
   usePageInstructions("{endpoint_name}");
   
   return <{mobile_page_component} />;
@@ -516,43 +502,8 @@ export const useInstructions = create<InstructionsState>((set) => ({
             f.write(instructions_content)
         print("  🎣 Generated hooks/useInstructions.ts")
         
-        # Generate appStore
-        app_store_content = '''import { create } from "zustand";
-import { persist, subscribeWithSelector } from "zustand/middleware";
-
-export type TabId = 'chess' | 'user' | 'learning' | 'progress' | 'support' | 'other';
-
-interface AppState {
-  selectedTab: TabId;
-  currentChildPage: string | null;
-  setSelectedTab: (tab: TabId) => void;
-  setCurrentChildPage: (childPage: string | null) => void;
-}
-
-export const useAppStore = create<AppState>()(
-  subscribeWithSelector(
-    persist(
-      (set) => ({
-        selectedTab: 'chess',
-        currentChildPage: null,
-        setSelectedTab: (tab) => set({ selectedTab: tab }),
-        setCurrentChildPage: (childPage) => set({ currentChildPage: childPage }),
-      }),
-      {
-        name: 'chess-app-store',
-        partialize: (state) => ({
-          selectedTab: state.selectedTab,
-          currentChildPage: state.currentChildPage,
-        }),
-      }
-    )
-  )
-);
-'''
-        
-        with open(stores_dir / "appStore.ts", 'w') as f:
-            f.write(app_store_content)
-        print("  🏪 Generated stores/appStore.ts")
+        # Skip appStore generation - it will be handled by stores_generator
+        print("  🏪 Skipped appStore generation (handled by stores_generator)")
         
         # Generate useUIClickSoundOptimized hook
         audio_hook_content = '''import { useCallback } from "react";

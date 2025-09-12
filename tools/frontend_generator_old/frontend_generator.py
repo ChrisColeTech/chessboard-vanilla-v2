@@ -10,7 +10,7 @@ from typing import Dict, List, Any
 from pathlib import Path
 
 class FrontendGenerator:
-    def __init__(self, frontend_path: str = "../frontend-v2"):
+    def __init__(self, frontend_path: str = "/mnt/c/Projects/chessboard-vanilla-v2/frontend-v2"):
         self.frontend_path = Path(frontend_path)
         self.backend_config = {}
         self.templates = {}

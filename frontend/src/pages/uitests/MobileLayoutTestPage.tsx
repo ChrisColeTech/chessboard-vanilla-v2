@@ -1,32 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { usePageInstructions } from "../../hooks/core/usePageInstructions";
+import React from "react";
+import { MobileChessboardLayout } from "../../components/chess/MobileChessboardLayout";
 
 export const MobileLayoutTestPage: React.FC = () => {
-  usePageInstructions("layouttest");
-  const [showElements, setShowElements] = useState(true);
-
-  // Expose toggle function globally so the action can call it
-  useEffect(() => {
-    (window as any).__toggleLayoutElements = () => {
-      setShowElements(prev => !prev);
-    };
-    
-    return () => {
-      delete (window as any).__toggleLayoutElements;
-    };
-  }, []);
-
   return (
-    <section className="space-y-4">
-      {showElements && (
-        <div className="card-gaming p-8">
-          <p className="text-muted-foreground text-center">
-            This is a minimal test page to view the background effects, floating
-            chess pieces, and theme styling without any other content interfering.
-            Use the action menu to toggle this card visibility.
-          </p>
-        </div>
-      )}
-    </section>
+    <div className="uitest-mobile-container-padded">
+      <MobileChessboardLayout
+        topPieces={<div className="uitest-mobile-pieces">Top Pieces Area</div>}
+        center={
+          <div className="uitest-mobile-center-card">
+            <span className="text-muted-foreground">Mobile Layout Test Center</span>
+          </div>
+        }
+        bottomPieces={<div className="uitest-mobile-pieces">Bottom Pieces Area</div>}
+      />
+    </div>
   );
 };

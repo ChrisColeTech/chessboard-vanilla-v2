@@ -40,7 +40,7 @@ export function CheckmateModal({ isOpen, winner, onReset }: CheckmateModalProps)
           <button
             onClick={handleReset}
             className="w-full flex items-center justify-center gap-3 px-6 py-3 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg font-semibold transition-colors"
-          >
+           id="checkmate-modal-play-again-btn">
             <RotateCcw className="w-5 h-5" />
             Play Again
           </button>

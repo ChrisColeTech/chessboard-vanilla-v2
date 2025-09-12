@@ -22,122 +22,122 @@ export interface CommonActionConfig {
  */
 export const COMMON_ACTIONS: Record<string, ActionSheetAction> = {
   // Navigation actions
-  'go-to-minimal': {
-    id: 'go-to-minimal',
-    label: '→ Minimal',
+  "go-to-minimal": {
+    id: "go-to-minimal",
+    label: "→ Minimal",
     icon: Navigation,
-    variant: 'secondary'
+    variant: "secondary",
   },
-  'go-to-animated': {
-    id: 'go-to-animated', 
-    label: '→ Animated',
+  "go-to-animated": {
+    id: "go-to-animated",
+    label: "→ Animated",
     icon: SkipForward,
-    variant: 'secondary'
+    variant: "secondary",
   },
-  'go-to-progress': {
-    id: 'go-to-progress',
-    label: '→ Progress', 
+  "go-to-progress": {
+    id: "go-to-progress",
+    label: "→ Progress",
     icon: Clock,
-    variant: 'secondary'
+    variant: "secondary",
   },
-  'go-to-branded': {
-    id: 'go-to-branded',
-    label: '→ Branded',
+  "go-to-branded": {
+    id: "go-to-branded",
+    label: "→ Branded",
     icon: Target,
-    variant: 'secondary'
+    variant: "secondary",
   },
-  'go-to-luxurysplash': {
-    id: 'go-to-luxurysplash',
-    label: 'Go to Luxurysplash',
+  "go-to-luxurysplash": {
+    id: "go-to-luxurysplash",
+    label: "Go to Luxurysplash",
     icon: Navigation,
-    variant: 'secondary'
+    variant: "secondary",
   },
-  'go-to-drag-test': {
-    id: 'go-to-drag-test',
-    label: 'Go to Drag Test',
+  "go-to-drag-test": {
+    id: "go-to-drag-test",
+    label: "Go to Drag Test",
     icon: Navigation,
-    variant: 'secondary'
+    variant: "secondary",
   },
-  'go-to-audio-test': {
-    id: 'go-to-audio-test',
-    label: 'Go to Audio Test',
+  "go-to-audio-test": {
+    id: "go-to-audio-test",
+    label: "Go to Audio Test",
     icon: VolumeX,
-    variant: 'secondary'
+    variant: "secondary",
   },
-  'go-to-layout-test': {
-    id: 'go-to-layout-test',
-    label: 'Go to Layout Test',
+  "go-to-layout-test": {
+    id: "go-to-layout-test",
+    label: "Go to Layout Test",
     icon: Eye,
-    variant: 'secondary'
+    variant: "secondary",
   },
-  'go-to-desktop-layout-test': {
-    id: 'go-to-desktop-layout-test',
-    label: 'Go to Desktop Layout Test',
+  "go-to-chess-layout-test": {
+    id: "go-to-chess-layout-test",
+    label: "Go to Chess Layout Test",
     icon: Maximize2,
-    variant: 'secondary'
+    variant: "secondary",
   },
-  
+
   // Casino navigation actions
-  'go-to-slots': {
-    id: 'go-to-slots',
-    label: '→ Slots',
+  "go-to-slots": {
+    id: "go-to-slots",
+    label: "→ Slots",
     icon: Coins,
-    variant: 'secondary'
+    variant: "secondary",
   },
-  'go-to-blackjack': {
-    id: 'go-to-blackjack',
-    label: '→ Blackjack',
+  "go-to-blackjack": {
+    id: "go-to-blackjack",
+    label: "→ Blackjack",
     icon: Spade,
-    variant: 'secondary'
+    variant: "secondary",
   },
-  'go-to-holdem': {
-    id: 'go-to-holdem',
-    label: '→ Hold\'em',
+  "go-to-holdem": {
+    id: "go-to-holdem",
+    label: "→ Hold'em",
     icon: Crown,
-    variant: 'secondary'
+    variant: "secondary",
   },
-  'go-to-roulette': {
-    id: 'go-to-roulette',
-    label: '→ Roulette',
+  "go-to-roulette": {
+    id: "go-to-roulette",
+    label: "→ Roulette",
     icon: Disc,
-    variant: 'secondary'
+    variant: "secondary",
   },
-  'go-to-craps': {
-    id: 'go-to-craps',
-    label: '→ Craps',
+  "go-to-craps": {
+    id: "go-to-craps",
+    label: "→ Craps",
     icon: Dices,
-    variant: 'secondary'
+    variant: "secondary",
   },
-  
+
   // Play navigation actions
-  'go-to-playchess': {
-    id: 'go-to-playchess',
-    label: '→ Play Chess',
+  "go-to-playchess": {
+    id: "go-to-playchess",
+    label: "→ Play Chess",
     icon: Gamepad2,
-    variant: 'secondary'
+    variant: "secondary",
   },
-  'go-to-playpuzzles': {
-    id: 'go-to-playpuzzles',
-    label: '→ Puzzles',
+  "go-to-playpuzzles": {
+    id: "go-to-playpuzzles",
+    label: "→ Puzzles",
     icon: Brain,
-    variant: 'secondary'
+    variant: "secondary",
   },
-  
+
   // Utility actions
-  'toggle-fullscreen': {
-    id: 'toggle-fullscreen',
-    label: 'Toggle Fullscreen',
+  "toggle-fullscreen": {
+    id: "toggle-fullscreen",
+    label: "Toggle Fullscreen",
     icon: Maximize2,
-    variant: 'default',
-    shortcut: 'F11'
+    variant: "default",
+    shortcut: "F11",
   },
-  'restart-animation': {
-    id: 'restart-animation',
-    label: 'Restart Animation',
+  "restart-animation": {
+    id: "restart-animation",
+    label: "Restart Animation",
     icon: RotateCcw,
-    variant: 'secondary'
-  }
-}
+    variant: "secondary",
+  },
+};
 
 /**
  * Predefined action groups for common page types
@@ -156,7 +156,7 @@ export const COMMON_ACTION_GROUPS = {
     'go-to-drag-test',
     'go-to-audio-test',
     'go-to-layout-test',
-    'go-to-desktop-layout-test'
+    'go-to-chess-layout-test'
   ],
   
   // Casino game siblings (child pages)

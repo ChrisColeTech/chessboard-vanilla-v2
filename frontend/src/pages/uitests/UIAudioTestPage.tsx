@@ -1,9 +1,6 @@
 import React from "react";
-import { usePageInstructions } from "../../hooks/core/usePageInstructions";
 
 export const UIAudioTestPage: React.FC = () => {
-  usePageInstructions("uitests.audio-demo");
-
   return (
     <section className="space-y-4">
       <div className="card-gaming p-8">
