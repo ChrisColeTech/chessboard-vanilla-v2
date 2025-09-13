@@ -10,7 +10,7 @@
     "build:backend": "cd backend-v2 && npm install && npm run build",
     "start": "cd backend-v2 && npm start",
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
-    "dev:backend": "cd backend-v2 && npm run dev",
+    "dev:backend": "cd backend-v2 && npm start",
     "dev:frontend": "cd frontend-v2 && npm run dev",
     "dev:electron": "concurrently \"npm run dev:frontend\" \"wait-on http://localhost:5173 && npm run dev:electron-start\"",
     "dev:electron-start": "NODE_ENV=development electron .",
