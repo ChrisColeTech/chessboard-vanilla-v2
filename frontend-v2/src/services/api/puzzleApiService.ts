@@ -3,7 +3,7 @@ import type { Puzzle, PuzzleFilters, PuzzleStats } from '../../types/puzzle.type
 import { getRandomSamplePuzzle } from '../../data/samplePuzzles';
 
 class PuzzleApiService {
-  private baseUrl = 'http://localhost:3001/api/puzzles';
+  private baseUrl = 'https://chessboard-vanilla-v2.onrender.com/api/puzzles';
 
   /**
    * Generic API request handler

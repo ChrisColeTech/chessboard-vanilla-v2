@@ -4,19 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "lsof -ti:5173 | xargs -r kill -9 2>/dev/null; concurrently --kill-others --prefix \"{name}\" --names \"FULLSTACK,TUNNEL\" \"npm run fullstack\" \"npm run dev:ngrok\"",
-    "dev:web": "lsof -ti:5173 | xargs -r kill -9 2>/dev/null; concurrently --kill-others --prefix \"{name}\" --names \"VITE,TUNNEL\" \"npm run dev:web:local\" \"npm run dev:ngrok\"",
-    "dev:local": "vite",
-    "dev:web:local": "vite --config vite.config.web.ts",
-    "dev:ngrok": "sleep 3 && ngrok http 5173 --domain=eager-terrier-especially.ngrok-free.app",
-    "build": "tsc -b > build_errors.log 2>&1",
+    "dev": "npm run prelaunch && vite",
+    "dev:debug": "npm run prelaunch && vite --config vite.config.ddebug.ts",
+    "prelaunch": "lsof -ti:5173 | xargs -r kill -9 2>/dev/null; ",
+    "build": "tsc -b > frontend_build.log 2>&1",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "ngrok": "ngrok http 5173",
-    "ngrok:url": "curl -s http://localhost:4040/api/tunnels | grep -o '\"public_url\":\"[^\"]*\"' | cut -d'\"' -f4",
-    "tunnel:url": "echo 'Permanent URL: https://eager-terrier-especially.ngrok-free.app'",
-    "cloudflared": "cloudflared tunnel --url http://localhost:5173 --no-autoupdate",
-    "fullstack": "npm run dev:local"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.7",
