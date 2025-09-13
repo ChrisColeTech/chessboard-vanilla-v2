@@ -872,11 +872,17 @@
     },
     {
       "entity": "historic-games",
-      "method": "GET",
+      "method": "POST",
       "path": "/search",
       "handler": "searchGames",
       "auth_required": true,
-      "payload": null,
+      "payload": {
+        "player": "kasparov",
+        "result": "1-0",
+        "opening_eco": "B92",
+        "tournament_name": "World Championship",
+        "year": "1985"
+      },
       "url_params": {}
     },
     {

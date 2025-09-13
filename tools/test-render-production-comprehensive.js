@@ -1,0 +1,555 @@
+#!/usr/bin/env node
+/**
+ * Render Production API Test - Complete Comprehensive Testing
+ * 
+ * This uses your EXACT local test (test-api-connectivity-v3.js) but points
+ * to the Render production API: https://chessboard-vanilla-v2.onrender.com
+ * 
+ * Features:
+ * - Uses generated payloads from payload_generator.py
+ * - Tests ALL endpoints with ALL HTTP methods
+ * - Complete authentication flow testing
+ * - URL parameter substitution
+ * - Enhanced error reporting and debugging
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+// Optional fetch polyfill for Node < 18
+if (typeof fetch === 'undefined') {
+  global.fetch = (...args) =>
+    import('node-fetch').then(({ default: fetch }) => fetch(...args));
+}
+
+// Configuration - RENDER PRODUCTION
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
+const BACKEND_URL = process.env.BACKEND_URL || 'https://chessboard-vanilla-v2.onrender.com';
+const PAYLOADS_PATH = path.join(__dirname, 'backend-tools', 'payload-generator', 'generated_payloads.json');
+
+// Global state
+let authToken = null;
+let testUserId = null;
+let generatedPayloads = null;
+
+// Load generated payloads
+function loadGeneratedPayloads() {
+  try {
+    if (!fs.existsSync(PAYLOADS_PATH)) {
+      console.error(`❌ Generated payloads file not found: ${PAYLOADS_PATH}`);
+      console.log('💡 Please run the payload generator first:');
+      console.log('   cd tools/backend-tools/payload-generator');
+      console.log('   python3 payload_generator.py');
+      process.exit(1);
+    }
+    
+    const payloadsData = fs.readFileSync(PAYLOADS_PATH, 'utf8');
+    return JSON.parse(payloadsData);
+  } catch (error) {
+    console.error('❌ Failed to load generated payloads:', error.message);
+    process.exit(1);
+  }
+}
+
+// Enhanced HTTP request handler
+async function makeRequest(method, url, data = null, requireAuth = true) {
+  try {
+    const options = {
+      method: method.toUpperCase(),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    };
+
+    if (authToken && requireAuth) {
+      options.headers['Authorization'] = `Bearer ${authToken}`;
+    }
+
+    if (data && ['POST', 'PUT', 'PATCH'].includes(options.method)) {
+      options.body = JSON.stringify(data);
+    }
+
+    // Log request details for debugging
+    if (options.body) {
+      try {
+        const parsedBody = JSON.parse(options.body);
+        console.log('    ⤷ Request body:', JSON.stringify(parsedBody, null, 2));
+      } catch {
+        console.log('    ⤷ Request body (raw):', options.body);
+      }
+    }
+
+    const response = await fetch(url, options);
+    const result = {
+      status: response.status,
+      ok: response.ok,
+      statusText: response.statusText,
+      url,
+      headers: Object.fromEntries(response.headers.entries()),
+    };
+
+    // Parse response
+    try {
+      const text = await response.text();
+      if (text) {
+        result.data = JSON.parse(text);
+      }
+    } catch (parseError) {
+      // Handle non-JSON responses
+      result.rawText = await response.text();
+    }
+
+    return result;
+  } catch (error) {
+    return { 
+      error: error.message, 
+      url, 
+      status: 'NETWORK_ERROR',
+      code: error.code || 'UNKNOWN'
+    };
+  }
+}
+
+// Build full URL for endpoint
+function buildEndpointUrl(entityName, endpoint) {
+  let basePath;
+  
+  if (entityName === 'auth') {
+    basePath = '/api/auth';
+  } else {
+    // Convert snake_case and kebab-case to camelCase for URL paths
+    const camelCaseEntity = entityName
+      .replace(/_([a-z])/g, (match, letter) => letter.toUpperCase())  // Handle underscores
+      .replace(/-([a-z])/g, (match, letter) => letter.toUpperCase()); // Handle hyphens
+    basePath = `/api/${camelCaseEntity}`;
+  }
+
+  let fullPath = basePath + endpoint.path;
+
+  // Substitute URL parameters with test values
+  if (endpoint.url_params) {
+    for (const [param, value] of Object.entries(endpoint.url_params)) {
+      fullPath = fullPath.replace(`:${param}`, encodeURIComponent(value));
+    }
+  }
+
+  // Fallback substitutions for any remaining parameters
+  fullPath = fullPath
+    .replace(/:id/g, 'test-id-123')
+    .replace(/:userId/g, testUserId || 'test-user-123')
+    .replace(/:puzzleId/g, 'test-puzzle-123')
+    .replace(/:gameId/g, 'test-game-123')
+    .replace(/:fen/g, 'rnbqkbnr-pppppppp-8-8-8-8-PPPPPPPP-RNBQKBNR')
+    .replace(/:level/g, 'beginner')
+    .replace(/:category/g, 'endgame')
+    .replace(/:player/g, 'kasparov')
+    .replace(/:pathId/g, 'test-path-123')
+    .replace(/:tutorialId/g, 'test-tutorial-123')
+    .replace(/:token/g, 'test-token-123')
+    .replace(/:code/g, 'A00');
+
+  return BACKEND_URL + fullPath;
+}
+
+// Generate fresh credentials for auth endpoints
+function generateFreshAuthCredentials() {
+  const timestamp = Date.now();
+  const randomStr = Math.random().toString(36).substring(2, 8);
+  const username = `testuser_${timestamp.toString().slice(-6)}_${randomStr}`;
+  const email = `${username}@example.com`;
+  
+  console.log(`  🆕 Generated fresh credentials: ${username}`);
+  
+  // Update auth endpoints with fresh credentials
+  for (const entityName in generatedPayloads) {
+    if (entityName === 'auth') {
+      const endpoints = generatedPayloads[entityName];
+      for (const endpoint of endpoints) {
+        if (endpoint.path === '/register' && endpoint.payload) {
+          endpoint.payload.username = username;
+          endpoint.payload.email = email;
+          endpoint.payload.password = 'password123';
+          console.log(`  🔄 Updated register payload with: ${username}`);
+        }
+        else if (endpoint.path === '/login' && endpoint.payload) {
+          endpoint.payload.email = email;
+          endpoint.payload.password = 'password123';
+          console.log(`  🔄 Updated login payload with: ${email}`);
+        }
+        else if (endpoint.handler === 'forgotPassword' && endpoint.payload) {
+          // Generate different email for forgot password to avoid conflicts
+          const forgotEmail = `forgot_${username}@example.com`;
+          endpoint.payload.email = forgotEmail;
+        }
+        else if (endpoint.handler === 'checkEmailAvailability' && endpoint.payload) {
+          const checkEmail = `check_${username}@example.com`;
+          endpoint.payload.email = checkEmail;
+        }
+        else if (endpoint.handler === 'checkUsernameAvailability' && endpoint.payload) {
+          const checkUsername = `check_${username}`;
+          endpoint.payload.username = checkUsername;
+        }
+        else if (endpoint.handler === 'logout' && endpoint.payload) {
+          const logoutUsername = `logout_${username}`;
+          const logoutEmail = `${logoutUsername}@example.com`;
+          endpoint.payload.username = logoutUsername;
+          endpoint.payload.email = logoutEmail;
+        }
+        else if (endpoint.handler === 'resetPassword' && endpoint.payload) {
+          // Use the same credentials as register/login for reset password testing
+          endpoint.payload.email = email;
+          endpoint.payload.currentPassword = 'password123';
+          endpoint.payload.newPassword = 'newpassword123';
+          console.log(`  🔄 Updated reset-password payload with: ${email}`);
+        }
+      }
+    }
+  }
+}
+
+// Load existing auth data if available
+function loadExistingAuthData() {
+  try {
+    const authFilePath = path.join(__dirname, 'auth_token.json');
+    if (fs.existsSync(authFilePath)) {
+      const authData = JSON.parse(fs.readFileSync(authFilePath, 'utf8'));
+      
+      // Check if token is recent (less than 1 hour old)
+      const tokenAge = Date.now() - new Date(authData.timestamp).getTime();
+      if (tokenAge < 60 * 60 * 1000) { // 1 hour
+        console.log('  📂 Found existing auth data, attempting to reuse...');
+        return authData;
+      } else {
+        console.log('  ⏰ Existing auth data is too old, creating new session...');
+      }
+    }
+  } catch (error) {
+    console.log('  ⚠️  Could not load existing auth data:', error.message);
+  }
+  return null;
+}
+
+// Enhanced authentication
+async function authenticate() {
+  console.log('🔐 Setting up authentication...');
+
+  // Try to load existing auth data first
+  const existingAuth = loadExistingAuthData();
+  if (existingAuth) {
+    // Test if the existing token still works
+    authToken = existingAuth.token;
+    const testResult = await makeRequest('GET', `${BACKEND_URL}/api/auth/me`, null, true);
+    
+    if (testResult.ok && testResult.data) {
+      console.log('  ✅ Existing token is valid! Reusing authentication.');
+      testUserId = existingAuth.userId;
+      if (testUserId) {
+        console.log(`  🔄 Updating payloads with existing userId: ${testUserId}`);
+        updatePayloadsWithUserId(testUserId);
+      }
+      return true;
+    } else {
+      console.log('  ❌ Existing token is invalid, creating new session...');
+      authToken = null;
+    }
+  }
+
+  // Generate a unique test user to avoid conflicts
+  const timestamp = Date.now();
+  const testUser = {
+    username: `testuser_${timestamp}`,
+    email: `testuser_${timestamp}@example.com`,
+    password: 'password123',
+  };
+
+  try {
+    // Register the test user
+    console.log('  📝 Registering test user...');
+    const registerResult = await makeRequest(
+      'POST',
+      `${BACKEND_URL}/api/auth/register`,
+      testUser,
+      false
+    );
+
+    if (registerResult.error) {
+      console.log('  ❌ Registration failed:', registerResult.error);
+      return false;
+    }
+
+    console.log('  ✅ User registered successfully');
+
+    // Login with the same user
+    console.log('  🔑 Logging in...');
+    const loginResult = await makeRequest(
+      'POST',
+      `${BACKEND_URL}/api/auth/login`,
+      { email: testUser.email, password: testUser.password },
+      false
+    );
+
+    if (loginResult.error) {
+      console.log('  ❌ Login failed with error:', loginResult.error);
+      return false;
+    }
+
+    // Extract token from various possible response structures
+    const payload = loginResult.data || {};
+    const token = payload.token || 
+                 (payload.data && payload.data.token) ||
+                 (payload.access && payload.access.token) ||
+                 (payload.auth && payload.auth.token);
+
+    if (!token) {
+      console.log('  ⚠️  No token found in login response:', JSON.stringify(payload, null, 2));
+      return false;
+    }
+
+    authToken = token;
+    console.log('  ✅ Authentication successful! Token acquired.');
+
+    // Write token and user info to file for reuse
+    const authData = {
+      token: authToken,
+      user: testUser,
+      timestamp: new Date().toISOString()
+    };
+
+    // Get user information
+    console.log('  👤 Fetching user information...');
+    const meResult = await makeRequest('GET', `${BACKEND_URL}/api/auth/me`, null, true);
+    
+    if (meResult.data) {
+      const userData = meResult.data;
+      testUserId = userData.id || 
+                  (userData.data && userData.data.id) ||
+                  (userData.user && userData.user.id) ||
+                  userData.user_id;
+
+      if (testUserId) {
+        console.log(`  ℹ️  Test user ID: ${testUserId}`);
+        
+        // Update auth data with user ID
+        authData.userId = testUserId;
+        authData.userData = userData;
+        
+        // Update payloads with the actual user ID
+        console.log(`  🔄 Updating payloads with userId: ${testUserId}`);
+        updatePayloadsWithUserId(testUserId);
+      }
+    }
+
+    // Write auth data to file
+    try {
+      const authFilePath = path.join(__dirname, 'auth_token.json');
+      fs.writeFileSync(authFilePath, JSON.stringify(authData, null, 2));
+      console.log(`  💾 Auth data saved to: ${authFilePath}`);
+    } catch (writeError) {
+      console.log(`  ⚠️  Failed to write auth file: ${writeError.message}`);
+    }
+
+    // Force JWT token update in payloads regardless of whether userId was found
+    console.log(`  🔄 Forcing JWT token update in verify-token payload`);
+    for (const entityName in generatedPayloads) {
+      const endpoints = generatedPayloads[entityName];
+      for (const endpoint of endpoints) {
+        if (entityName === 'auth' && endpoint.path === '/verify-token' && endpoint.payload && endpoint.payload.token) {
+          console.log(`  🔄 Updated verify-token payload with real JWT: ${authToken.substring(0, 20)}...`);
+          endpoint.payload.token = authToken;
+        }
+      }
+    }
+
+    // Generate fresh credentials for auth endpoints
+    console.log(`  🔄 Generating fresh credentials for auth endpoints`);
+    generateFreshAuthCredentials();
+
+    return true;
+  } catch (error) {
+    console.log('  ❌ Authentication error:', error.message);
+    return false;
+  }
+}
+
+// Update generated payloads with actual user ID and JWT token
+function updatePayloadsWithUserId(userId) {
+  console.log(`  🔍 Starting payload update for userId: ${userId}, authToken: ${authToken ? authToken.substring(0, 20) + '...' : 'null'}`);
+  
+  for (const entityName in generatedPayloads) {
+    const endpoints = generatedPayloads[entityName];
+    for (const endpoint of endpoints) {
+      if (endpoint.payload) {
+        if (endpoint.payload.user_id) endpoint.payload.user_id = userId;
+        if (endpoint.payload.userId) endpoint.payload.userId = userId;
+        
+        // Update verify-token endpoint with real JWT token
+        if (entityName === 'auth' && endpoint.path === '/verify-token') {
+          console.log(`  🔍 Found auth verify-token endpoint, current token: ${endpoint.payload.token}`);
+          if (endpoint.payload.token && authToken) {
+            console.log(`  🔄 Updating verify-token with real JWT: ${authToken.substring(0, 20)}...`);
+            endpoint.payload.token = authToken;
+          }
+        }
+      }
+      
+      // Update URL parameters
+      if (endpoint.url_params && endpoint.url_params.userId) {
+        endpoint.url_params.userId = userId;
+      }
+    }
+  }
+}
+
+// Main testing function
+async function testAllEndpoints() {
+  console.log('🚀 Starting API Connectivity Test v3');
+  console.log('🌍 FRONTEND:', FRONTEND_URL);
+  console.log('🔧 BACKEND :', BACKEND_URL);
+  console.log('📁 PAYLOADS:', PAYLOADS_PATH);
+
+  // Load payloads
+  console.log('📦 Loading generated payloads...');
+  generatedPayloads = loadGeneratedPayloads();
+  console.log(`  ✅ Loaded payloads for ${Object.keys(generatedPayloads).length} entity groups`);
+
+  // Authenticate
+  const authSuccess = await authenticate();
+  if (!authSuccess) {
+    console.log('❌ Authentication failed. Cannot test protected endpoints.');
+    process.exit(1);
+  }
+
+  const results = { 
+    total: 0, 
+    successful: 0, 
+    failed: 0, 
+    errors: [],
+    skipped: 0
+  };
+
+  // Test each entity group
+  for (const [entityName, endpoints] of Object.entries(generatedPayloads)) {
+    console.log(`\n🔍 Testing ${entityName} endpoints (${endpoints.length} endpoints):`);
+
+    for (const endpoint of endpoints) {
+      results.total++;
+      
+      const url = buildEndpointUrl(entityName, endpoint);
+      const method = endpoint.method;
+      const handler = endpoint.handler || '';
+      const requireAuth = endpoint.auth_required !== false;
+
+      // Test ALL endpoints - no skipping
+
+      console.log(`  ${method.padEnd(6)} ${url}`);
+
+      // Make request
+      const result = await makeRequest(method, url, endpoint.payload, requireAuth);
+
+      // Evaluate result - ONLY 200/201 are success, everything else is failure
+      if (result.error) {
+        console.log(`    ❌ ERROR: ${result.error}`);
+        results.failed++;
+        results.errors.push({
+          endpoint: `${method} ${url}`,
+          error: result.error,
+          handler,
+          entityName,
+          payload: endpoint.payload
+        });
+      } else if ([200, 201].includes(result.status)) {
+        console.log(`    ✅ ${result.status} ${result.statusText}`);
+        results.successful++;
+      } else {
+        // ALL other status codes are failures
+        console.log(`    ❌ ${result.status} ${result.statusText}`);
+        if (result.data) {
+          const responseStr = JSON.stringify(result.data, null, 2);
+          console.log(`    ⤷ Response: ${responseStr.substring(0, 200)}${responseStr.length > 200 ? '...' : ''}`);
+        }
+        results.failed++;
+        results.errors.push({
+          endpoint: `${method} ${url}`,
+          status: result.status,
+          statusText: result.statusText,
+          handler,
+          entityName,
+          payload: endpoint.payload,
+          response: result.data
+        });
+      }
+
+      // Small delay to avoid overwhelming the server
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+  }
+
+  // Summary
+  console.log('\n' + '='.repeat(70));
+  console.log('📊 API CONNECTIVITY TEST v3 RESULTS');
+  console.log('='.repeat(70));
+  console.log(`Total Endpoints Tested: ${results.total}`);
+  console.log(`✅ Successful: ${results.successful} (${((results.successful / results.total) * 100).toFixed(1)}%)`);
+  console.log(`❌ Failed: ${results.failed} (${((results.failed / results.total) * 100).toFixed(1)}%)`);
+  console.log(`⏭️  Skipped: ${results.skipped} (${((results.skipped / results.total) * 100).toFixed(1)}%)`);
+
+  // Error details
+  if (results.errors.length > 0) {
+    console.log('\n🔍 ERROR DETAILS:');
+    results.errors.forEach((error, index) => {
+      console.log(`\n${index + 1}. ${error.endpoint}`);
+      console.log(`   Entity: ${error.entityName}`);
+      if (error.handler) console.log(`   Handler: ${error.handler}`);
+      if (error.error) console.log(`   Error: ${error.error}`);
+      if (error.status) console.log(`   Status: ${error.status} ${error.statusText}`);
+      if (error.payload) {
+        console.log(`   Payload: ${JSON.stringify(error.payload, null, 2)}`);
+      }
+      if (error.response) {
+        const responseStr = JSON.stringify(error.response, null, 2);
+        console.log(`   Response: ${responseStr.substring(0, 300)}${responseStr.length > 300 ? '...' : ''}`);
+      }
+    });
+  }
+
+  // Frontend test
+  console.log('\n🌐 Testing Frontend Access:');
+  try {
+    const frontendResult = await makeRequest('GET', FRONTEND_URL, null, false);
+    if (frontendResult.ok || frontendResult.status === 200) {
+      console.log(`  ✅ Frontend accessible at ${FRONTEND_URL}`);
+    } else {
+      console.log(`  ❌ Frontend not accessible: ${frontendResult.status} ${frontendResult.statusText}`);
+    }
+  } catch (error) {
+    console.log(`  ❌ Frontend error: ${error.message}`);
+  }
+
+  // Final assessment
+  const successRate = ((results.successful / results.total) * 100).toFixed(1);
+  console.log(`\n🎯 Overall Success Rate: ${successRate}%`);
+  
+  if (parseFloat(successRate) >= 85) {
+    console.log('🎊 Excellent! High connectivity achieved with generated payloads.');
+    return true;
+  } else if (parseFloat(successRate) >= 70) {
+    console.log('👍 Good connectivity. Some endpoints may need attention.');
+    return true;
+  } else {
+    console.log('⚠️  Connectivity issues detected. Review errors above.');
+    return false;
+  }
+}
+
+// Run the test
+if (require.main === module) {
+  testAllEndpoints()
+    .then((success) => process.exit(success ? 0 : 1))
+    .catch((error) => {
+      console.error('💥 Fatal error:', error);
+      process.exit(1);
+    });
+}
+
+module.exports = { testAllEndpoints };

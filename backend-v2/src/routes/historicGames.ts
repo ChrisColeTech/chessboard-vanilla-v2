@@ -28,10 +28,10 @@ router.get('/:id', authenticate, async (req: any, res) => {
   }
 });
 
-// GET /search
-router.get('/search', authenticate, async (req: any, res) => {
+// POST /search - Use POST for complex search with body parameters
+router.post('/search', authenticate, async (req: any, res) => {
   try {
-    const result = await historicgameService.searchGames(req.query);
+    const result = await historicgameService.searchGames(req.body);
     res.json({ success: true, data: result });
   } catch (error: any) {
     res.status(400).json({ success: false, error: error.message });
