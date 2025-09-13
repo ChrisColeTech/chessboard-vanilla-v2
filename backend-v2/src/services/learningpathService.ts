@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Database } from '../utils/database';
-import { LearningPathResponse, CreateLearningPathRequest, UpdateLearningPathRequest } from '../models/LearningPath';
+import { LearningPathResponse, CreateLearningPathRequest, UpdateLearningPathRequest } from '../models/LearningPath.js';
 
 export class LearningPathService {
   private db = Database.getInstance();

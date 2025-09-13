@@ -1,11 +1,12 @@
 # Don't upload these files to Railway
-node_modules
+node_modules/
+dist/
 *.log
 .env.local
 .env.development
 .DS_Store
-.git
-.github
+.git/
+.github/
 README.md
 docs/
 test_*.js
@@ -15,3 +16,4 @@ coverage/
 .nyc_output/
 dev-server.log
 server.log
+tsconfig.tsbuildinfo

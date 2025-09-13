@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { authenticate } from '../middleware/auth';
 import { validate } from '../middleware/validation';
 import { LearningPathService } from '../services/learningpathService';
-import { CreateLearningPathRequest, UpdateLearningPathRequest } from '../models/LearningPath';
+import { CreateLearningPathRequest, UpdateLearningPathRequest } from '../models/LearningPath.js';
 
 const router = Router();
 const learningpathService = new LearningPathService();
