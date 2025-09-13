@@ -823,7 +823,7 @@
           "handler": "getGameById"
         },
         {
-          "method": "GET",
+          "method": "POST",
           "path": "/search",
           "handler": "searchGames"
         },

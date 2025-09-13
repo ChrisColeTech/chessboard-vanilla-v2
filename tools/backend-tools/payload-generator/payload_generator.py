@@ -351,6 +351,13 @@ class PayloadGenerator:
                     'timezone': 'EST'
                 }
         
+        # Historic games search endpoints
+        elif entity_name == 'historic-games':
+            if 'search' in path and method == 'POST':
+                return {
+                    'player': 'kasparov'  # Search for existing player from our test data
+                }
+        
         # Analytics endpoints
         elif entity_name == 'analytics':
             if 'track' in path:

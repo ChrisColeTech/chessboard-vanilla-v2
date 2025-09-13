@@ -1,0 +1,619 @@
+🚀 Starting Render API Connectivity Test
+🌐 RENDER API: https://chessboard-vanilla-v2.onrender.com
+📁 PAYLOADS  : /mnt/c/Projects/chessboard-vanilla-v2/tools/backend-tools/payload-generator/generated_payloads.json
+🎯 TARGET    : Production Render Environment
+🏥 Testing Render health endpoint...
+  ✅ Render health check passed
+  📊 Health check response time: 472ms
+  📋 Health data: {
+  "status": "OK",
+  "timestamp": "2025-09-13T02:17:55.872Z"
+}
+
+📦 Loading generated payloads...
+  ✅ Loaded payloads for 25 entity groups
+🔐 Setting up authentication for Render production environment...
+  📝 Registering test user on Render...
+    ⤷ Request body: {
+  "username": "rendertest_1757729875763",
+  "email": "rendertest_1757729875763@example.com",
+  "password": "password123"
+}
+  ✅ User registered successfully
+  📊 Registration response time: 1757ms
+  🔑 Logging in to Render API...
+    ⤷ Request body: {
+  "email": "rendertest_1757729875763@example.com",
+  "password": "password123"
+}
+  ✅ Authentication successful! Token acquired.
+  📊 Login response time: 1621ms
+  👤 Fetching user information from Render...
+  📋 User data received: {
+  "success": true,
+  "data": {
+    "user": {
+      "id": "8bea4c52-fefe-41ab-9b5b-79a9116ef7e3",
+      "username": "rendertest_1757729875763",
+      "email": "rendertest_1757729875763@example.com",
+      "chess_elo": 1000,
+      "puzzle_rating": 1000,
+      "preferences": "{}",
+      "created_at": "2025-09-13T02:17:57.613Z",
+      "updated_at": "2025-09-13T02:17:57.613Z"
+    },
+    "progress": {
+      "id": "2e61964c-5304-4bfd-b217-97cb597a9f45",
+      "user_id": "8bea4c52-fefe-41ab-9b5b-79a9116ef7e3",
+      "puzzles_solved": 0,
+      "puzzles_correct": 0,
+      "current_streak": 0,
+      "best_streak": 0,
+      "total_time_spent": 0,
+      "achievements_unlocked": [],
+      "last_puzzle_date": null,
+      "created_at": "2025-09-13T02:17:59.532Z",
+      "updated_at": "2025-09-13T02:17:59.532Z"
+    }
+  }
+}
+  ⚠️  Could not extract user ID from response
+  🔄 Forcing JWT token update in verify-token payload
+  🔧 Force updating verify-token from 'test-jwt-token-12345' to 'eyJhbGciOiJIUzI1NiIs...'
+  🔄 Generating fresh credentials for auth endpoints
+  🆕 Generated fresh Render credentials: rendertest_879488_hiwxey
+  🔄 Updated register payload with: rendertest_879488_hiwxey
+  🔄 Updated login payload with: rendertest_879488_hiwxey@example.com
+  🔄 Updated reset-password payload with: rendertest_879488_hiwxey@example.com
+
+🔍 Testing users endpoints (6 endpoints) on Render:
+  GET    https://chessboard-vanilla-v2.onrender.com/api/users/profile
+    ⏱️  Response time: 171ms
+    ✅ 200 OK
+  PUT    https://chessboard-vanilla-v2.onrender.com/api/users/profile
+    ⤷ Request body: {
+  "chess_elo": 1600,
+  "puzzle_rating": 1550
+}
+    ⏱️  Response time: 194ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/users/preferences
+    ⏱️  Response time: 169ms
+    ✅ 200 OK
+  PUT    https://chessboard-vanilla-v2.onrender.com/api/users/preferences
+    ⤷ Request body: {
+  "preferences": {
+    "theme": "dark",
+    "sound_enabled": true,
+    "auto_promotion": false
+  }
+}
+    ⏱️  Response time: 173ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/users/settings
+    ⏱️  Response time: 170ms
+    ✅ 200 OK
+  PUT    https://chessboard-vanilla-v2.onrender.com/api/users/settings
+    ⤷ Request body: {
+  "chess_elo": 1500,
+  "puzzle_rating": 1500
+}
+    ⏱️  Response time: 175ms
+    ✅ 200 OK
+
+🔍 Testing puzzles endpoints (7 endpoints) on Render:
+  GET    https://chessboard-vanilla-v2.onrender.com/api/puzzles/next
+    ⏱️  Response time: 193ms
+    ✅ 200 OK
+  POST   https://chessboard-vanilla-v2.onrender.com/api/puzzles/259923b5-1bd0-4fc9-b784-58b54777d90a/solve
+    ⤷ Request body: {
+  "moves": "e2e4",
+  "time_taken": 30
+}
+    ⏱️  Response time: 176ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/puzzles/259923b5-1bd0-4fc9-b784-58b54777d90a/hint
+    ⏱️  Response time: 168ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/puzzles/categories
+    ⏱️  Response time: 208ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/puzzles/history
+    ⏱️  Response time: 118ms
+    ✅ 200 OK
+  POST   https://chessboard-vanilla-v2.onrender.com/api/puzzles/custom
+    ⤷ Request body: {
+  "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+  "solution_moves": "e2e4 e7e5",
+  "themes": "checkmate",
+  "rating": 1200,
+  "description": "Test custom puzzle"
+}
+    ⏱️  Response time: 175ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/puzzles/custom
+    ⏱️  Response time: 185ms
+    ✅ 200 OK
+
+🔍 Testing games endpoints (6 endpoints) on Render:
+  GET    https://chessboard-vanilla-v2.onrender.com/api/games/
+    ⏱️  Response time: 261ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/games/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+    ⏱️  Response time: 169ms
+    ✅ 200 OK
+  POST   https://chessboard-vanilla-v2.onrender.com/api/games/
+    ⤷ Request body: {
+  "ai_level": 1,
+  "user_color": "white",
+  "time_control": "blitz"
+}
+    ⏱️  Response time: 171ms
+    ✅ 200 OK
+  PUT    https://chessboard-vanilla-v2.onrender.com/api/games/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+    ⤷ Request body: {
+  "user_id": "test-user_id-20250912221755",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "id": "test-id-20250912221755",
+  "ai_level": 1,
+  "user_color": "white",
+  "current_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+  "pgn": "1. e4 e5 2. Nf3 Nc6",
+  "status": "test_status",
+  "result": "test_result",
+  "time_control": "test_time_control",
+  "started_at": "test_started_at",
+  "completed_at": "test_completed_at"
+}
+    ⏱️  Response time: 167ms
+    ✅ 200 OK
+  POST   https://chessboard-vanilla-v2.onrender.com/api/games/0da4d1e4-b3ec-428f-8578-4304ac5472c9/analyze
+    ⤷ Request body: {
+  "depth": 15
+}
+    ⏱️  Response time: 166ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/games/0da4d1e4-b3ec-428f-8578-4304ac5472c9/analysis
+    ⏱️  Response time: 212ms
+    ✅ 200 OK
+
+🔍 Testing stats endpoints (6 endpoints) on Render:
+  GET    https://chessboard-vanilla-v2.onrender.com/api/stats/overview
+    ⏱️  Response time: 204ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/stats/puzzles
+    ⏱️  Response time: 211ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/stats/games
+    ⏱️  Response time: 216ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/stats/progress
+    ⏱️  Response time: 204ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/stats/performance
+    ⏱️  Response time: 171ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/stats/ratings
+    ⏱️  Response time: 203ms
+    ✅ 200 OK
+
+🔍 Testing learning endpoints (4 endpoints) on Render:
+  GET    https://chessboard-vanilla-v2.onrender.com/api/learning/paths
+    ⏱️  Response time: 179ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/learning/paths/nu2i5slg3mewklnfk
+    ⏱️  Response time: 156ms
+    ✅ 200 OK
+  POST   https://chessboard-vanilla-v2.onrender.com/api/learning/paths/nu2i5slg3mewklnfk/enroll
+    ⤷ Request body: {
+  "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1"
+}
+    ⏱️  Response time: 245ms
+    ✅ 200 OK
+  PUT    https://chessboard-vanilla-v2.onrender.com/api/learning/paths/nu2i5slg3mewklnfk/progress
+    ⤷ Request body: {
+  "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "progress": 0.75
+}
+    ⏱️  Response time: 223ms
+    ✅ 200 OK
+
+🔍 Testing tutorials endpoints (3 endpoints) on Render:
+  GET    https://chessboard-vanilla-v2.onrender.com/api/tutorials/
+    ⏱️  Response time: 219ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/tutorials/79o1sdbtomewklmbb
+    ⏱️  Response time: 181ms
+    ✅ 200 OK
+  POST   https://chessboard-vanilla-v2.onrender.com/api/tutorials/79o1sdbtomewklmbb/complete
+    ⤷ Request body: {
+  "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "completion_time": 300
+}
+    ⏱️  Response time: 169ms
+    ✅ 200 OK
+
+🔍 Testing auth endpoints (13 endpoints) on Render:
+  POST   https://chessboard-vanilla-v2.onrender.com/api/auth/register
+    ⤷ Request body: {
+  "username": "rendertest_879488_hiwxey",
+  "email": "rendertest_879488_hiwxey@example.com",
+  "password": "password123"
+}
+    ⏱️  Response time: 1606ms
+    ✅ 200 OK
+  POST   https://chessboard-vanilla-v2.onrender.com/api/auth/login
+    ⤷ Request body: {
+  "email": "rendertest_879488_hiwxey@example.com",
+  "password": "password123"
+}
+    ⏱️  Response time: 1655ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/auth/me
+    ⏱️  Response time: 211ms
+    ✅ 200 OK
+  PUT    https://chessboard-vanilla-v2.onrender.com/api/auth/profile
+    ⤷ Request body: {
+  "chess_elo": 1600,
+  "puzzle_rating": 1550
+}
+    ⏱️  Response time: 166ms
+    ✅ 200 OK
+  POST   https://chessboard-vanilla-v2.onrender.com/api/auth/change-password
+    ⤷ Request body: {
+  "currentPassword": "password123",
+  "newPassword": "newpassword123"
+}
+    ⏱️  Response time: 3172ms
+    ✅ 200 OK
+  POST   https://chessboard-vanilla-v2.onrender.com/api/auth/verify-token
+    ⤷ Request body: {
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhiZWE0YzUyLWZlZmUtNDFhYi05YjViLTc5YTkxMTZlZjdlMyIsImVtYWlsIjoicmVuZGVydGVzdF8xNzU3NzI5ODc1NzYzQGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJyZW5kZXJ0ZXN0XzE3NTc3Mjk4NzU3NjMiLCJpYXQiOjE3NTc3Mjk4Nzl9.sHLnLmd9eyWHAwxd68Ta_9Uyw5UOjSCWtoBqco5rfaQ"
+}
+    ⏱️  Response time: 171ms
+    ✅ 200 OK
+  POST   https://chessboard-vanilla-v2.onrender.com/api/auth/forgot-password
+    ⤷ Request body: {
+  "email": "forgot_rendertest_879488_hiwxey@example.com"
+}
+    ⏱️  Response time: 183ms
+    ✅ 200 OK
+  POST   https://chessboard-vanilla-v2.onrender.com/api/auth/reset-password
+    ⤷ Request body: {
+  "email": "rendertest_879488_hiwxey@example.com",
+  "currentPassword": "password123",
+  "newPassword": "newpassword123"
+}
+    ⏱️  Response time: 3058ms
+    ✅ 200 OK
+  POST   https://chessboard-vanilla-v2.onrender.com/api/auth/logout
+    ⤷ Request body: {
+  "username": "logout_rendertest_879488_hiwxey",
+  "email": "logout_rendertest_879488_hiwxey@example.com",
+  "password_hash": "password123",
+  "chess_elo": 1500,
+  "puzzle_rating": 1500,
+  "preferences": "test_preferences"
+}
+    ⏱️  Response time: 119ms
+    ✅ 200 OK
+  POST   https://chessboard-vanilla-v2.onrender.com/api/auth/check-email
+    ⤷ Request body: {
+  "email": "check_rendertest_879488_hiwxey@example.com"
+}
+    ⏱️  Response time: 159ms
+    ✅ 200 OK
+  POST   https://chessboard-vanilla-v2.onrender.com/api/auth/check-username
+    ⤷ Request body: {
+  "username": "check_rendertest_879488_hiwxey"
+}
+    ⏱️  Response time: 166ms
+    ✅ 200 OK
+  DELETE https://chessboard-vanilla-v2.onrender.com/api/auth/delete-account
+    ⏱️  Response time: 255ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/auth/health
+    ⏱️  Response time: 104ms
+    ✅ 200 OK
+
+🔍 Testing sessions endpoints (3 endpoints) on Render:
+  POST   https://chessboard-vanilla-v2.onrender.com/api/sessions/create
+    ⤷ Request body: {
+  "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "refresh_token": "refresh_token_20250912221755",
+  "expires_at": "2025-09-13T22:17:55.204967"
+}
+    ⏱️  Response time: 178ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/sessions/validate/test-session-token
+    ⏱️  Response time: 116ms
+    ✅ 200 OK
+  DELETE https://chessboard-vanilla-v2.onrender.com/api/sessions/test-session-token
+    ⏱️  Response time: 137ms
+    ✅ 200 OK
+
+🔍 Testing achievements endpoints (3 endpoints) on Render:
+  GET    https://chessboard-vanilla-v2.onrender.com/api/achievements/
+    ⏱️  Response time: 164ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/achievements/user/4c31c867-b8e1-46b8-872c-d8c196cd80f1
+    ⏱️  Response time: 154ms
+    ✅ 200 OK
+  POST   https://chessboard-vanilla-v2.onrender.com/api/achievements/unlock
+    ⤷ Request body: {
+  "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "achievement_id": "test-achievement-123"
+}
+    ⏱️  Response time: 167ms
+    ✅ 200 OK
+
+🔍 Testing progress endpoints (3 endpoints) on Render:
+  GET    https://chessboard-vanilla-v2.onrender.com/api/progress/user/4c31c867-b8e1-46b8-872c-d8c196cd80f1
+    ⏱️  Response time: 217ms
+    ✅ 200 OK
+  PUT    https://chessboard-vanilla-v2.onrender.com/api/progress/update
+    ⤷ Request body: {
+  "id": "test-progress-001",
+  "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "puzzles_solved": 100,
+  "puzzles_correct": 90,
+  "current_streak": 5,
+  "best_streak": 15,
+  "total_time_spent": 3600
+}
+    ⏱️  Response time: 336ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/progress/stats/4c31c867-b8e1-46b8-872c-d8c196cd80f1
+    ⏱️  Response time: 184ms
+    ✅ 200 OK
+
+🔍 Testing openings endpoints (3 endpoints) on Render:
+  GET    https://chessboard-vanilla-v2.onrender.com/api/openings/
+    ⏱️  Response time: 232ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/openings/eco/B92
+    ⏱️  Response time: 226ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/openings/search
+    ⏱️  Response time: 211ms
+    ✅ 200 OK
+
+🔍 Testing analysis endpoints (2 endpoints) on Render:
+  POST   https://chessboard-vanilla-v2.onrender.com/api/analysis/position
+    ⤷ Request body: {
+  "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+  "depth": 15
+}
+    ⏱️  Response time: 158ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/analysis/position/rnbqkbnr-pppppppp-8-8-8-8-PPPPPPPP-RNBQKBNR
+    ⏱️  Response time: 161ms
+    ✅ 200 OK
+
+🔍 Testing ai-opponents endpoints (3 endpoints) on Render:
+  GET    https://chessboard-vanilla-v2.onrender.com/api/aiOpponents/
+    ⏱️  Response time: 185ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/aiOpponents/gsi70sjmhmewklmgh
+    ⏱️  Response time: 172ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/aiOpponents/difficulty/beginner
+    ⏱️  Response time: 167ms
+    ✅ 200 OK
+
+🔍 Testing analytics endpoints (2 endpoints) on Render:
+  POST   https://chessboard-vanilla-v2.onrender.com/api/analytics/track
+    ⤷ Request body: {
+  "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "event_type": "puzzle_solved",
+  "event_data": "{\"puzzle_id\": \"test-puzzle-123\", \"time\": 30}",
+  "session_id": "test-session-123"
+}
+    ⏱️  Response time: 167ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/analytics/user/4c31c867-b8e1-46b8-872c-d8c196cd80f1
+    ⏱️  Response time: 169ms
+    ✅ 200 OK
+
+🔍 Testing profiles endpoints (2 endpoints) on Render:
+  GET    https://chessboard-vanilla-v2.onrender.com/api/profiles/4c31c867-b8e1-46b8-872c-d8c196cd80f1
+    ⏱️  Response time: 172ms
+    ✅ 200 OK
+  PUT    https://chessboard-vanilla-v2.onrender.com/api/profiles/4c31c867-b8e1-46b8-872c-d8c196cd80f1
+    ⤷ Request body: {
+  "display_name": "Updated Test User",
+  "bio": "Updated chess enthusiast",
+  "country": "US",
+  "timezone": "EST"
+}
+    ⏱️  Response time: 283ms
+    ✅ 200 OK
+
+🔍 Testing endgames endpoints (3 endpoints) on Render:
+  GET    https://chessboard-vanilla-v2.onrender.com/api/endgames/
+    ⏱️  Response time: 182ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/endgames/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+    ⏱️  Response time: 171ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/endgames/category/endgame
+    ⏱️  Response time: 146ms
+    ✅ 200 OK
+
+🔍 Testing game-reviews endpoints (3 endpoints) on Render:
+  POST   https://chessboard-vanilla-v2.onrender.com/api/gameReviews/
+    ⤷ Request body: {
+  "game_id": "test-game_id-20250912221755",
+  "reviewer_id": "test-reviewer_id-20250912221755",
+  "analysis": "test_analysis",
+  "rating": 1500,
+  "key_moments": "test_key_moments"
+}
+    ⏱️  Response time: 168ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/gameReviews/game/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+    ⏱️  Response time: 180ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/gameReviews/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+    ⏱️  Response time: 178ms
+    ✅ 200 OK
+
+🔍 Testing historic-games endpoints (4 endpoints) on Render:
+  GET    https://chessboard-vanilla-v2.onrender.com/api/historicGames/
+    ⏱️  Response time: 172ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/historicGames/f854027b-eee5-4936-bc8e-ab34d5ab399d
+    ⏱️  Response time: 162ms
+    ✅ 200 OK
+  POST   https://chessboard-vanilla-v2.onrender.com/api/historicGames/search
+    ⤷ Request body: {
+  "player": "kasparov"
+}
+    ⏱️  Response time: 173ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/historicGames/player/kasparov
+    ⏱️  Response time: 162ms
+    ✅ 200 OK
+
+🔍 Testing puzzle-attempts endpoints (3 endpoints) on Render:
+  POST   https://chessboard-vanilla-v2.onrender.com/api/puzzleAttempts/
+    ⤷ Request body: {
+  "user_id": "test-user_id-20250912221755",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "puzzle_id": "test-puzzle_id-20250912221755",
+  "correct": true,
+  "time_spent": 30,
+  "moves_made": "test_moves_made",
+  "completed_at": "test_completed_at"
+}
+    ⏱️  Response time: 162ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/puzzleAttempts/user/4c31c867-b8e1-46b8-872c-d8c196cd80f1
+    ⏱️  Response time: 154ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/puzzleAttempts/puzzle/259923b5-1bd0-4fc9-b784-58b54777d90a
+    ⏱️  Response time: 164ms
+    ✅ 200 OK
+
+🔍 Testing puzzle-sources endpoints (2 endpoints) on Render:
+  GET    https://chessboard-vanilla-v2.onrender.com/api/puzzleSources/
+    ⏱️  Response time: 164ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/puzzleSources/0da4d1e4-b3ec-428f-8578-4304ac5472c9
+    ⏱️  Response time: 206ms
+    ✅ 200 OK
+
+🔍 Testing learning-modules endpoints (3 endpoints) on Render:
+  GET    https://chessboard-vanilla-v2.onrender.com/api/learningModules/path/nu2i5slg3mewklnfk
+    ⏱️  Response time: 169ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/learningModules/test-module-001
+    ⏱️  Response time: 165ms
+    ✅ 200 OK
+  POST   https://chessboard-vanilla-v2.onrender.com/api/learningModules/test-module-001/complete
+    ⤷ Request body: {
+  "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1"
+}
+    ⏱️  Response time: 167ms
+    ✅ 200 OK
+
+🔍 Testing tutorial-steps endpoints (2 endpoints) on Render:
+  GET    https://chessboard-vanilla-v2.onrender.com/api/tutorialSteps/tutorial/79o1sdbtomewklmbb
+    ⏱️  Response time: 164ms
+    ✅ 200 OK
+  POST   https://chessboard-vanilla-v2.onrender.com/api/tutorialSteps/0da4d1e4-b3ec-428f-8578-4304ac5472c9/complete
+    ⤷ Request body: {
+  "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1"
+}
+    ⏱️  Response time: 161ms
+    ✅ 200 OK
+
+🔍 Testing study-plans endpoints (3 endpoints) on Render:
+  GET    https://chessboard-vanilla-v2.onrender.com/api/studyPlans/user/4c31c867-b8e1-46b8-872c-d8c196cd80f1
+    ⏱️  Response time: 177ms
+    ✅ 200 OK
+  POST   https://chessboard-vanilla-v2.onrender.com/api/studyPlans/
+    ⤷ Request body: {
+  "user_id": "test-user_id-20250912221755",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "title": "test_title",
+  "goals": "test_goals",
+  "schedule": "test_schedule",
+  "progress": 0.5
+}
+    ⏱️  Response time: 154ms
+    ✅ 200 OK
+  PUT    https://chessboard-vanilla-v2.onrender.com/api/studyPlans/test-plan-001
+    ⤷ Request body: {
+  "user_id": "test-user_id-20250912221755",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "id": "test-id-20250912221755",
+  "title": "test_title",
+  "goals": "test_goals",
+  "schedule": "test_schedule",
+  "progress": 0.5,
+  "created_at": "2025-09-12T22:17:55.203882",
+  "updated_at": "2025-09-12T22:17:55.203882"
+}
+    ⏱️  Response time: 167ms
+    ✅ 200 OK
+
+🔍 Testing help endpoints (3 endpoints) on Render:
+  GET    https://chessboard-vanilla-v2.onrender.com/api/help/
+    ⏱️  Response time: 143ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/help/category/endgame
+    ⏱️  Response time: 174ms
+    ✅ 200 OK
+  GET    https://chessboard-vanilla-v2.onrender.com/api/help/search
+    ⏱️  Response time: 178ms
+    ✅ 200 OK
+
+🔍 Testing subscriptions endpoints (3 endpoints) on Render:
+  GET    https://chessboard-vanilla-v2.onrender.com/api/subscriptions/user/4c31c867-b8e1-46b8-872c-d8c196cd80f1
+    ⏱️  Response time: 201ms
+    ✅ 200 OK
+  POST   https://chessboard-vanilla-v2.onrender.com/api/subscriptions/
+    ⤷ Request body: {
+  "user_id": "test-user_id-20250912221755",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "plan_type": "test_plan_type",
+  "status": "test_status",
+  "expires_at": "2025-09-12T22:17:55.203882"
+}
+    ⏱️  Response time: 169ms
+    ✅ 200 OK
+  PUT    https://chessboard-vanilla-v2.onrender.com/api/subscriptions/envvsq272mewklnpv
+    ⤷ Request body: {
+  "user_id": "test-user_id-20250912221755",
+  "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
+  "id": "test-id-20250912221755",
+  "plan_type": "test_plan_type",
+  "status": "test_status",
+  "expires_at": "2025-09-12T22:17:55.203882",
+  "created_at": "2025-09-12T22:17:55.203882",
+  "updated_at": "2025-09-12T22:17:55.203882"
+}
+    ⏱️  Response time: 182ms
+    ✅ 200 OK
+
+======================================================================
+📊 RENDER API CONNECTIVITY TEST RESULTS
+======================================================================
+Target Environment: https://chessboard-vanilla-v2.onrender.com
+Total Endpoints Tested: 95
+✅ Successful: 95 (100.0%)
+❌ Failed: 0 (0.0%)
+⏭️  Skipped: 0 (0.0%)
+
+📈 PERFORMANCE METRICS:
+Average Response Time: 304ms
+Slowest Endpoint: POST https://chessboard-vanilla-v2.onrender.com/api/auth/change-password (3172ms)
+Fastest Endpoint: GET https://chessboard-vanilla-v2.onrender.com/api/auth/health (104ms)
+🚀 Excellent response times! Production environment is performing well.
+
+🎯 Overall Success Rate: 100.0%
+🌐 Production Environment: https://chessboard-vanilla-v2.onrender.com
+🎊 Excellent! Render API is performing very well in production.
