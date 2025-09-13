@@ -1,8 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
+import * as fs from 'fs';
+import * as path from 'path';
 
 // Load environment variables
 dotenv.config();
@@ -34,46 +35,24 @@ const corsOptions = {
   optionsSuccessStatus: 200
 };
 
-// Swagger Configuration
-const swaggerOptions = {
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'Chessboard Vanilla V2 API',
-      version: '2.0.0',
-      description: 'RESTful API for chess game, puzzles, learning, and user management',
-      contact: {
-        name: 'API Support',
-        url: 'https://github.com/ChrisColeTech/chessboard-vanilla-v2'
-      }
-    },
-    servers: [
-      {
-        url: process.env.NODE_ENV === 'production' 
-          ? 'https://chessboard-vanilla-v2.onrender.com'
-          : 'http://localhost:3001',
-        description: process.env.NODE_ENV === 'production' ? 'Production server' : 'Development server'
-      }
-    ],
-    components: {
-      securitySchemes: {
-        bearerAuth: {
-          type: 'http',
-          scheme: 'bearer',
-          bearerFormat: 'JWT',
-        }
-      }
-    },
-    security: [
-      {
-        bearerAuth: []
-      }
-    ]
-  },
-  apis: ['./src/routes/*.ts', './src/app.ts'], // paths to files containing OpenAPI definitions
+// Load comprehensive pre-generated OpenAPI specification
+const generatedSpecPath = path.join(__dirname, '..', 'generated_swagger.json');
+const generatedSpec = JSON.parse(fs.readFileSync(generatedSpecPath, 'utf8'));
+
+// Configure the spec with correct server URLs
+const specs = {
+  ...generatedSpec,
+  servers: [
+    {
+      url: process.env.NODE_ENV === 'production' 
+        ? 'https://chessboard-vanilla-v2.onrender.com'
+        : 'http://localhost:3001',
+      description: process.env.NODE_ENV === 'production' ? 'Production server' : 'Development server'
+    }
+  ]
 };
 
-const specs = swaggerJsdoc(swaggerOptions);
+console.log(`📋 Loaded ${Object.keys(generatedSpec.paths || {}).length} endpoints from comprehensive spec`);
 
 // Middleware
 app.use(cors(corsOptions));
@@ -91,6 +70,12 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, {
     showRequestDuration: true
   }
 }));
+
+// Swagger JSON endpoint  
+app.get('/api-docs.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(specs);
+});
 
 // Redirect root to API documentation
 app.get('/', (req, res) => {
