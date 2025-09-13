@@ -1,0 +1,17 @@
+# Don't upload these files to Railway
+node_modules
+*.log
+.env.local
+.env.development
+.DS_Store
+.git
+.github
+README.md
+docs/
+test_*.js
+*.test.ts
+*.spec.ts
+coverage/
+.nyc_output/
+dev-server.log
+server.log
