@@ -13,9 +13,11 @@ export class HistoricGamesAPIClient extends BaseAPIClient {
   async getGameById(id: string): Promise<ApiResponse<any>> {
     return this.request<any>(`/api/historicGames/${id}`);
   }
-  async searchGames(params?: any): Promise<ApiResponse<any>> {
-    const queryString = params ? '?' + new URLSearchParams(params).toString() : '';
-    return this.request<any>(`/api/historicGames/search${queryString}`);
+  async searchGames(data: any): Promise<ApiResponse<any>> {
+    return this.request<any>(`/api/historicGames/search`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
   }
   async getGamesByPlayer(params?: any): Promise<ApiResponse<any>> {
     const queryString = params ? '?' + new URLSearchParams(params).toString() : '';

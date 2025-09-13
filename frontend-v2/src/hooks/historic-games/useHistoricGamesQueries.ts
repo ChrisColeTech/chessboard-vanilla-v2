@@ -3,7 +3,7 @@ import { HistoricGamesAPIClient } from '../../clients/HistoricGamesAPIClient';
 
 /**
  * Query hooks for historic-games GET operations
- * Available GET methods: getAllHistoricGames, getGameById, searchGames, getGamesByPlayer
+ * Available GET methods: getAllHistoricGames, getGameById, getGamesByPlayer
  */
 export const useHistoricGamesQueries = () => {
   const [loading, setLoading] = useState(false);

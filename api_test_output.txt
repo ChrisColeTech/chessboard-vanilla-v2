@@ -78,9 +78,9 @@
     ✅ 200 OK
   PUT    http://localhost:3001/api/games/0da4d1e4-b3ec-428f-8578-4304ac5472c9
     ⤷ Request body: {
-  "user_id": "test-user_id-20250910203927",
+  "user_id": "test-user_id-20250912215827",
   "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
-  "id": "test-id-20250910203927",
+  "id": "test-id-20250912215827",
   "ai_level": 1,
   "user_color": "white",
   "current_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
@@ -150,18 +150,14 @@
 🔍 Testing auth endpoints (13 endpoints):
   POST   http://localhost:3001/api/auth/register
     ⤷ Request body: {
-  "username": "testuser_203927_4gvnse",
-  "email": "testuser_203927_4gvnse@example.com",
+  "username": "testuser_215827_pl0zl2",
+  "email": "testuser_215827_pl0zl2@example.com",
   "password": "password123"
 }
-    ❌ 400 Bad Request
-    ⤷ Response: {
-  "success": false,
-  "error": "User with this email or username already exists"
-}
+    ✅ 200 OK
   POST   http://localhost:3001/api/auth/login
     ⤷ Request body: {
-  "email": "testuser_203927_4gvnse@example.com",
+  "email": "testuser_215827_pl0zl2@example.com",
   "password": "password123"
 }
     ✅ 200 OK
@@ -194,12 +190,12 @@
 }
   POST   http://localhost:3001/api/auth/forgot-password
     ⤷ Request body: {
-  "email": "testuser_203927_sdt4pr@example.com"
+  "email": "testuser_215827_typ5gr@example.com"
 }
     ✅ 200 OK
   POST   http://localhost:3001/api/auth/reset-password
     ⤷ Request body: {
-  "email": "testuser_203927_t0w1o2@example.com",
+  "email": "testuser_215827_a029oh@example.com",
   "currentPassword": "password123",
   "newPassword": "newpassword123"
 }
@@ -210,8 +206,8 @@
 }
   POST   http://localhost:3001/api/auth/logout
     ⤷ Request body: {
-  "username": "testuser_203927_oxn75t",
-  "email": "testuser_203927_oxn75t@example.com",
+  "username": "testuser_215827_1036uc",
+  "email": "testuser_215827_1036uc@example.com",
   "password_hash": "password123",
   "chess_elo": 1500,
   "puzzle_rating": 1500,
@@ -220,12 +216,12 @@
     ✅ 200 OK
   POST   http://localhost:3001/api/auth/check-email
     ⤷ Request body: {
-  "email": "testuser_203927_6eupo5@example.com"
+  "email": "testuser_215827_ed5te6@example.com"
 }
     ✅ 200 OK
   POST   http://localhost:3001/api/auth/check-username
     ⤷ Request body: {
-  "username": "testuser_203927_2dyqoi"
+  "username": "testuser_215827_ynhwqr"
 }
     ✅ 200 OK
   DELETE http://localhost:3001/api/auth/delete-account
@@ -241,8 +237,8 @@
   POST   http://localhost:3001/api/sessions/create
     ⤷ Request body: {
   "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
-  "refresh_token": "refresh_token_20250910203927",
-  "expires_at": "2025-09-11T20:39:27.833733"
+  "refresh_token": "refresh_token_20250912215827",
+  "expires_at": "2025-09-13T21:58:27.964458"
 }
     ✅ 200 OK
   GET    http://localhost:3001/api/sessions/validate/test-session-token
@@ -340,8 +336,8 @@
 🔍 Testing game-reviews endpoints (3 endpoints):
   POST   http://localhost:3001/api/gameReviews/
     ⤷ Request body: {
-  "game_id": "test-game_id-20250910203927",
-  "reviewer_id": "test-reviewer_id-20250910203927",
+  "game_id": "test-game_id-20250912215827",
+  "reviewer_id": "test-reviewer_id-20250912215827",
   "analysis": "test_analysis",
   "rating": 1500,
   "key_moments": "test_key_moments"
@@ -369,9 +365,9 @@
 🔍 Testing puzzle-attempts endpoints (3 endpoints):
   POST   http://localhost:3001/api/puzzleAttempts/
     ⤷ Request body: {
-  "user_id": "test-user_id-20250910203927",
+  "user_id": "test-user_id-20250912215827",
   "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
-  "puzzle_id": "test-puzzle_id-20250910203927",
+  "puzzle_id": "test-puzzle_id-20250912215827",
   "correct": true,
   "time_spent": 30,
   "moves_made": "test_moves_made",
@@ -416,7 +412,7 @@
     ✅ 200 OK
   POST   http://localhost:3001/api/studyPlans/
     ⤷ Request body: {
-  "user_id": "test-user_id-20250910203927",
+  "user_id": "test-user_id-20250912215827",
   "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
   "title": "test_title",
   "goals": "test_goals",
@@ -426,15 +422,15 @@
     ✅ 200 OK
   PUT    http://localhost:3001/api/studyPlans/test-plan-001
     ⤷ Request body: {
-  "user_id": "test-user_id-20250910203927",
+  "user_id": "test-user_id-20250912215827",
   "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
-  "id": "test-id-20250910203927",
+  "id": "test-id-20250912215827",
   "title": "test_title",
   "goals": "test_goals",
   "schedule": "test_schedule",
   "progress": 0.5,
-  "created_at": "2025-09-10T20:39:27.832580",
-  "updated_at": "2025-09-10T20:39:27.832580"
+  "created_at": "2025-09-12T21:58:27.963314",
+  "updated_at": "2025-09-12T21:58:27.963314"
 }
     ✅ 200 OK
 
@@ -451,23 +447,23 @@
     ✅ 200 OK
   POST   http://localhost:3001/api/subscriptions/
     ⤷ Request body: {
-  "user_id": "test-user_id-20250910203927",
+  "user_id": "test-user_id-20250912215827",
   "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
   "plan_type": "test_plan_type",
   "status": "test_status",
-  "expires_at": "2025-09-10T20:39:27.832580"
+  "expires_at": "2025-09-12T21:58:27.963314"
 }
     ✅ 200 OK
   PUT    http://localhost:3001/api/subscriptions/envvsq272mewklnpv
     ⤷ Request body: {
-  "user_id": "test-user_id-20250910203927",
+  "user_id": "test-user_id-20250912215827",
   "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
-  "id": "test-id-20250910203927",
+  "id": "test-id-20250912215827",
   "plan_type": "test_plan_type",
   "status": "test_status",
-  "expires_at": "2025-09-10T20:39:27.832580",
-  "created_at": "2025-09-10T20:39:27.832580",
-  "updated_at": "2025-09-10T20:39:27.832580"
+  "expires_at": "2025-09-12T21:58:27.963314",
+  "created_at": "2025-09-12T21:58:27.963314",
+  "updated_at": "2025-09-12T21:58:27.963314"
 }
     ✅ 200 OK
 
@@ -475,8 +471,8 @@
 📊 API CONNECTIVITY TEST v3 RESULTS
 ======================================================================
 Total Endpoints Tested: 95
-✅ Successful: 88 (92.6%)
-❌ Failed: 7 (7.4%)
+✅ Successful: 89 (93.7%)
+❌ Failed: 6 (6.3%)
 ⏭️  Skipped: 0 (0.0%)
 
 🔍 ERROR DETAILS:
@@ -493,21 +489,7 @@ Total Endpoints Tested: 95
   "error": "User already enrolled in this learning path"
 }
 
-2. POST http://localhost:3001/api/auth/register
-   Entity: auth
-   Handler: register
-   Status: 400 Bad Request
-   Payload: {
-  "username": "testuser_203927_4gvnse",
-  "email": "testuser_203927_4gvnse@example.com",
-  "password": "password123"
-}
-   Response: {
-  "success": false,
-  "error": "User with this email or username already exists"
-}
-
-3. POST http://localhost:3001/api/auth/change-password
+2. POST http://localhost:3001/api/auth/change-password
    Entity: auth
    Handler: changePassword
    Status: 400 Bad Request
@@ -520,7 +502,7 @@ Total Endpoints Tested: 95
   "error": "Current password is incorrect"
 }
 
-4. POST http://localhost:3001/api/auth/verify-token
+3. POST http://localhost:3001/api/auth/verify-token
    Entity: auth
    Handler: verifyToken
    Status: 400 Bad Request
@@ -532,12 +514,12 @@ Total Endpoints Tested: 95
   "error": "Invalid token"
 }
 
-5. POST http://localhost:3001/api/auth/reset-password
+4. POST http://localhost:3001/api/auth/reset-password
    Entity: auth
    Handler: resetPassword
    Status: 400 Bad Request
    Payload: {
-  "email": "testuser_203927_t0w1o2@example.com",
+  "email": "testuser_215827_a029oh@example.com",
   "currentPassword": "password123",
   "newPassword": "newpassword123"
 }
@@ -546,7 +528,7 @@ Total Endpoints Tested: 95
   "error": "User not found"
 }
 
-6. DELETE http://localhost:3001/api/auth/delete-account
+5. DELETE http://localhost:3001/api/auth/delete-account
    Entity: auth
    Handler: deleteAccount
    Status: 400 Bad Request
@@ -555,7 +537,7 @@ Total Endpoints Tested: 95
   "error": "update or delete on table \"users\" violates foreign key constraint \"fk_profiles_user\" on table \"user_profiles\""
 }
 
-7. GET http://localhost:3001/api/historicGames/search
+6. GET http://localhost:3001/api/historicGames/search
    Entity: historic-games
    Handler: searchGames
    Status: 400 Bad Request
@@ -567,5 +549,5 @@ Total Endpoints Tested: 95
 🌐 Testing Frontend Access:
   ❌ Frontend not accessible: NETWORK_ERROR undefined
 
-🎯 Overall Success Rate: 92.6%
+🎯 Overall Success Rate: 93.7%
 🎊 Excellent! High connectivity achieved with generated payloads.

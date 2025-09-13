@@ -186,9 +186,9 @@
       "handler": "updateGame",
       "auth_required": true,
       "payload": {
-        "user_id": "test-user_id-20250910203927",
+        "user_id": "test-user_id-20250912221755",
         "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
-        "id": "test-id-20250910203927",
+        "id": "test-id-20250912221755",
         "ai_level": 1,
         "user_color": "white",
         "current_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
@@ -377,8 +377,8 @@
       "handler": "register",
       "auth_required": false,
       "payload": {
-        "username": "testuser_203927_4gvnse",
-        "email": "testuser_203927_4gvnse@example.com",
+        "username": "testuser_221755_yx4hr4",
+        "email": "testuser_221755_yx4hr4@example.com",
         "password": "password123"
       },
       "url_params": {}
@@ -390,7 +390,7 @@
       "handler": "login",
       "auth_required": false,
       "payload": {
-        "email": "testuser_203927_4gvnse@example.com",
+        "email": "testuser_221755_yx4hr4@example.com",
         "password": "password123"
       },
       "url_params": {}
@@ -446,7 +446,7 @@
       "handler": "forgotPassword",
       "auth_required": false,
       "payload": {
-        "email": "testuser_203927_sdt4pr@example.com"
+        "email": "testuser_221755_a94hnk@example.com"
       },
       "url_params": {}
     },
@@ -457,7 +457,7 @@
       "handler": "resetPassword",
       "auth_required": false,
       "payload": {
-        "email": "testuser_203927_t0w1o2@example.com",
+        "email": "testuser_221755_y1g10s@example.com",
         "currentPassword": "password123",
         "newPassword": "newpassword123"
       },
@@ -470,8 +470,8 @@
       "handler": "logout",
       "auth_required": false,
       "payload": {
-        "username": "testuser_203927_oxn75t",
-        "email": "testuser_203927_oxn75t@example.com",
+        "username": "testuser_221755_l22vrx",
+        "email": "testuser_221755_l22vrx@example.com",
         "password_hash": "password123",
         "chess_elo": 1500,
         "puzzle_rating": 1500,
@@ -486,7 +486,7 @@
       "handler": "checkEmailAvailability",
       "auth_required": false,
       "payload": {
-        "email": "testuser_203927_6eupo5@example.com"
+        "email": "testuser_221755_g4a2e9@example.com"
       },
       "url_params": {}
     },
@@ -497,7 +497,7 @@
       "handler": "checkUsernameAvailability",
       "auth_required": false,
       "payload": {
-        "username": "testuser_203927_2dyqoi"
+        "username": "testuser_221755_n5j49b"
       },
       "url_params": {}
     },
@@ -529,8 +529,8 @@
       "auth_required": true,
       "payload": {
         "user_id": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
-        "refresh_token": "refresh_token_20250910203927",
-        "expires_at": "2025-09-11T20:39:27.833733"
+        "refresh_token": "refresh_token_20250912221755",
+        "expires_at": "2025-09-13T22:17:55.204967"
       },
       "url_params": {}
     },
@@ -818,8 +818,8 @@
       "handler": "createReview",
       "auth_required": true,
       "payload": {
-        "game_id": "test-game_id-20250910203927",
-        "reviewer_id": "test-reviewer_id-20250910203927",
+        "game_id": "test-game_id-20250912221755",
+        "reviewer_id": "test-reviewer_id-20250912221755",
         "analysis": "test_analysis",
         "rating": 1500,
         "key_moments": "test_key_moments"
@@ -877,11 +877,7 @@
       "handler": "searchGames",
       "auth_required": true,
       "payload": {
-        "player": "kasparov",
-        "result": "1-0",
-        "opening_eco": "B92",
-        "tournament_name": "World Championship",
-        "year": "1985"
+        "player": "kasparov"
       },
       "url_params": {}
     },
@@ -905,9 +901,9 @@
       "handler": "recordAttempt",
       "auth_required": true,
       "payload": {
-        "user_id": "test-user_id-20250910203927",
+        "user_id": "test-user_id-20250912221755",
         "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
-        "puzzle_id": "test-puzzle_id-20250910203927",
+        "puzzle_id": "test-puzzle_id-20250912221755",
         "correct": true,
         "time_spent": 30,
         "moves_made": "test_moves_made",
@@ -1044,7 +1040,7 @@
       "handler": "createStudyPlan",
       "auth_required": true,
       "payload": {
-        "user_id": "test-user_id-20250910203927",
+        "user_id": "test-user_id-20250912221755",
         "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
         "title": "test_title",
         "goals": "test_goals",
@@ -1060,15 +1056,15 @@
       "handler": "updatePlan",
       "auth_required": true,
       "payload": {
-        "user_id": "test-user_id-20250910203927",
+        "user_id": "test-user_id-20250912221755",
         "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
-        "id": "test-id-20250910203927",
+        "id": "test-id-20250912221755",
         "title": "test_title",
         "goals": "test_goals",
         "schedule": "test_schedule",
         "progress": 0.5,
-        "created_at": "2025-09-10T20:39:27.832580",
-        "updated_at": "2025-09-10T20:39:27.832580"
+        "created_at": "2025-09-12T22:17:55.203882",
+        "updated_at": "2025-09-12T22:17:55.203882"
       },
       "url_params": {
         "id": "test-plan-001"
@@ -1125,11 +1121,11 @@
       "handler": "createSubscription",
       "auth_required": true,
       "payload": {
-        "user_id": "test-user_id-20250910203927",
+        "user_id": "test-user_id-20250912221755",
         "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
         "plan_type": "test_plan_type",
         "status": "test_status",
-        "expires_at": "2025-09-10T20:39:27.832580"
+        "expires_at": "2025-09-12T22:17:55.203882"
       },
       "url_params": {}
     },
@@ -1140,14 +1136,14 @@
       "handler": "updateSubscription",
       "auth_required": true,
       "payload": {
-        "user_id": "test-user_id-20250910203927",
+        "user_id": "test-user_id-20250912221755",
         "userId": "4c31c867-b8e1-46b8-872c-d8c196cd80f1",
-        "id": "test-id-20250910203927",
+        "id": "test-id-20250912221755",
         "plan_type": "test_plan_type",
         "status": "test_status",
-        "expires_at": "2025-09-10T20:39:27.832580",
-        "created_at": "2025-09-10T20:39:27.832580",
-        "updated_at": "2025-09-10T20:39:27.832580"
+        "expires_at": "2025-09-12T22:17:55.203882",
+        "created_at": "2025-09-12T22:17:55.203882",
+        "updated_at": "2025-09-12T22:17:55.203882"
       },
       "url_params": {
         "id": "envvsq272mewklnpv"
