@@ -1,17 +1,27 @@
 // Authentication utility functions for token handling, validation, and storage
-import type { User, TokenInfo, AuthStorage, AuthConfig, AuthError, AuthErrorType } from '../types';
+import type {
+  User,
+  TokenInfo,
+  AuthStorage,
+  AuthConfig,
+  AuthError,
+  AuthErrorType,
+} from "../types";
 
 // Default auth configuration
 export const DEFAULT_AUTH_CONFIG: AuthConfig = {
-  apiBaseUrl: 'http://localhost:3001/api',
-  tokenStorageKey: 'chess_app_token',
-  tokenExpirationBuffer: 5 // 5 minutes before expiry
+  apiBaseUrl: `${
+    import.meta.env.VITE_API_BASE_URL ||
+    "https://chessboard-vanilla-v2.onrender.com"
+  }/api`,
+  tokenStorageKey: "chess_app_token",
+  tokenExpirationBuffer: 5, // 5 minutes before expiry
 };
 
 // Token utilities
 export class TokenUtils {
   private static readonly STORAGE_KEY = DEFAULT_AUTH_CONFIG.tokenStorageKey;
-  private static readonly USER_STORAGE_KEY = 'chess_app_user';
+  private static readonly USER_STORAGE_KEY = "chess_app_user";
 
   /**
    * Decode JWT token payload without verification
@@ -19,8 +29,8 @@ export class TokenUtils {
    */
   static decodeTokenPayload(token: string): any {
     try {
-      const payload = token.split('.')[1];
-      const decoded = atob(payload.replace(/-/g, '+').replace(/_/g, '/'));
+      const payload = token.split(".")[1];
+      const decoded = atob(payload.replace(/-/g, "+").replace(/_/g, "/"));
       return JSON.parse(decoded);
     } catch (error) {
       return null;
@@ -39,12 +49,12 @@ export class TokenUtils {
     const expiresAt = new Date(payload.exp * 1000);
     const now = new Date();
     const bufferTime = DEFAULT_AUTH_CONFIG.tokenExpirationBuffer * 60 * 1000;
-    const isExpired = now.getTime() > (expiresAt.getTime() - bufferTime);
+    const isExpired = now.getTime() > expiresAt.getTime() - bufferTime;
 
     return {
       token,
       expiresAt,
-      isExpired
+      isExpired,
     };
   }
 
@@ -53,7 +63,7 @@ export class TokenUtils {
    */
   static isTokenValid(token: string | null): boolean {
     if (!token) return false;
-    
+
     const tokenInfo = this.getTokenInfo(token);
     return tokenInfo ? !tokenInfo.isExpired : false;
   }
@@ -73,7 +83,7 @@ export class TokenUtils {
     try {
       return localStorage.getItem(this.STORAGE_KEY);
     } catch (error) {
-      console.error('Error getting token from storage:', error);
+      console.error("Error getting token from storage:", error);
       return null;
     }
   }
@@ -85,7 +95,7 @@ export class TokenUtils {
     try {
       localStorage.setItem(this.STORAGE_KEY, token);
     } catch (error) {
-      console.error('Error storing token:', error);
+      console.error("Error storing token:", error);
     }
   }
 
@@ -96,7 +106,7 @@ export class TokenUtils {
     try {
       localStorage.removeItem(this.STORAGE_KEY);
     } catch (error) {
-      console.error('Error removing token:', error);
+      console.error("Error removing token:", error);
     }
   }
 
@@ -108,7 +118,7 @@ export class TokenUtils {
       const userData = localStorage.getItem(this.USER_STORAGE_KEY);
       return userData ? JSON.parse(userData) : null;
     } catch (error) {
-      console.error('Error getting user from storage:', error);
+      console.error("Error getting user from storage:", error);
       return null;
     }
   }
@@ -120,7 +130,7 @@ export class TokenUtils {
     try {
       localStorage.setItem(this.USER_STORAGE_KEY, JSON.stringify(user));
     } catch (error) {
-      console.error('Error storing user:', error);
+      console.error("Error storing user:", error);
     }
   }
 
@@ -131,7 +141,7 @@ export class TokenUtils {
     try {
       localStorage.removeItem(this.USER_STORAGE_KEY);
     } catch (error) {
-      console.error('Error removing user:', error);
+      console.error("Error removing user:", error);
     }
   }
 
@@ -188,57 +198,68 @@ export class ValidationUtils {
   /**
    * Validate password strength
    */
-  static validatePassword(password: string): { isValid: boolean; errors: string[] } {
+  static validatePassword(password: string): {
+    isValid: boolean;
+    errors: string[];
+  } {
     const errors: string[] = [];
-    
+
     if (password.length < 6) {
-      errors.push('Password must be at least 6 characters long');
+      errors.push("Password must be at least 6 characters long");
     }
 
     // Add more password requirements if needed
     // if (!/(?=.*[a-z])/.test(password)) {
     //   errors.push('Password must contain at least one lowercase letter');
     // }
-    
+
     // if (!/(?=.*[A-Z])/.test(password)) {
     //   errors.push('Password must contain at least one uppercase letter');
     // }
-    
+
     // if (!/(?=.*\d)/.test(password)) {
     //   errors.push('Password must contain at least one number');
     // }
 
     return {
       isValid: errors.length === 0,
-      errors
+      errors,
     };
   }
 
   /**
    * Validate username format
    */
-  static validateUsername(username: string): { isValid: boolean; errors: string[] } {
+  static validateUsername(username: string): {
+    isValid: boolean;
+    errors: string[];
+  } {
     const errors: string[] = [];
-    
+
     if (username.length < 3 || username.length > 20) {
-      errors.push('Username must be between 3 and 20 characters');
+      errors.push("Username must be between 3 and 20 characters");
     }
 
     const usernameRegex = /^[a-zA-Z0-9_-]+$/;
     if (!usernameRegex.test(username)) {
-      errors.push('Username can only contain letters, numbers, underscores, and hyphens');
+      errors.push(
+        "Username can only contain letters, numbers, underscores, and hyphens"
+      );
     }
 
     return {
       isValid: errors.length === 0,
-      errors
+      errors,
     };
   }
 
   /**
    * Validate passwords match
    */
-  static validatePasswordsMatch(password: string, confirmPassword: string): boolean {
+  static validatePasswordsMatch(
+    password: string,
+    confirmPassword: string
+  ): boolean {
     return password === confirmPassword;
   }
 }
@@ -255,7 +276,7 @@ export class AuthErrorUtils {
     details?: any
   ): AuthError {
     const error = new Error(message) as AuthError;
-    error.name = 'AuthError';
+    error.name = "AuthError";
     error.type = type;
     error.statusCode = statusCode;
     error.details = details;
@@ -269,34 +290,34 @@ export class AuthErrorUtils {
     // Network error
     if (!error.response) {
       return this.createAuthError(
-        'NETWORK_ERROR',
-        'Network error. Please check your connection.',
+        "NETWORK_ERROR",
+        "Network error. Please check your connection.",
         0,
         error
       );
     }
 
     const { status, data } = error.response;
-    const message = data?.error || data?.message || 'An error occurred';
+    const message = data?.error || data?.message || "An error occurred";
 
     // Map status codes to error types
     let errorType: AuthErrorType;
     switch (status) {
       case 400:
-        errorType = 'VALIDATION_ERROR';
+        errorType = "VALIDATION_ERROR";
         break;
       case 401:
-        errorType = 'INVALID_CREDENTIALS';
+        errorType = "INVALID_CREDENTIALS";
         break;
       case 403:
-        errorType = 'INVALID_TOKEN';
+        errorType = "INVALID_TOKEN";
         break;
       case 409:
-        errorType = 'USER_EXISTS';
+        errorType = "USER_EXISTS";
         break;
       case 500:
       default:
-        errorType = 'SERVER_ERROR';
+        errorType = "SERVER_ERROR";
         break;
     }
 
@@ -308,21 +329,21 @@ export class AuthErrorUtils {
    */
   static getUserFriendlyMessage(error: AuthError): string {
     switch (error.type) {
-      case 'INVALID_CREDENTIALS':
-        return 'Invalid email or password. Please try again.';
-      case 'USER_EXISTS':
-        return 'An account with this email already exists.';
-      case 'INVALID_TOKEN':
-      case 'EXPIRED_TOKEN':
-        return 'Your session has expired. Please log in again.';
-      case 'NETWORK_ERROR':
-        return 'Network error. Please check your connection and try again.';
-      case 'VALIDATION_ERROR':
-        return error.message || 'Please check your input and try again.';
-      case 'SERVER_ERROR':
-        return 'Server error. Please try again later.';
+      case "INVALID_CREDENTIALS":
+        return "Invalid email or password. Please try again.";
+      case "USER_EXISTS":
+        return "An account with this email already exists.";
+      case "INVALID_TOKEN":
+      case "EXPIRED_TOKEN":
+        return "Your session has expired. Please log in again.";
+      case "NETWORK_ERROR":
+        return "Network error. Please check your connection and try again.";
+      case "VALIDATION_ERROR":
+        return error.message || "Please check your input and try again.";
+      case "SERVER_ERROR":
+        return "Server error. Please try again later.";
       default:
-        return error.message || 'An unexpected error occurred.';
+        return error.message || "An unexpected error occurred.";
     }
   }
 }
@@ -334,7 +355,7 @@ export class ApiUtils {
    */
   static createAuthHeaders(token?: string): Record<string, string> {
     const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     };
 
     const authToken = token || TokenUtils.getStoredToken();
@@ -352,7 +373,7 @@ export class ApiUtils {
     if (!response.ok) {
       const errorData = await response.json().catch(() => null);
       throw AuthErrorUtils.createAuthError(
-        'SERVER_ERROR',
+        "SERVER_ERROR",
         errorData?.error || `HTTP ${response.status}`,
         response.status,
         errorData
@@ -384,7 +405,7 @@ export class ApiUtils {
 
 // Session management utilities
 export class SessionUtils {
-  private static readonly SESSION_KEY = 'chess_app_session';
+  private static readonly SESSION_KEY = "chess_app_session";
 
   /**
    * Check if user session is active
@@ -397,15 +418,20 @@ export class SessionUtils {
   /**
    * Initialize session from storage
    */
-  static initializeSession(): { user: User | null; token: string | null; isAuthenticated: boolean } {
+  static initializeSession(): {
+    user: User | null;
+    token: string | null;
+    isAuthenticated: boolean;
+  } {
     const token = TokenUtils.getStoredToken();
     const user = TokenUtils.getStoredUser();
-    const isAuthenticated = token && user && TokenUtils.isTokenValid(token) ? true : false;
+    const isAuthenticated =
+      token && user && TokenUtils.isTokenValid(token) ? true : false;
 
     return {
       user: isAuthenticated ? user : null,
       token: isAuthenticated ? token : null,
-      isAuthenticated
+      isAuthenticated,
     };
   }
 
@@ -417,7 +443,7 @@ export class SessionUtils {
     try {
       sessionStorage.removeItem(this.SESSION_KEY);
     } catch (error) {
-      console.error('Error clearing session:', error);
+      console.error("Error clearing session:", error);
     }
   }
 

@@ -3,7 +3,7 @@ import type { User, TokenInfo, AuthStorage, AuthConfig, AuthError, AuthErrorType
 
 // Default auth configuration
 export const DEFAULT_AUTH_CONFIG: AuthConfig = {
-  apiBaseUrl: 'https://chessboard-vanilla-v2.onrender.com/api',
+  apiBaseUrl: `${import.meta.env.VITE_API_BASE_URL || 'https://chessboard-vanilla-v2.onrender.com'}/api`,
   tokenStorageKey: 'chess_app_token',
   tokenExpirationBuffer: 5 // 5 minutes before expiry
 };

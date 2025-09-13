@@ -1,9 +1,16 @@
 // API service for chess puzzles from backend
-import type { Puzzle, PuzzleFilters, PuzzleStats } from '../../types/puzzle.types';
-import { getRandomSamplePuzzle } from '../../data/samplePuzzles';
+import type {
+  Puzzle,
+  PuzzleFilters,
+  PuzzleStats,
+} from "../../types/puzzle.types";
+import { getRandomSamplePuzzle } from "../../data/samplePuzzles";
 
 class PuzzleApiService {
-  private baseUrl = 'http://localhost:3001/api/puzzles';
+  private baseUrl = `${
+    import.meta.env.VITE_API_BASE_URL ||
+    "https://chessboard-vanilla-v2.onrender.com"
+  }/api/puzzles`;
 
   /**
    * Generic API request handler
@@ -11,14 +18,16 @@ class PuzzleApiService {
   private async apiRequest<T>(url: string): Promise<T> {
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+      throw new Error(
+        `API request failed: ${response.status} ${response.statusText}`
+      );
     }
-    
+
     const data = await response.json();
     if (!data.success) {
-      throw new Error(data.error || 'API request returned error');
+      throw new Error(data.error || "API request returned error");
     }
-    
+
     return data.data;
   }
 
@@ -27,23 +36,23 @@ class PuzzleApiService {
    */
   private buildQueryString(filters: PuzzleFilters = {}): string {
     const params = new URLSearchParams();
-    
+
     if (filters.minRating !== undefined) {
-      params.append('minRating', filters.minRating.toString());
+      params.append("minRating", filters.minRating.toString());
     }
     if (filters.maxRating !== undefined) {
-      params.append('maxRating', filters.maxRating.toString());
+      params.append("maxRating", filters.maxRating.toString());
     }
     if (filters.themes && filters.themes.length > 0) {
-      params.append('themes', filters.themes.join(','));
+      params.append("themes", filters.themes.join(","));
     }
     if (filters.limit !== undefined) {
-      params.append('limit', filters.limit.toString());
+      params.append("limit", filters.limit.toString());
     }
     if (filters.offset !== undefined) {
-      params.append('offset', filters.offset.toString());
+      params.append("offset", filters.offset.toString());
     }
-    
+
     return params.toString();
   }
 
@@ -53,11 +62,13 @@ class PuzzleApiService {
   async getRandomPuzzle(filters: PuzzleFilters = {}): Promise<Puzzle | null> {
     try {
       const queryString = this.buildQueryString(filters);
-      const url = `${this.baseUrl}/random${queryString ? `?${queryString}` : ''}`;
-      
+      const url = `${this.baseUrl}/random${
+        queryString ? `?${queryString}` : ""
+      }`;
+
       return await this.apiRequest<Puzzle>(url);
     } catch (error) {
-      console.warn('Backend API not available, using sample puzzle:', error);
+      console.warn("Backend API not available, using sample puzzle:", error);
       // Fallback to sample puzzle when API is not available
       return getRandomSamplePuzzle();
     }
@@ -70,7 +81,7 @@ class PuzzleApiService {
     try {
       return await this.apiRequest<Puzzle>(`${this.baseUrl}/${id}`);
     } catch (error) {
-      console.error('Failed to get puzzle by ID:', error);
+      console.error("Failed to get puzzle by ID:", error);
       return null;
     }
   }
@@ -81,11 +92,11 @@ class PuzzleApiService {
   async getPuzzles(filters: PuzzleFilters = {}): Promise<Puzzle[]> {
     try {
       const queryString = this.buildQueryString(filters);
-      const url = `${this.baseUrl}${queryString ? `?${queryString}` : ''}`;
-      
+      const url = `${this.baseUrl}${queryString ? `?${queryString}` : ""}`;
+
       return await this.apiRequest<Puzzle[]>(url);
     } catch (error) {
-      console.error('Failed to get puzzles:', error);
+      console.error("Failed to get puzzles:", error);
       return [];
     }
   }
@@ -97,7 +108,7 @@ class PuzzleApiService {
     try {
       return await this.apiRequest<string[]>(`${this.baseUrl}/themes`);
     } catch (error) {
-      console.error('Failed to get themes:', error);
+      console.error("Failed to get themes:", error);
       return [];
     }
   }
@@ -109,7 +120,7 @@ class PuzzleApiService {
     try {
       return await this.apiRequest<PuzzleStats>(`${this.baseUrl}/stats`);
     } catch (error) {
-      console.error('Failed to get puzzle stats:', error);
+      console.error("Failed to get puzzle stats:", error);
       return null;
     }
   }
@@ -117,16 +128,21 @@ class PuzzleApiService {
   /**
    * Search puzzles by description
    */
-  async searchPuzzles(searchTerm: string, limit: number = 10): Promise<Puzzle[]> {
+  async searchPuzzles(
+    searchTerm: string,
+    limit: number = 10
+  ): Promise<Puzzle[]> {
     try {
       const params = new URLSearchParams({
         q: searchTerm,
-        limit: limit.toString()
+        limit: limit.toString(),
       });
-      
-      return await this.apiRequest<Puzzle[]>(`${this.baseUrl}/search?${params}`);
+
+      return await this.apiRequest<Puzzle[]>(
+        `${this.baseUrl}/search?${params}`
+      );
     } catch (error) {
-      console.error('Failed to search puzzles:', error);
+      console.error("Failed to search puzzles:", error);
       return [];
     }
   }

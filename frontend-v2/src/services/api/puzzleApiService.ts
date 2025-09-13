@@ -3,7 +3,7 @@ import type { Puzzle, PuzzleFilters, PuzzleStats } from '../../types/puzzle.type
 import { getRandomSamplePuzzle } from '../../data/samplePuzzles';
 
 class PuzzleApiService {
-  private baseUrl = 'https://chessboard-vanilla-v2.onrender.com/api/puzzles';
+  private baseUrl = `${import.meta.env.VITE_API_BASE_URL || 'https://chessboard-vanilla-v2.onrender.com'}/api/puzzles`;
 
   /**
    * Generic API request handler
