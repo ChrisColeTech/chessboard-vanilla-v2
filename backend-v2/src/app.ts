@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 
 // Load environment variables
 dotenv.config();
@@ -32,12 +34,92 @@ const corsOptions = {
   optionsSuccessStatus: 200
 };
 
+// Swagger Configuration
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Chessboard Vanilla V2 API',
+      version: '2.0.0',
+      description: 'RESTful API for chess game, puzzles, learning, and user management',
+      contact: {
+        name: 'API Support',
+        url: 'https://github.com/ChrisColeTech/chessboard-vanilla-v2'
+      }
+    },
+    servers: [
+      {
+        url: process.env.NODE_ENV === 'production' 
+          ? 'https://chessboard-vanilla-v2.onrender.com'
+          : 'http://localhost:3001',
+        description: process.env.NODE_ENV === 'production' ? 'Production server' : 'Development server'
+      }
+    ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        }
+      }
+    },
+    security: [
+      {
+        bearerAuth: []
+      }
+    ]
+  },
+  apis: ['./src/routes/*.ts', './src/app.ts'], // paths to files containing OpenAPI definitions
+};
+
+const specs = swaggerJsdoc(swaggerOptions);
+
 // Middleware
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Swagger Documentation Routes
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, {
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: 'Chessboard V2 API',
+  swaggerOptions: {
+    defaultModelsExpandDepth: -1,
+    docExpansion: 'list',
+    filter: true,
+    showRequestDuration: true
+  }
+}));
+
+// Redirect root to API documentation
+app.get('/', (req, res) => {
+  res.redirect('/api-docs');
+});
+
 // Health check endpoint
+/**
+ * @swagger
+ * /health:
+ *   get:
+ *     tags: [System]
+ *     summary: Health check endpoint
+ *     description: Returns the current status and timestamp of the API
+ *     responses:
+ *       200:
+ *         description: API is healthy
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ *                 timestamp:
+ *                   type: string
+ *                   format: date-time
+ */
 app.get('/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
