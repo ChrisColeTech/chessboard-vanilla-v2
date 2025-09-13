@@ -1,11 +1,13 @@
 # Chess Puzzle Platform V2 🏆
 
+[![Deploy Backend](https://github.com/ChrisColeTech/chessboard-vanilla-v2/actions/workflows/deploy-backend.yml/badge.svg)](https://github.com/ChrisColeTech/chessboard-vanilla-v2/actions/workflows/deploy-backend.yml)
+
 A modern full-stack chess puzzle platform built with TypeScript, PostgreSQL, and React. Features over 32,000 chess puzzles with AI analysis, user progression tracking, and comprehensive learning paths.
 
 ## 🚀 Live Demo
 
-**Production**: Coming soon (Railway deployment)  
-**Staging**: Coming soon  
+**Production**: https://chessboard-backend-v2-production.up.railway.app  
+**API Health**: https://chessboard-backend-v2-production.up.railway.app/health  
 
 ## ✨ Features
 
