@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: chessboard-backend-v2
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    plan: free
