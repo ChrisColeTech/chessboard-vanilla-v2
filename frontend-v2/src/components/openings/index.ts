@@ -1,1 +1,3 @@
-export { OpeningComponent } from './OpeningComponent';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './OpeningComponent';

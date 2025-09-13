@@ -1,7 +1,11 @@
-export { AppLayout } from "./AppLayout";
-export { TabBar } from "./TabBar";
-export { TitleBar } from "./TitleBar";
-export { MainContent } from "./MainContent";
-export { MenuButton } from "./MenuButton";
-export { BackgroundEffects } from "./BackgroundEffects";
-export type { TabId } from "./types";
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './AppLayout';
+export * from './BackgroundEffects';
+export * from './Header';
+export * from './MainContent';
+export * from './MenuButton';
+export * from './MenuDropdown';
+export * from './TabBar';
+export * from './TitleBar';
+export * from './types';

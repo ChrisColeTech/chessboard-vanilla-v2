@@ -1,4 +1,5 @@
-// Tutorials Domain Hooks
-export { useTutorials } from './useTutorials';
-export { useTutorialsQueries } from './useTutorialsQueries';
-export { useTutorialsMutations } from './useTutorialsMutations';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './useTutorials';
+export * from './useTutorialsMutations';
+export * from './useTutorialsQueries';

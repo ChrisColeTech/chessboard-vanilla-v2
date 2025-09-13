@@ -1,15 +1,13 @@
-import React from "react";
+import type { ReactNode } from 'react'
 
 interface MainContentProps {
-  children: React.ReactNode;
+  children: ReactNode
 }
 
 export function MainContent({ children }: MainContentProps) {
   return (
-    <main className="flex-1 overflow-hidden">
-      <div className="h-full w-full p-4">
-        {children}
-      </div>
-    </main>
-  );
+    <div className="w-full h-full">
+      {children}
+    </div>
+  )
 }

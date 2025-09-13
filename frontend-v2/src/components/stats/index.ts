@@ -1,1 +1,3 @@
-export { StatsComponent } from './StatsComponent';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './StatsComponent';

@@ -1,12 +1,29 @@
 /// <reference types="vite/client" />
 
-// CSS Module declarations
-declare module '*.css' {
-  const classes: { readonly [key: string]: string };
-  export default classes;
+// Extend CSS Properties for WebKit-specific properties without overriding React module
+declare global {
+  namespace React {
+    interface CSSProperties {
+      WebkitAppRegion?: 'drag' | 'no-drag';
+    }
+  }
 }
 
-declare module '*.module.css' {
-  const classes: { readonly [key: string]: string };
-  export default classes;
+// Ensure import.meta is properly typed for Vite
+interface ImportMetaEnv {
+  readonly DEV: boolean
+  readonly PROD: boolean
+  readonly VITE_APP_TITLE: string
+  // more env variables...
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv
+  readonly hot?: {
+    accept(): void
+    accept(cb: (mod: any) => void): void
+    accept(dep: string, cb: (mod: any) => void): void
+    accept(deps: string[], cb: (mod: any) => void): void
+    dispose(cb: () => void): void
+  }
 }

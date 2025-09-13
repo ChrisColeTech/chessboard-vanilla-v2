@@ -1,9 +1,11 @@
 export const pageInstructions = {
   id: 'playpuzzles',
-  title: 'Chess Puzzles Instructions',
+  title: `Chess Puzzle Training`,
   instructions: [
-    'Use this page to work with playpuzzles features',
-    'Use the action sheet to interact with available options',
-    'Navigate using the action menu to explore different options'
+    `Sharpen your tactical skills with our comprehensive puzzle collection`,
+    `Solve mate-in-1, mate-in-2, tactical combinations, and endgame studies`,
+    `Learn from famous positions in chess history`,
+    `Get hints when you're stuck or reveal the full solution`,
+    `Use action menu for puzzle controls: New Puzzle, Hint, Solve Puzzle`,
   ]
 }

@@ -1,4 +1,5 @@
-// Profiles Domain Hooks
-export { useProfiles } from './useProfiles';
-export { useProfilesQueries } from './useProfilesQueries';
-export { useProfilesMutations } from './useProfilesMutations';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './useProfiles';
+export * from './useProfilesMutations';
+export * from './useProfilesQueries';

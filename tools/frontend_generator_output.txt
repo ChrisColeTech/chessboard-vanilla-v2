@@ -304,9 +304,9 @@
   🔊 Generated hooks/audio/useUIClickSoundOptimized.ts
 ✅ Core infrastructure generated successfully!
 📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/core/usePageData.ts
-📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/core/useAuthStatus.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/useAuth.ts
 📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/core/index.ts
-  📝 Generated core hooks (usePageData, useAuthStatus)
+  📝 Generated core hooks (usePageData) and standalone useAuth
 📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/useActionSheet.ts
 📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/useInstructions.ts
 🚀 Generating grouped pages from backend config...
@@ -475,7 +475,6 @@
 ✅ Supporting components generated successfully!
 🎯 Generating core components...
   📝 Generated components/core/InstructionsFAB.tsx
-  📝 Generated components/ui/ActionSheetContainer.tsx
   📝 Generated components/core/index.ts
   📝 Generated components/ui/index.ts
 ✅ Core components generated successfully!
@@ -484,15 +483,15 @@
 📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/ui/index.ts
   📝 Generated UI components (DataTable, Button)
 📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/core/usePageData.ts
-📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/core/useAuthStatus.ts
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/useAuth.ts
 📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/core/index.ts
-  📝 Generated core hooks (usePageData, useAuthStatus)
+  📝 Generated core hooks (usePageData) and standalone useAuth
 🔧 Generating missing dependencies...
   📝 Generated providers/DragProvider.tsx
   📝 Generated contexts/InstructionsContext.tsx
   📝 Generated hooks/audio/useGlobalUIAudio.ts
   📝 Generated services/audio/audioService.ts
-  📝 Updated hooks/index.ts with useAuthStatus
+  📝 Skipped generating auth hooks (handled by hooks_generator)
   📝 Generated components/auth/AuthRouter.tsx
   📝 Generated components/chess/DraggedPiece.tsx
   📝 Generated components/splash/SplashModal.tsx
@@ -513,7 +512,7 @@
 📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/services/instructions/InstructionsService.dynamic.ts
 📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/constants/actions/page-actions.dynamic.ts
 📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/hooks/core/usePageInstructions.ts
-📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/ui/ActionSheetContainer.tsx
+📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/components/action-sheet/ActionSheetContainer.tsx
 📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/constants/actions/pages/play.ts
 📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/constants/actions/pages/playchess.ts
 📝 Generated /mnt/c/Projects/chessboard-vanilla-v2/frontend-v2/src/constants/actions/pages/playpuzzles.ts

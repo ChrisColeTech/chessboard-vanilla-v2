@@ -1,1 +1,3 @@
-export { HelpComponent } from './HelpComponent';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './HelpComponent';

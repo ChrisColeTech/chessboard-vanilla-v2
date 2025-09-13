@@ -1,4 +1,5 @@
-// Sessions Domain Hooks
-export { useSessions } from './useSessions';
-export { useSessionsQueries } from './useSessionsQueries';
-export { useSessionsMutations } from './useSessionsMutations';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './useSessions';
+export * from './useSessionsMutations';
+export * from './useSessionsQueries';

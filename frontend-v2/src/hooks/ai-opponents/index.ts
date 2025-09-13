@@ -1,4 +1,5 @@
-// AiOpponents Domain Hooks
-export { useAiOpponents } from './useAiOpponents';
-export { useAiOpponentsQueries } from './useAiOpponentsQueries';
-export { useAiOpponentsMutations } from './useAiOpponentsMutations';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './useAiOpponents';
+export * from './useAiOpponentsMutations';
+export * from './useAiOpponentsQueries';

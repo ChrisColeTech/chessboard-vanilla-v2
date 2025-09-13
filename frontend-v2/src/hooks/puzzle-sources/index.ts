@@ -1,4 +1,5 @@
-// PuzzleSources Domain Hooks
-export { usePuzzleSources } from './usePuzzleSources';
-export { usePuzzleSourcesQueries } from './usePuzzleSourcesQueries';
-export { usePuzzleSourcesMutations } from './usePuzzleSourcesMutations';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './usePuzzleSources';
+export * from './usePuzzleSourcesMutations';
+export * from './usePuzzleSourcesQueries';

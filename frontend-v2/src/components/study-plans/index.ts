@@ -1,1 +1,3 @@
-export { StudyPlanComponent } from './StudyPlanComponent';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './StudyPlanComponent';

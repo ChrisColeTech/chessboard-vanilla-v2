@@ -1,9 +1,10 @@
 export const pageInstructions = {
   id: 'slots',
-  title: 'Slots Instructions',
+  title: `Chess Slot Machine Experience`,
   instructions: [
-    'Use this page to work with slots features',
-    'Use the action sheet to interact with available options',
-    'Navigate using the action menu to explore different options'
+    `Experience the thrill of a chess-themed casino slot machine`,
+    `Use the +/- buttons to adjust your coin wager amount`,
+    `Click the SPIN button to start the slot machine animation`,
+    `Watch for winning chess piece combinations and enjoy the casino atmosphere`,
   ]
 }

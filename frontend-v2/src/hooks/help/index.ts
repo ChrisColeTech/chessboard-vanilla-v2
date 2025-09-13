@@ -1,4 +1,5 @@
-// Help Domain Hooks
-export { useHelp } from './useHelp';
-export { useHelpQueries } from './useHelpQueries';
-export { useHelpMutations } from './useHelpMutations';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './useHelp';
+export * from './useHelpMutations';
+export * from './useHelpQueries';

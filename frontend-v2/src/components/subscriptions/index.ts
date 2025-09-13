@@ -1,1 +1,3 @@
-export { SubscriptionComponent } from './SubscriptionComponent';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './SubscriptionComponent';

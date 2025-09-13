@@ -1,1 +1,0 @@
-export { SubscriptionComponent } from './SubscriptionComponent';

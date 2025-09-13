@@ -1,4 +1,5 @@
-// Subscriptions Domain Hooks
-export { useSubscriptions } from './useSubscriptions';
-export { useSubscriptionsQueries } from './useSubscriptionsQueries';
-export { useSubscriptionsMutations } from './useSubscriptionsMutations';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './useSubscriptions';
+export * from './useSubscriptionsMutations';
+export * from './useSubscriptionsQueries';

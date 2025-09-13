@@ -1,10 +1,20 @@
-export { UserPage } from "./UserPage";
-export { UserMainPage } from "./UserMainPage";
-export { UsersPage } from "./UsersPage";
-export { MobileUsersPage } from "./MobileUsersPage";
-export { AuthPage } from "./AuthPage";
-export { MobileAuthPage } from "./MobileAuthPage";
-export { SessionsPage } from "./SessionsPage";
-export { MobileSessionsPage } from "./MobileSessionsPage";
-export { ProfilesPage } from "./ProfilesPage";
-export { MobileProfilesPage } from "./MobileProfilesPage";
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './AuthPage';
+export * from './ForgotPasswordPage';
+export * from './ForgotPasswordPageContent';
+export * from './ForgotPasswordPageWrapper';
+export * from './LoginPage';
+export * from './MobileAuthPage';
+export * from './MobileProfilesPage';
+export * from './MobileSessionsPage';
+export * from './MobileUsersPage';
+export * from './ProfilePage';
+export * from './ProfilesPage';
+export * from './RegisterPage';
+export * from './RegisterPageContent';
+export * from './RegisterPageWrapper';
+export * from './SessionsPage';
+export * from './UserMainPage';
+export * from './UserPage';
+export * from './UsersPage';

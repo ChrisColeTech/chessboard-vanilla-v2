@@ -1,1 +1,0 @@
-export { EndgameComponent } from './EndgameComponent';

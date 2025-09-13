@@ -1,3 +1,7 @@
-export { useAuthStore } from './authStore';
-export { useAppStore, useSelectedTab, useSettings, useCoinsModal } from './appStore';
-// Note: Chess store disabled since we now have separate domains
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './appStore';
+export * from './authStore';
+export * from './chessGameStore';
+export * from './puzzleStore';
+export * from './workerTestStore';

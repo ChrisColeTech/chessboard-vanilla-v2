@@ -1,3 +1,4 @@
+import React from 'react'
 
 interface ChessboardLayoutProps {
   children?: React.ReactNode
@@ -55,7 +56,7 @@ export const ChessboardLayout: React.FC<ChessboardLayoutProps> = ({
       >
         {topRight}
       </div>
-
+      
       {/* Row 2 */}
       <div 
         className="flex items-center justify-center border border-border/50 p-2 rounded"
@@ -75,7 +76,7 @@ export const ChessboardLayout: React.FC<ChessboardLayoutProps> = ({
       >
         {right}
       </div>
-
+      
       {/* Row 3 */}
       <div 
         className="flex items-center justify-center border border-border/50 p-2 rounded"

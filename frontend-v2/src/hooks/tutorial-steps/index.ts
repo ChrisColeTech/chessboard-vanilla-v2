@@ -1,4 +1,5 @@
-// TutorialSteps Domain Hooks
-export { useTutorialSteps } from './useTutorialSteps';
-export { useTutorialStepsQueries } from './useTutorialStepsQueries';
-export { useTutorialStepsMutations } from './useTutorialStepsMutations';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './useTutorialSteps';
+export * from './useTutorialStepsMutations';
+export * from './useTutorialStepsQueries';

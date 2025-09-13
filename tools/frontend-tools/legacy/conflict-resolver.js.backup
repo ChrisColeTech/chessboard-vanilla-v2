@@ -1,0 +1,381 @@
+/**
+ * Conflict Resolver Module
+ * Handles duplicate export conflicts in barrel files
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+class ConflictResolver {
+  constructor() {
+    this.conflictStrategies = {
+      // Rename with module prefix
+      PREFIX_MODULE: 'prefix_module',
+      // Use explicit re-export with alias
+      EXPLICIT_ALIAS: 'explicit_alias',
+      // Group into namespace
+      NAMESPACE: 'namespace',
+      // Skip conflicting export
+      SKIP: 'skip'
+    };
+  }
+
+  /**
+   * Analyze and resolve export conflicts
+   * @param {string} dirPath - Directory path
+   * @param {Array} subdirs - Subdirectories 
+   * @param {Array} fileExports - File exports
+   * @returns {Object} Resolution result
+   */
+  async analyzeAndResolveConflicts(dirPath, subdirs, fileExports) {
+    const conflicts = this.detectConflicts(dirPath, subdirs, fileExports);
+    
+    if (conflicts.length === 0) {
+      return {
+        hasConflicts: false,
+        conflicts: [],
+        resolution: null
+      };
+    }
+
+    const resolution = await this.resolveConflicts(dirPath, conflicts, subdirs);
+    
+    return {
+      hasConflicts: true,
+      conflicts,
+      resolution
+    };
+  }
+
+  /**
+   * Detect export conflicts between modules
+   * @param {string} dirPath - Directory path
+   * @param {Array} subdirs - Subdirectories
+   * @param {Array} fileExports - File exports  
+   * @returns {Array} Detected conflicts
+   */
+  detectConflicts(dirPath, subdirs, fileExports) {
+    const exportMap = new Map();
+    const conflicts = [];
+
+    // Track exports from subdirectories
+    for (const subdir of subdirs) {
+      // Build path relative to the dirPath
+      const indexPath = path.join(dirPath, subdir, 'index.ts');
+      
+      if (fs.existsSync(indexPath)) {
+        try {
+          const content = fs.readFileSync(indexPath, 'utf8');
+          const exports = this.extractExportsFromContent(content);
+          
+          for (const exportName of exports) {
+            if (!exportMap.has(exportName)) {
+              exportMap.set(exportName, []);
+            }
+            exportMap.get(exportName).push({
+              module: subdir,
+              type: 'subdir',
+              exportName
+            });
+          }
+        } catch (error) {
+          console.warn(`⚠️  Could not analyze ${indexPath}: ${error.message}`);
+        }
+      }
+    }
+
+    // Track exports from files in current directory
+    for (const exportInfo of fileExports) {
+      const exportName = exportInfo?.name || exportInfo?.exportName || exportInfo;
+      if (exportName && typeof exportName === 'string') {
+        if (!exportMap.has(exportName)) {
+          exportMap.set(exportName, []);
+        }
+        exportMap.get(exportName).push({
+          module: 'current',
+          type: 'file',
+          exportName
+        });
+      }
+    }
+
+    // Find conflicts (exports that appear in multiple modules)
+    for (const [exportName, sources] of exportMap) {
+      if (sources.length > 1) {
+        conflicts.push({
+          exportName,
+          sources,
+          severity: this.assessConflictSeverity(exportName, sources)
+        });
+      }
+    }
+
+    return conflicts;
+  }
+
+  /**
+   * Extract export names from TypeScript content
+   * @param {string} content - File content
+   * @returns {Array} Export names
+   */
+  extractExportsFromContent(content) {
+    const exports = [];
+    
+    // Match export patterns
+    const patterns = [
+      // export interface/type/class/function Name
+      /export\s+(?:interface|type|class|function|const|let|var)\s+([A-Za-z_$][A-Za-z0-9_$]*)/g,
+      // export { Name }
+      /export\s*\{\s*([^}]+)\s*\}/g,
+      // export * from './module' - we'll skip these as they re-export everything
+    ];
+
+    for (const pattern of patterns) {
+      let match;
+      while ((match = pattern.exec(content)) !== null) {
+        if (pattern.source.includes('\\{')) {
+          // Handle export { Name1, Name2 } pattern
+          const exportList = match[1];
+          const names = exportList.split(',')
+            .map(name => name.trim().split(' as ')[0].trim())
+            .filter(name => name && !name.includes('*'));
+          exports.push(...names);
+        } else {
+          // Handle direct export pattern
+          exports.push(match[1]);
+        }
+      }
+    }
+
+    return [...new Set(exports)]; // Remove duplicates
+  }
+
+  /**
+   * Assess conflict severity
+   * @param {string} exportName - Export name
+   * @param {Array} sources - Conflict sources
+   * @returns {string} Severity level
+   */
+  assessConflictSeverity(exportName, sources) {
+    // High severity for common type names
+    const commonTypeNames = ['User', 'GameResult', 'UpdateRequest', 'Config', 'Props', 'State'];
+    if (commonTypeNames.some(name => exportName.includes(name))) {
+      return 'HIGH';
+    }
+
+    // Medium severity for multiple subdirectories
+    if (sources.filter(s => s.type === 'subdir').length > 1) {
+      return 'MEDIUM';
+    }
+
+    return 'LOW';
+  }
+
+  /**
+   * Resolve conflicts using appropriate strategy
+   * @param {string} dirPath - Directory path
+   * @param {Array} conflicts - Detected conflicts
+   * @param {Array} subdirs - Subdirectories
+   * @returns {Object} Resolution strategy
+   */
+  async resolveConflicts(dirPath, conflicts, subdirs) {
+    const strategy = this.selectResolutionStrategy(dirPath, conflicts);
+    
+    switch (strategy) {
+      case this.conflictStrategies.EXPLICIT_ALIAS:
+        return this.createExplicitAliasResolution(conflicts, subdirs);
+        
+      case this.conflictStrategies.NAMESPACE:
+        return this.createNamespaceResolution(conflicts, subdirs);
+        
+      case this.conflictStrategies.PREFIX_MODULE:
+        return this.createPrefixResolution(conflicts, subdirs);
+        
+      default:
+        return this.createSkipResolution(conflicts, subdirs);
+    }
+  }
+
+  /**
+   * Select appropriate resolution strategy
+   * @param {string} dirPath - Directory path
+   * @param {Array} conflicts - Conflicts
+   * @returns {string} Strategy
+   */
+  selectResolutionStrategy(dirPath, conflicts) {
+    const highSeverityCount = conflicts.filter(c => c.severity === 'HIGH').length;
+    const totalConflicts = conflicts.length;
+
+    // For types directory with many high-severity conflicts, use explicit aliases
+    if (dirPath.includes('/types') && highSeverityCount > 2) {
+      return this.conflictStrategies.EXPLICIT_ALIAS;
+    }
+
+    // For many conflicts, use namespacing
+    if (totalConflicts > 5) {
+      return this.conflictStrategies.NAMESPACE;
+    }
+
+    // Default to explicit aliases for precise control
+    return this.conflictStrategies.EXPLICIT_ALIAS;
+  }
+
+  /**
+   * Create explicit alias resolution
+   * @param {Array} conflicts - Conflicts
+   * @param {Array} subdirs - Subdirectories  
+   * @returns {Object} Resolution
+   */
+  createExplicitAliasResolution(conflicts, subdirs) {
+    const exports = [];
+    const usedNames = new Set();
+
+    // Handle non-conflicting exports first
+    for (const subdir of subdirs) {
+      const indexPath = path.join(process.cwd(), 'src', 'types', subdir, 'index.ts');
+      if (fs.existsSync(indexPath)) {
+        const hasConflicts = conflicts.some(c => 
+          c.sources.some(s => s.module === subdir)
+        );
+        
+        if (!hasConflicts) {
+          exports.push(`export * from './${subdir}';`);
+        }
+      }
+    }
+
+    // Handle conflicting exports with aliases
+    for (const conflict of conflicts) {
+      for (const source of conflict.sources) {
+        if (source.type === 'subdir') {
+          const aliasName = this.generateAlias(conflict.exportName, source.module);
+          if (!usedNames.has(aliasName)) {
+            exports.push(`export { ${conflict.exportName} as ${aliasName} } from './${source.module}';`);
+            usedNames.add(aliasName);
+          }
+        }
+      }
+    }
+
+    return {
+      strategy: this.conflictStrategies.EXPLICIT_ALIAS,
+      exports,
+      explanation: 'Using explicit aliases to resolve naming conflicts',
+      conflictsResolved: conflicts.length
+    };
+  }
+
+  /**
+   * Create namespace resolution  
+   * @param {Array} conflicts - Conflicts
+   * @param {Array} subdirs - Subdirectories
+   * @returns {Object} Resolution
+   */
+  createNamespaceResolution(conflicts, subdirs) {
+    const exports = subdirs.map(subdir => {
+      const validIdentifier = subdir.replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
+      return `export * as ${validIdentifier} from './${subdir}';`;
+    });
+
+    return {
+      strategy: this.conflictStrategies.NAMESPACE,
+      exports,
+      explanation: 'Using namespaced exports to avoid all conflicts',
+      conflictsResolved: conflicts.length
+    };
+  }
+
+  /**
+   * Create prefix resolution
+   * @param {Array} conflicts - Conflicts
+   * @param {Array} subdirs - Subdirectories
+   * @returns {Object} Resolution  
+   */
+  createPrefixResolution(conflicts, subdirs) {
+    // This would require modifying the source files, which is complex
+    // For now, fallback to explicit alias
+    return this.createExplicitAliasResolution(conflicts, subdirs);
+  }
+
+  /**
+   * Create skip resolution
+   * @param {Array} conflicts - Conflicts
+   * @param {Array} subdirs - Subdirectories
+   * @returns {Object} Resolution
+   */
+  createSkipResolution(conflicts, subdirs) {
+    const exports = [];
+    const conflictingModules = new Set();
+
+    // Identify modules with conflicts
+    for (const conflict of conflicts) {
+      for (const source of conflict.sources) {
+        if (source.type === 'subdir') {
+          conflictingModules.add(source.module);
+        }
+      }
+    }
+
+    // Export non-conflicting modules only
+    for (const subdir of subdirs) {
+      if (!conflictingModules.has(subdir)) {
+        exports.push(`export * from './${subdir}';`);
+      }
+    }
+
+    return {
+      strategy: this.conflictStrategies.SKIP,
+      exports,
+      explanation: 'Skipping conflicting modules to avoid errors',
+      conflictsResolved: 0,
+      skippedModules: Array.from(conflictingModules)
+    };
+  }
+
+  /**
+   * Generate alias name for conflicting export
+   * @param {string} exportName - Original export name
+   * @param {string} moduleName - Module name
+   * @returns {string} Alias name
+   */
+  generateAlias(exportName, moduleName) {
+    // Convert module name to PascalCase
+    const modulePrefix = moduleName
+      .split('-')
+      .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+      .join('');
+    
+    return `${modulePrefix}${exportName}`;
+  }
+
+  /**
+   * Validate resolution result
+   * @param {Object} resolution - Resolution result
+   * @returns {Object} Validation result
+   */
+  validateResolution(resolution) {
+    const warnings = [];
+    const errors = [];
+
+    // Check for duplicate exports in resolution
+    const exportNames = new Set();
+    for (const exportLine of resolution.exports) {
+      const match = exportLine.match(/export\s+(?:\*\s+as\s+(\w+)|\{\s*\w+\s+as\s+(\w+)\s*\})/);
+      if (match) {
+        const exportName = match[1] || match[2];
+        if (exportNames.has(exportName)) {
+          errors.push(`Duplicate export name in resolution: ${exportName}`);
+        }
+        exportNames.add(exportName);
+      }
+    }
+
+    return {
+      isValid: errors.length === 0,
+      warnings,
+      errors
+    };
+  }
+}
+
+module.exports = ConflictResolver;

@@ -62,7 +62,7 @@ export function AppLayout({
   const {
     instructions,
     title,
-    isOpen: showInstructions,
+    showInstructions,
     openInstructions,
     closeInstructions,
   } = useInstructions();
@@ -78,7 +78,7 @@ export function AppLayout({
 
       {/* Title Bar - Fixed positioning at the very top */}
       <div className="fixed top-0 left-0 right-0 z-30">
-        <TitleBar coinBalance={coinBalance || 0} />
+        <TitleBar />
       </div>
 
       {/* 
@@ -95,6 +95,7 @@ export function AppLayout({
       >
         <Header
           onOpenSettings={openSettings}
+          isSettingsOpen={isSettingsPanelOpen}
           coinBalance={coinBalance}
         />
       </header>
@@ -131,6 +132,7 @@ export function AppLayout({
             }`}
           >
             <SettingsPanel
+              isOpen={isSettingsPanelOpen}
               onClose={closeSettings}
             />
           </aside>
@@ -139,6 +141,7 @@ export function AppLayout({
 
       {/* ActionSheet - Always rendered, HeadlessUI manages show/hide */}
       <ActionSheetContainer
+        currentPage={currentTab}
         onClose={closeMenu}
         isOpen={isMenuOpen}
         onOpenSettings={openSettings}

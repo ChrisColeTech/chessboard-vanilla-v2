@@ -1,1 +1,0 @@
-export { ProgressComponent } from './ProgressComponent';

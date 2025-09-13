@@ -9,7 +9,7 @@
     "dev:local": "vite",
     "dev:web:local": "vite --config vite.config.web.ts",
     "dev:ngrok": "sleep 3 && ngrok http 5173 --domain=eager-terrier-especially.ngrok-free.app",
-    "build": "tsc -b",
+    "build": "tsc -b > build_errors.log 2>&1",
     "lint": "eslint .",
     "preview": "vite preview",
     "ngrok": "ngrok http 5173",

@@ -1,4 +1,5 @@
-// Stats Domain Hooks
-export { useStats } from './useStats';
-export { useStatsQueries } from './useStatsQueries';
-export { useStatsMutations } from './useStatsMutations';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './useStats';
+export * from './useStatsMutations';
+export * from './useStatsQueries';

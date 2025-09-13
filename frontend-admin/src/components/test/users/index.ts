@@ -1,1 +1,0 @@
-export { UserComponent } from './UserComponent';

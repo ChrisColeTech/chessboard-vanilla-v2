@@ -1,4 +1,5 @@
-// LearningModules Domain Hooks
-export { useLearningModules } from './useLearningModules';
-export { useLearningModulesQueries } from './useLearningModulesQueries';
-export { useLearningModulesMutations } from './useLearningModulesMutations';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './useLearningModules';
+export * from './useLearningModulesMutations';
+export * from './useLearningModulesQueries';

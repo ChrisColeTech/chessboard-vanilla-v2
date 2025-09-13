@@ -1,26 +1,14 @@
-import { Navigation, Play, Settings } from 'lucide-react'
+import { EyeOff } from 'lucide-react'
 import type { ActionSheetAction } from '../../../types/core/action-sheet.types'
 
 export const pageActions = {
   id: 'dragtest',
   actions: [
     {
-      id: 'dragtest-action',
-      label: 'Drag Test Action',
-      icon: Navigation,
+      id: 'toggle-dragtest',
+      label: 'Toggle DragTest',
+      icon: EyeOff,
       variant: 'default'
-    },
-    {
-      id: 'dragtest-settings',
-      label: 'Settings',
-      icon: Settings,
-      variant: 'default'
-    },
-    {
-      id: 'dragtest-play',
-      label: 'Start',
-      icon: Play,
-      variant: 'primary'
     }
   ] as ActionSheetAction[]
 }

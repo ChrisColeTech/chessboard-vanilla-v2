@@ -1,9 +1,10 @@
 export const pageInstructions = {
   id: 'worker',
-  title: 'Chess Worker Instructions',
+  title: `Chess Computer Testing Guide`,
   instructions: [
-    'Use this page to work with worker features',
-    'Use the action sheet to interact with available options',
-    'Navigate using the action menu to explore different options'
+    `Test if the chess computer is working and ready to play games`,
+    `Check how fast the computer can think and respond to moves`,
+    `Adjust the computer's skill level from beginner to expert`,
+    `Run quick tests to verify the chess engine is functioning properly`,
   ]
 }

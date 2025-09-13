@@ -1,4 +1,5 @@
-// StudyPlans Domain Hooks
-export { useStudyPlans } from './useStudyPlans';
-export { useStudyPlansQueries } from './useStudyPlansQueries';
-export { useStudyPlansMutations } from './useStudyPlansMutations';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './useStudyPlans';
+export * from './useStudyPlansMutations';
+export * from './useStudyPlansQueries';

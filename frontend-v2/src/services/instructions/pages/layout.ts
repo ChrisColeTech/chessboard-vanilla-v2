@@ -1,9 +1,10 @@
 export const pageInstructions = {
   id: 'layout',
-  title: 'Layout Instructions',
+  title: `Background & Theme Testing`,
   instructions: [
-    'Use this page to work with layout features',
-    'Use the action sheet to interact with available options',
-    'Navigate using the action menu to explore different options'
+    `View the animated background effects and floating chess pieces`,
+    `Test different themes using the settings panel`,
+    `Observe glassmorphism design and responsive layout`,
+    `This page demonstrates the visual foundation of the app`,
   ]
 }

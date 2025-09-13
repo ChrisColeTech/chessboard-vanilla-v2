@@ -1,12 +1,14 @@
-export { ProgressPage } from "./ProgressPage";
-export { ProgressMainPage } from "./ProgressMainPage";
-export { StatsPage } from "./StatsPage";
-export { MobileStatsPage } from "./MobileStatsPage";
-export { AchievementsPage } from "./AchievementsPage";
-export { MobileAchievementsPage } from "./MobileAchievementsPage";
-export { ProgressFeaturePage } from "./ProgressFeaturePage";
-export { MobileProgressFeaturePage } from "./MobileProgressFeaturePage";
-export { AnalyticsPage } from "./AnalyticsPage";
-export { MobileAnalyticsPage } from "./MobileAnalyticsPage";
-export { PuzzleAttemptsPage } from "./PuzzleAttemptsPage";
-export { MobilePuzzleAttemptsPage } from "./MobilePuzzleAttemptsPage";
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './AchievementsPage';
+export * from './AnalyticsPage';
+export * from './MobileAchievementsPage';
+export * from './MobileAnalyticsPage';
+export * from './MobileProgressFeaturePage';
+export * from './MobilePuzzleAttemptsPage';
+export * from './MobileStatsPage';
+export * from './ProgressFeaturePage';
+export * from './ProgressMainPage';
+export * from './ProgressPage';
+export * from './PuzzleAttemptsPage';
+export * from './StatsPage';

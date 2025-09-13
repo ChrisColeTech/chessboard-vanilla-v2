@@ -1,4 +1,5 @@
-// Games Domain Hooks
-export { useGames } from './useGames';
-export { useGamesQueries } from './useGamesQueries';
-export { useGamesMutations } from './useGamesMutations';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './useGames';
+export * from './useGamesMutations';
+export * from './useGamesQueries';

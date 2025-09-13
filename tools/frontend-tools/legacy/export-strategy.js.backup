@@ -1,0 +1,176 @@
+/**
+ * Export Strategy Module
+ * Handles special cases and validation for different directory types
+ */
+
+class ExportStrategy {
+  constructor() {
+    // Special directory configurations
+    this.specialDirectories = {
+      types: {
+        useNamespaced: false,
+        reason: 'Types directories must use barrel exports for existing import compatibility'
+      },
+      components: {
+        useNamespaced: false,
+        reason: 'Component directories typically use barrel exports'
+      }
+    };
+
+    // Conflict threshold settings
+    this.conflictThresholds = {
+      subdirectoryCount: 10,
+      exportCount: 50
+    };
+  }
+
+  /**
+   * Determine export strategy for a directory
+   * @param {string} dirPath - Directory path
+   * @param {Array} subdirs - Subdirectories
+   * @param {Array} exports - File exports
+   * @returns {Object} Strategy object
+   */
+  determineStrategy(dirPath, subdirs, exports) {
+    const analysis = this.analyzeDirectory(dirPath, subdirs, exports);
+    
+    // Check special directory rules first
+    const specialRule = this.getSpecialDirectoryRule(dirPath);
+    if (specialRule) {
+      return {
+        useNamespaced: specialRule.useNamespaced,
+        reason: specialRule.reason,
+        analysis
+      };
+    }
+
+    // Apply general conflict detection rules
+    const conflictAnalysis = this.analyzeConflictPotential(dirPath, subdirs, exports);
+    
+    return {
+      useNamespaced: conflictAnalysis.hasHighConflict,
+      reason: conflictAnalysis.reason,
+      analysis
+    };
+  }
+
+  /**
+   * Analyze directory characteristics
+   * @param {string} dirPath
+   * @param {Array} subdirs
+   * @param {Array} exports
+   * @returns {Object}
+   */
+  analyzeDirectory(dirPath, subdirs, exports) {
+    const isRootSrc = dirPath.endsWith('/src') || dirPath.endsWith('\\src');
+    const pathSegments = dirPath.split(/[/\\]/);
+    const directoryName = pathSegments[pathSegments.length - 1];
+    
+    return {
+      isRootSrc,
+      directoryName,
+      pathSegments,
+      subdirectoryCount: subdirs.length,
+      exportCount: exports.length,
+      depth: pathSegments.length
+    };
+  }
+
+  /**
+   * Check for special directory rules
+   * @param {string} dirPath
+   * @returns {Object|null}
+   */
+  getSpecialDirectoryRule(dirPath) {
+    const normalizedPath = dirPath.replace(/\\/g, '/');
+    
+    // Types directories - never use namespaced exports
+    if (normalizedPath.includes('/types')) {
+      return this.specialDirectories.types;
+    }
+
+    // Add other special cases here
+    // if (normalizedPath.includes('/components')) {
+    //   return this.specialDirectories.components;
+    // }
+
+    return null;
+  }
+
+  /**
+   * Analyze conflict potential using heuristics
+   * @param {string} dirPath
+   * @param {Array} subdirs
+   * @param {Array} exports
+   * @returns {Object}
+   */
+  analyzeConflictPotential(dirPath, subdirs, exports) {
+    const analysis = this.analyzeDirectory(dirPath, subdirs, exports);
+    const reasons = [];
+    let hasHighConflict = false;
+
+    // Root src directory typically has many modules
+    if (analysis.isRootSrc) {
+      hasHighConflict = true;
+      reasons.push('Root src directory with multiple modules');
+    }
+
+    // Many subdirectories indicate potential naming conflicts
+    if (subdirs.length > this.conflictThresholds.subdirectoryCount) {
+      hasHighConflict = true;
+      reasons.push(`${subdirs.length} subdirectories exceeds threshold of ${this.conflictThresholds.subdirectoryCount}`);
+    }
+
+    // Many exports indicate potential conflicts
+    if (exports.length > this.conflictThresholds.exportCount) {
+      hasHighConflict = true;
+      reasons.push(`${exports.length} exports exceeds threshold of ${this.conflictThresholds.exportCount}`);
+    }
+
+    return {
+      hasHighConflict,
+      reason: hasHighConflict 
+        ? `High conflict potential: ${reasons.join(', ')}`
+        : 'Low conflict potential - using barrel exports'
+    };
+  }
+
+  /**
+   * Validate export strategy decision
+   * @param {string} dirPath
+   * @param {Object} strategy
+   * @returns {Object}
+   */
+  validateStrategy(dirPath, strategy) {
+    const warnings = [];
+    const errors = [];
+
+    // Validate types directory usage
+    if (dirPath.includes('/types') && strategy.useNamespaced) {
+      errors.push('Types directories should not use namespaced exports - breaks existing imports');
+    }
+
+    // Validate root directory usage
+    if (strategy.analysis.isRootSrc && !strategy.useNamespaced && strategy.analysis.subdirectoryCount > 5) {
+      warnings.push('Root src directory with many modules might benefit from namespaced exports');
+    }
+
+    return {
+      isValid: errors.length === 0,
+      warnings,
+      errors
+    };
+  }
+
+  /**
+   * Get human-readable strategy explanation
+   * @param {Object} strategy
+   * @returns {string}
+   */
+  explainStrategy(strategy) {
+    const exportType = strategy.useNamespaced ? 'namespaced exports' : 'barrel exports';
+    return `Using ${exportType}: ${strategy.reason}`;
+  }
+}
+
+module.exports = ExportStrategy;

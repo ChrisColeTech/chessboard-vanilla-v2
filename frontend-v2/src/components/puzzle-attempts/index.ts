@@ -1,1 +1,3 @@
-export { PuzzleAttemptComponent } from './PuzzleAttemptComponent';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './PuzzleAttemptComponent';

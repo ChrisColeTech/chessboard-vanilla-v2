@@ -1,5 +1,11 @@
-// Common types - shared across all domains
-export * from './common';
+// Auto-generated index file - DO NOT EDIT MANUALLY
 
-// Domain-specific types - import from specific domains as needed
-// Avoid re-exporting everything to prevent conflicts
+export * from './puzzle.types';
+
+export { AUDIO_FEEDBACK_PATTERNS, DEFAULT_CHESS_BOARD_AUDIO_CONFIG, DEFAULT_AUDIO_TIMING, CHESS_BOARD_AUDIO_PROFILES } from './audio';
+export type { GlobalClickHandler, ElementDetectionResult, UISoundType, AudioFeedbackTiming, ComponentAudioConfig, UIInteractionType, UIInteractionConfig, UIExclusionConfig, ChessBoardAudioEvents, AudioFeedbackDecision, ChessBoardInteractionType, ChessBoardAudioConfig, AudioFeedbackIntensity, AudioFeedbackContext, AudioFeedbackPattern, MoveAudioContext, GlobalUIAudioService, GlobalUIAudioConfig, UIElementSelector, GlobalUIAudioConfigUpdate } from './audio';
+export type { TokenInfo, ResetPasswordRequest, AuthContextValue, User, TokenVerificationResponse, ProtectedRouteProps, LoginResponse, AuthResponse, UpdateProfileRequest, AuthStorage, VerifyTokenRequest, AuthState, FormValidationError, MeResponse, ForgotPasswordRequest, AuthGuardProps, UseForgotPasswordReturn, ChangePasswordRequest, UseAuthReturn, AuthConfig, LoginRequest, UseLoginReturn, AuthApiClient, AuthFormState, AuthActions, UseRegisterReturn, RegisterRequest, AuthError, UserProgress, AuthErrorType } from './auth';
+export { DEFAULT_MOBILE_CHESS_CONFIG, MOBILE_TOUCH_THRESHOLDS, MOBILE_BOARD_SIZE_PRESETS } from './chess';
+export type { GameSettings, PlayGameMode, MobileBoardDimensions, GameResultType, PieceType, ComputerMoveResult, ComputerMoveAnalysis, PlayGameResult, MobilePieceAnimation, GameSession, MobileChessConfig, MobileChessGameState, GameResult, Rank, CastlingRights, GameMoveRecord, ChessMove, MobileChessMoveResult, ChessPosition, ComputerThinkingState, MobileTouchEvent, ComputerMoveRequest, ComputerOpponentConfig, ChessPositionObject, MobileChessInteraction, ChessMoveInput, ComputerDifficulty, MobileBoardState, PlayGameActions, MobileSquareState, File, ChessMoveResult, ComputerOpponentStatus, ChessPiece, PieceColor, WrapperPiece, ChessGameState, PlayGameState, PlayerInfo } from './chess';
+export type { BackgroundEffectConfig, DraggedPieceProps, ActionSheetContainerProps, SquareProps, PieceProps, IBackgroundEffectsService, ChessboardProps, BackgroundEffectProps, BackgroundEffectVariant, ActionSheetAction, PlayChessboardProps, BoardProps, ActionSheetProps } from './core';
+export type { PlayComponentSize, GameResultModalProps, DragTestingHook, UITestRoute, PlaySettingsProps, DifficultyLevelProps, PlayComponentAnimation, DemoSection, DragTestActions, ComputerThinkingProps, MoveHandler, DemoButtonExample, DragTestState, GameStatusBarProps, DragTestConfiguration, MoveHistoryProps, ExclusionExample, UITestNavigationHook, UITestNavigationActions, AudioDemoActions, GameControlsProps, PlayerStatusProps, AudioDemoHook, PlayComponentTheme, UITestNavigationState, BasePlayComponentProps, CodeSnippet, AudioDemoConfiguration, AudioDemoState } from './ui';

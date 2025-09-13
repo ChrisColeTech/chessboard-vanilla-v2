@@ -1,4 +1,5 @@
-// Achievements Domain Hooks
-export { useAchievements } from './useAchievements';
-export { useAchievementsQueries } from './useAchievementsQueries';
-export { useAchievementsMutations } from './useAchievementsMutations';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './useAchievements';
+export * from './useAchievementsMutations';
+export * from './useAchievementsQueries';

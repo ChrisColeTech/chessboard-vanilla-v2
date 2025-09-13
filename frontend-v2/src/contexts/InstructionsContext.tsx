@@ -1,72 +1,53 @@
-import React, { createContext, useContext, useState, type ReactNode } from 'react';
+import React, { createContext, useContext, useState, useCallback, type ReactNode } from 'react'
 
 interface InstructionsContextType {
-  title: string;
-  instructions: string[];
-  isOpen: boolean;
-  setInstructions: (title: string, instructions: string[]) => void;
-  clearInstructions: () => void;
-  showInstructions: (title: string, instructions: string[]) => void;
-  openInstructions: () => void;
-  closeInstructions: () => void;
+  instructions: string[]
+  title: string
+  setInstructions: (title: string, instructions: string[]) => void
+  showInstructions: boolean
+  openInstructions: () => void
+  closeInstructions: () => void
 }
 
-const InstructionsContext = createContext<InstructionsContextType | undefined>(undefined);
+const InstructionsContext = createContext<InstructionsContextType | undefined>(undefined)
 
 export const useInstructions = () => {
-  const context = useContext(InstructionsContext);
+  const context = useContext(InstructionsContext)
   if (!context) {
-    throw new Error('useInstructions must be used within an InstructionsProvider');
+    throw new Error('useInstructions must be used within InstructionsProvider')
   }
-  return context;
-};
+  return context
+}
 
 interface InstructionsProviderProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 export const InstructionsProvider: React.FC<InstructionsProviderProps> = ({ children }) => {
-  const [title, setTitle] = useState<string>('');
-  const [instructions, setInstructionsState] = useState<string[]>([]);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [instructions, setInstructionsState] = useState<string[]>([])
+  const [title, setTitle] = useState<string>('')
+  const [showInstructions, setShowInstructions] = useState(false)
 
-  const setInstructions = (newTitle: string, newInstructions: string[]) => {
-    setTitle(newTitle);
-    setInstructionsState(newInstructions);
-  };
+  const setInstructions = useCallback((newTitle: string, newInstructions: string[]) => {
+    setTitle(newTitle)
+    setInstructionsState(newInstructions)
+  }, [])
 
-  const clearInstructions = () => {
-    setTitle('');
-    setInstructionsState([]);
-    setIsOpen(false);
-  };
-
-  const showInstructions = (newTitle: string, newInstructions: string[]) => {
-    setTitle(newTitle);
-    setInstructionsState(newInstructions);
-    setIsOpen(true);
-  };
-
-  const openInstructions = () => {
-    setIsOpen(true);
-  };
-
-  const closeInstructions = () => {
-    setIsOpen(false);
-  };
+  const openInstructions = useCallback(() => setShowInstructions(true), [])
+  const closeInstructions = useCallback(() => setShowInstructions(false), [])
 
   return (
-    <InstructionsContext.Provider value={{
-      title,
-      instructions,
-      isOpen,
-      setInstructions,
-      clearInstructions,
-      showInstructions,
-      openInstructions,
-      closeInstructions
-    }}>
+    <InstructionsContext.Provider
+      value={{
+        instructions,
+        title,
+        setInstructions,
+        showInstructions,
+        openInstructions,
+        closeInstructions
+      }}
+    >
       {children}
     </InstructionsContext.Provider>
-  );
-};
+  )
+}

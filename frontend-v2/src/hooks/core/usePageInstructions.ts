@@ -1,17 +1,17 @@
 import { useEffect } from 'react'
 import { useInstructions } from '../../contexts/InstructionsContext'
-import { dynamicInstructionsService } from '../../services/instructions/InstructionsService.dynamic'
+import { instructionsService } from '../../services/instructions/InstructionsService'
 
 /**
- * Hook to automatically set page instructions from dynamic service
+ * Hook to automatically set page instructions from centralized service
  * Supports hierarchical page IDs like 'uitests.audio-demo'
- * Uses dynamic file loading for zero-configuration instruction management
+ * Replaces manual setInstructions calls in individual pages
  */
 export const usePageInstructions = (pageId: string) => {
   const { setInstructions } = useInstructions()
 
   useEffect(() => {
-    const pageInstructions = dynamicInstructionsService.getInstructions(pageId)
+    const pageInstructions = instructionsService.getInstructions(pageId)
     
     if (pageInstructions) {
       setInstructions(pageInstructions.title, [...pageInstructions.instructions])

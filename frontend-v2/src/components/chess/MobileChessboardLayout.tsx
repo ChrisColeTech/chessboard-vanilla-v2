@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react'
 
 interface MobileChessboardLayoutProps {
   children?: React.ReactNode
@@ -13,34 +14,106 @@ export const MobileChessboardLayout: React.FC<MobileChessboardLayoutProps> = ({
   bottomPieces,
   className = ""
 }) => {
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true)
+    }, 200)
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <div 
-      className={`w-full h-full flex flex-col gap-2 p-2 ${className}`}
-      style={{ minHeight: '100%' }}
+      className={`w-full h-full relative transition-all duration-300 ease-in-out ${
+        isLoaded ? 'opacity-100' : 'opacity-60'
+      } ${className}`}
+      style={{
+        display: 'grid',
+        gridTemplateRows: '60px auto 80px',
+        boxSizing: 'border-box'
+      }}
     >
-      {/* Top pieces area */}
+      {/* Loading overlay */}
+      {!isLoaded && (
+        <div 
+          className="absolute inset-0 z-10 flex items-center justify-center"
+          style={{
+            background: 'var(--background)',
+            backdropFilter: 'blur(8px)',
+            opacity: 0.95
+          }}
+        >
+          <div className="text-muted-foreground">Loading...</div>
+        </div>
+      )}
+      {/* Top captured pieces - compact horizontal layout without rounded corners */}
+      {topPieces && (
+        <div 
+          className="transition-all duration-300 ease-in-out"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            width: '100%',
+            height: '100%',
+            boxSizing: 'border-box',
+            overflow: 'hidden',
+            transform: 'translateZ(0)', // Hardware acceleration
+            backdropFilter: 'blur(24px)',
+            backgroundColor: 'color-mix(in srgb, var(--card) 80%, transparent)',
+            border: '1px solid color-mix(in srgb, var(--border) 20%, transparent)'
+          }}
+        >
+          <div 
+            className="transition-transform duration-200 ease-in-out hover:scale-105"
+            style={{ flex: 1, width: '100%', height: '100%' }}
+          >
+            {topPieces}
+          </div>
+        </div>
+      )}
+      
+      {/* Center chessboard - takes remaining space but maintains aspect ratio */}
       <div 
-        className="w-full flex items-center justify-center border border-border/50 p-4 rounded"
-        style={{ minHeight: '80px' }}
-      >
-        {topPieces}
-      </div>
-
-      {/* Center board area */}
-      <div 
-        className="w-full flex-1 flex items-center justify-center border border-border/50 p-4 rounded"
-        style={{ minHeight: '300px' }}
+        className="transition-all duration-300 ease-out"
+        style={{ 
+          width: '100%',
+          height: '100%',
+          minHeight: '0',
+          boxSizing: 'border-box',
+          overflow: 'hidden',
+          transform: 'translateZ(0)', // Hardware acceleration
+          border: 'none'
+        }}
       >
         {center}
       </div>
-
-      {/* Bottom pieces area */}
-      <div 
-        className="w-full flex items-center justify-center border border-border/50 p-4 rounded"
-        style={{ minHeight: '80px' }}
-      >
-        {bottomPieces}
-      </div>
+      
+      {/* Bottom captured pieces - compact horizontal layout without rounded corners */}
+      {bottomPieces && (
+        <div 
+          className="transition-all duration-300 ease-in-out"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            width: '100%',
+            height: '100%',
+            boxSizing: 'border-box',
+            overflow: 'hidden',
+            transform: 'translateZ(0)', // Hardware acceleration
+            backdropFilter: 'blur(24px)',
+            backgroundColor: 'color-mix(in srgb, var(--card) 80%, transparent)',
+            border: '1px solid color-mix(in srgb, var(--border) 20%, transparent)'
+          }}
+        >
+          <div 
+            className="transition-transform duration-200 ease-in-out hover:scale-105"
+            style={{ flex: 1, width: '100%', height: '100%' }}
+          >
+            {bottomPieces}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

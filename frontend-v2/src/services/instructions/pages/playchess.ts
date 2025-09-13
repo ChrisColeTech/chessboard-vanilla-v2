@@ -1,9 +1,11 @@
 export const pageInstructions = {
   id: 'playchess',
-  title: 'Play Chess Instructions',
+  title: `Classical Chess Games`,
   instructions: [
-    'Use this page to work with playchess features',
-    'Use the action sheet to interact with available options',
-    'Navigate using the action menu to explore different options'
+    `Play full chess games on a complete 8x8 board with all 32 pieces`,
+    `Experience professional drag & drop chess interactions`,
+    `Features include move history, game controls, and audio feedback`,
+    `Challenge yourself against the computer or practice openings and endgames`,
+    `Use action menu for game controls: New Game, Pause, Show Moves, Undo`,
   ]
 }

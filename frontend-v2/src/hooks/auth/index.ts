@@ -1,4 +1,5 @@
-// Auth Domain Hooks
-export { useAuth } from './useAuth';
-export { useAuthQueries } from './useAuthQueries';
-export { useAuthMutations } from './useAuthMutations';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './useAuth';
+export * from './useAuthMutations';
+export * from './useAuthQueries';

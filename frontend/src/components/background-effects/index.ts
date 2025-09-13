@@ -1,1 +1,0 @@
-export { BackgroundEffectsRenderer } from './BackgroundEffectsRenderer';

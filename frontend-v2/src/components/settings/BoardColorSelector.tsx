@@ -1,0 +1,77 @@
+/**
+ * Dedicated BoardColorSelector component with board color and style management logic
+ * Following the pattern established by BackgroundEffectsSelector
+ */
+
+import { Palette, Crown } from "lucide-react";
+import { useBoardColorManager } from "../../hooks/core/useBoardColorManager";
+import { SegmentedControl } from "../ui/SegmentedControl";
+
+export function BoardColorSelector() {
+  const {
+    boardColorMode,
+    premiumBoardStyle,
+    isPremiumMode,
+    colorModeOptions,
+    premiumStyleOptions,
+    currentColorModeDescription,
+    currentPremiumStyleDescription,
+    handleBoardColorModeChange,
+    handlePremiumStyleChange
+  } = useBoardColorManager();
+
+  return (
+    <div>
+      <h3 className="text-base font-semibold text-foreground mb-3 flex items-center gap-2">
+        <Palette className="w-4 h-4" />
+        Board Color
+      </h3>
+      
+      {/* Board Color Mode Selection */}
+      <SegmentedControl
+        options={colorModeOptions}
+        value={boardColorMode}
+        onChange={(value: string) => handleBoardColorModeChange(value as any)}
+        className="w-full"
+        size="sm"
+      />
+      
+      {/* Board Color Description */}
+      <div className="text-xs text-muted-foreground mt-2 leading-relaxed">
+        {currentColorModeDescription}
+      </div>
+      
+      {/* Premium Style Selection */}
+      {isPremiumMode && (
+        <div className="mt-4">
+          <div className="flex items-center gap-2 mb-3">
+            <h4 className="text-sm font-medium text-foreground flex items-center gap-2">
+              <Crown className="w-3 h-3" />
+              Premium Style
+            </h4>
+            <div className="flex items-center gap-1 text-xs text-muted-foreground">
+              <Crown className="w-3 h-3" />
+              <span>{premiumBoardStyle}</span>
+            </div>
+          </div>
+          
+          <SegmentedControl
+            options={premiumStyleOptions}
+            value={premiumBoardStyle}
+            onChange={(value: string) => handlePremiumStyleChange(value as any)}
+            className="w-full"
+            size="sm"
+            iconOnly={true}
+          />
+          
+          {/* Premium Style Description */}
+          {currentPremiumStyleDescription && (
+            <div className="text-xs text-primary/70 mt-2 leading-relaxed">
+              {currentPremiumStyleDescription}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}

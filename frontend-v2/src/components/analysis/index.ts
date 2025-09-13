@@ -1,1 +1,3 @@
-export { AnalysisComponent } from './AnalysisComponent';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './AnalysisComponent';

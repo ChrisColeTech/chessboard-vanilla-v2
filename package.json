@@ -23,9 +23,13 @@
     "test:frontend": "cd frontend && npm test",
     "backend:generator": "python3 tools/backend-tools/backend_generator_v2.py --config tools/backend_config.json --backend-path backend --all > backend_generator_output.txt 2>&1",
     "frontend:generator": "cd tools && python3 frontend_generator_v4.py > frontend_generator_output.txt 2>&1",
+    "frontend:workflow": "rm -rf frontend-v2/src && npm run frontend:generator && npm run copy:prod && npm run index:generator frontend-v2/src && npm run build:v2",
+    "copy:prod": "cp -r old_files/* frontend-v2/src/",
+    "build:v2": "cd frontend-v2 && npm run build",
     "id:setter": "./tools/frontend-tools/id-setter/run.sh",
     "payload:generator": "cd tools/backend-tools/payload-generator && python3 payload_generator.py",
     "missing:columns": "python3 tools/backend-tools/missing-columns/missing-columns.py --backend-path backend",
+    "index:generator": "python3 tools/frontend-tools/python-version-v2/index_generator.py \"$@\" > index_generator_output.txt 2>&1",
     "postinstall": "cd backend && npm install && cd ../frontend && npm install"
   },
   "keywords": [
@@ -41,7 +45,6 @@
     "electron-builder": "^24.9.1",
     "wait-on": "^7.2.0"
   },
-  "dependencies": {},
   "build": {
     "appId": "com.chessboard-vanilla-v2.app",
     "productName": "Master Chess Training",

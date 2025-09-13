@@ -1,9 +1,10 @@
 export const pageInstructions = {
   id: 'play',
-  title: 'Play Instructions',
+  title: `Chess Play Hub`,
   instructions: [
-    'Use this page to work with play features',
-    'Use the action sheet to interact with available options',
-    'Navigate using the action menu to explore different options'
+    `Welcome to the Chess Play Hub - Your gateway to chess gameplay`,
+    `Choose between classical chess games or challenging puzzles`,
+    `Navigate using the action menu to select your preferred play mode`,
+    `Each mode offers unique features and learning opportunities`,
   ]
 }

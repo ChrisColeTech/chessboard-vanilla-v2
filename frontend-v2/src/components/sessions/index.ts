@@ -1,1 +1,3 @@
-export { SessionComponent } from './SessionComponent';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './SessionComponent';

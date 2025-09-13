@@ -1,12 +1,14 @@
-export { LearningPage } from "./LearningPage";
-export { LearningMainPage } from "./LearningMainPage";
-export { LearningFeaturePage } from "./LearningFeaturePage";
-export { MobileLearningFeaturePage } from "./MobileLearningFeaturePage";
-export { TutorialsPage } from "./TutorialsPage";
-export { MobileTutorialsPage } from "./MobileTutorialsPage";
-export { LearningModulesPage } from "./LearningModulesPage";
-export { MobileLearningModulesPage } from "./MobileLearningModulesPage";
-export { TutorialStepsPage } from "./TutorialStepsPage";
-export { MobileTutorialStepsPage } from "./MobileTutorialStepsPage";
-export { StudyPlansPage } from "./StudyPlansPage";
-export { MobileStudyPlansPage } from "./MobileStudyPlansPage";
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './LearningFeaturePage';
+export * from './LearningMainPage';
+export * from './LearningModulesPage';
+export * from './LearningPage';
+export * from './MobileLearningFeaturePage';
+export * from './MobileLearningModulesPage';
+export * from './MobileStudyPlansPage';
+export * from './MobileTutorialsPage';
+export * from './MobileTutorialStepsPage';
+export * from './StudyPlansPage';
+export * from './TutorialsPage';
+export * from './TutorialStepsPage';

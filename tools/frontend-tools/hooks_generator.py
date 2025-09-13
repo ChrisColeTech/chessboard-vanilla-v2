@@ -326,41 +326,106 @@ function generateMockData(endpoint: string): any[] {
         use_page_data_file = core_hooks_path / "usePageData.ts"
         self.write_file(use_page_data_file, use_page_data_content)
         
-        # Generate useAuthStatus hook
-        auth_hook_content = '''import { useState, useEffect } from "react";
+        # Generate comprehensive useAuth hook that matches production
+        use_auth_content = '''// React hooks for authentication functionality
+import { useCallback, useEffect } from 'react';
+import { useShallow } from 'zustand/react/shallow';
+import type {
+  UseAuthReturn,
+  UseLoginReturn,
+  LoginRequest
+} from '../../types/auth';
 
-export const useAuthStatus = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState<any>(null);
+import { useAuthStore } from '../../stores/authStore';
 
+/**
+ * Main authentication hook
+ * Provides access to auth state and all auth actions
+ */
+export const useAuth = (): UseAuthReturn => {
+  const store = useAuthStore(
+    useShallow((state) => ({
+      // State
+      user: state.user,
+      token: state.token,
+      isLoading: state.isLoading,
+      isAuthenticated: state.isAuthenticated,
+      error: state.error,
+      progress: state.progress,
+      
+      // Actions
+      login: state.login,
+      register: state.register,
+      logout: state.logout,
+      forgotPassword: state.forgotPassword,
+      resetPassword: state.resetPassword,
+      changePassword: state.changePassword,
+      updateProfile: state.updateProfile,
+      verifyToken: state.verifyToken,
+      refreshUser: state.refreshUser,
+      clearError: state.clearError,
+      initialize: state.initialize
+    }))
+  );
+
+  // Initialize auth state on mount
   useEffect(() => {
-    // Simulate auth check
-    setTimeout(() => {
-      setIsAuthenticated(true);
-      setUser({ name: 'Demo User', email: 'demo@example.com' });
-      setIsLoading(false);
-    }, 500);
+    store.initialize();
   }, []);
 
-  return {
-    isAuthenticated,
-    isLoading,
-    user
-  };
-};'''
-        
-        auth_hook_file = core_hooks_path / "useAuthStatus.ts"
-        self.write_file(auth_hook_file, auth_hook_content)
+  return store;
+};
 
-        # Generate core hooks index
+/**
+ * Authentication status hook
+ * Provides only authentication status without actions
+ */
+export const useAuthStatus = () => {
+  return useAuthStore(
+    useShallow((state) => ({
+      isAuthenticated: state.isAuthenticated,
+      user: state.user,
+      isLoading: state.isLoading
+    }))
+  );
+};
+
+// Export all other hooks from production useAuth.ts
+export const useLogin = (): UseLoginReturn => {
+  const { login, isLoading, error, clearError } = useAuthStore(
+    useShallow((state) => ({
+      login: state.login,
+      isLoading: state.isLoading,
+      error: state.error,
+      clearError: state.clearError
+    }))
+  );
+
+  const handleLogin = useCallback(async (credentials: LoginRequest) => {
+    await login(credentials);
+  }, [login]);
+
+  return {
+    login: handleLogin,
+    isLoading,
+    error,
+    clearError
+  };
+};
+'''
+        
+        # Generate useAuth.ts directly in hooks/ directory, not in hooks/core/
+        hooks_path = src_path / "hooks"
+        use_auth_file = hooks_path / "useAuth.ts"
+        self.write_file(use_auth_file, use_auth_content)
+
+        # Generate core hooks index (useAuth is now standalone, not in core)
         core_index_content = '''export { usePageData, type UsePageDataResult } from "./usePageData";
-export { useAuthStatus } from "./useAuthStatus";
 '''
         core_index_file = core_hooks_path / "index.ts"
         self.write_file(core_index_file, core_index_content)
         
-        print("  📝 Generated core hooks (usePageData, useAuthStatus)")
+        print("  📝 Generated core hooks (usePageData) and standalone useAuth")
 
     def generate_standalone_hooks(self):
         """Generate standalone utility hooks"""

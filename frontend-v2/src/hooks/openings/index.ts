@@ -1,4 +1,5 @@
-// Openings Domain Hooks
-export { useOpenings } from './useOpenings';
-export { useOpeningsQueries } from './useOpeningsQueries';
-export { useOpeningsMutations } from './useOpeningsMutations';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './useOpenings';
+export * from './useOpeningsMutations';
+export * from './useOpeningsQueries';

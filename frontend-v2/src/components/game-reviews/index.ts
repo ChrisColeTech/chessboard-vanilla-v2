@@ -1,1 +1,3 @@
-export { GameReviewComponent } from './GameReviewComponent';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './GameReviewComponent';

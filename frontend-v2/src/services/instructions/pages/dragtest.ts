@@ -1,9 +1,9 @@
 export const pageInstructions = {
   id: 'dragtest',
-  title: 'Drag Test Instructions',
+  title: 'DragTest Instructions',
   instructions: [
-    'Use this page to work with drag test features',
+    'Chess piece drag testing page',
     'Use the action sheet to interact with available options',
-    'Navigate using the action menu to explore different options'
+    'This page automatically adapts between mobile and desktop layouts'
   ]
 }

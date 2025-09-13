@@ -1,26 +1,12 @@
-import { Navigation, Play, Settings } from 'lucide-react'
+import { Volume2, Move, TestTube, RotateCcw } from 'lucide-react'
 import type { ActionSheetAction } from '../../../types/core/action-sheet.types'
 
 export const pageActions = {
   id: 'uitests',
   actions: [
-    {
-      id: 'uitests-action',
-      label: 'Ui Tests Action',
-      icon: Navigation,
-      variant: 'default'
-    },
-    {
-      id: 'uitests-settings',
-      label: 'Settings',
-      icon: Settings,
-      variant: 'default'
-    },
-    {
-      id: 'uitests-play',
-      label: 'Start',
-      icon: Play,
-      variant: 'primary'
-    }
+    { id: 'audio-demo', label: 'Audio Demo', icon: Volume2, variant: 'default' },
+    { id: 'drag-test', label: 'Drag Test', icon: Move, variant: 'default' },
+    { id: 'mobile-test', label: 'Mobile Test', icon: TestTube, variant: 'secondary' },
+    { id: 'reset-tests', label: 'Reset Tests', icon: RotateCcw, variant: 'secondary' }
   ] as ActionSheetAction[]
 }

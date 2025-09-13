@@ -1,1 +1,3 @@
-export { AchievementComponent } from './AchievementComponent';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './AchievementComponent';

@@ -1,0 +1,1039 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const path = require('path');
+const ExportStrategy = require('./export-strategy');
+const ConflictResolver = require('./conflict-resolver');
+
+/**
+ * @typedef {Object} ExportInfo
+ * @property {string} name
+ * @property {boolean} isDefault
+ * @property {boolean} isNamed
+ * @property {boolean} isTypeOnly
+ * @property {string} originalLine
+ */
+
+class IndexGenerator {
+  constructor() {
+    this.supportedExtensions = ['.ts', '.tsx', '.js', '.jsx'];
+    this.excludePatterns = [
+      /\.test\./,
+      /\.spec\./,
+      /\.d\.ts$/,
+      /index\./,
+      /\.stories\./,
+      /\.config\./
+    ];
+    this.exportStrategy = new ExportStrategy();
+    this.conflictResolver = new ConflictResolver();
+  }
+
+  /**
+   * Handle special cases for missing directories that should have index files
+   * @param {string} rootDir
+   */
+  handleSpecialCases(rootDir) {
+    const specialCases = [
+      // Create missing service directories that are commonly imported
+      { path: 'services/chess', files: [] },
+      { path: 'services/preloading', files: [] },
+      { path: 'services/clients', files: [] },
+    ];
+
+    for (const specialCase of specialCases) {
+      const fullPath = path.join(rootDir, specialCase.path);
+      if (fs.existsSync(fullPath)) {
+        const indexPath = path.join(fullPath, 'index.ts');
+        if (!fs.existsSync(indexPath)) {
+          console.log(`   📁 Creating missing index for: ${specialCase.path}`);
+          // Create empty index file to prevent "Cannot find module" errors
+          const emptyIndex = `// Auto-generated index file\n// Run \`npm run generate:index\` to regenerate\n\n// Directory exists but no exports found\n// This prevents "Cannot find module" errors\n`;
+          fs.writeFileSync(indexPath, emptyIndex, 'utf8');
+        }
+      }
+    }
+  }
+
+  /**
+   * Main entry point - generates index.ts files recursively with validation
+   * @param {string} rootDir
+   * @param {Object} options
+   */
+  async generateIndexFiles(rootDir, options = {}) {
+    const { recursive = true, dryRun = false } = options;
+    
+    console.log(`🚀 Starting index.ts generation for: ${rootDir}`);
+    console.log(`📋 Options: recursive=${recursive}, dryRun=${dryRun}`);
+
+    if (!fs.existsSync(rootDir)) {
+      throw new Error(`Directory does not exist: ${rootDir}`);
+    }
+
+    // Handle special cases for missing modules
+    this.handleSpecialCases(rootDir);
+
+    // Pre-validation phase (always run)
+    console.log(`🔍 Running pre-generation validation...`);
+    const validationResults = await this.validateDirectoryStructure(rootDir, recursive);
+    this.reportValidationResults(validationResults);
+    
+    if (validationResults.errors.length > 0) {
+      console.log(`❌ Validation failed with ${validationResults.errors.length} error(s). Cannot proceed with generation.`);
+      return;
+    }
+
+    await this.processDirectory(rootDir, recursive, dryRun);
+    
+    // Post-validation phase (always run when files were written)
+    if (!dryRun) {
+      console.log(`🔍 Running post-generation validation...`);
+      await this.validateGeneratedFiles(rootDir, recursive);
+    }
+    
+    console.log(`✅ Index generation complete!`);
+  }
+
+  /**
+   * Process a single directory
+   * @param {string} dirPath
+   * @param {boolean} recursive
+   * @param {boolean} dryRun
+   */
+  async processDirectory(dirPath, recursive, dryRun) {
+    const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+    const files = [];
+    const subdirs = [];
+
+    // Separate files and subdirectories
+    for (const entry of entries) {
+      if (entry.isFile() && this.isValidFile(entry.name)) {
+        files.push(entry.name);
+      } else if (entry.isDirectory() && !entry.name.startsWith('.') && entry.name !== 'node_modules') {
+        subdirs.push(entry.name);
+      }
+    }
+
+    // Always recursively process subdirectories first
+    if (recursive) {
+      for (const subdir of subdirs) {
+        const subdirPath = path.join(dirPath, subdir);
+        await this.processDirectory(subdirPath, recursive, dryRun);
+      }
+    }
+
+    // Generate combined index.ts for current directory (files + subdirectories)
+    if (files.length > 0 || subdirs.length > 0) {
+      await this.generateCombinedIndex(dirPath, files, subdirs, dryRun);
+    }
+  }
+
+  /**
+   * Generate combined index for directories with both files and subdirectories
+   * @param {string} dirPath
+   * @param {string[]} files
+   * @param {string[]} subdirs
+   * @param {boolean} dryRun
+   */
+  async generateCombinedIndex(dirPath, files, subdirs, dryRun) {
+    const exports = [];
+    const reexports = [];
+
+    console.log(`\n📁 Processing combined directory: ${dirPath}`);
+
+    // Process files first (if any)
+    if (files.length > 0) {
+      console.log(`   📄 Processing ${files.length} file(s)`);
+      
+      const fileExports = new Map();
+      const exportNameTracker = new Map();
+
+      // First pass: collect all exports to detect conflicts
+      for (const file of files) {
+        const filePath = path.join(dirPath, file);
+        const exportInfo = await this.analyzeFileExports(filePath);
+        
+        if (exportInfo.length === 0) {
+          console.log(`   ⚠️  No exports found in ${file}`);
+          continue;
+        }
+
+        const fileWithoutExt = this.removeExtension(file);
+        fileExports.set(fileWithoutExt, exportInfo);
+
+        // Track export names for conflict detection
+        for (const exp of exportInfo) {
+          if (!exportNameTracker.has(exp.name)) {
+            exportNameTracker.set(exp.name, []);
+          }
+          exportNameTracker.get(exp.name).push(fileWithoutExt);
+        }
+
+        console.log(`   ✨ ${file}: ${exportInfo.length} export(s) found`);
+      }
+
+      // Second pass: generate exports with conflict resolution
+      for (const [fileWithoutExt, exportInfo] of fileExports) {
+        const statements = this.generateExportStatements(exportInfo, fileWithoutExt, exportNameTracker);
+        
+        exports.push(...statements.exports);
+        reexports.push(...statements.reexports);
+      }
+    }
+
+    // Process subdirectories (if any)
+    if (subdirs.length > 0) {
+      console.log(`   📁 Processing ${subdirs.length} subdirectory(ies)`);
+      
+      // Determine export strategy using the strategy module
+      const fileExports = await Promise.all(files.map(async file => {
+        const exportInfo = await this.analyzeFileExports(path.join(dirPath, file));
+        return exportInfo.exports;
+      }));
+      const flattenedExports = fileExports.flat();
+      const strategy = this.exportStrategy.determineStrategy(dirPath, subdirs, flattenedExports);
+      
+      // Validate the strategy
+      const validation = this.exportStrategy.validateStrategy(dirPath, strategy);
+      if (!validation.isValid) {
+        console.log(`   ❌ Strategy validation failed: ${validation.errors.join(', ')}`);
+        throw new Error(`Invalid export strategy: ${validation.errors.join(', ')}`);
+      }
+      
+      if (validation.warnings.length > 0) {
+        console.log(`   ⚠️  Warnings: ${validation.warnings.join(', ')}`);
+      }
+      
+      console.log(`   📋 ${this.exportStrategy.explainStrategy(strategy)}`);
+      
+      if (strategy.useNamespaced) {
+        // Use namespaced exports to avoid conflicts
+        for (const subdir of subdirs) {
+          const subdirPath = path.join(dirPath, subdir);
+          const indexPath = path.join(subdirPath, 'index.ts');
+          
+          if (fs.existsSync(indexPath)) {
+            // Use explicit namespace import to avoid conflicts
+            // Convert hyphenated names to valid JavaScript identifiers
+            const validIdentifier = subdir.replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
+            exports.push(`export * as ${validIdentifier} from './${subdir}';`);
+            console.log(`   ✨ ${subdir}: namespaced export added`);
+          } else {
+            console.log(`   ⚠️  ${subdir}: no index.ts found, skipping export`);
+          }
+        }
+      } else {
+        // Use regular barrel exports with conflict detection
+        const conflictResult = await this.conflictResolver.analyzeAndResolveConflicts(dirPath, subdirs, flattenedExports);
+        
+        if (conflictResult.hasConflicts) {
+          console.log(`   🔍 Detected ${conflictResult.conflicts.length} export conflicts`);
+          console.log(`   🛠️  ${conflictResult.resolution.explanation}`);
+          
+          // Validate the resolution
+          const validation = this.conflictResolver.validateResolution(conflictResult.resolution);
+          if (!validation.isValid) {
+            console.log(`   ❌ Resolution validation failed: ${validation.errors.join(', ')}`);
+            throw new Error(`Conflict resolution failed: ${validation.errors.join(', ')}`);
+          }
+          
+          if (validation.warnings.length > 0) {
+            console.log(`   ⚠️  Resolution warnings: ${validation.warnings.join(', ')}`);
+          }
+          
+          // Use resolved exports
+          exports.push(...conflictResult.resolution.exports);
+          console.log(`   ✅ Applied conflict resolution - ${conflictResult.resolution.conflictsResolved} conflicts resolved`);
+          
+        } else {
+          // No conflicts, use standard barrel exports
+          for (const subdir of subdirs) {
+            const subdirPath = path.join(dirPath, subdir);
+            const indexPath = path.join(subdirPath, 'index.ts');
+            
+            if (fs.existsSync(indexPath)) {
+              exports.push(`export * from './${subdir}';`);
+              console.log(`   ✨ ${subdir}: barrel export added`);
+            } else {
+              console.log(`   ⚠️  ${subdir}: no index.ts found, skipping barrel export`);
+            }
+          }
+        }
+      }
+    }
+
+    if (exports.length === 0 && reexports.length === 0) {
+      console.log(`   ⚠️  No valid exports found, skipping index.ts generation`);
+      return;
+    }
+
+    const indexPath = path.join(dirPath, 'index.ts');
+    const indexContent = this.generateIndexContent(exports, reexports);
+
+    if (dryRun) {
+      console.log(`   📄 Would generate ${indexPath}:`);
+      console.log(indexContent);
+      return;
+    }
+
+    console.log(`   📝 Writing ${indexPath}`);
+    fs.writeFileSync(indexPath, indexContent, 'utf8');
+    console.log(`   ✅ Generated index.ts with ${exports.length + reexports.length} export(s)`);
+  }
+
+  /**
+   * Generate barrel index for directories that only contain subdirectories
+   * @param {string} dirPath
+   * @param {string[]} subdirs
+   * @param {boolean} dryRun
+   */
+  async generateBarrelIndex(dirPath, subdirs, dryRun) {
+    const exports = [];
+
+    console.log(`\n📁 Processing barrel directory: ${dirPath}`);
+
+    // Check each subdirectory to see if it has an index.ts
+    for (const subdir of subdirs) {
+      const subdirPath = path.join(dirPath, subdir);
+      const indexPath = path.join(subdirPath, 'index.ts');
+      
+      if (fs.existsSync(indexPath)) {
+        // Re-export everything from the subdirectory's index
+        exports.push(`export * from './${subdir}';`);
+        console.log(`   ✨ ${subdir}/: Found index.ts, adding barrel export`);
+      }
+    }
+
+    if (exports.length === 0) {
+      console.log(`   ⚠️  No subdirectories with index.ts found, skipping barrel index`);
+      return;
+    }
+
+    const indexContent = this.generateBarrelContent(exports);
+    const indexPath = path.join(dirPath, 'index.ts');
+
+    if (dryRun) {
+      console.log(`   📄 Would generate barrel ${indexPath}:`);
+      console.log(indexContent.split('\n').map(line => `      ${line}`).join('\n'));
+    } else {
+      fs.writeFileSync(indexPath, indexContent, 'utf8');
+      console.log(`   ✅ Generated barrel ${indexPath}`);
+    }
+  }
+
+  /**
+   * Generate index.ts file for a specific directory
+   * @param {string} dirPath
+   * @param {string[]} files
+   * @param {boolean} dryRun
+   */
+  async generateIndexForDirectory(dirPath, files, dryRun) {
+    const exports = [];
+    const reexports = [];
+
+    console.log(`\n📁 Processing directory: ${dirPath}`);
+
+    // First pass: collect all exports to detect conflicts
+    const fileExports = new Map();
+    const exportNameTracker = new Map(); // Track which files export which names
+
+    for (const file of files) {
+      const filePath = path.join(dirPath, file);
+      const exportInfo = await this.analyzeFileExports(filePath);
+      
+      if (exportInfo.length === 0) {
+        console.log(`   ⚠️  No exports found in ${file}`);
+        continue;
+      }
+
+      const fileWithoutExt = this.removeExtension(file);
+      fileExports.set(fileWithoutExt, exportInfo);
+
+      // Track export names for conflict detection
+      for (const exp of exportInfo) {
+        if (!exportNameTracker.has(exp.name)) {
+          exportNameTracker.set(exp.name, []);
+        }
+        exportNameTracker.get(exp.name).push(fileWithoutExt);
+      }
+
+      console.log(`   ✨ ${file}: ${exportInfo.length} export(s) found`);
+    }
+
+    // Second pass: generate exports with conflict resolution
+    for (const [fileWithoutExt, exportInfo] of fileExports) {
+      const statements = this.generateExportStatements(exportInfo, fileWithoutExt, exportNameTracker);
+      
+      exports.push(...statements.exports);
+      reexports.push(...statements.reexports);
+    }
+
+    if (exports.length === 0 && reexports.length === 0) {
+      console.log(`   ⚠️  No valid exports found, skipping index.ts generation`);
+      return;
+    }
+
+    const indexPath = path.join(dirPath, 'index.ts');
+    const indexContent = this.generateIndexContent(exports, reexports);
+
+    if (dryRun) {
+      console.log(`   📄 Would generate ${indexPath}:`);
+      console.log(indexContent.split('\n').map(line => `      ${line}`).join('\n'));
+    } else {
+      fs.writeFileSync(indexPath, indexContent, 'utf8');
+      console.log(`   ✅ Generated ${indexPath}`);
+    }
+  }
+
+  /**
+   * Analyze existing index.ts file to preserve custom content
+   * @param {string} indexPath
+   * @returns {{existingExports: string[], customContent: string[], isAutoGenerated: boolean}}
+   */
+  analyzeExistingIndex(indexPath) {
+    if (!fs.existsSync(indexPath)) {
+      return { existingExports: [], customContent: [], isAutoGenerated: false };
+    }
+
+    const content = fs.readFileSync(indexPath, 'utf8');
+    const lines = content.split('\n');
+    
+    const existingExports = [];
+    const customContent = [];
+    let isAutoGenerated = false;
+    let inClass = false;
+    let braceCount = 0;
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      const trimmedLine = line.trim();
+      
+      // Check if auto-generated
+      if (trimmedLine.includes('Auto-generated') && (trimmedLine.includes('index') || trimmedLine.includes('barrel'))) {
+        isAutoGenerated = true;
+        continue;
+      }
+      
+      // Skip auto-generation comments
+      if (trimmedLine.startsWith('//') && (trimmedLine.includes('Run `npm run generate:index`') || trimmedLine.includes('Auto-generated'))) {
+        continue;
+      }
+
+      // Track class blocks
+      if (trimmedLine.includes('export class') || trimmedLine.includes('class ')) {
+        inClass = true;
+        customContent.push(line);
+        braceCount += (line.match(/\{/g) || []).length - (line.match(/\}/g) || []).length;
+        continue;
+      }
+
+      if (inClass) {
+        customContent.push(line);
+        braceCount += (line.match(/\{/g) || []).length - (line.match(/\}/g) || []).length;
+        if (braceCount <= 0) {
+          inClass = false;
+          braceCount = 0;
+        }
+        continue;
+      }
+
+      // Collect exports and other content
+      if (trimmedLine.startsWith('export ') && !trimmedLine.includes('Auto-generated')) {
+        existingExports.push(line);
+      }
+      // Collect custom content (imports, types, interfaces, etc.)
+      else if (trimmedLine && !trimmedLine.startsWith('//')) {
+        customContent.push(line);
+      }
+    }
+
+    return { existingExports, customContent, isAutoGenerated };
+  }
+
+  /**
+   * Analyze a file to extract export information
+   * @param {string} filePath
+   * @returns {Promise<ExportInfo[]>}
+   */
+  async analyzeFileExports(filePath) {
+    const content = fs.readFileSync(filePath, 'utf8');
+    const exports = [];
+
+    // First handle multiline export blocks using regex
+    const multilineExportPattern = /export\s*(?:type\s*)?\{\s*([\s\S]*?)\s*\}/g;
+    let match;
+    
+    while ((match = multilineExportPattern.exec(content)) !== null) {
+      const isTypeExport = match[0].includes('export type {');
+      const namesSection = match[1];
+      
+      // Split by comma and clean up names
+      const names = namesSection.split(',')
+        .map(name => name.trim())
+        .filter(name => name && !name.startsWith('//'))
+        .map(name => name.replace(/\s+as\s+\w+/, '')) // Remove 'as alias'
+        .filter(name => name);
+      
+      for (const name of names) {
+        exports.push({
+          name: name,
+          isDefault: false,
+          isNamed: true,
+          isTypeOnly: isTypeExport,
+          originalLine: `export { ${name} }` // Normalized representation
+        });
+      }
+    }
+
+    // Split content into lines for single-line analysis
+    const lines = content.split('\n');
+
+    for (const line of lines) {
+      const trimmedLine = line.trim();
+      
+      // Skip comments, empty lines, and lines already handled by multiline regex
+      if (trimmedLine.startsWith('//') || trimmedLine.startsWith('/*') || !trimmedLine || 
+          trimmedLine.match(/^export\s*(?:type\s*)?\{/) || trimmedLine.includes('}')) {
+        continue;
+      }
+
+      // Match single-line export patterns
+      const exportPatterns = [
+        // export default class/function/const Name
+        { pattern: /^export\s+default\s+(?:class|function|const|let|var|interface|type|enum)\s+(\w+)/, isTypeOnly: false },
+        // export default Name
+        { pattern: /^export\s+default\s+(\w+)/, isTypeOnly: false },
+        // export { name1, name2 } - single line only
+        { pattern: /^export\s+\{\s*([^}]+)\s*\}/, isTypeOnly: false },
+        // export const/let/var name
+        { pattern: /^export\s+(?:const|let|var)\s+(\w+)/, isTypeOnly: false },
+        // export function name
+        { pattern: /^export\s+function\s+(\w+)/, isTypeOnly: false },
+        // export class name (runtime value)
+        { pattern: /^export\s+class\s+(\w+)/, isTypeOnly: false },
+        // export interface name (type only)
+        { pattern: /^export\s+interface\s+(\w+)/, isTypeOnly: true },
+        // export type name (type only)
+        { pattern: /^export\s+type\s+(\w+)/, isTypeOnly: true },
+        // export enum name (can be both - treat as type for simplicity)
+        { pattern: /^export\s+enum\s+(\w+)/, isTypeOnly: true },
+      ];
+
+      for (const exportPattern of exportPatterns) {
+        const patternMatch = trimmedLine.match(exportPattern.pattern);
+        if (patternMatch) {
+          if (trimmedLine.includes('default')) {
+            exports.push({
+              name: patternMatch[1],
+              isDefault: true,
+              isNamed: false,
+              isTypeOnly: exportPattern.isTypeOnly,
+              originalLine: trimmedLine
+            });
+          } else if (trimmedLine.startsWith('export {') && trimmedLine.includes('}')) {
+            // Handle single-line destructured exports
+            const names = patternMatch[1].split(',').map(name => name.trim());
+            const isTypeExport = trimmedLine.startsWith('export type {');
+            for (const name of names) {
+              const cleanName = name.replace(/\s+as\s+\w+/, ''); // Remove 'as alias'
+              exports.push({
+                name: cleanName,
+                isDefault: false,
+                isNamed: true,
+                isTypeOnly: isTypeExport || exportPattern.isTypeOnly,
+                originalLine: trimmedLine
+              });
+            }
+          } else {
+            exports.push({
+              name: patternMatch[1],
+              isDefault: false,
+              isNamed: true,
+              isTypeOnly: exportPattern.isTypeOnly,
+              originalLine: trimmedLine
+            });
+          }
+          break;
+        }
+      }
+    }
+
+    return exports;
+  }
+
+  /**
+   * Generate modern export statements with deduplication and conflict resolution
+   * @param {ExportInfo[]} exportInfo
+   * @param {string} fileName
+   * @param {Map} exportNameTracker
+   * @returns {{exports: string[], reexports: string[]}}
+   */
+  generateExportStatements(exportInfo, fileName, exportNameTracker = new Map()) {
+    const exports = [];
+    const reexports = [];
+
+    // Deduplicate exports by name - prefer named over default
+    const exportsByName = new Map();
+    
+    for (const exportItem of exportInfo) {
+      const existing = exportsByName.get(exportItem.name);
+      
+      if (!existing) {
+        exportsByName.set(exportItem.name, exportItem);
+      } else {
+        // Prefer named exports over default exports
+        if (exportItem.isNamed && existing.isDefault) {
+          exportsByName.set(exportItem.name, exportItem);
+        }
+      }
+    }
+
+    // Separate deduplicated exports
+    const uniqueExports = Array.from(exportsByName.values());
+    const defaultExports = uniqueExports.filter(e => e.isDefault);
+    const namedExports = uniqueExports.filter(e => e.isNamed);
+
+    // Separate named exports by type vs value
+    const typeExports = namedExports.filter(e => e.isTypeOnly);
+    const valueExports = namedExports.filter(e => !e.isTypeOnly);
+
+    // Create export statements
+    const namedNames = new Set(namedExports.map(e => e.name));
+    
+    // Handle default exports - only if no named export with same name
+    for (const defaultExport of defaultExports) {
+      if (!namedNames.has(defaultExport.name)) {
+        if (defaultExport.isTypeOnly) {
+          reexports.push(`export type { default as ${defaultExport.name} } from './${fileName}';`);
+        } else {
+          reexports.push(`export { default as ${defaultExport.name} } from './${fileName}';`);
+        }
+      }
+    }
+
+    // Handle type exports - use 'export type' syntax with conflict resolution
+    if (typeExports.length > 0) {
+      const typeExportStatements = this.generateExportStatementsWithAliases(typeExports, fileName, exportNameTracker, true);
+      reexports.push(...typeExportStatements);
+    }
+
+    // Handle value exports - use regular 'export' syntax with conflict resolution  
+    if (valueExports.length > 0) {
+      const valueExportStatements = this.generateExportStatementsWithAliases(valueExports, fileName, exportNameTracker, false);
+      reexports.push(...valueExportStatements);
+    }
+
+    return { exports, reexports };
+  }
+
+  /**
+   * Generate export statements with alias resolution for naming conflicts
+   * @param {ExportInfo[]} exports
+   * @param {string} fileName
+   * @param {Map} exportNameTracker
+   * @param {boolean} isTypeExport
+   * @returns {string[]}
+   */
+  generateExportStatementsWithAliases(exports, fileName, exportNameTracker, isTypeExport) {
+    const statements = [];
+    const exportKeyword = isTypeExport ? 'export type' : 'export';
+    
+    // Group exports by name for conflict resolution
+    const exportsByName = new Map();
+    for (const exp of exports) {
+      if (!exportsByName.has(exp.name)) {
+        exportsByName.set(exp.name, []);
+      }
+      exportsByName.get(exp.name).push(exp);
+    }
+
+    for (const [exportName, exportList] of exportsByName) {
+      const conflictingFiles = exportNameTracker.get(exportName) || [];
+      
+      if (conflictingFiles.length > 1) {
+        // Naming conflict detected - use alias
+        const alias = this.generateAlias(exportName, fileName);
+        statements.push(`${exportKeyword} { ${exportName} as ${alias} } from './${fileName}';`);
+        console.log(`   🔄 Aliased conflicting export: ${exportName} → ${alias} (from ${fileName})`);
+      } else {
+        // No conflict - use original name
+        const exportNames = exportList.map(e => e.name).join(', ');
+        statements.push(`${exportKeyword} { ${exportNames} } from './${fileName}';`);
+      }
+    }
+
+    return statements;
+  }
+
+  /**
+   * Generate a unique alias for conflicting export names
+   * @param {string} exportName
+   * @param {string} fileName
+   * @returns {string}
+   */
+  generateAlias(exportName, fileName) {
+    // Convert filename to PascalCase, removing file extensions and invalid chars
+    const cleanFileName = fileName
+      .replace(/\.(ts|tsx|js|jsx)$/, '') // Remove file extensions
+      .replace(/[^a-zA-Z0-9_]/g, '_') // Replace invalid chars with underscore
+      .split(/[-_.]/)
+      .filter(part => part.length > 0)
+      .map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+      .join('');
+    
+    // Special cases for common conflicts
+    if (exportName === 'useAuthStore' && fileName === 'authStore') {
+      return 'useAuthStore'; // Don't alias this one - it should be the primary export
+    }
+    
+    // For common names, create readable aliases
+    if (exportName.toLowerCase().includes('actions')) {
+      return cleanFileName + 'Actions';
+    } else if (exportName.toLowerCase().includes('config')) {
+      return cleanFileName + 'Config';
+    } else if (exportName.toLowerCase().includes('instructions')) {
+      return cleanFileName + 'Instructions';
+    } else {
+      return cleanFileName + exportName.charAt(0).toUpperCase() + exportName.slice(1);
+    }
+  }
+
+  /**
+   * Generate the barrel index.ts content
+   * @param {string[]} exports
+   * @returns {string}
+   */
+  generateBarrelContent(exports) {
+    const lines = [];
+    
+    // Add file header
+    lines.push('// Auto-generated barrel index file');
+    lines.push('// Run `npm run generate:index` to regenerate');
+    lines.push('');
+
+    // Add exports
+    lines.push(...exports);
+    lines.push(''); // Final newline
+
+    return lines.join('\n');
+  }
+
+  /**
+   * Generate the final index.ts content - clean and simple
+   * @param {string[]} exports
+   * @param {string[]} reexports
+   * @returns {string}
+   */
+  generateIndexContent(exports, reexports) {
+    const lines = [];
+    
+    // Add file header
+    lines.push('// Auto-generated index file');
+    lines.push('// Run `npm run generate:index` to regenerate');
+    lines.push('');
+
+    // Add re-exports (modern approach)
+    if (reexports.length > 0) {
+      lines.push(...reexports);
+    }
+
+    // Add direct exports if any
+    if (exports.length > 0) {
+      lines.push('');
+      lines.push(...exports);
+    }
+
+    lines.push(''); // Final newline
+
+    return lines.join('\n');
+  }
+
+  /**
+   * Extract export key for deduplication
+   * @param {string} exportLine
+   * @returns {string|null}
+   */
+  extractExportKey(exportLine) {
+    // Extract the exported name for deduplication
+    const matches = exportLine.match(/export\s+\{\s*([^}]+)\s*\}/);
+    if (matches) {
+      return matches[1].split(',')[0].trim().split(' as ')[0].trim();
+    }
+    
+    const typeMatch = exportLine.match(/export\s+(?:type|interface|enum|class|const|let|var|function)\s+(\w+)/);
+    if (typeMatch) {
+      return typeMatch[1];
+    }
+    
+    return null;
+  }
+
+  /**
+   * Check if file should be processed
+   * @param {string} filename
+   * @returns {boolean}
+   */
+  isValidFile(filename) {
+    const ext = path.extname(filename);
+    
+    // Check extension
+    if (!this.supportedExtensions.includes(ext)) {
+      return false;
+    }
+
+    // Check exclude patterns
+    for (const pattern of this.excludePatterns) {
+      if (pattern.test(filename)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  /**
+   * Remove file extension
+   * @param {string} filename
+   * @returns {string}
+   */
+  removeExtension(filename) {
+    return filename.replace(/\.[^/.]+$/, '');
+  }
+
+  /**
+   * Validate directory structure before generation
+   * @param {string} rootDir
+   * @param {boolean} recursive
+   * @returns {Promise<{errors: string[], warnings: string[]}>}
+   */
+  async validateDirectoryStructure(rootDir, recursive) {
+    const errors = [];
+    const warnings = [];
+    const processedDirs = new Set();
+    
+    await this.validateDirectory(rootDir, recursive, errors, warnings, processedDirs);
+    
+    return { errors, warnings };
+  }
+
+  /**
+   * Validate a single directory
+   * @param {string} dirPath
+   * @param {boolean} recursive
+   * @param {string[]} errors
+   * @param {string[]} warnings
+   * @param {Set} processedDirs
+   */
+  async validateDirectory(dirPath, recursive, errors, warnings, processedDirs) {
+    if (processedDirs.has(dirPath)) {
+      warnings.push(`Circular directory reference detected: ${dirPath}`);
+      return;
+    }
+    processedDirs.add(dirPath);
+
+    try {
+      const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+      const files = [];
+      const subdirs = [];
+      const exportNames = new Map();
+
+      // Separate files and subdirectories
+      for (const entry of entries) {
+        if (entry.isFile() && this.isValidFile(entry.name)) {
+          files.push(entry.name);
+        } else if (entry.isDirectory() && !entry.name.startsWith('.') && entry.name !== 'node_modules') {
+          subdirs.push(entry.name);
+        }
+      }
+
+      // Validate files in current directory
+      for (const file of files) {
+        const filePath = path.join(dirPath, file);
+        try {
+          const exportInfo = await this.analyzeFileExports(filePath);
+          
+          if (exportInfo.length === 0) {
+            warnings.push(`No exports found in ${filePath}`);
+          } else {
+            // Check for export conflicts
+            for (const exp of exportInfo) {
+              if (!exportNames.has(exp.name)) {
+                exportNames.set(exp.name, []);
+              }
+              exportNames.get(exp.name).push(file);
+            }
+          }
+        } catch (error) {
+          errors.push(`Failed to analyze exports in ${filePath}: ${error.message}`);
+        }
+      }
+
+      // Report conflicts as warnings (they'll be auto-resolved)
+      for (const [exportName, fileList] of exportNames) {
+        if (fileList.length > 1) {
+          warnings.push(`Export name conflict '${exportName}' in ${dirPath}: ${fileList.join(', ')} (will be auto-resolved with aliases)`);
+        }
+      }
+
+      // Recursively validate subdirectories
+      if (recursive) {
+        for (const subdir of subdirs) {
+          const subdirPath = path.join(dirPath, subdir);
+          await this.validateDirectory(subdirPath, recursive, errors, warnings, processedDirs);
+        }
+      }
+    } catch (error) {
+      errors.push(`Failed to read directory ${dirPath}: ${error.message}`);
+    }
+  }
+
+  /**
+   * Report validation results
+   * @param {{errors: string[], warnings: string[]}} results
+   */
+  reportValidationResults(results) {
+    if (results.warnings.length > 0) {
+      console.log(`⚠️  ${results.warnings.length} warning(s):`);
+      for (const warning of results.warnings.slice(0, 10)) { // Limit to first 10
+        console.log(`   ${warning}`);
+      }
+      if (results.warnings.length > 10) {
+        console.log(`   ... and ${results.warnings.length - 10} more warning(s)`);
+      }
+    }
+
+    if (results.errors.length > 0) {
+      console.log(`❌ ${results.errors.length} error(s):`);
+      for (const error of results.errors.slice(0, 10)) { // Limit to first 10
+        console.log(`   ${error}`);
+      }
+      if (results.errors.length > 10) {
+        console.log(`   ... and ${results.errors.length - 10} more error(s)`);
+      }
+    }
+
+    if (results.warnings.length === 0 && results.errors.length === 0) {
+      console.log(`✅ Pre-validation passed - no issues detected`);
+    }
+  }
+
+  /**
+   * Validate generated index files
+   * @param {string} rootDir
+   * @param {boolean} recursive
+   */
+  async validateGeneratedFiles(rootDir, recursive) {
+    const errors = [];
+    const warnings = [];
+    
+    await this.validateGeneratedDirectory(rootDir, recursive, errors, warnings);
+    
+    if (errors.length > 0) {
+      console.log(`❌ Post-validation found ${errors.length} error(s):`);
+      for (const error of errors.slice(0, 5)) {
+        console.log(`   ${error}`);
+      }
+    }
+    
+    if (warnings.length > 0) {
+      console.log(`⚠️  Post-validation found ${warnings.length} warning(s):`);
+      for (const warning of warnings.slice(0, 5)) {
+        console.log(`   ${warning}`);
+      }
+    }
+    
+    if (errors.length === 0 && warnings.length === 0) {
+      console.log(`✅ Post-validation passed - generated files are valid`);
+    }
+  }
+
+  /**
+   * Validate generated files in a directory
+   * @param {string} dirPath
+   * @param {boolean} recursive
+   * @param {string[]} errors
+   * @param {string[]} warnings
+   */
+  async validateGeneratedDirectory(dirPath, recursive, errors, warnings) {
+    const indexPath = path.join(dirPath, 'index.ts');
+    
+    if (fs.existsSync(indexPath)) {
+      try {
+        const content = fs.readFileSync(indexPath, 'utf8');
+        
+        // Basic syntax validation
+        if (content.includes('undefined')) {
+          errors.push(`Generated index contains 'undefined': ${indexPath}`);
+        }
+        
+        // Check for duplicate export lines
+        const lines = content.split('\n').filter(line => line.trim().startsWith('export'));
+        const exportSet = new Set();
+        for (const line of lines) {
+          if (exportSet.has(line)) {
+            errors.push(`Duplicate export line in ${indexPath}: ${line}`);
+          }
+          exportSet.add(line);
+        }
+        
+        // Check for empty exports
+        if (lines.some(line => line.includes('export {  }'))) {
+          warnings.push(`Empty export statement in ${indexPath}`);
+        }
+        
+      } catch (error) {
+        errors.push(`Failed to validate ${indexPath}: ${error.message}`);
+      }
+    }
+    
+    // Recursively validate subdirectories
+    if (recursive) {
+      try {
+        const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+        for (const entry of entries) {
+          if (entry.isDirectory() && !entry.name.startsWith('.') && entry.name !== 'node_modules') {
+            const subdirPath = path.join(dirPath, entry.name);
+            await this.validateGeneratedDirectory(subdirPath, recursive, errors, warnings);
+          }
+        }
+      } catch (error) {
+        errors.push(`Failed to read directory for validation ${dirPath}: ${error.message}`);
+      }
+    }
+  }
+}
+
+// CLI interface
+if (require.main === module) {
+  const args = process.argv.slice(2);
+  const generator = new IndexGenerator();
+
+  if (args.length === 0) {
+    console.log(`
+Usage: node index-generator.js <directory> [options]
+
+Options:
+  --no-recursive    Don't process subdirectories
+  --dry-run        Show what would be generated without writing files
+
+Examples:
+  node index-generator.js ./src/components
+  node index-generator.js ./src --dry-run
+  node index-generator.js ./src/hooks --no-recursive
+`);
+    process.exit(1);
+  }
+
+  const directory = args[0];
+  const options = {
+    recursive: !args.includes('--no-recursive'),
+    dryRun: args.includes('--dry-run')
+  };
+
+  generator.generateIndexFiles(directory, options).catch(error => {
+    console.error('❌ Error:', error.message);
+    process.exit(1);
+  });
+}
+
+module.exports = { IndexGenerator };

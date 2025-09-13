@@ -314,7 +314,8 @@ export const ActionSheetContainer: React.FC = () => {
   );
 };'''
         
-        file_path = self.frontend_path / "src" / "components" / "ui" / "ActionSheetContainer.tsx"
+        # Changed: ActionSheetContainer now goes in action-sheet/ instead of ui/ to avoid conflicts
+        file_path = self.frontend_path / "src" / "components" / "action-sheet" / "ActionSheetContainer.tsx"
         self.write_file(file_path, content)
 
     def _create_basic_action_files(self):

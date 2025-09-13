@@ -1,4 +1,5 @@
-// Analysis Domain Hooks
-export { useAnalysis } from './useAnalysis';
-export { useAnalysisQueries } from './useAnalysisQueries';
-export { useAnalysisMutations } from './useAnalysisMutations';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './useAnalysis';
+export * from './useAnalysisMutations';
+export * from './useAnalysisQueries';

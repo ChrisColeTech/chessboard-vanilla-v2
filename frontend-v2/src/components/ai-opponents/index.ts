@@ -1,1 +1,3 @@
-export { AIOpponentComponent } from './AIOpponentComponent';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './AIOpponentComponent';

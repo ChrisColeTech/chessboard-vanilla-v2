@@ -1,1 +1,3 @@
-export { TutorialStepComponent } from './TutorialStepComponent';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './TutorialStepComponent';

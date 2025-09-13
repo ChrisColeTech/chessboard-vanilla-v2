@@ -1,1 +1,3 @@
-export { UserComponent } from './UserComponent';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './UserComponent';

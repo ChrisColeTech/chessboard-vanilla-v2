@@ -1,4 +1,5 @@
-// HistoricGames Domain Hooks
-export { useHistoricGames } from './useHistoricGames';
-export { useHistoricGamesQueries } from './useHistoricGamesQueries';
-export { useHistoricGamesMutations } from './useHistoricGamesMutations';
+// Auto-generated index file - DO NOT EDIT MANUALLY
+
+export * from './useHistoricGames';
+export * from './useHistoricGamesMutations';
+export * from './useHistoricGamesQueries';
