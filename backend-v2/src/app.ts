@@ -20,8 +20,20 @@ app.use((req, res, next) => {
   next();
 });
 
+// CORS Configuration
+const corsOptions = {
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'https://chessboard-vanilla-v2.onrender.com',
+    // Add any other domains you need
+  ],
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
