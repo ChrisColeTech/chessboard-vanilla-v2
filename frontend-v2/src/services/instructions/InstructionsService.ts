@@ -118,17 +118,10 @@ export class InstructionsService {
     this.instructionsMap.set('play', {
       title: 'Chess Play Hub',
       instructions: [
-<<<<<<< Updated upstream
-        'Welcome to the Chess Play Hub - Your gateway to chess gameplay',
-        'Choose between classical chess games or challenging puzzles',
-        'Navigate using the action menu to select your preferred play mode',
-        'Each mode offers unique features and learning opportunities'
-=======
         'Welcome to the Chess Play Hub - Your gateway to chess {domain}',
         'Choose between classical chess games or challenging {domain}',
         'Navigate using the action menu to select your preferred play mode',
         'Each mode offers unique features and {domain} opportunities'
->>>>>>> Stashed changes
       ]
     })
 
@@ -143,11 +136,7 @@ export class InstructionsService {
       ]
     })
 
-<<<<<<< Updated upstream
-    this.instructionsMap.set('playpuzzles', {
-=======
     this.instructionsMap.set('play{domain}', {
->>>>>>> Stashed changes
       title: 'Chess Puzzle Training',
       instructions: [
         'Sharpen your tactical skills with our comprehensive puzzle collection',
@@ -227,11 +216,7 @@ export class InstructionsService {
       instructions: [
         '♗ Chess pieces appear in logical hierarchy sequence',
         '🎭 Staggered timing creates engaging assembly animation', 
-<<<<<<< Updated upstream
-        '📚 Educational value showing piece placement learning',
-=======
         '📚 Educational value showing piece placement {domain}',
->>>>>>> Stashed changes
         '🔄 Restart animation to see full piece assembly sequence',
         '🎮 Test cross-navigation to other splash variants'
       ]
@@ -264,19 +249,11 @@ export class InstructionsService {
       instructions: [
         '🎯 **Real Asset Preloading**: Performs actual app initialization, not fake animations',
         '📊 **Live Progress**: Shows real loading stages (store → pieces → audio → background)',
-<<<<<<< Updated upstream
-        '🎨 **User-Preference-Driven**: Loads your selected piece set first, others in background',
-        '🔊 **Smart Audio Loading**: Only preloads audio if enabled in settings',
-        '⚡ **Modern APIs**: Uses 2024 React preload API + custom Promise coordination',
-        '🚫 **Error Handling**: Shows retry options and graceful degradation on failures',
-        '⏭️ **Skip Option**: Power users can bypass loading for immediate access',
-=======
         '🎨 **{entity_name}-Preference-Driven**: Loads your selected piece set first, others in background',
         '🔊 **Smart Audio Loading**: Only preloads audio if enabled in settings',
         '⚡ **Modern APIs**: Uses 2024 React preload API + custom Promise coordination',
         '🚫 **Error Handling**: Shows retry options and graceful degradation on failures',
         '⏭️ **Skip Option**: Power {endpoint_name} can bypass loading for immediate access',
->>>>>>> Stashed changes
         '📱 **Network Aware**: Adapts to connection speed with timeout handling'
       ]
     })

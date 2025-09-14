@@ -5,15 +5,9 @@
 
 import { Palette, Crown } from "lucide-react";
 import { useBoardColorManager } from "../../hooks/core/useBoardColorManager";
-<<<<<<< Updated upstream
-import { SegmentedControl } from "../ui/SegmentedControl";
-
-export function BoardColorSelector() {
-=======
 import SegmentedControl from "../ui/SegmentedControl";
 
 export default function BoardColorSelector() {
->>>>>>> Stashed changes
   const {
     boardColorMode,
     premiumBoardStyle,

@@ -37,11 +37,7 @@ export class ComputerOpponentService {
 
   /**
    * Calculate search depth based on difficulty
-<<<<<<< Updated upstream
-   * Maps 1-10 user scale to appropriate engine search depth
-=======
    * Maps 1-10 {entity_name_lower} scale to appropriate engine search depth
->>>>>>> Stashed changes
    */
   public calculateSearchDepth(difficulty?: ComputerDifficulty): number {
     const level = difficulty || this.currentDifficulty;

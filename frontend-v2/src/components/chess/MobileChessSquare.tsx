@@ -14,11 +14,7 @@ interface MobileChessSquareProps {
   onSquareTap: (square: ChessPosition) => void;
 }
 
-<<<<<<< Updated upstream
-export const MobileChessSquare: React.FC<MobileChessSquareProps> = ({
-=======
 const MobileChessSquare: React.FC<MobileChessSquareProps> = ({
->>>>>>> Stashed changes
   square,
   piece,
   isSelected,
@@ -185,9 +181,6 @@ const MobileChessSquare: React.FC<MobileChessSquareProps> = ({
     </div>
   );
 };
-<<<<<<< Updated upstream
-=======
 
 export default MobileChessSquare;
 export { MobileChessSquare };
->>>>>>> Stashed changes

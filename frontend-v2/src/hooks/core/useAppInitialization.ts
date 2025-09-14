@@ -82,11 +82,7 @@ export function useAppInitialization(): AppInitializationState & AppInitializati
       // Subscribe to progress updates
       preloadingService.onProgress(handleProgress)
 
-<<<<<<< Updated upstream
-      // Get user preferences for asset prioritization
-=======
       // Get {entity_name_lower} preferences for asset prioritization
->>>>>>> Stashed changes
       const userPrefs = {
         selectedPieceSet,
         audioEnabled,

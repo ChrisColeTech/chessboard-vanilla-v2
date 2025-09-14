@@ -1,19 +1,11 @@
 import { Settings, X, Volume2, VolumeX } from "lucide-react";
 import { useTheme, useAppStore, useChessSettings } from "../../stores/appStore";
 import { useUIClickSound } from "../../hooks/audio/useUIClickSound";
-<<<<<<< Updated upstream
-import { BackgroundEffectsSelector } from "../settings/BackgroundEffectsSelector";
-import { BoardColorSelector } from "../settings/BoardColorSelector";
-import { ThemeSelector } from "../settings/ThemeSelector";
-import { PieceSetSelector } from "../settings/PieceSetSelector";
-import { SegmentedControl, type SegmentedControlOption } from "../ui/SegmentedControl";
-=======
 import BackgroundEffectsSelector from "../settings/BackgroundEffectsSelector";
 import BoardColorSelector from "../settings/BoardColorSelector";
 import ThemeSelector from "../settings/ThemeSelector";
 import PieceSetSelector from "../settings/PieceSetSelector";
 import SegmentedControl, { type SegmentedControlOption } from "../ui/SegmentedControl";
->>>>>>> Stashed changes
 import { SETTINGS_SECTIONS } from "../../data/themeConfig";
 import { useCallback } from "react";
 
@@ -22,11 +14,7 @@ interface SettingsPanelProps {
   onClose: () => void;
 }
 
-<<<<<<< Updated upstream
-export function SettingsPanel({ onClose }: SettingsPanelProps) {
-=======
 export default function SettingsPanel({ onClose }: SettingsPanelProps) {
->>>>>>> Stashed changes
   const { isDarkMode, toggleMode } = useTheme();
   const { playUIClick } = useUIClickSound();
   const { pieceSize, setPieceSize } = useChessSettings();

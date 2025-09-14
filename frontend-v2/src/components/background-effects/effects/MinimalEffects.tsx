@@ -11,11 +11,7 @@ const positions = [
  * Minimal Effects Component
  * Clean geometric shapes for professional themes
  */
-<<<<<<< Updated upstream
-export function MinimalEffects({ className = '' }: BackgroundEffectProps) {
-=======
 export default function MinimalEffects({ className = '' }: BackgroundEffectProps) {
->>>>>>> Stashed changes
   return (
     <div className={`bg-overlay ${className}`}>
       {/* Subtle gradient background */}

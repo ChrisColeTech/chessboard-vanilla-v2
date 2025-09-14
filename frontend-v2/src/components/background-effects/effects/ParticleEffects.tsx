@@ -12,11 +12,7 @@ const positions = [
  * Particle Effects Component
  * Physics-inspired particles with subtle animation
  */
-<<<<<<< Updated upstream
-export function ParticleEffects({ className = '' }: BackgroundEffectProps) {
-=======
 export default function ParticleEffects({ className = '' }: BackgroundEffectProps) {
->>>>>>> Stashed changes
   return (
     <div className={`bg-overlay ${className}`}>
       {/* Subtle radial gradient */}

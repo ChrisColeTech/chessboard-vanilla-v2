@@ -15,11 +15,7 @@ interface ChessPiece {
  * 
  * DESIGN INTENT: Educational chess piece assembly that teaches proper chess hierarchy.
  * Pieces appear in logical sequence showing board setup progress.
-<<<<<<< Updated upstream
- * Transforms loading time into learning time about chess fundamentals.
-=======
  * Transforms loading time into {domain} time about chess fundamentals.
->>>>>>> Stashed changes
  */
 export function useMinimalSplashActions() {
   const [animationKey, setAnimationKey] = useState(0)

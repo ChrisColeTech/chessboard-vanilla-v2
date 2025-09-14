@@ -5,19 +5,11 @@
 
 import { Sparkles, Wand2 } from "lucide-react";
 import { useBackgroundEffectsManager } from "../../hooks/core/useBackgroundEffectsManager";
-<<<<<<< Updated upstream
-import { SegmentedControl } from "../ui/SegmentedControl";
-import { BACKGROUND_EFFECTS_TOGGLE_BUTTONS } from "../../data/backgroundEffectsConfig";
-import { SETTINGS_SECTIONS } from "../../data/themeConfig";
-
-export function BackgroundEffectsSelector() {
-=======
 import SegmentedControl from "../ui/SegmentedControl";
 import { BACKGROUND_EFFECTS_TOGGLE_BUTTONS } from "../../data/backgroundEffectsConfig";
 import { SETTINGS_SECTIONS } from "../../data/themeConfig";
 
 export default function BackgroundEffectsSelector() {
->>>>>>> Stashed changes
   const {
     currentVariant,
     isEffectsEnabled,

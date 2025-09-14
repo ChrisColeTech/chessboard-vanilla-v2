@@ -3,11 +3,7 @@
  * Works with external MenuButton trigger in TabBar for proper HeadlessUI integration
  */
 import { useCallback, useState, useEffect } from "react";
-<<<<<<< Updated upstream
-import { ActionSheet } from "./ActionSheet";
-=======
 import ActionSheet from "./ActionSheet";
->>>>>>> Stashed changes
 import { usePlayActions } from "../../hooks/chess/usePlayActions";
 import { useWorkerActions } from "../../hooks/chess/useWorkerActions";
 import { useLayoutActions } from "../../hooks/core/useLayoutActions";
@@ -28,11 +24,7 @@ import type {
 } from "../../types/core/action-sheet.types";
 import { PAGE_ACTIONS } from "../../constants/actions/page-actions.constants";
 
-<<<<<<< Updated upstream
-export function ActionSheetContainer({
-=======
 export default function ActionSheetContainer({
->>>>>>> Stashed changes
   currentPage,
   className,
   onClose,

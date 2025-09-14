@@ -24,11 +24,7 @@ export interface LoadingResults {
 
 /**
  * Modern asset preloading service using 2024 React best practices
-<<<<<<< Updated upstream
- * Coordinates with Zustand store for user-preference-driven loading
-=======
  * Coordinates with Zustand store for {entity_name_lower}-preference-driven loading
->>>>>>> Stashed changes
  */
 export class PreloadingService {
   private progressCallback?: (progress: LoadingProgress) => void
@@ -42,11 +38,7 @@ export class PreloadingService {
   }
 
   /**
-<<<<<<< Updated upstream
-   * Get assets to preload based on user preferences
-=======
    * Get assets to preload based on {entity_name_lower} preferences
->>>>>>> Stashed changes
    */
   getAssetsToPreload(userPrefs: {
     selectedPieceSet?: keyof typeof PIECE_SETS
@@ -72,11 +64,7 @@ export class PreloadingService {
   }
 
   /**
-<<<<<<< Updated upstream
-   * Get audio files based on user preferences
-=======
    * Get audio files based on {entity_name_lower} preferences
->>>>>>> Stashed changes
    */
   private getAudioFiles(): string[] {
     return [

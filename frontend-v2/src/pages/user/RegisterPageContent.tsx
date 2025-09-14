@@ -3,11 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Eye, EyeOff } from "lucide-react";
-<<<<<<< Updated upstream
-import { useRegister } from "../../hooks";
-=======
 import { useRegister } from "../../hooks/authentication/useAuth";
->>>>>>> Stashed changes
 import { 
   Button, 
   Input, 

@@ -1,9 +1,5 @@
 import { Crown, Shield, Swords, Briefcase, Zap } from "lucide-react";
-<<<<<<< Updated upstream
-import { SegmentedControl, type SegmentedControlOption } from "../ui/SegmentedControl";
-=======
 import SegmentedControl, { type SegmentedControlOption } from "../ui/SegmentedControl";
->>>>>>> Stashed changes
 import { useAppStore } from "../../stores/appStore";
 import { PIECE_SETS, PIECE_SET_NAMES } from "../../constants/pieces.constants";
 
@@ -16,11 +12,7 @@ const PIECE_SET_ICONS = {
   conqueror: Zap
 } as const;
 
-<<<<<<< Updated upstream
-export function PieceSetSelector() {
-=======
 export default function PieceSetSelector() {
->>>>>>> Stashed changes
   const selectedPieceSet = useAppStore((state) => state.selectedPieceSet);
   const setPieceSet = useAppStore((state) => state.setPieceSet);
 

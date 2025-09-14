@@ -31,19 +31,11 @@ export const useAudioFeedback = (config: ComponentAudioConfig) => {
       };
     }
 
-<<<<<<< Updated upstream
-    // Check for user preferences
-    if (context.reducedAudio) {
-      return {
-        shouldPlay: false,
-        reason: 'User prefers reduced audio'
-=======
     // Check for {entity_name_lower} preferences
     if (context.reducedAudio) {
       return {
         shouldPlay: false,
         reason: '{entity_name} prefers reduced audio'
->>>>>>> Stashed changes
       };
     }
 

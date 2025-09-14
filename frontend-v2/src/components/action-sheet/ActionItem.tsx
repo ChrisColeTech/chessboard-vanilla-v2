@@ -11,11 +11,7 @@ interface ActionItemProps {
   onHover?: () => void
 }
 
-<<<<<<< Updated upstream
-export function ActionItem({ action, onSelect, onHover }: ActionItemProps) {
-=======
 export default function ActionItem({ action, onSelect, onHover }: ActionItemProps) {
->>>>>>> Stashed changes
   const IconComponent = action.icon
 
   const getVariantClass = (variant: ActionSheetAction['variant']) => {

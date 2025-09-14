@@ -7,11 +7,7 @@ interface MenuDropdownProps {
   onClose: () => void;
 }
 
-<<<<<<< Updated upstream
-export function MenuDropdown({ onClose }: MenuDropdownProps) {
-=======
 export default function MenuDropdown({ onClose }: MenuDropdownProps) {
->>>>>>> Stashed changes
   const { open: openSettings } = useSettings();
   const { openInstructions } = useInstructions();
   const menuRef = useRef<HTMLDivElement>(null);

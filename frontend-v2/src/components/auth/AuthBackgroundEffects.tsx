@@ -9,11 +9,7 @@ interface AuthBackgroundEffectsProps {
  * Auth-themed effects inspired by the app's elegant system
  * Features security/login themed elements with chess motifs
  */
-<<<<<<< Updated upstream
-export function AuthBackgroundEffects({ className = '' }: AuthBackgroundEffectsProps) {
-=======
 export default function AuthBackgroundEffects({ className = '' }: AuthBackgroundEffectsProps) {
->>>>>>> Stashed changes
   return (
     <div className={`bg-overlay ${className}`}>
       {/* Auth-themed gradient - deeper, more secure feeling */}

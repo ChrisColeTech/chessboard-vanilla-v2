@@ -6,11 +6,7 @@ import { AnimatedSplashPage } from '../../pages/splash/AnimatedSplashPage'
 import { LoadingProgressPage } from '../../pages/splash/LoadingProgressPage'
 import { BrandedSplashPage } from '../../pages/splash/BrandedSplashPage'
 
-<<<<<<< Updated upstream
-export const SplashModal: React.FC = () => {
-=======
 const SplashModal: React.FC = () => {
->>>>>>> Stashed changes
   const splashModalOpen = useAppStore((state) => state.splashModalOpen)
   const splashModalPage = useAppStore((state) => state.splashModalPage)
   const closeSplashModal = useAppStore((state) => state.closeSplashModal)
@@ -67,11 +63,7 @@ const SplashModal: React.FC = () => {
       </div>
     </div>
   )
-<<<<<<< Updated upstream
-}
-=======
 }
 
 export default SplashModal;
 export { SplashModal };
->>>>>>> Stashed changes
