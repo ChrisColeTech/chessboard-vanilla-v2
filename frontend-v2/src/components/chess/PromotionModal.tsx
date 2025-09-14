@@ -22,7 +22,11 @@ const promotionPieces: Array<{ type: PromotionPiece; name: string }> = [
   { type: 'knight', name: 'Knight' }
 ];
 
+<<<<<<< Updated upstream
 export function PromotionModal({ isOpen, color, onSelect, onCancel }: PromotionModalProps) {
+=======
+export default function PromotionModal({ isOpen, color, onSelect, onCancel }: PromotionModalProps) {
+>>>>>>> Stashed changes
   const { playUIClick } = useUIClickSound();
   
   const handleSelect = (pieceType: PromotionPiece) => {

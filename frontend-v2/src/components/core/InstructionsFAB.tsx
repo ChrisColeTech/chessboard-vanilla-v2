@@ -4,7 +4,11 @@ interface InstructionsFABProps {
   onClick: () => void
 }
 
+<<<<<<< Updated upstream
 export const InstructionsFAB: React.FC<InstructionsFABProps> = ({ onClick }) => {
+=======
+const InstructionsFAB: React.FC<InstructionsFABProps> = ({ onClick }) => {
+>>>>>>> Stashed changes
   
   const handleClick = () => {
     // Note: UI click sound is handled automatically by Global UI Audio System
@@ -20,4 +24,11 @@ export const InstructionsFAB: React.FC<InstructionsFABProps> = ({ onClick }) => 
       <HelpCircle className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
     </button>
   )
+<<<<<<< Updated upstream
 }
+=======
+}
+
+export default InstructionsFAB;
+export { InstructionsFAB };
+>>>>>>> Stashed changes

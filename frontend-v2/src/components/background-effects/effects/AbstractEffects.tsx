@@ -12,7 +12,11 @@ const positions = [
  * Abstract Effects Component
  * Mathematical and abstract symbols with geometric transformations
  */
+<<<<<<< Updated upstream
 export function AbstractEffects({ className = '' }: BackgroundEffectProps) {
+=======
+export default function AbstractEffects({ className = '' }: BackgroundEffectProps) {
+>>>>>>> Stashed changes
   return (
     <div className={`bg-overlay ${className}`}>
       {/* Abstract gradient background */}

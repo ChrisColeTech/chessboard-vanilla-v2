@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React from 'react'
 import { usePageInstructions } from '../../hooks/core/usePageInstructions'
 import { usePageActions } from '../../hooks/core/usePageActions'
@@ -8,4 +9,16 @@ export const PlayChessPageWrapper: React.FC = () => {
   usePageActions('playchess')
   
   return <PlayChessPage />
+=======
+import React from 'react'
+import { usePageInstructions } from '../../hooks/core/usePageInstructions'
+import { usePageActions } from '../../hooks/core/usePageActions'
+import { PlayChessPage } from '../../pages/chess/PlayChessPage'
+
+export const PlayChessPageWrapper: React.FC = () => {
+  usePageInstructions('playchess')
+  usePageActions('playchess')
+  
+  return <PlayChessPage />
+>>>>>>> Stashed changes
 }

@@ -1,0 +1,32 @@
+{
+  "statistics": {
+    "files_analyzed": 12,
+    "exports_found": 23,
+    "conflicts_detected": 2,
+    "conflicts_resolved": 0,
+    "barrels_generated": 7
+  },
+  "conflicts": [
+    {
+      "export_name": "ComponentA",
+      "file_count": 2,
+      "files": [
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/frontend-generator-v2/core/barrel_tests/default_only/ComponentA.tsx",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/frontend-generator-v2/core/barrel_tests/default_only/ComponentA.tsx"
+      ],
+      "resolution_strategy": "qualified_import_within_dir"
+    },
+    {
+      "export_name": "Utils",
+      "file_count": 2,
+      "files": [
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/frontend-generator-v2/core/barrel_tests/duplicates/fileA.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/frontend-generator-v2/core/barrel_tests/duplicates/fileB.ts"
+      ],
+      "resolution_strategy": "qualified_import_within_dir"
+    }
+  ],
+  "file_analyses": 11,
+  "export_registry_size": 20,
+  "validation_errors": 1
+}

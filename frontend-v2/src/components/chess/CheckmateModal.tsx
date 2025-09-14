@@ -7,7 +7,11 @@ interface CheckmateModalProps {
   onReset: () => void;
 }
 
+<<<<<<< Updated upstream
 export function CheckmateModal({ isOpen, winner, onReset }: CheckmateModalProps) {
+=======
+export default function CheckmateModal({ isOpen, winner, onReset }: CheckmateModalProps) {
+>>>>>>> Stashed changes
   const { playUIClick } = useUIClickSound();
   
   const handleReset = () => {

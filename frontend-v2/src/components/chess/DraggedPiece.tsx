@@ -10,7 +10,11 @@ interface DraggedPieceProps {
   pieceSet?: string;
 }
 
+<<<<<<< Updated upstream
 export const DraggedPiece: React.FC<DraggedPieceProps> = ({ 
+=======
+const DraggedPiece: React.FC<DraggedPieceProps> = ({ 
+>>>>>>> Stashed changes
   piece, 
   position, 
   size = 60, 
@@ -46,4 +50,11 @@ export const DraggedPiece: React.FC<DraggedPieceProps> = ({
       />
     </div>
   );
+<<<<<<< Updated upstream
 };
+=======
+};
+
+export default DraggedPiece;
+export { DraggedPiece };
+>>>>>>> Stashed changes

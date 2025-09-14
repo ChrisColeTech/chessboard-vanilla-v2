@@ -8,7 +8,11 @@ interface AuthRouterProps {
   initialPage?: AuthPage;
 }
 
+<<<<<<< Updated upstream
 export const AuthRouter: React.FC<AuthRouterProps> = () => {
+=======
+const AuthRouter: React.FC<AuthRouterProps> = () => {
+>>>>>>> Stashed changes
   const setCurrentChildPage = useAppStore((state) => state.setCurrentChildPage);
 
   // Initialize to login state on mount

@@ -1,10 +1,14 @@
 import { Sparkles, Shapes, Atom, Infinity, Zap } from 'lucide-react'
 import { BackgroundEffectsService } from './BackgroundEffectsService'
+<<<<<<< Updated upstream
 import { GamingEffects } from '../../components/background-effects/effects/GamingEffects'
 import { MinimalEffects } from '../../components/background-effects/effects/MinimalEffects'
 import { ParticleEffects } from '../../components/background-effects/effects/ParticleEffects'
 import { AbstractEffects } from '../../components/background-effects/effects/AbstractEffects'
 import { CasinoEffects } from '../../components/background-effects/effects/CasinoEffects'
+=======
+import { GamingEffects, MinimalEffects, ParticleEffects, AbstractEffects, CasinoEffects } from '../../components'
+>>>>>>> Stashed changes
 
 // Synchronous registration function for immediate effect availability
 const registerEffects = () => {

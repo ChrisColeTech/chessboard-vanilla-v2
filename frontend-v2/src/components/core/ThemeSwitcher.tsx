@@ -22,7 +22,11 @@ export interface BaseThemeConfig {
   lightPreview: string
 }
 
+<<<<<<< Updated upstream
 export const themes: Theme[] = [
+=======
+const themes: Theme[] = [
+>>>>>>> Stashed changes
   { 
     id: 'light', 
     name: 'Light', 
@@ -109,7 +113,11 @@ export const themes: Theme[] = [
   }
 ]
 
+<<<<<<< Updated upstream
 export const baseThemes: BaseThemeConfig[] = [
+=======
+const baseThemes: BaseThemeConfig[] = [
+>>>>>>> Stashed changes
   {
     id: 'default',
     name: 'Default',
@@ -269,7 +277,11 @@ interface ThemeSwitcherProps {
   isSettingsOpen?: boolean
 }
 
+<<<<<<< Updated upstream
 export function ThemeSwitcher({ onOpenSettings, isSettingsOpen = false }: ThemeSwitcherProps) {
+=======
+export default function ThemeSwitcher({ onOpenSettings, isSettingsOpen = false }: ThemeSwitcherProps) {
+>>>>>>> Stashed changes
   const { playUIClick } = useUIClickSound()
 
   const handleSettingsClick = () => {
@@ -286,4 +298,12 @@ export function ThemeSwitcher({ onOpenSettings, isSettingsOpen = false }: ThemeS
       <Settings className="w-5 h-5" />
     </button>
   )
+<<<<<<< Updated upstream
 }
+=======
+}
+
+export { themes };
+
+export { baseThemes };
+>>>>>>> Stashed changes

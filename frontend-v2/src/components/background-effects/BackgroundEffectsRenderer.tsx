@@ -10,7 +10,11 @@ interface BackgroundEffectsRendererProps {
  * Dynamically renders the appropriate background effect component based on current variant
  * Handles mounting, loading states, smooth transitions, and component switching
  */
+<<<<<<< Updated upstream
 export function BackgroundEffectsRenderer({ className = '' }: BackgroundEffectsRendererProps) {
+=======
+export default function BackgroundEffectsRenderer({ className = '' }: BackgroundEffectsRendererProps) {
+>>>>>>> Stashed changes
   const [mounted, setMounted] = useState(false)
   const { currentVariant, isEnabled, service } = useBackgroundEffects()
 

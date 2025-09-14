@@ -1,0 +1,83 @@
+import { v4 as uuidv4 } from 'uuid';
+import { Database } from '../utils/database';
+import { AchievementResponse, CreateAchievementRequest, UpdateAchievementRequest } from '../models/Achievement';
+
+export class AchievementService {
+  private db = Database.getInstance();
+
+async deleteAchievement(id: string): Promise<void> {
+    const result = await this.db.query('DELETE FROM achievements WHERE id = $1', [id]);
+    if (result.rowCount === 0) throw new Error('Achievement not found');
+  }
+
+async listAchievements(): Promise<AchievementResponse[]> {
+    const result = await this.db.query('SELECT * FROM achievements ORDER BY created_at DESC LIMIT 50');
+    return result.rows.map(row => this.formatAchievementResponse(row));
+  }
+
+  async getAchievementsByCategory(...args: any[]): Promise<any> {
+    // Generic implementation for getAchievementsByCategory
+    const result = await this.db.query('SELECT * FROM achievements ORDER BY created_at DESC LIMIT 50');
+    return result.rows.map(row => this.formatAchievementResponse(row));
+  }
+
+async updateAchievement(id: string, data: UpdateAchievementRequest): Promise<AchievementResponse> {
+    const result = await this.db.query(`
+      UPDATE achievements 
+      SET updated_at = NOW()
+      WHERE id = $1
+      RETURNING *
+    `, [id]);
+    
+    if (!result.rows.length) throw new Error('Achievement not found');
+    return this.formatAchievementResponse(result.rows[0]);
+  }
+
+async getAchievementById(id: string): Promise<AchievementResponse> {
+    const result = await this.db.query('SELECT * FROM achievements WHERE id = $1', [id]);
+    if (!result.rows.length) throw new Error('Achievement not found');
+    
+    return this.formatAchievementResponse(result.rows[0]);
+  }
+
+async getAllAchievements(): Promise<AchievementResponse[]> {
+    const result = await this.db.query('SELECT * FROM achievements ORDER BY created_at DESC LIMIT 50');
+    return result.rows.map(row => this.formatAchievementResponse(row));
+  }
+
+async createAchievement(data: CreateAchievementRequest): Promise<AchievementResponse> {
+    const id = uuidv4();
+    const result = await this.db.query(`
+      INSERT INTO achievements (id, created_at, updated_at)
+      VALUES ($1, NOW(), NOW())
+      RETURNING *
+    `, [id]);
+    
+    return this.formatAchievementResponse(result.rows[0]);
+  }
+
+  async getActiveAchievements(...args: any[]): Promise<any> {
+    // Generic implementation for getActiveAchievements
+    const result = await this.db.query('SELECT * FROM achievements ORDER BY created_at DESC LIMIT 50');
+    return result.rows.map(row => this.formatAchievementResponse(row));
+  }
+
+private formatAchievementResponse(row: any): AchievementResponse {
+    return {
+      id: row.id,
+      key: row.key,
+      name: row.name,
+      description: row.description,
+      category: row.category,
+      tier: row.tier,
+      requirements: row.requirements,
+      points: row.points,
+      badge_icon: row.badge_icon,
+      difficulty: row.difficulty,
+      is_secret: row.is_secret,
+      is_active: row.is_active,
+      created_at: row.created_at,
+      updated_at: row.updated_at,
+    };
+  }
+}

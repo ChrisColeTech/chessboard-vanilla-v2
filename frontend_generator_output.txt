@@ -1,0 +1,671 @@
+🚀 Frontend Generator V2
+📖 Config: ../../backend-tools/backend-generator-v2/migrated_config.json
+📁 Output: ../../../frontend-v2/src
+🚀 Starting frontend generation...
+📖 Loading config from: ../../backend-tools/backend-generator-v2/migrated_config.json
+📊 Found 14 endpoints
+
+🔧 Processing endpoint: users
+📋 Generating types: users (domain: user-management)
+📝 Created ../../../frontend-v2/src/types/user-management/users.ts
+🔧 Generating service: users (domain: user-management)
+🎣 Generating hook: users (domain: user-management)
+📄 Generating pages: users (domain: user-management)
+
+🔧 Processing endpoint: user_profiles
+📋 Generating types: user_profiles (domain: user-management)
+📝 Created ../../../frontend-v2/src/types/user-management/userProfiles.ts
+🔧 Generating service: user_profiles (domain: user-management)
+🎣 Generating hook: user_profiles (domain: user-management)
+📄 Generating pages: user_profiles (domain: user-management)
+
+🔧 Processing endpoint: user_sessions
+📋 Generating types: user_sessions (domain: authentication)
+📝 Created ../../../frontend-v2/src/types/authentication/userSessions.ts
+🔧 Generating service: user_sessions (domain: authentication)
+🎣 Generating hook: user_sessions (domain: authentication)
+📄 Generating pages: user_sessions (domain: authentication)
+
+🔧 Processing endpoint: games
+📋 Generating types: games (domain: gameplay)
+📝 Created ../../../frontend-v2/src/types/gameplay/games.ts
+🔧 Generating service: games (domain: gameplay)
+🎣 Generating hook: games (domain: gameplay)
+📄 Generating pages: games (domain: gameplay)
+
+🔧 Processing endpoint: historic_games
+📋 Generating types: historic_games (domain: gameplay)
+📝 Created ../../../frontend-v2/src/types/gameplay/historicGames.ts
+🔧 Generating service: historic_games (domain: gameplay)
+🎣 Generating hook: historic_games (domain: gameplay)
+📄 Generating pages: historic_games (domain: gameplay)
+
+🔧 Processing endpoint: openings
+📋 Generating types: openings (domain: chess-theory)
+📝 Created ../../../frontend-v2/src/types/chess-theory/openings.ts
+🔧 Generating service: openings (domain: chess-theory)
+🎣 Generating hook: openings (domain: chess-theory)
+📄 Generating pages: openings (domain: chess-theory)
+
+🔧 Processing endpoint: puzzles
+📋 Generating types: puzzles (domain: puzzles)
+📝 Created ../../../frontend-v2/src/types/puzzles/puzzles.ts
+🔧 Generating service: puzzles (domain: puzzles)
+🎣 Generating hook: puzzles (domain: puzzles)
+📄 Generating pages: puzzles (domain: puzzles)
+
+🔧 Processing endpoint: puzzle_sources
+📋 Generating types: puzzle_sources (domain: puzzles)
+📝 Created ../../../frontend-v2/src/types/puzzles/puzzleSources.ts
+🔧 Generating service: puzzle_sources (domain: puzzles)
+🎣 Generating hook: puzzle_sources (domain: puzzles)
+📄 Generating pages: puzzle_sources (domain: puzzles)
+
+🔧 Processing endpoint: puzzle_attempts
+📋 Generating types: puzzle_attempts (domain: puzzles)
+📝 Created ../../../frontend-v2/src/types/puzzles/puzzleAttempts.ts
+🔧 Generating service: puzzle_attempts (domain: puzzles)
+🎣 Generating hook: puzzle_attempts (domain: puzzles)
+📄 Generating pages: puzzle_attempts (domain: puzzles)
+
+🔧 Processing endpoint: content
+📋 Generating types: content (domain: learning)
+📝 Created ../../../frontend-v2/src/types/learning/content.ts
+🔧 Generating service: content (domain: learning)
+🎣 Generating hook: content (domain: learning)
+📄 Generating pages: content (domain: learning)
+
+🔧 Processing endpoint: user_content_progress
+📋 Generating types: user_content_progress (domain: learning)
+📝 Created ../../../frontend-v2/src/types/learning/userContentProgress.ts
+🔧 Generating service: user_content_progress (domain: learning)
+🎣 Generating hook: user_content_progress (domain: learning)
+📄 Generating pages: user_content_progress (domain: learning)
+
+🔧 Processing endpoint: achievements
+📋 Generating types: achievements (domain: user-management)
+📝 Created ../../../frontend-v2/src/types/user-management/achievements.ts
+🔧 Generating service: achievements (domain: user-management)
+🎣 Generating hook: achievements (domain: user-management)
+📄 Generating pages: achievements (domain: user-management)
+
+🔧 Processing endpoint: user_achievements
+📋 Generating types: user_achievements (domain: user-management)
+📝 Created ../../../frontend-v2/src/types/user-management/userAchievements.ts
+🔧 Generating service: user_achievements (domain: user-management)
+🎣 Generating hook: user_achievements (domain: user-management)
+📄 Generating pages: user_achievements (domain: user-management)
+
+🔧 Processing endpoint: auth
+📋 Generating types: auth (domain: authentication)
+📝 Created ../../../frontend-v2/src/types/authentication/auth.ts
+🔧 Generating service: auth (domain: authentication)
+⏭️  Skipping dynamic service generation for auth (special routing)
+🎣 Generating hook: auth (domain: authentication)
+📝 Using named template: auth.ts.template
+📝 Created ../../../frontend-v2/src/hooks/authentication/useAuth.ts
+📄 Generating pages: auth (domain: authentication)
+⏭️  Skipping dynamic page generation for auth (special routing)
+🧩 Generating components from templates...
+📁 Generating action-sheet components...
+📝 Created components/action-sheet/ActionItem.tsx
+📝 Created components/action-sheet/ActionSheet.tsx
+📝 Created components/action-sheet/ActionSheetContainer.tsx
+📁 Generating auth components...
+📝 Created components/auth/AuthBackgroundEffects.tsx
+📝 Created components/auth/AuthLayout.tsx
+📝 Created components/auth/AuthRouter.tsx
+📝 Created components/auth/DemoLoginButton.tsx
+📝 Created components/auth/ForgotPasswordPageWrapper.tsx
+📝 Created components/auth/RegisterPageWrapper.tsx
+📁 Generating background-effects components...
+📝 Created components/background-effects/BackgroundEffectsRenderer.tsx
+📝 Created components/background-effects/effects/AbstractEffects.tsx
+📝 Created components/background-effects/effects/CasinoEffects.tsx
+📝 Created components/background-effects/effects/GamingEffects.tsx
+📝 Created components/background-effects/effects/MinimalEffects.tsx
+📝 Created components/background-effects/effects/ParticleEffects.tsx
+📁 Generating casino components...
+📝 Created components/casino/CoinsModal.tsx
+📁 Generating chess components...
+📝 Created components/chess/CapturedPieces.tsx
+📝 Created components/chess/CheckmateModal.tsx
+📝 Created components/chess/ChessboardLayout.tsx
+📝 Created components/chess/ChessGrid.tsx
+📝 Created components/chess/ChessOverlay.tsx
+📝 Created components/chess/DraggedPiece.tsx
+📝 Created components/chess/MobileChessBoard.tsx.backup
+📝 Created components/chess/MobileChessBoard.tsx
+📝 Created components/chess/MobileChessboardLayout.tsx
+📝 Created components/chess/MobileChessSquare.tsx
+📝 Created components/chess/PieceWrapper.tsx
+📝 Created components/chess/PromotionModal.tsx
+📁 Generating core components...
+📝 Created components/core/InstructionsFAB.tsx
+📝 Created components/core/InstructionsModal.tsx
+📝 Created components/core/SettingsPanel.tsx
+📝 Created components/core/ThemeDemo.tsx
+📝 Created components/core/ThemeSwitcher.tsx
+📁 Generating layout components...
+📝 Created components/layout/AppLayout.tsx
+📝 Created components/layout/BackgroundEffects.tsx
+📝 Created components/layout/Header.tsx
+📝 Created components/layout/MenuButton.tsx
+📝 Created components/layout/MenuDropdown.tsx
+📝 Created components/layout/TabBar.tsx
+📝 Created components/layout/TitleBar.tsx
+📝 Created components/layout/types.ts
+📁 Generating play components...
+📝 Created components/play/ErrorState.tsx
+📝 Created components/play/GameResultModal.tsx
+📝 Created components/play/GameStatusBar.tsx
+📝 Created components/play/LoadingState.tsx
+📝 Created components/play/PlayChessPageWrapper.tsx
+📝 Created components/play/PlayMainPage.tsx
+📝 Created components/play/PlayPuzzlesPageWrapper.tsx
+📁 Generating settings components...
+📝 Created components/settings/BackgroundEffectsSelector.tsx
+📝 Created components/settings/BoardColorSelector.tsx
+📝 Created components/settings/PieceSetSelector.tsx
+📝 Created components/settings/ThemeSelector.tsx
+📁 Generating splash components...
+📝 Created components/splash/AnimatedSplashPageWrapper.tsx
+📝 Created components/splash/BrandedSplashPageWrapper.tsx
+📝 Created components/splash/FunctionalSplashPageWrapper.tsx
+📝 Created components/splash/LoadingProgressPageWrapper.tsx
+📝 Created components/splash/LuxurysplashPageWrapper.tsx
+📝 Created components/splash/MinimalSplashPageWrapper.tsx
+📝 Created components/splash/SplashModal.tsx
+📝 Created components/splash/withSplashScreen.tsx
+📁 Generating ui components...
+📝 Created components/ui/button.tsx
+📝 Created components/ui/checkbox.tsx
+📝 Created components/ui/DataTable.tsx
+📝 Created components/ui/form.tsx
+📝 Created components/ui/input.tsx
+📝 Created components/ui/label.tsx
+📝 Created components/ui/SegmentedControl.tsx
+📁 Generating contexts...
+📝 Created contexts/InstructionsContext.tsx
+📝 Created contexts/ThemeContext.tsx
+📁 Generating providers...
+📝 Created providers/DragProvider.tsx
+📁 Generating stores...
+📝 Created stores/appStore.ts
+📝 Created stores/authStore.ts
+📝 Created stores/chessGameStore.ts
+📝 Created stores/puzzleStore.ts
+📝 Created stores/workerTestStore.ts
+📁 Generating constants...
+📝 Created constants/actions/common-actions-handlers.ts
+📝 Created constants/actions/common-actions.constants.ts
+📝 Created constants/actions/page-actions.constants.ts
+📝 Created constants/actions/pages/animatedsplash.ts
+📝 Created constants/actions/pages/blackjack.ts
+📝 Created constants/actions/pages/brandedsplash.ts
+📝 Created constants/actions/pages/casino.ts
+📝 Created constants/actions/pages/chesslayouttest.ts
+📝 Created constants/actions/pages/craps.ts
+📝 Created constants/actions/pages/desktoplayouttest.ts
+📝 Created constants/actions/pages/dragtest.ts
+📝 Created constants/actions/pages/functionalsplash.ts
+📝 Created constants/actions/pages/hasOwnAudio.ts
+📝 Created constants/actions/pages/holdem.ts
+📝 Created constants/actions/pages/icon.ts
+📝 Created constants/actions/pages/id.ts
+📝 Created constants/actions/pages/label.ts
+📝 Created constants/actions/pages/layouttest.ts
+📝 Created constants/actions/pages/loadingprogress.ts
+📝 Created constants/actions/pages/luxurysplash.ts
+📝 Created constants/actions/pages/minimalsplash.ts
+📝 Created constants/actions/pages/mobiledragtest.ts
+📝 Created constants/actions/pages/PAGE_ACTIONS.ts
+📝 Created constants/actions/pages/play.ts
+📝 Created constants/actions/pages/playpuzzles.ts
+📝 Created constants/actions/pages/roulette.ts
+📝 Created constants/actions/pages/shortcut.ts
+📝 Created constants/actions/pages/slots.ts
+📝 Created constants/actions/pages/splash.ts
+📝 Created constants/actions/pages/uiaudiotest.ts
+📝 Created constants/actions/pages/uitests.ts
+📝 Created constants/actions/pages/variant.ts
+📝 Created constants/actions/pages/worker.ts
+📝 Created constants/casino/blackjack.constants.ts
+📝 Created constants/casino/poker.constants.ts
+📝 Created constants/chess/computer-difficulty.constants.ts
+📝 Created constants/chess/filter-config.constants.ts
+📝 Created constants/chess/piece-configurations.constants.ts
+📝 Created constants/chess.constants.ts
+📝 Created constants/pieces.constants.ts
+📝 Created constants/ui-tests/demo-configurations.constants.ts
+📝 Created constants/ui-tests/navigation.constants.ts
+📁 Generating utils...
+📝 Created utils/audio/componentDetection.ts
+📝 Created utils/audio/deviceDetection.ts
+📝 Created utils/audio/elementSelectors.ts
+📝 Created utils/audio/eventDeduplication.ts
+📝 Created utils/audio/soundMapping.ts
+📝 Created utils/auth.utils.ts
+📝 Created utils/chess/computer-chess.utils.ts
+📝 Created utils/chess/mobile-chess.utils.ts
+📝 Created utils/chess/mobileBoardUtils.ts
+📝 Created utils/chess/play-game.utils.ts
+📝 Created utils/chess.utils.ts
+📝 Created utils/coordinate.utils.ts
+📝 Created utils/grid-generator.utils.ts
+📝 Created utils/persistence.utils.ts
+📝 Created utils/puzzle.utils.ts
+📚 Generating lib...
+📝 Created lib/utils.ts
+📦 Generating components barrel exports...
+📦 Created components/action-sheet/index.ts
+📦 Created components/auth/index.ts
+📦 Created components/background-effects/index.ts
+📦 Created components/casino/index.ts
+📦 Created components/chess/index.ts
+📦 Created components/core/index.ts
+📦 Created components/layout/index.ts
+📦 Created components/play/index.ts
+📦 Created components/settings/index.ts
+📦 Created components/splash/index.ts
+📦 Created components/ui/index.ts
+📦 Created components/index.ts
+🔧 Generating static architectural files...
+📝 Created types/puzzle.types.ts
+📝 Created types/audio/audio-feedback.types.ts
+📝 Created types/audio/chess-board-audio.types.ts
+📝 Created types/audio/global-audio.types.ts
+📝 Created types/audio/ui-audio.types.ts
+📝 Created types/auth/auth.types.ts
+📝 Created types/chess/chess.types.ts
+📝 Created types/chess/computer-opponent.types.ts
+📝 Created types/chess/mobile-chess.types.ts
+📝 Created types/chess/play-game.types.ts
+📝 Created types/chess/wrapper-piece.types.ts
+📝 Created types/core/action-sheet.types.ts
+📝 Created types/core/backgroundEffects.ts
+📝 Created types/core/component.types.ts
+📝 Created types/core/global.d.ts
+📝 Created types/ui/audio-demo.types.ts
+📝 Created types/ui/data-table.types.ts
+📝 Created types/ui/drag-testing.types.ts
+📝 Created types/ui/navigation.types.ts
+📝 Created hooks/useDemoLogin.ts
+📝 Created hooks/audio/useActionSheetAudio.ts
+📝 Created hooks/audio/useAudioFeedback.ts
+📝 Created hooks/audio/useChessBoardAudio.ts
+📝 Created hooks/audio/useGlobalUIAudio.ts
+📝 Created hooks/audio/useUIClickSound.ts
+📝 Created hooks/audio/useUIClickSoundOptimized.ts
+📝 Created hooks/audio/useUIHoverSound.ts
+📝 Created hooks/audio/useUIHoverSoundOptimized.ts
+📝 Created hooks/chess/useChessGame.ts
+📝 Created hooks/chess/useChessGrid.ts
+📝 Created hooks/chess/useComputerOpponent.ts
+📝 Created hooks/chess/useDragAndDrop.ts
+📝 Created hooks/chess/useMobileBoardInteraction.ts
+📝 Created hooks/chess/useMobileChess.ts
+📝 Created hooks/chess/useMobileChessInteractions.ts
+📝 Created hooks/chess/usePlayActions.ts
+📝 Created hooks/chess/usePlayGame.ts
+📝 Created hooks/chess/useResponsiveBoard.ts
+📝 Created hooks/chess/useStockfish.ts
+📝 Created hooks/chess/useWorkerActions.ts
+📝 Created hooks/chess/useWrapperChessBoard.ts
+📝 Created hooks/core/useActionSheet.ts
+📝 Created hooks/core/useAppInitialization.ts
+📝 Created hooks/core/useBackgroundEffects.ts
+📝 Created hooks/core/useBackgroundEffectsManager.ts
+📝 Created hooks/core/useBoardColorManager.ts
+📝 Created hooks/core/useDataTableColumns.ts
+📝 Created hooks/core/useIsMobile.ts
+📝 Created hooks/core/useLayoutActions.ts
+📝 Created hooks/core/useMenuDropdown.ts
+📝 Created hooks/core/useNavigationStack.ts
+📝 Created hooks/core/usePageActions.ts
+📝 Created hooks/core/usePageInstructions.ts
+📝 Created hooks/core/useThemePagination.ts
+📝 Created hooks/puzzle/usePuzzleService.ts
+📝 Created hooks/splash/useAnimatedSplashActions.ts
+📝 Created hooks/splash/useBrandedSplashActions.ts
+📝 Created hooks/splash/useFunctionalSplashActions.ts
+📝 Created hooks/splash/useLoadingProgressActions.ts
+📝 Created hooks/splash/useLuxurysplashActions.ts
+📝 Created hooks/splash/useMinimalSplashActions.ts
+📝 Created hooks/splash/useSplashActions.ts
+📝 Created pages/chess/PlayPage.tsx
+📝 Created pages/chess/PlayPuzzlesPage.tsx
+📝 Created pages/chess/WorkerTestPage.tsx
+📝 Created pages/dashboard/DashboardPage.tsx
+📝 Created pages/splash/AnimatedSplashPage.tsx
+📝 Created pages/splash/BrandedSplashPage.tsx
+📝 Created pages/splash/FunctionalSplashPage.tsx
+📝 Created pages/splash/LoadingProgressPage.tsx
+📝 Created pages/splash/LuxurysplashPage.tsx
+📝 Created pages/splash/MinimalSplashPage.tsx
+📝 Created pages/splash/SplashPage.tsx🔍 INFO [AdvancedBarrelGenerator] Building export registry...
+🔍 WARNING [AdvancedBarrelGenerator] Within-directory conflict detected: pageActions in ../../../frontend-v2/src/constants/actions/pages
+🔍 WARNING [AdvancedBarrelGenerator] Within-directory conflict detected: backgroundEffectsService in ../../../frontend-v2/src/services/core
+🔍 WARNING [AdvancedBarrelGenerator] Within-directory conflict detected: pageInstructions in ../../../frontend-v2/src/services/instructions/pages
+🔍 INFO [AdvancedBarrelGenerator] Export registry built: 631 unique exports, 9 conflicts
+🔍 INFO [AdvancedBarrelGenerator] Detecting missing exports across all files...
+🔍 INFO [AdvancedBarrelGenerator] Found missing export 'PlayMainPage' in PlayMainPage.tsx
+🔍 INFO [AdvancedBarrelGenerator] Added missing exports to PlayMainPage.tsx: PlayMainPage
+🔍 INFO [AdvancedBarrelGenerator] Found missing export 'PlayPuzzlesPageWrapper' in PlayPuzzlesPageWrapper.tsx
+🔍 INFO [AdvancedBarrelGenerator] Added missing exports to PlayPuzzlesPageWrapper.tsx: PlayPuzzlesPageWrapper
+🔍 INFO [AdvancedBarrelGenerator] Found missing export 'MobileChessBoard' in MobileChessBoard.tsx
+🔍 INFO [AdvancedBarrelGenerator] Added missing exports to MobileChessBoard.tsx: MobileChessBoard
+🔍 INFO [AdvancedBarrelGenerator] Found missing export 'CapturedPieces' in CapturedPieces.tsx
+🔍 INFO [AdvancedBarrelGenerator] Added missing exports to CapturedPieces.tsx: CapturedPieces
+🔍 INFO [AdvancedBarrelGenerator] Found missing export 'ChessboardLayout' in ChessboardLayout.tsx
+🔍 INFO [AdvancedBarrelGenerator] Added missing exports to ChessboardLayout.tsx: ChessboardLayout
+🔍 INFO [AdvancedBarrelGenerator] Found missing export 'MobileChessboardLayout' in MobileChessboardLayout.tsx
+🔍 INFO [AdvancedBarrelGenerator] Added missing exports to MobileChessboardLayout.tsx: MobileChessboardLayout
+🔍 INFO [AdvancedBarrelGenerator] Found missing export 'MinimalSplashPageWrapper' in MinimalSplashPageWrapper.tsx
+🔍 INFO [AdvancedBarrelGenerator] Added missing exports to MinimalSplashPageWrapper.tsx: MinimalSplashPageWrapper
+🔍 INFO [AdvancedBarrelGenerator] Found missing export 'AnimatedSplashPageWrapper' in AnimatedSplashPageWrapper.tsx
+🔍 INFO [AdvancedBarrelGenerator] Added missing exports to AnimatedSplashPageWrapper.tsx: AnimatedSplashPageWrapper
+🔍 INFO [AdvancedBarrelGenerator] Found missing export 'LoadingProgressPageWrapper' in LoadingProgressPageWrapper.tsx
+🔍 INFO [AdvancedBarrelGenerator] Added missing exports to LoadingProgressPageWrapper.tsx: LoadingProgressPageWrapper
+🔍 INFO [AdvancedBarrelGenerator] Found missing export 'BrandedSplashPageWrapper' in BrandedSplashPageWrapper.tsx
+🔍 INFO [AdvancedBarrelGenerator] Added missing exports to BrandedSplashPageWrapper.tsx: BrandedSplashPageWrapper
+🔍 INFO [AdvancedBarrelGenerator] Found missing export 'FunctionalSplashPageWrapper' in FunctionalSplashPageWrapper.tsx
+🔍 INFO [AdvancedBarrelGenerator] Added missing exports to FunctionalSplashPageWrapper.tsx: FunctionalSplashPageWrapper
+🔍 INFO [AdvancedBarrelGenerator] Found missing export 'AuthLayout' in AuthLayout.tsx
+🔍 INFO [AdvancedBarrelGenerator] Added missing exports to AuthLayout.tsx: AuthLayout
+🔍 INFO [AdvancedBarrelGenerator] Found missing export 'baseThemes' in ThemeSwitcher.tsx
+🔍 INFO [AdvancedBarrelGenerator] Added missing exports to ThemeSwitcher.tsx: baseThemes
+🔍 INFO [AdvancedBarrelGenerator] Added missing exports to 13 files
+🔍 INFO [AdvancedBarrelGenerator] Detecting and fixing type-only imports...
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/components/action-sheet
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/components/auth
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/components/background-effects
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/components/background-effects/effects
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/components/casino
+🔍 INFO [AdvancedBarrelGenerator] Fixed individual file exports: CoinsModal.tsx
+🔍 INFO [AdvancedBarrelGenerator] Fixed 1 individual files to support named imports
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/components/chess
+🔍 INFO [AdvancedBarrelGenerator] Fixed individual file exports: ChessGrid.tsx
+🔍 INFO [AdvancedBarrelGenerator] Fixed individual file exports: ChessOverlay.tsx
+🔍 INFO [AdvancedBarrelGenerator] Fixed individual file exports: DraggedPiece.tsx
+🔍 INFO [AdvancedBarrelGenerator] Fixed individual file exports: MobileChessSquare.tsx
+🔍 INFO [AdvancedBarrelGenerator] Fixed individual file exports: PieceWrapper.tsx
+🔍 INFO [AdvancedBarrelGenerator] Fixed 5 individual files to support named imports
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/components/core
+🔍 INFO [AdvancedBarrelGenerator] Fixed individual file exports: InstructionsFAB.tsx
+🔍 INFO [AdvancedBarrelGenerator] Fixed individual file exports: InstructionsModal.tsx
+🔍 INFO [AdvancedBarrelGenerator] Fixed 2 individual files to support named imports
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/components/layout
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/components/play
+🔍 INFO [AdvancedBarrelGenerator] Fixed individual file exports: ErrorState.tsx
+🔍 INFO [AdvancedBarrelGenerator] Fixed individual file exports: GameResultModal.tsx
+🔍 INFO [AdvancedBarrelGenerator] Fixed individual file exports: GameStatusBar.tsx
+🔍 INFO [AdvancedBarrelGenerator] Fixed individual file exports: LoadingState.tsx
+🔍 INFO [AdvancedBarrelGenerator] Fixed 4 individual files to support named imports
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/components/settings
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/components/splash
+🔍 INFO [AdvancedBarrelGenerator] Fixed individual file exports: LuxurysplashPageWrapper.tsx
+🔍 INFO [AdvancedBarrelGenerator] Fixed individual file exports: SplashModal.tsx
+🔍 INFO [AdvancedBarrelGenerator] Fixed 2 individual files to support named imports
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/components/ui
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/components
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/hooks/audio
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/hooks/authentication
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/hooks/chess
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/hooks/core
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/hooks/puzzle
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/hooks/splash
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/hooks
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/services/api
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/services/audio
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/services/chess
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/services/clients
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/services/core
+🔍 WARNING [AdvancedBarrelGenerator] Within-directory conflict detected: backgroundEffectsService in 2 files in core
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: BackgroundEffectsService.ts as BackgroundEffectsService
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: backgroundEffectsRegistry.ts as backgroundEffectsRegistry
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/services/instructions
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/services/instructions/pages
+🔍 WARNING [AdvancedBarrelGenerator] Within-directory conflict detected: pageInstructions in 25 files in pages
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: animatedsplash.ts as animatedsplash
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: blackjack.ts as blackjack
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: brandedsplash.ts as brandedsplash
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: casino.ts as casino
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: chesslayouttest.ts as chesslayouttest
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: craps.ts as craps
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: desktoplayouttest.ts as desktoplayouttest
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: dragtest.ts as dragtest
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: functionalsplash.ts as functionalsplash
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: holdem.ts as holdem
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: layout.ts as layout
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: layouttest.ts as layouttest
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: loadingprogress.ts as loadingprogress
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: minimalsplash.ts as minimalsplash
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: mobiledragtest.ts as mobiledragtest
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: play.ts as play
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: playpuzzles.ts as playpuzzles
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: roulette.ts as roulette
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: slots.ts as slots
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: uiaudiotest.ts as uiaudiotest
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: uitests.audio-demo.ts as uitestsAudioDemo
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: uitests.drag-test.ts as uitestsDragTest
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: uitests.mobile-drag-test.ts as uitestsMobileDragTest
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: uitests.ts as uitests
+🔍 INFO [AdvancedBarrelGenerator] Using qualified import for conflicting file: worker.ts as worker
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/services/preloading
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/services/workers
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/services
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/types/audio
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/types/auth
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/types/authentication
+🔍 INFO [AdvancedBarrelGenerator] Found invalid 'export default' in should-be-type-only file: auth.ts
+🔍 INFO [AdvancedBarrelGenerator] Removing line: export default Auth;
+🔍 INFO [AdvancedBarrelGenerator] Fixed type-only file: auth.ts
+🔍 INFO [AdvancedBarrelGenerator] Found invalid 'export default' in should-be-type-only file: userSessions.ts
+🔍 INFO [AdvancedBarrelGenerator] Removing line: export default UserSession;
+🔍 INFO [AdvancedBarrelGenerator] Fixed type-only file: userSessions.ts
+🔍 INFO [AdvancedBarrelGenerator] Fixed 2 type-only files by removing invalid 'export default'
+🔍 INFO [AdvancedBarrelGenerator] Clearing analysis cache after fixing 2 type-only files
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/types/chess
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/types/chess-theory
+🔍 INFO [AdvancedBarrelGenerator] Found invalid 'export default' in should-be-type-only file: openings.ts
+🔍 INFO [AdvancedBarrelGenerator] Removing line: export default Opening;
+🔍 INFO [AdvancedBarrelGenerator] Fixed type-only file: openings.ts
+🔍 INFO [AdvancedBarrelGenerator] Fixed 1 type-only files by removing invalid 'export default'
+🔍 INFO [AdvancedBarrelGenerator] Clearing analysis cache after fixing 1 type-only files
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/types/core
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/types/gameplay
+🔍 INFO [AdvancedBarrelGenerator] Found invalid 'export default' in should-be-type-only file: games.ts
+🔍 INFO [AdvancedBarrelGenerator] Removing line: export default Game;
+🔍 INFO [AdvancedBarrelGenerator] Fixed type-only file: games.ts
+🔍 INFO [AdvancedBarrelGenerator] Found invalid 'export default' in should-be-type-only file: historicGames.ts
+🔍 INFO [AdvancedBarrelGenerator] Removing line: export default HistoricGame;
+🔍 INFO [AdvancedBarrelGenerator] Fixed type-only file: historicGames.ts
+🔍 INFO [AdvancedBarrelGenerator] Fixed 2 type-only files by removing invalid 'export default'
+🔍 INFO [AdvancedBarrelGenerator] Clearing analysis cache after fixing 2 type-only files
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/types/learning
+🔍 INFO [AdvancedBarrelGenerator] Found invalid 'export default' in should-be-type-only file: content.ts
+🔍 INFO [AdvancedBarrelGenerator] Removing line: export default Content;
+🔍 INFO [AdvancedBarrelGenerator] Fixed type-only file: content.ts
+🔍 INFO [AdvancedBarrelGenerator] Found invalid 'export default' in should-be-type-only file: userContentProgress.ts
+🔍 INFO [AdvancedBarrelGenerator] Removing line: export default UserContentProgress;
+🔍 INFO [AdvancedBarrelGenerator] Fixed type-only file: userContentProgress.ts
+🔍 INFO [AdvancedBarrelGenerator] Fixed 2 type-only files by removing invalid 'export default'
+🔍 INFO [AdvancedBarrelGenerator] Clearing analysis cache after fixing 2 type-only files
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/types/puzzles
+🔍 INFO [AdvancedBarrelGenerator] Found invalid 'export default' in should-be-type-only file: puzzleAttempts.ts
+🔍 INFO [AdvancedBarrelGenerator] Removing line: export default PuzzleAttempt;
+🔍 INFO [AdvancedBarrelGenerator] Fixed type-only file: puzzleAttempts.ts
+🔍 INFO [AdvancedBarrelGenerator] Found invalid 'export default' in should-be-type-only file: puzzles.ts
+🔍 INFO [AdvancedBarrelGenerator] Removing line: export default Puzzle;
+🔍 INFO [AdvancedBarrelGenerator] Fixed type-only file: puzzles.ts
+🔍 INFO [AdvancedBarrelGenerator] Found invalid 'export default' in should-be-type-only file: puzzleSources.ts
+🔍 INFO [AdvancedBarrelGenerator] Removing line: export default PuzzleSource;
+🔍 INFO [AdvancedBarrelGenerator] Fixed type-only file: puzzleSources.ts
+🔍 INFO [AdvancedBarrelGenerator] Fixed 3 type-only files by removing invalid 'export default'
+🔍 INFO [AdvancedBarrelGenerator] Clearing analysis cache after fixing 3 type-only files
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/types/ui
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/types/user-management
+🔍 INFO [AdvancedBarrelGenerator] Found invalid 'export default' in should-be-type-only file: achievements.ts
+🔍 INFO [AdvancedBarrelGenerator] Removing line: export default Achievement;
+🔍 INFO [AdvancedBarrelGenerator] Fixed type-only file: achievements.ts
+🔍 INFO [AdvancedBarrelGenerator] Found invalid 'export default' in should-be-type-only file: userAchievements.ts
+🔍 INFO [AdvancedBarrelGenerator] Removing line: export default UserAchievement;
+🔍 INFO [AdvancedBarrelGenerator] Fixed type-only file: userAchievements.ts
+🔍 INFO [AdvancedBarrelGenerator] Found invalid 'export default' in should-be-type-only file: userProfiles.ts
+🔍 INFO [AdvancedBarrelGenerator] Removing line: export default UserProfile;
+🔍 INFO [AdvancedBarrelGenerator] Fixed type-only file: userProfiles.ts
+🔍 INFO [AdvancedBarrelGenerator] Found invalid 'export default' in should-be-type-only file: users.ts
+🔍 INFO [AdvancedBarrelGenerator] Removing line: export default User;
+🔍 INFO [AdvancedBarrelGenerator] Fixed type-only file: users.ts
+🔍 INFO [AdvancedBarrelGenerator] Fixed 4 type-only files by removing invalid 'export default'
+🔍 INFO [AdvancedBarrelGenerator] Clearing analysis cache after fixing 4 type-only files
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/types
+🔍 INFO [AdvancedBarrelGenerator] Root-subdirectory conflict detected: Puzzle
+🔍 INFO [AdvancedBarrelGenerator] Root-subdirectory conflict detected: PuzzleAttempt
+🔍 INFO [AdvancedBarrelGenerator] Skipping conflicting root file: puzzle.types.ts
+🔍 WARNING [AdvancedBarrelGenerator] Cross-subdirectory conflict: User in auth and user-management
+🔍 WARNING [AdvancedBarrelGenerator] Cross-subdirectory conflict: User in user-management and auth
+🔍 WARNING [AdvancedBarrelGenerator] Subdirectory export conflicts detected in ../../../frontend-v2/src/types: [('User', 'auth'), ('User', 'user-management'), ('Puzzle', 'puzzles'), ('PuzzleAttempt', 'puzzles'), ('User', 'user-management'), ('User', 'user-management'), ('User', 'auth')]
+🔍 INFO [AdvancedBarrelGenerator] Detected priority subdirectory: auth (contains ['AuthState', 'AuthActions', 'User', 'LoginRequest', 'RegisterRequest'])
+🔍 INFO [AdvancedBarrelGenerator] Applying conflict resolution strategy for ../../../frontend-v2/src/types
+🔍 INFO [AdvancedBarrelGenerator] Conflicts resolved: 5/9
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/pages/chess
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/pages/dashboard
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/pages/splash
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/pages/user
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/pages
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/utils/audio
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/utils/chess
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/utils
+🔍 INFO [AdvancedBarrelGenerator] Generating barrel for: ../../../frontend-v2/src/stores
+
+📝 Created pages/user/ForgotPasswordPage.tsx
+📝 Created pages/user/ForgotPasswordPageContent.tsx
+📝 Created pages/user/LoginPage.tsx
+📝 Created pages/user/ProfilePage.tsx
+📝 Created pages/user/RegisterPage.tsx
+📝 Created pages/user/RegisterPageContent.tsx
+📝 Created data/backgroundEffectsConfig.ts
+📝 Created data/boardColorConfig.ts
+📝 Created data/samplePuzzles.ts
+📝 Created data/themeConfig.ts
+📝 Created utils/auth.utils.ts
+📝 Created utils/chess.utils.ts
+📝 Created utils/coordinate.utils.ts
+📝 Created utils/grid-generator.utils.ts
+📝 Created utils/persistence.utils.ts
+📝 Created utils/puzzle.utils.ts
+📝 Created utils/audio/componentDetection.ts
+📝 Created utils/audio/deviceDetection.ts
+📝 Created utils/audio/elementSelectors.ts
+📝 Created utils/audio/eventDeduplication.ts
+📝 Created utils/audio/soundMapping.ts
+📝 Created utils/chess/computer-chess.utils.ts
+📝 Created utils/chess/mobile-chess.utils.ts
+📝 Created utils/chess/mobileBoardUtils.ts
+📝 Created utils/chess/play-game.utils.ts
+📝 Created services/auth.service.ts
+📝 Created services/api/puzzleApiService.ts
+📝 Created services/audio/audioService.ts
+📝 Created services/audio/globalUIAudio-singleton.ts
+📝 Created services/audio/globalUIAudioService.ts
+📝 Created services/chess/ChessGameService.ts
+📝 Created services/chess/ComputerOpponentService.ts
+📝 Created services/chess/FenService.ts
+📝 Created services/chess/MobileChessGameService.ts
+📝 Created services/chess/PlayGameService.ts
+📝 Created services/chess/stockfish-singleton.ts
+📝 Created services/chess/StockfishService.ts
+📝 Created services/chess/TestBoardGameService.ts
+📝 Created services/clients/StockfishEngineClient.ts
+📝 Created services/core/backgroundEffectsRegistry.ts
+📝 Created services/core/BackgroundEffectsService.ts
+📝 Created services/instructions/InstructionsService.ts
+📝 Created services/preloading/AssetCacheService.ts
+📝 Created services/preloading/PreloadingService.ts
+📝 Created services/workers/stockfish-worker.js
+📝 Created services/instructions/pages/animatedsplash.ts
+📝 Created services/instructions/pages/blackjack.ts
+📝 Created services/instructions/pages/brandedsplash.ts
+📝 Created services/instructions/pages/casino.ts
+📝 Created services/instructions/pages/chesslayouttest.ts
+📝 Created services/instructions/pages/craps.ts
+📝 Created services/instructions/pages/desktoplayouttest.ts
+📝 Created services/instructions/pages/dragtest.ts
+📝 Created services/instructions/pages/functionalsplash.instructions.ts
+📝 Created services/instructions/pages/functionalsplash.ts
+📝 Created services/instructions/pages/holdem.ts
+📝 Created services/instructions/pages/layout.ts
+📝 Created services/instructions/pages/layouttest.ts
+📝 Created services/instructions/pages/loadingprogress.ts
+📝 Created services/instructions/pages/minimalsplash.ts
+📝 Created services/instructions/pages/mobiledragtest.ts
+📝 Created services/instructions/pages/play.ts
+📝 Created services/instructions/pages/playpuzzles.ts
+📝 Created services/instructions/pages/roulette.ts
+📝 Created services/instructions/pages/slots.ts
+📝 Created services/instructions/pages/uiaudiotest.ts
+📝 Created services/instructions/pages/uitests.audio-demo.ts
+📝 Created services/instructions/pages/uitests.drag-test.ts
+📝 Created services/instructions/pages/uitests.mobile-drag-test.ts
+📝 Created services/instructions/pages/uitests.ts
+📝 Created services/instructions/pages/worker.ts
+🔧 Generating barrel exports with advanced system...
+🔍 Analyzing TypeScript files...
+📦 Created components/action-sheet/index.ts
+📦 Created components/auth/index.ts
+📦 Created components/background-effects/index.ts
+📦 Created components/background-effects/effects/index.ts
+📦 Created components/casino/index.ts
+📦 Created components/chess/index.ts
+📦 Created components/core/index.ts
+📦 Created components/layout/index.ts
+📦 Created components/play/index.ts
+📦 Created components/settings/index.ts
+📦 Created components/splash/index.ts
+📦 Created components/ui/index.ts
+📦 Created components/index.ts
+📦 Created hooks/audio/index.ts
+📦 Created hooks/authentication/index.ts
+📦 Created hooks/chess/index.ts
+📦 Created hooks/core/index.ts
+📦 Created hooks/puzzle/index.ts
+📦 Created hooks/splash/index.ts
+📦 Created hooks/index.ts
+📦 Created services/api/index.ts
+📦 Created services/audio/index.ts
+📦 Created services/chess/index.ts
+📦 Created services/clients/index.ts
+📦 Created services/core/index.ts
+📦 Created services/instructions/index.ts
+📦 Created services/instructions/pages/index.ts
+📦 Created services/preloading/index.ts
+📦 Created services/workers/index.ts
+📦 Created services/index.ts
+📦 Created types/audio/index.ts
+📦 Created types/auth/index.ts
+📦 Created types/authentication/index.ts
+📦 Created types/chess/index.ts
+📦 Created types/chess-theory/index.ts
+📦 Created types/core/index.ts
+📦 Created types/gameplay/index.ts
+📦 Created types/learning/index.ts
+📦 Created types/puzzles/index.ts
+📦 Created types/ui/index.ts
+📦 Created types/user-management/index.ts
+📦 Created types/index.ts
+📦 Created pages/chess/index.ts
+📦 Created pages/dashboard/index.ts
+📦 Created pages/splash/index.ts
+📦 Created pages/user/index.ts
+📦 Created pages/index.ts
+📦 Created utils/audio/index.ts
+📦 Created utils/chess/index.ts
+📦 Created utils/index.ts
+📦 Created stores/index.ts
+📊 Barrel generation complete: 51 barrels, 9 conflicts
+📄 Analysis report saved to: ../../../frontend-v2/barrel_analysis_report.json
+
+✅ Generated frontend for 14 endpoints
+✅ Generation completed successfully!

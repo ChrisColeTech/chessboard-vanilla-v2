@@ -9,7 +9,11 @@ import { useThemePagination } from "../../hooks/core/useThemePagination";
 import { type BaseTheme } from "../core/ThemeSwitcher";
 import { SETTINGS_SECTIONS } from "../../data/themeConfig";
 
+<<<<<<< Updated upstream
 export function ThemeSelector() {
+=======
+export default function ThemeSelector() {
+>>>>>>> Stashed changes
   const { isDarkMode, selectedBaseTheme, setBaseTheme } = useTheme();
   const { visibleThemes, hasMoreThemes, handleLoadMoreThemes } = useThemePagination();
 

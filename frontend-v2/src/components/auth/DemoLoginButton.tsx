@@ -12,7 +12,11 @@ export interface DemoLoginButtonProps {
  * Demo Login Button Component
  * Provides one-click login with demo user credentials
  */
+<<<<<<< Updated upstream
 export const DemoLoginButton: React.FC<DemoLoginButtonProps> = ({ 
+=======
+const DemoLoginButton: React.FC<DemoLoginButtonProps> = ({ 
+>>>>>>> Stashed changes
   className, 
   size = "sm",
   variant = "outline"
@@ -50,4 +54,10 @@ export const DemoLoginButton: React.FC<DemoLoginButtonProps> = ({
       )}
     </>
   );
+<<<<<<< Updated upstream
 };
+=======
+};
+
+export default DemoLoginButton;
+>>>>>>> Stashed changes

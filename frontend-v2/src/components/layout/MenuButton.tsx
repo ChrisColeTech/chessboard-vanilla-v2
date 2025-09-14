@@ -5,7 +5,11 @@ interface MenuButtonProps {
   onToggleMenu: () => void;
 }
 
+<<<<<<< Updated upstream
 export function MenuButton({ isMenuOpen, onToggleMenu }: MenuButtonProps) {
+=======
+export default function MenuButton({ isMenuOpen, onToggleMenu }: MenuButtonProps) {
+>>>>>>> Stashed changes
 
   const handleMenuClick = () => {
     // Note: UI click sound is handled automatically by Global UI Audio System

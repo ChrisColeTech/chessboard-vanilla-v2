@@ -7,16 +7,25 @@
   "scripts": {
     "build:all": "npm run build:frontend && npm run build:backend",
     "build:frontend": "cd frontend-v2 && npm install && npm run build",
+<<<<<<< Updated upstream
     "build:backend": "cd backend-v2 && npm install && npm run build",
     "start": "cd backend-v2 && npm start",
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:backend": "cd backend-v2 && npm start",
+=======
+    "build:v2": "cd frontend-v2 && npm run build > frontend_build.log 2>&1",
+    "build:backend": "cd backend-v2 && npm install && npm run build",
+    "start": "cd backend-v2 && npm start",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend-v2 && npm run dev",
+>>>>>>> Stashed changes
     "dev:frontend": "cd frontend-v2 && npm run dev",
     "dev:electron": "concurrently \"npm run dev:frontend\" \"wait-on http://localhost:5173 && npm run dev:electron-start\"",
     "dev:electron-start": "NODE_ENV=development electron .",
     "build:electron": "npm run build:frontend && electron-builder",
     "start:electron": "electron .",
     "test": "npm run test:backend && npm run test:frontend",
+<<<<<<< Updated upstream
     "test:api": "npm run payload:generator && node tools/test-api-connectivity-v3.js > api_test_output.txt 2>&1",
     "test:render": "npm run payload:generator && node tools/test-render-api-connectivity.js > render_api_test_output.txt 2>&1",
     "test:frontend-v2": "node tools/test-frontend-v2-connectivity.js > frontend_v2_test_output.txt 2>&1",
@@ -32,6 +41,18 @@
     "missing:columns": "python3 tools/backend-tools/missing-columns/missing-columns.py --backend-path backend-v2",
     "index:generator": "python3 tools/frontend-tools/python-version-v2/index_generator.py \"$@\" > index_generator_output.txt 2>&1",
     "postinstall": "cd backend-v2 && npm install && cd ../frontend-v2 && npm install"
+=======
+    "test:api": "node tools/test-api-connectivity-v3.js > api_test_output.log 2>&1",
+    "test:frontend-v2": "node tools/test-frontend-v2-connectivity.js > frontend_v2_test_output.log 2>&1",
+    "test:backend": "cd backend-v2 && npm test",
+    "test:frontend": "cd frontend-v2 && npm test",
+    "backend:generator": "python3 tools/backend-tools/backend_generator_v2.py --config tools/backend_config.json --backend-path backend-v2 --all > backend_generator_output.log 2>&1",
+    "frontend:generator": "cd tools/frontend-tools/frontend-generator-v2 && python3 main.py --config ../../backend-tools/backend-generator-v2/migrated_config.json > ../../../frontend_generator_output.log 2>&1",
+    "id:setter": "./tools/frontend-tools/id-setter/run.sh",
+    "payload:generator": "cd tools/backend-tools/payload-generator && python3 payload_generator.py",
+    "missing:columns": "python3 tools/backend-tools/missing-columns/missing-columns.py --backend-path backend-v2",
+    "postinstall": "cd backend-v2 && npm install && cd ../frontend && npm install"
+>>>>>>> Stashed changes
   },
   "keywords": [
     "react",

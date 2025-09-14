@@ -5,7 +5,11 @@ import type { BackgroundEffectProps } from '../../../types/core/backgroundEffect
  * Enhanced gaming background with floating orbs and sparkles
  * Extracted from SlotMachineTestPage for reuse
  */
+<<<<<<< Updated upstream
 export function CasinoEffects({ className = '' }: BackgroundEffectProps) {
+=======
+export default function CasinoEffects({ className = '' }: BackgroundEffectProps) {
+>>>>>>> Stashed changes
   return (
     <div className={`bg-overlay ${className}`}>
       {/* Floating Gaming Elements */}

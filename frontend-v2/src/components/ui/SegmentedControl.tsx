@@ -16,7 +16,11 @@ interface SegmentedControlProps {
   iconOnly?: boolean;
 }
 
+<<<<<<< Updated upstream
 export function SegmentedControl({ 
+=======
+export default function SegmentedControl({ 
+>>>>>>> Stashed changes
   options, 
   value, 
   onChange, 

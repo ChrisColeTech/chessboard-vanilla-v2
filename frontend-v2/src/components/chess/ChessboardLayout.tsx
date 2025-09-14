@@ -14,7 +14,7 @@ interface ChessboardLayoutProps {
   className?: string
 }
 
-export const ChessboardLayout: React.FC<ChessboardLayoutProps> = ({
+const ChessboardLayout: React.FC<ChessboardLayoutProps> = ({
   topLeft,
   top,
   topRight,
@@ -99,3 +99,7 @@ export const ChessboardLayout: React.FC<ChessboardLayoutProps> = ({
     </div>
   )
 }
+
+export default ChessboardLayout;
+
+export { ChessboardLayout };

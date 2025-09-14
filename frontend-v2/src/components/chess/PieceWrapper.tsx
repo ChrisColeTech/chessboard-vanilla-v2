@@ -14,7 +14,11 @@ interface PieceWrapperProps {
   setDraggedPiece?: (piece: WrapperPiece | null) => void;
 }
 
+<<<<<<< Updated upstream
 export const PieceWrapper: React.FC<PieceWrapperProps> = ({ piece, size, gridSize = 6, onDragStart, onPieceClick, onDrop, setDraggedPiece }) => {
+=======
+const PieceWrapper: React.FC<PieceWrapperProps> = ({ piece, size, gridSize = 6, onDragStart, onPieceClick, onDrop, setDraggedPiece }) => {
+>>>>>>> Stashed changes
   const selectedPieceSet = useAppStore((state) => state.selectedPieceSet);
   const [isDragging, setIsDragging] = React.useState(false);
   
@@ -169,4 +173,11 @@ export const PieceWrapper: React.FC<PieceWrapperProps> = ({ piece, size, gridSiz
       />
     </div>
   );
+<<<<<<< Updated upstream
 };
+=======
+};
+
+export default PieceWrapper;
+export { PieceWrapper };
+>>>>>>> Stashed changes

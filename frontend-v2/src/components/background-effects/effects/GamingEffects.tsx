@@ -8,7 +8,11 @@ import type { BackgroundEffectProps } from '../../../types/core/backgroundEffect
  * - Sparkle effects with twinkle animations
  * - Theme gradient background
  */
+<<<<<<< Updated upstream
 export function GamingEffects({ className = '' }: BackgroundEffectProps) {
+=======
+export default function GamingEffects({ className = '' }: BackgroundEffectProps) {
+>>>>>>> Stashed changes
   return (
     <div className={`bg-overlay ${className}`}>
       {/* Full-screen theme gradient background */}

@@ -10,7 +10,11 @@ interface TitleBarProps {
   onClose?: () => void;
 }
 
+<<<<<<< Updated upstream
 export function TitleBar({ 
+=======
+export default function TitleBar({ 
+>>>>>>> Stashed changes
   onMenuClick, 
   onMinimize, 
   onMaximize, 

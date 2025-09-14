@@ -1,5 +1,9 @@
 import React from "react";
+<<<<<<< Updated upstream
 import { AuthBackgroundEffects } from "./AuthBackgroundEffects";
+=======
+import AuthBackgroundEffects from "./AuthBackgroundEffects";
+>>>>>>> Stashed changes
 
 /**
  * AUTH LAYOUT DESIGN SYSTEM
@@ -15,7 +19,11 @@ interface AuthLayoutProps {
   children: React.ReactNode;
 }
 
+<<<<<<< Updated upstream
 export const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
+=======
+const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
+>>>>>>> Stashed changes
   return (
     <div className="relative min-h-screen min-h-[100dvh] bg-background text-foreground">
       {/* Auth-specific background effects */}
@@ -37,4 +45,11 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
       </div>
     </div>
   );
+<<<<<<< Updated upstream
 };
+=======
+};
+
+export default AuthLayout;
+export { AuthLayout };
+>>>>>>> Stashed changes

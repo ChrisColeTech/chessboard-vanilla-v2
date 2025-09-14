@@ -7,7 +7,11 @@ interface CoinsModalProps {
   coinBalance?: number
 }
 
+<<<<<<< Updated upstream
 export const CoinsModal: React.FC<CoinsModalProps> = ({
+=======
+const CoinsModal: React.FC<CoinsModalProps> = ({
+>>>>>>> Stashed changes
   isOpen,
   onClose,
   coinBalance = 0
@@ -83,4 +87,11 @@ export const CoinsModal: React.FC<CoinsModalProps> = ({
       </div>
     </div>
   )
+<<<<<<< Updated upstream
 }
+=======
+}
+
+export default CoinsModal;
+export { CoinsModal };
+>>>>>>> Stashed changes

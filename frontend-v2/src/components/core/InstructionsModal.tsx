@@ -8,7 +8,11 @@ interface InstructionsModalProps {
   instructions: string[]
 }
 
+<<<<<<< Updated upstream
 export const InstructionsModal: React.FC<InstructionsModalProps> = ({
+=======
+const InstructionsModal: React.FC<InstructionsModalProps> = ({
+>>>>>>> Stashed changes
   isOpen,
   onClose,
   title = "How to Use",
@@ -60,4 +64,11 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
       </div>
     </div>
   )
+<<<<<<< Updated upstream
 }
+=======
+}
+
+export default InstructionsModal;
+export { InstructionsModal };
+>>>>>>> Stashed changes

@@ -1,7 +1,13 @@
 import { BackgroundEffects } from '../layout/BackgroundEffects'
+<<<<<<< Updated upstream
 import { ThemeSwitcher } from './ThemeSwitcher'
 
 export function ThemeDemo() {
+=======
+import ThemeSwitcher from './ThemeSwitcher'
+
+export default function ThemeDemo() {
+>>>>>>> Stashed changes
   return (
     <div className="min-h-screen bg-background transition-all duration-500 relative">
       {/* Background Effects */}
