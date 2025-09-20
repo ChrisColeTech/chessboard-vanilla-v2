@@ -51,9 +51,14 @@ class HooksGenerator(BaseGenerator):
             with open(template_path, 'r', encoding='utf-8') as f:
                 template_content = f.read()
             
-            # Write to the domain-specific hooks directory
-            output_dir = self.output_path / "hooks" / domain
-            output_file = output_dir / f"useAuth.ts"  # For auth template, keep the useAuth name
+            # Special handling for auth template - write to authentication subdirectory
+            if endpoint_name == 'auth':
+                output_dir = self.output_path / "hooks" / "authentication"
+                output_file = output_dir / f"useAuth.ts"
+            else:
+                # Write to the domain-specific hooks directory
+                output_dir = self.output_path / "hooks" / domain
+                output_file = output_dir / f"use{endpoint_name.capitalize()}.ts"
             
             self.write_file(output_file, template_content)
             

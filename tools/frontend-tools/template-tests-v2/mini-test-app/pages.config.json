@@ -1,0 +1,108 @@
+{
+  "version": "1.0.0",
+  "generated_by": "mobile-pages-v2",
+  "last_updated": "2025-09-18T17:16:28.948882",
+  "pages": {
+    "testing": {
+      "id": "testing",
+      "name": "Testing",
+      "type": "parent",
+      "parent_id": "",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/testing",
+      "component_name": "TestingPage",
+      "has_mobile": true,
+      "created_at": "2025-09-18T16:44:35.782801"
+    },
+    "dataanalytics": {
+      "id": "dataanalytics",
+      "name": "DataAnalytics",
+      "type": "parent",
+      "parent_id": "",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/dataanalytics",
+      "component_name": "DataAnalyticsPage",
+      "has_mobile": true,
+      "created_at": "2025-09-18T16:45:19.298301"
+    },
+    "gamehub": {
+      "id": "gamehub",
+      "name": "GameHub",
+      "type": "parent",
+      "parent_id": "",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/gamehub",
+      "component_name": "GameHubPage",
+      "has_mobile": true,
+      "created_at": "2025-09-18T16:45:33.932677"
+    },
+    "usermanagement": {
+      "id": "usermanagement",
+      "name": "UserManagement",
+      "type": "parent",
+      "parent_id": "",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/usermanagement",
+      "component_name": "UserManagementPage",
+      "has_mobile": true,
+      "created_at": "2025-09-18T16:45:51.122996"
+    },
+    "testbackup": {
+      "id": "testbackup",
+      "name": "TestBackup",
+      "type": "parent",
+      "parent_id": "",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/testbackup",
+      "component_name": "TestBackupPage",
+      "has_mobile": true,
+      "created_at": "2025-09-18T17:05:30.154923"
+    },
+    "pageone": {
+      "id": "pageone",
+      "name": "PageOne",
+      "type": "child",
+      "parent_id": "testsection",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/pageone",
+      "component_name": "PageOnePage",
+      "has_mobile": true,
+      "created_at": "2025-09-18T17:16:17.556077"
+    },
+    "pagetwo": {
+      "id": "pagetwo",
+      "name": "PageTwo",
+      "type": "child",
+      "parent_id": "testsection",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/pagetwo",
+      "component_name": "PageTwoPage",
+      "has_mobile": true,
+      "created_at": "2025-09-18T17:16:28.948857"
+    },
+    "testsection": {
+      "id": "testsection",
+      "name": "TestSection",
+      "type": "parent",
+      "parent_id": "",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/testsection",
+      "component_name": "TestSectionPage",
+      "has_mobile": true,
+      "created_at": "2025-09-18T17:16:04.200619"
+    }
+  },
+  "metadata": {
+    "total_pages": 8,
+    "parent_pages": 6,
+    "child_pages": 2
+  }
+}

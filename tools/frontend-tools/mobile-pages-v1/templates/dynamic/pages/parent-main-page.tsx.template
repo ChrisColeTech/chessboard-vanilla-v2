@@ -1,0 +1,29 @@
+import React from "react";
+import { usePageData } from "../../hooks/core/usePageData";
+import { ChessboardLayout } from "../../components/chess/ChessboardLayout";
+import { DataTable } from "../../components/ui/DataTable";
+
+interface {{PARENT_NAME}}MainPageProps {
+  // Add props as needed
+}
+
+export const {{PARENT_NAME}}MainPage: React.FC<{{PARENT_NAME}}MainPageProps> = () => {
+  const { data, loading, error } = usePageData("{{PARENT_ID}}");
+
+  return (
+    <div className="uitest-layout-container">
+      <ChessboardLayout
+        topLeft={<div className="uitest-layout-corner">{{PARENT_NAME}} Top Left</div>}
+        top={<div className="uitest-layout-center"></div>}
+        topRight={<div className="uitest-layout-corner">{{PARENT_NAME}} Top Right</div>}
+        left={<div className="uitest-layout-corner">{{PARENT_NAME}} Left</div>}
+        center={<DataTable data={data} loading={loading} error={error} />}
+        right={<div className="uitest-layout-corner">{{PARENT_NAME}} Right</div>}
+        bottomLeft={<div className="uitest-layout-corner">{{PARENT_NAME}} Bottom Left</div>}
+        bottom={<div className="uitest-layout-center"></div>}
+        bottomRight={<div className="uitest-layout-corner">{{PARENT_NAME}} Bottom Right</div>}
+        className="w-full h-full"
+      />
+    </div>
+  );
+};

@@ -1,0 +1,2 @@
+case '{{CHILD_ID}}':
+        return <{{CHILD_NAME}}PageWrapper />;

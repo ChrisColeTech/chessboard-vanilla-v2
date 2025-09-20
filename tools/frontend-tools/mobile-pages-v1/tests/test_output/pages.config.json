@@ -1,0 +1,48 @@
+{
+  "version": "1.0.0",
+  "generated_by": "mobile-pages-v2",
+  "last_updated": "2025-09-16T10:32:53.555636",
+  "pages": {
+    "settings": {
+      "id": "settings",
+      "name": "Settings",
+      "type": "parent",
+      "parent_id": "",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/settings",
+      "component_name": "SettingsPage",
+      "has_mobile": false,
+      "created_at": "2025-09-16T10:32:42.460390"
+    },
+    "profile": {
+      "id": "profile",
+      "name": "Profile",
+      "type": "child",
+      "parent_id": "settings",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/profile",
+      "component_name": "ProfilePage",
+      "has_mobile": true,
+      "created_at": "2025-09-16T10:32:47.759022"
+    },
+    "preferences": {
+      "id": "preferences",
+      "name": "Preferences",
+      "type": "child",
+      "parent_id": "settings",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/preferences",
+      "component_name": "PreferencesPage",
+      "has_mobile": true,
+      "created_at": "2025-09-16T10:32:53.555615"
+    }
+  },
+  "metadata": {
+    "total_pages": 3,
+    "parent_pages": 1,
+    "child_pages": 2
+  }
+}

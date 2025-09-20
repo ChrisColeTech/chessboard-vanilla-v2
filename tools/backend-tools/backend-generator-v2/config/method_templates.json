@@ -15,13 +15,13 @@
     
     "create": {
       "pattern": "^create.*",
-      "template": "async {method_name}(data: Create{entity}Request): Promise<{entity}Response> {\n    const id = uuidv4();\n    const result = await this.db.query(`\n      INSERT INTO {table_name} (id, created_at, updated_at)\n      VALUES ($1, NOW(), NOW())\n      RETURNING *\n    `, [id]);\n    \n    return this.format{entity}Response(result.rows[0]);\n  }",
+      "template": "async {method_name}(data: Create{entity}Request): Promise<{entity}Response> {\n    const { {DESTRUCTURE_FIELDS} } = data;\n    const id = uuidv4();\n    const result = await this.db.query(`\n      INSERT INTO {table_name} ({INSERT_FIELDS})\n      VALUES ({INSERT_PARAMS})\n      RETURNING *\n    `, [{PARAM_ARRAY}]);\n    \n    return this.format{entity}Response(result.rows[0]);\n  }",
       "return_type": "Promise<{entity}Response>"
     },
     
     "update": {
       "pattern": "^update.*",
-      "template": "async {method_name}(id: string, data: Update{entity}Request): Promise<{entity}Response> {\n    const result = await this.db.query(`\n      UPDATE {table_name} \n      SET updated_at = NOW()\n      WHERE id = $1\n      RETURNING *\n    `, [id]);\n    \n    if (!result.rows.length) throw new Error('{entity} not found');\n    return this.format{entity}Response(result.rows[0]);\n  }",
+      "template": "async {method_name}(id: string, data: Update{entity}Request): Promise<{entity}Response> {\n    const { {DESTRUCTURE_FIELDS} } = data;\n    const result = await this.db.query(`\n      UPDATE {table_name} \n      SET {UPDATE_FIELDS}\n      WHERE id = $1\n      RETURNING *\n    `, [{UPDATE_PARAM_ARRAY}]);\n    \n    if (!result.rows.length) throw new Error('{entity} not found');\n    return this.format{entity}Response(result.rows[0]);\n  }",
       "return_type": "Promise<{entity}Response>"
     },
     

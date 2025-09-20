@@ -124,6 +124,12 @@ class WorkflowContext:
                 if any(keyword in content.lower() for keyword in ['jsx', 'react', 'return <', 'render']):
                     return True
             
+            # Check for const/let value exports (not function or arrow function exports)
+            # Match: export const/let variableName = {object} or = value (but not = () => or = function)
+            const_value_pattern = r'export\s+(?:const|let)\s+\w+\s*=\s*(?![^\n]*(?:\([^)]*\)\s*=>|function\s*\()).*[{"\'\w]'
+            if re.search(const_value_pattern, content, re.MULTILINE):
+                return True
+            
             return False
         
         except Exception:

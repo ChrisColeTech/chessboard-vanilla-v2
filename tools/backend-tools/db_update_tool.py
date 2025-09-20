@@ -539,6 +539,143 @@ class DatabaseUpdater:
         
         print(f"✅ Test data population completed - {success_count} records added!")
         return success_count > 0
+    
+    def delete_malformed_puzzle_themes(self):
+        """Delete puzzle records with malformed themes data"""
+        print("🚀 Deleting puzzle records with malformed themes...")
+        
+        if not self.table_exists('puzzles'):
+            print("❌ puzzles table does not exist")
+            return False
+        
+        # First, show what we're about to delete
+        conn = self.connect()
+        try:
+            with conn.cursor() as cursor:
+                cursor.execute("""
+                    SELECT id, themes 
+                    FROM puzzles 
+                    WHERE themes::text NOT LIKE '[%]' AND themes IS NOT NULL
+                    LIMIT 10
+                """)
+                malformed_records = cursor.fetchall()
+                
+                if malformed_records:
+                    print(f"📋 Found {len(malformed_records)} malformed puzzle themes records (showing first 10):")
+                    for record in malformed_records:
+                        print(f"  - ID: {record[0]}, themes: {record[1]}")
+                    
+                    # Get total count
+                    cursor.execute("""
+                        SELECT COUNT(*) 
+                        FROM puzzles 
+                        WHERE themes::text NOT LIKE '[%]' AND themes IS NOT NULL
+                    """)
+                    total_count = cursor.fetchone()[0]
+                    
+                    # Delete the malformed records
+                    cursor.execute("""
+                        DELETE FROM puzzles 
+                        WHERE themes::text NOT LIKE '[%]' AND themes IS NOT NULL
+                    """)
+                    
+                    deleted_count = cursor.rowcount
+                    conn.commit()
+                    
+                    print(f"✅ Deleted {deleted_count} puzzle records with malformed themes")
+                    return True
+                else:
+                    print("✅ No malformed puzzle themes found")
+                    return True
+                    
+        except Exception as e:
+            print(f"❌ Failed to delete malformed puzzle themes: {e}")
+            conn.rollback()
+            return False
+        finally:
+            conn.close()
+    
+    def delete_invalid_foreign_key_records(self):
+        """Delete records with invalid foreign key references"""
+        print("🚀 Deleting records with invalid foreign key references...")
+        
+        success_count = 0
+        
+        # Delete user_achievements with invalid achievement_id
+        if self.table_exists('user_achievements'):
+            conn = self.connect()
+            try:
+                with conn.cursor() as cursor:
+                    # Find user_achievements with non-existent achievement_id
+                    cursor.execute("""
+                        DELETE FROM user_achievements 
+                        WHERE achievement_id NOT IN (SELECT id FROM achievements)
+                    """)
+                    deleted_count = cursor.rowcount
+                    conn.commit()
+                    if deleted_count > 0:
+                        print(f"✅ Deleted {deleted_count} user_achievements with invalid achievement_id")
+                        success_count += deleted_count
+                    else:
+                        print("✅ No invalid user_achievements found")
+                        
+            except Exception as e:
+                print(f"❌ Failed to delete invalid user_achievements: {e}")
+                conn.rollback()
+            finally:
+                conn.close()
+        
+        # Delete user_content_progress with invalid content_id  
+        if self.table_exists('user_content_progress'):
+            conn = self.connect()
+            try:
+                with conn.cursor() as cursor:
+                    # Find user_content_progress with non-existent content_id
+                    cursor.execute("""
+                        DELETE FROM user_content_progress 
+                        WHERE content_id NOT IN (SELECT id FROM content)
+                    """)
+                    deleted_count = cursor.rowcount
+                    conn.commit()
+                    if deleted_count > 0:
+                        print(f"✅ Deleted {deleted_count} user_content_progress with invalid content_id")
+                        success_count += deleted_count
+                    else:
+                        print("✅ No invalid user_content_progress found")
+                        
+            except Exception as e:
+                print(f"❌ Failed to delete invalid user_content_progress: {e}")
+                conn.rollback()
+            finally:
+                conn.close()
+        
+        # Delete content records with invalid parent_id
+        if self.table_exists('content'):
+            conn = self.connect()
+            try:
+                with conn.cursor() as cursor:
+                    # Find content with non-existent parent_id (excluding NULL parent_id)
+                    cursor.execute("""
+                        DELETE FROM content 
+                        WHERE parent_id IS NOT NULL 
+                        AND parent_id NOT IN (SELECT id FROM content WHERE id != parent_id)
+                    """)
+                    deleted_count = cursor.rowcount
+                    conn.commit()
+                    if deleted_count > 0:
+                        print(f"✅ Deleted {deleted_count} content records with invalid parent_id")
+                        success_count += deleted_count
+                    else:
+                        print("✅ No invalid content parent_id references found")
+                        
+            except Exception as e:
+                print(f"❌ Failed to delete invalid content records: {e}")
+                conn.rollback()
+            finally:
+                conn.close()
+        
+        print(f"✅ Invalid foreign key cleanup completed - {success_count} records deleted!")
+        return success_count > 0
 
 def show_help():
     """Display help information"""
@@ -569,6 +706,8 @@ def show_help():
     print("  query \"<sql_query>\"                   - Execute SELECT query and show results")
     print("  execute \"<sql_query>\"                 - Execute INSERT/UPDATE/DELETE query")
     print("  populate-test-data                    - Add test data to empty tables for API testing")
+    print("  delete-malformed-themes               - Delete puzzle records with malformed themes")
+    print("  delete-invalid-foreign-keys           - Delete records with invalid foreign key references")
     print()
     print("EXAMPLES:")
     print()
@@ -643,6 +782,10 @@ def main():
             updater.execute_sql(query)
         elif command == "populate-test-data":
             updater.populate_test_data()
+        elif command == "delete-malformed-themes":
+            updater.delete_malformed_puzzle_themes()
+        elif command == "delete-invalid-foreign-keys":
+            updater.delete_invalid_foreign_key_records()
         elif command in ['help', '-h', '--help']:
             show_help()
         else:

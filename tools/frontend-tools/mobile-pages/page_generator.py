@@ -2,6 +2,17 @@
 """
 Frontend Page Generator CLI Tool
 
+⚠️  DEPRECATED: This generator is deprecated in favor of the new template-based system.
+Please use: tools/frontend-tools/mobile-pages-v2/main.py
+
+Migration Guide: See docs/03-migration-guide.md
+New System Benefits:
+- Template-based generation with 16 templates
+- Phase 2 Mobile Switching Architecture (mobile switching in child wrappers)
+- Automatic capability detection and adaptive wrapper selection
+- Comprehensive validation and error handling
+- Better project structure preservation
+
 Follows the Phase 2 Mobile Switching Architecture documented in:
 /mnt/c/Projects/chessboard-vanilla-v2/docs/47-navigation-action-sheets-architecture.md
 
@@ -731,7 +742,24 @@ export const ActionSheetContainer: React.FC = () => {
         print(f"  📝 Created: {file_path}")
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate React pages following Phase 2 Mobile Switching Architecture")
+    # Print deprecation warning
+    print("⚠️" * 50)
+    print("⚠️  DEPRECATION WARNING")
+    print("⚠️  This generator is deprecated and will be removed in a future release.")
+    print("⚠️  Please migrate to the new template-based system:")
+    print("⚠️  tools/frontend-tools/mobile-pages-v2/main.py")
+    print("⚠️")
+    print("⚠️  Migration benefits:")
+    print("⚠️  - Template-based generation with 16 templates")
+    print("⚠️  - Phase 2 Mobile Switching (child wrapper mobile switching)")
+    print("⚠️  - Automatic capability detection")
+    print("⚠️  - Comprehensive validation and error handling")
+    print("⚠️" * 50)
+    
+    import time
+    time.sleep(2)  # Give user time to see the warning
+    
+    parser = argparse.ArgumentParser(description="Generate React pages following Phase 2 Mobile Switching Architecture (DEPRECATED)")
     parser.add_argument("command", choices=["parent", "child"], help="Type of page to create")
     parser.add_argument("name", help="Name of the page (PascalCase)")
     parser.add_argument("--parent", help="Parent page name (required for child pages)")

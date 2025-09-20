@@ -86,9 +86,7 @@ class FrontendGeneratorV2:
         """Load backend configuration file"""
         self.logger.info(f"📖 Loading backend config from {self.config_path}")
         
-        if not self.config_path.exists():
-            raise FileNotFoundError(f"Backend config not found: {self.config_path}")
-        
+  
         with open(self.config_path, 'r') as f:
             self.backend_config = json.load(f)
         

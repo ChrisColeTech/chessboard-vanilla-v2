@@ -13,9 +13,10 @@ from core.template_engine import TemplateEngine
 class ModelGenerator:
     """Generates TypeScript model files"""
     
-    def __init__(self, file_writer: FileWriter, template_engine: TemplateEngine):
+    def __init__(self, file_writer: FileWriter, template_engine: TemplateEngine, force_overwrite: bool = False):
         self.file_writer = file_writer
         self.template_engine = template_engine
+        self.force_overwrite = force_overwrite
         self.logger = logging.getLogger("model_generator")
     
     def generate_model(self, entity_info: Dict[str, str], properties: Dict[str, str], configs: Dict[str, Any]) -> bool:
@@ -32,7 +33,7 @@ class ModelGenerator:
             
             # Write model file
             file_path = FilePathHelper.get_model_path(entity)
-            success = self.file_writer.write_file(file_path, content)
+            success = self.file_writer.write_file(file_path, content, self.force_overwrite)
             
             if success:
                 self.logger.info(f"📝 Generated model: {entity}")

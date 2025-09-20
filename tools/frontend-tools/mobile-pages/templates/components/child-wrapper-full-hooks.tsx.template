@@ -1,0 +1,18 @@
+import React from "react";
+import { usePageInstructions } from "../../hooks/core/usePageInstructions";
+import { usePageActions } from "../../hooks/core/usePageActions";
+import { useIsMobile } from "../../hooks/core/useIsMobile";
+import { {{CHILD_NAME}}Page } from "../../pages/{{PARENT_ID}}/{{CHILD_NAME}}Page";
+import { {{MOBILE_CHILD_NAME}}Page } from "../../pages/{{PARENT_ID}}/{{MOBILE_CHILD_NAME}}Page";
+
+export const {{CHILD_NAME}}PageWrapper: React.FC = () => {
+  // Mobile detection handled in wrapper (Phase 2 Architecture)
+  const isMobile = useIsMobile();
+  
+  // Apply page context
+  usePageInstructions("{{CHILD_ID}}");
+  usePageActions("{{CHILD_ID}}");
+
+  // Internal mobile/desktop switching
+  return isMobile ? <{{MOBILE_CHILD_NAME}}Page /> : <{{CHILD_NAME}}Page />;
+};

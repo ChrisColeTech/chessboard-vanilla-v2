@@ -82,8 +82,7 @@ class FrontendGenerator:
         """Load backend configuration file"""
         print(f"📖 Loading config from: {self.config_path}")
         
-        if not self.config_path.exists():
-            raise FileNotFoundError(f"Config file not found: {self.config_path}")
+ 
         
         with open(self.config_path, 'r') as f:
             self.backend_config = json.load(f)
@@ -196,6 +195,27 @@ class FrontendGenerator:
         print("🔧 Generating static architectural files...")
         
         template_base = Path(__file__).parent.parent / "templates"
+        
+        # Process root-level template files in static directory
+        static_template_dir = template_base / "static"
+        for template_file in static_template_dir.glob("*.template"):
+            # Remove .template extension for output file
+            output_filename = template_file.stem
+            output_file = self.output_path / output_filename
+            
+            # Read template content
+            try:
+                with open(template_file, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                
+                # Write static file (no template variable replacement needed for architectural files)
+                with open(output_file, 'w', encoding='utf-8') as f:
+                    f.write(content)
+                
+                print(f"📝 Created {output_filename}")
+                
+            except Exception as e:
+                print(f"❌ Error generating {template_file}: {e}")
         
         # Process static template directories
         static_dirs = ['types', 'hooks', 'pages', 'data', 'utils', 'services']

@@ -1,0 +1,12 @@
+import { useCallback } from 'react';
+import { useAppStore } from '../../stores/appStore';
+
+export function use{{CHILD_NAME}}Actions() {
+  const { setCurrentChildPage } = useAppStore();
+
+{{SIBLING_NAVIGATION_METHODS}}
+
+  return {
+    {{SIBLING_RETURN_METHODS}}
+  };
+}

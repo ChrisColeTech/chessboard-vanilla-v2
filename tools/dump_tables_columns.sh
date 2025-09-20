@@ -44,7 +44,7 @@ fail() {
 }
 
 # Parse arguments
-CONNECTION_STRING="${1:-${DATABASE_URL:-}}"
+CONNECTION_STRING="${1:-${DATABASE_URL:-postgresql://postgres.jdifjdtdcqvlhdxkwxby:chessboard-vanilla-v2@aws-1-us-east-2.pooler.supabase.com:5432/postgres}}"
 OUT_JSON="${2:-}"
 OUT_CSV="${3:-}"
 

@@ -1,0 +1,38 @@
+import React from "react";
+import { ChessboardLayout } from "../../components/chess/ChessboardLayout";
+import { ActionSheetContainer } from "../../components/action-sheet/ActionSheetContainer";
+import { use{{CHILD_NAME}}Actions } from "../../hooks/{{PARENT_ID}}/use{{CHILD_NAME}}Actions";
+
+interface {{CHILD_NAME}}PageProps {
+  // Add props as needed
+}
+
+export const {{CHILD_NAME}}Page: React.FC<{{CHILD_NAME}}PageProps> = () => {
+  // Use child actions hook for sibling navigation
+  use{{CHILD_NAME}}Actions();
+  
+  return (
+    <>
+      <div className="uitest-layout-container">
+        <ChessboardLayout
+          topLeft={<div className="uitest-layout-corner">{{CHILD_NAME}} Top Left</div>}
+          top={<div className="uitest-layout-center"></div>}
+          topRight={<div className="uitest-layout-corner">{{CHILD_NAME}} Top Right</div>}
+          left={<div className="uitest-layout-corner">{{CHILD_NAME}} Left</div>}
+          center={<div className="uitest-layout-center">{{CHILD_NAME}} Content</div>}
+          right={<div className="uitest-layout-corner">{{CHILD_NAME}} Right</div>}
+          bottomLeft={<div className="uitest-layout-corner">{{CHILD_NAME}} Bottom Left</div>}
+          bottom={<div className="uitest-layout-center"></div>}
+          bottomRight={<div className="uitest-layout-corner">{{CHILD_NAME}} Bottom Right</div>}
+          className="w-full h-full"
+        />
+      </div>
+      <ActionSheetContainer 
+        currentPage="{{CHILD_ID}}"
+        onClose={() => {}}
+        isOpen={false}
+        onOpenSettings={() => {}}
+      />
+    </>
+  );
+};

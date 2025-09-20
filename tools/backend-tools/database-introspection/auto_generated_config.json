@@ -1,0 +1,766 @@
+{
+  "description": "Auto-generated configuration from database schema introspection",
+  "generated_at": "2025-09-14T13:37:07.889479",
+  "endpoints": {
+    "auth": {
+      "entity": "Auth",
+      "entities": "auth",
+      "table_name": "users",
+      "special_routing": true,
+      "domain": "authentication",
+      "properties": {
+        "id": "string",
+        "username": "string",
+        "email": "string",
+        "created_at": "string",
+        "updated_at": "string"
+      },
+      "methods": [
+        "login",
+        "register",
+        "logout",
+        "forgotPassword",
+        "resetPassword",
+        "verifyToken",
+        "refreshUser",
+        "getCurrentUser"
+      ],
+      "endpoints": []
+    },
+    "achievements": {
+      "entity": "Achievement",
+      "entities": "achievements",
+      "table_name": "achievements",
+      "properties": {
+        "id": "string",
+        "name": "string",
+        "description": "string",
+        "category": "string",
+        "icon": "string",
+        "points": "number",
+        "difficulty": "string",
+        "requirements": "string",
+        "created_at": "string",
+        "updated_at": "string"
+      },
+      "methods": [
+        "createAchievement",
+        "getAchievementById",
+        "updateAchievement",
+        "deleteAchievement",
+        "listAchievements"
+      ],
+      "endpoints": [
+        {
+          "method": "POST",
+          "path": "/",
+          "handler": "createAchievement",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/:id",
+          "handler": "getAchievementById",
+          "auth_required": true
+        },
+        {
+          "method": "PUT",
+          "path": "/:id",
+          "handler": "updateAchievement",
+          "auth_required": true
+        },
+        {
+          "method": "DELETE",
+          "path": "/:id",
+          "handler": "deleteAchievement",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "handler": "listAchievements",
+          "auth_required": true
+        }
+      ]
+    },
+    "content": {
+      "entity": "Content",
+      "entities": "content",
+      "table_name": "content",
+      "properties": {
+        "id": "string",
+        "title": "string",
+        "content_type": "string",
+        "parent_id": "string",
+        "order_index": "number",
+        "description": "string",
+        "content_body": "object",
+        "difficulty_level": "string",
+        "estimated_duration": "number",
+        "category": "string",
+        "objectives": "object",
+        "prerequisites": "object",
+        "is_published": "boolean",
+        "version": "number",
+        "created_at": "string",
+        "updated_at": "string"
+      },
+      "methods": [
+        "createContent",
+        "getContentById",
+        "updateContent",
+        "deleteContent",
+        "listContents"
+      ],
+      "endpoints": [
+        {
+          "method": "POST",
+          "path": "/",
+          "handler": "createContent",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/:id",
+          "handler": "getContentById",
+          "auth_required": true
+        },
+        {
+          "method": "PUT",
+          "path": "/:id",
+          "handler": "updateContent",
+          "auth_required": true
+        },
+        {
+          "method": "DELETE",
+          "path": "/:id",
+          "handler": "deleteContent",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "handler": "listContents",
+          "auth_required": true
+        }
+      ]
+    },
+    "games": {
+      "entity": "Game",
+      "entities": "games",
+      "table_name": "games",
+      "properties": {
+        "id": "string",
+        "user_id": "string",
+        "ai_level": "number",
+        "user_color": "string",
+        "current_fen": "string",
+        "pgn": "string",
+        "status": "string",
+        "result": "string",
+        "time_control": "string",
+        "started_at": "string",
+        "completed_at": "string",
+        "created_at": "string",
+        "updated_at": "string"
+      },
+      "methods": [
+        "createGame",
+        "getGameById",
+        "updateGame",
+        "deleteGame",
+        "listGames"
+      ],
+      "endpoints": [
+        {
+          "method": "POST",
+          "path": "/",
+          "handler": "createGame",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/:id",
+          "handler": "getGameById",
+          "auth_required": true
+        },
+        {
+          "method": "PUT",
+          "path": "/:id",
+          "handler": "updateGame",
+          "auth_required": true
+        },
+        {
+          "method": "DELETE",
+          "path": "/:id",
+          "handler": "deleteGame",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "handler": "listGames",
+          "auth_required": true
+        }
+      ]
+    },
+    "historic_games": {
+      "entity": "HistoricGame",
+      "entities": "historic_games",
+      "table_name": "historic_games",
+      "properties": {
+        "id": "string",
+        "white_player": "string",
+        "black_player": "string",
+        "white_rating": "number",
+        "black_rating": "number",
+        "tournament_name": "string",
+        "tournament_year": "number",
+        "opening_name": "string",
+        "opening_eco": "string",
+        "result": "string",
+        "pgn": "string",
+        "created_at": "string",
+        "updated_at": "string"
+      },
+      "methods": [
+        "createHistoricGame",
+        "getHistoricGameById",
+        "updateHistoricGame",
+        "deleteHistoricGame",
+        "listHistoricGames"
+      ],
+      "endpoints": [
+        {
+          "method": "POST",
+          "path": "/",
+          "handler": "createHistoricGame",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/:id",
+          "handler": "getHistoricGameById",
+          "auth_required": true
+        },
+        {
+          "method": "PUT",
+          "path": "/:id",
+          "handler": "updateHistoricGame",
+          "auth_required": true
+        },
+        {
+          "method": "DELETE",
+          "path": "/:id",
+          "handler": "deleteHistoricGame",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "handler": "listHistoricGames",
+          "auth_required": true
+        }
+      ]
+    },
+    "openings": {
+      "entity": "Opening",
+      "entities": "openings",
+      "table_name": "openings",
+      "properties": {
+        "id": "string",
+        "name": "string",
+        "eco_code": "string",
+        "moves": "string",
+        "description": "string",
+        "popularity_score": "number",
+        "difficulty_level": "string",
+        "created_at": "string",
+        "updated_at": "string"
+      },
+      "methods": [
+        "createOpening",
+        "getOpeningById",
+        "updateOpening",
+        "deleteOpening",
+        "listOpenings"
+      ],
+      "endpoints": [
+        {
+          "method": "POST",
+          "path": "/",
+          "handler": "createOpening",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/:id",
+          "handler": "getOpeningById",
+          "auth_required": true
+        },
+        {
+          "method": "PUT",
+          "path": "/:id",
+          "handler": "updateOpening",
+          "auth_required": true
+        },
+        {
+          "method": "DELETE",
+          "path": "/:id",
+          "handler": "deleteOpening",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "handler": "listOpenings",
+          "auth_required": true
+        }
+      ]
+    },
+    "puzzle_attempts": {
+      "entity": "PuzzleAttempt",
+      "entities": "puzzle_attempts",
+      "table_name": "puzzle_attempts",
+      "properties": {
+        "id": "string",
+        "user_id": "string",
+        "puzzle_id": "string",
+        "moves": "string",
+        "correct": "boolean",
+        "time_taken": "number",
+        "hints_used": "number",
+        "rating_change": "number",
+        "attempted_at": "string",
+        "created_at": "string",
+        "updated_at": "string"
+      },
+      "methods": [
+        "createPuzzleAttempt",
+        "getPuzzleAttemptById",
+        "updatePuzzleAttempt",
+        "deletePuzzleAttempt",
+        "listPuzzleAttempts"
+      ],
+      "endpoints": [
+        {
+          "method": "POST",
+          "path": "/",
+          "handler": "createPuzzleAttempt",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/:id",
+          "handler": "getPuzzleAttemptById",
+          "auth_required": true
+        },
+        {
+          "method": "PUT",
+          "path": "/:id",
+          "handler": "updatePuzzleAttempt",
+          "auth_required": true
+        },
+        {
+          "method": "DELETE",
+          "path": "/:id",
+          "handler": "deletePuzzleAttempt",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "handler": "listPuzzleAttempts",
+          "auth_required": true
+        }
+      ]
+    },
+    "puzzle_sources": {
+      "entity": "PuzzleSource",
+      "entities": "puzzle_sources",
+      "table_name": "puzzle_sources",
+      "properties": {
+        "id": "string",
+        "source_id": "string",
+        "name": "string",
+        "description": "string",
+        "total_puzzles": "number",
+        "average_rating": "number",
+        "is_active": "boolean",
+        "attribution": "string",
+        "license": "string",
+        "url": "string",
+        "created_at": "string",
+        "updated_at": "string"
+      },
+      "methods": [
+        "createPuzzleSource",
+        "getPuzzleSourceById",
+        "updatePuzzleSource",
+        "deletePuzzleSource",
+        "listPuzzleSources"
+      ],
+      "endpoints": [
+        {
+          "method": "POST",
+          "path": "/",
+          "handler": "createPuzzleSource",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/:id",
+          "handler": "getPuzzleSourceById",
+          "auth_required": true
+        },
+        {
+          "method": "PUT",
+          "path": "/:id",
+          "handler": "updatePuzzleSource",
+          "auth_required": true
+        },
+        {
+          "method": "DELETE",
+          "path": "/:id",
+          "handler": "deletePuzzleSource",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "handler": "listPuzzleSources",
+          "auth_required": true
+        }
+      ]
+    },
+    "puzzles": {
+      "entity": "Puzzle",
+      "entities": "puzzles",
+      "table_name": "puzzles",
+      "properties": {
+        "id": "string",
+        "fen": "string",
+        "solution_moves": "string",
+        "themes": "string",
+        "rating": "number",
+        "description": "string",
+        "created_at": "string",
+        "updated_at": "string"
+      },
+      "methods": [
+        "createPuzzle",
+        "getPuzzleById",
+        "updatePuzzle",
+        "deletePuzzle",
+        "listPuzzles"
+      ],
+      "endpoints": [
+        {
+          "method": "POST",
+          "path": "/",
+          "handler": "createPuzzle",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/:id",
+          "handler": "getPuzzleById",
+          "auth_required": true
+        },
+        {
+          "method": "PUT",
+          "path": "/:id",
+          "handler": "updatePuzzle",
+          "auth_required": true
+        },
+        {
+          "method": "DELETE",
+          "path": "/:id",
+          "handler": "deletePuzzle",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "handler": "listPuzzles",
+          "auth_required": true
+        }
+      ]
+    },
+    "user_achievements": {
+      "entity": "UserAchievement",
+      "entities": "user_achievements",
+      "table_name": "user_achievements",
+      "properties": {
+        "id": "string",
+        "user_id": "string",
+        "achievement_id": "string",
+        "earned_at": "string",
+        "progress": "number",
+        "created_at": "string",
+        "updated_at": "string"
+      },
+      "methods": [
+        "createUserAchievement",
+        "getUserAchievementById",
+        "updateUserAchievement",
+        "deleteUserAchievement",
+        "listUserAchievements"
+      ],
+      "endpoints": [
+        {
+          "method": "POST",
+          "path": "/",
+          "handler": "createUserAchievement",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/:id",
+          "handler": "getUserAchievementById",
+          "auth_required": true
+        },
+        {
+          "method": "PUT",
+          "path": "/:id",
+          "handler": "updateUserAchievement",
+          "auth_required": true
+        },
+        {
+          "method": "DELETE",
+          "path": "/:id",
+          "handler": "deleteUserAchievement",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "handler": "listUserAchievements",
+          "auth_required": true
+        }
+      ]
+    },
+    "user_content_progress": {
+      "entity": "UserContentProgre",
+      "entities": "user_content_progress",
+      "table_name": "user_content_progress",
+      "properties": {
+        "id": "string",
+        "user_id": "string",
+        "content_id": "string",
+        "status": "string",
+        "progress_percentage": "number",
+        "time_spent": "number",
+        "completion_score": "number",
+        "started_at": "string",
+        "completed_at": "string",
+        "last_accessed": "string",
+        "notes": "string",
+        "bookmarked": "boolean",
+        "created_at": "string",
+        "updated_at": "string"
+      },
+      "methods": [
+        "createUserContentProgre",
+        "getUserContentProgreById",
+        "updateUserContentProgre",
+        "deleteUserContentProgre",
+        "listUserContentProgres"
+      ],
+      "endpoints": [
+        {
+          "method": "POST",
+          "path": "/",
+          "handler": "createUserContentProgre",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/:id",
+          "handler": "getUserContentProgreById",
+          "auth_required": true
+        },
+        {
+          "method": "PUT",
+          "path": "/:id",
+          "handler": "updateUserContentProgre",
+          "auth_required": true
+        },
+        {
+          "method": "DELETE",
+          "path": "/:id",
+          "handler": "deleteUserContentProgre",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "handler": "listUserContentProgres",
+          "auth_required": true
+        }
+      ]
+    },
+    "user_profiles": {
+      "entity": "UserProfile",
+      "entities": "user_profiles",
+      "table_name": "user_profiles",
+      "properties": {
+        "id": "string",
+        "user_id": "string",
+        "display_name": "string",
+        "avatar_url": "string",
+        "bio": "string",
+        "country": "string",
+        "timezone": "string",
+        "created_at": "string",
+        "updated_at": "string"
+      },
+      "methods": [
+        "createUserProfile",
+        "getUserProfileById",
+        "updateUserProfile",
+        "deleteUserProfile",
+        "listUserProfiles"
+      ],
+      "endpoints": [
+        {
+          "method": "POST",
+          "path": "/",
+          "handler": "createUserProfile",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/:id",
+          "handler": "getUserProfileById",
+          "auth_required": true
+        },
+        {
+          "method": "PUT",
+          "path": "/:id",
+          "handler": "updateUserProfile",
+          "auth_required": true
+        },
+        {
+          "method": "DELETE",
+          "path": "/:id",
+          "handler": "deleteUserProfile",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "handler": "listUserProfiles",
+          "auth_required": true
+        }
+      ]
+    },
+    "user_sessions": {
+      "entity": "UserSession",
+      "entities": "user_sessions",
+      "table_name": "user_sessions",
+      "properties": {
+        "id": "string",
+        "user_id": "string",
+        "refresh_token": "string",
+        "expires_at": "string",
+        "created_at": "string",
+        "updated_at": "string"
+      },
+      "methods": [
+        "createUserSession",
+        "getUserSessionById",
+        "updateUserSession",
+        "deleteUserSession",
+        "listUserSessions"
+      ],
+      "endpoints": [
+        {
+          "method": "POST",
+          "path": "/",
+          "handler": "createUserSession",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/:id",
+          "handler": "getUserSessionById",
+          "auth_required": true
+        },
+        {
+          "method": "PUT",
+          "path": "/:id",
+          "handler": "updateUserSession",
+          "auth_required": true
+        },
+        {
+          "method": "DELETE",
+          "path": "/:id",
+          "handler": "deleteUserSession",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "handler": "listUserSessions",
+          "auth_required": true
+        }
+      ]
+    },
+    "users": {
+      "entity": "User",
+      "entities": "users",
+      "table_name": "users",
+      "properties": {
+        "id": "string",
+        "username": "string",
+        "email": "string",
+        "password_hash": "string",
+        "chess_elo": "number",
+        "puzzle_rating": "number",
+        "preferences": "string",
+        "created_at": "string",
+        "updated_at": "string"
+      },
+      "methods": [
+        "createUser",
+        "getUserById",
+        "updateUser",
+        "deleteUser",
+        "listUsers"
+      ],
+      "endpoints": [
+        {
+          "method": "POST",
+          "path": "/",
+          "handler": "createUser",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/:id",
+          "handler": "getUserById",
+          "auth_required": true
+        },
+        {
+          "method": "PUT",
+          "path": "/:id",
+          "handler": "updateUser",
+          "auth_required": true
+        },
+        {
+          "method": "DELETE",
+          "path": "/:id",
+          "handler": "deleteUser",
+          "auth_required": true
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "handler": "listUsers",
+          "auth_required": true
+        }
+      ]
+    }
+  }
+}

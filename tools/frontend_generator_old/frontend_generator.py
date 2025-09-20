@@ -15,7 +15,7 @@ class FrontendGenerator:
         self.backend_config = {}
         self.templates = {}
         
-    def load_backend_config(self, config_path: str = "backend_config.json"):
+    def load_backend_config(self, config_path: str = "/mnt/c/Projects/chessboard-vanilla-v2/config/backend_config.json"):
         """Load backend configuration to understand API contract"""
         with open(config_path, 'r') as f:
             self.backend_config = json.load(f)

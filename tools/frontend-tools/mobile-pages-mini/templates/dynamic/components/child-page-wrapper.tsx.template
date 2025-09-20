@@ -1,0 +1,12 @@
+import React from "react";
+{{HOOK_IMPORTS}}
+import { {{CHILD_NAME}}Page } from "../../pages/{{PARENT_ID}}/{{CHILD_NAME}}Page";
+{{MOBILE_IMPORT}}
+
+export const {{CHILD_NAME}}PageWrapper: React.FC = () => {
+  {{MOBILE_DETECTION}}
+  
+  {{HOOK_USAGE}}
+
+  return {{RENDER_LOGIC}};
+};

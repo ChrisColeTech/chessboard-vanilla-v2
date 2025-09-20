@@ -13,9 +13,10 @@ from core.template_engine import TemplateEngine
 class InfrastructureGenerator:
     """Generates infrastructure files"""
     
-    def __init__(self, file_writer: FileWriter, template_engine: TemplateEngine):
+    def __init__(self, file_writer: FileWriter, template_engine: TemplateEngine, force_overwrite: bool = False):
         self.file_writer = file_writer
         self.template_engine = template_engine
+        self.force_overwrite = force_overwrite
         self.logger = logging.getLogger("infrastructure_generator")
     
     def generate_infrastructure(self, configs: Dict[str, Any]) -> bool:
@@ -30,7 +31,7 @@ class InfrastructureGenerator:
             total_count = 0
             
             # Generate core infrastructure files
-            infrastructure_files = ['database', 'auth_middleware', 'validation_middleware']
+            infrastructure_files = ['database', 'auth_middleware', 'validation_middleware', 'swagger_setup']
             
             for template_name in infrastructure_files:
                 if template_name in templates:
@@ -81,7 +82,7 @@ class InfrastructureGenerator:
             })
             
             # Write app.ts
-            success = self.file_writer.write_file("src/app.ts", content)
+            success = self.file_writer.write_file("src/app.ts", content, self.force_overwrite)
             
             if success:
                 self.logger.info(f"📝 Generated app.ts with {len(route_imports)} routes")
@@ -102,7 +103,7 @@ class InfrastructureGenerator:
                 self.logger.error(f"❌ Invalid template config for {template_name}")
                 return False
             
-            success = self.file_writer.write_file(file_path, template)
+            success = self.file_writer.write_file(file_path, template, self.force_overwrite)
             
             if success:
                 self.logger.info(f"📝 Generated: {file_path}")

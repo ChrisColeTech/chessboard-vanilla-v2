@@ -1,0 +1,154 @@
+{
+  "timestamp": "2025-09-14 21:47:19",
+  "total_tests": 7,
+  "successful_tests": 2,
+  "results": [
+    {
+      "endpoint": "POST /api/content/",
+      "status_code": 200,
+      "success": true,
+      "payload": {
+        "title": "Test Content for Debugging",
+        "content_body": {
+          "sections": [
+            {
+              "type": "text",
+              "content": "Introduction to chess tactics"
+            },
+            {
+              "type": "diagram",
+              "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+            }
+          ],
+          "difficulty": "intermediate",
+          "estimated_time": "15 minutes"
+        },
+        "content_type": "lesson",
+        "difficulty_level": "intermediate",
+        "estimated_duration": 15,
+        "tags": [
+          "tactics",
+          "puzzle"
+        ],
+        "requirements": {
+          "min_rating": 1200,
+          "prerequisites": [
+            "basic_tactics"
+          ]
+        },
+        "metadata": {
+          "author": "Chess Master",
+          "created_date": "2024-01-15",
+          "category": "tactics"
+        }
+      },
+      "response": "{\"success\":true,\"data\":{\"id\":\"285ce1dc-5b40-48c3-838c-1ed7c7cd2c15\",\"title\":\"Test Content for Debugging\",\"content_type\":\"lesson\",\"parent_id\":null,\"order_index\":null,\"description\":null,\"content_body\":{\"sections\":[{\"type\":\"text\",\"content\":\"Introduction to chess tactics\"},{\"fen\":\"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1\",\"type\":\"diagram\"}],\"difficulty\":\"intermediate\",\"estimated_time\":\"15 minutes\"},\"difficulty_level\":\"intermediate\",\"estimated_duration\":15,\"category\":null,\"objectives\"",
+      "error": ""
+    },
+    {
+      "endpoint": "PUT /api/content/285ce1dc-5b40-48c3-838c-1ed7c7cd2c15",
+      "status_code": 200,
+      "success": true,
+      "payload": {
+        "title": "Updated Test Content for Debugging",
+        "content_body": {
+          "sections": [
+            {
+              "type": "text",
+              "content": "Introduction to chess tactics"
+            },
+            {
+              "type": "diagram",
+              "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+            }
+          ],
+          "difficulty": "intermediate",
+          "estimated_time": "15 minutes"
+        },
+        "content_type": "lesson",
+        "difficulty_level": "intermediate",
+        "estimated_duration": 15,
+        "tags": [
+          "tactics",
+          "puzzle"
+        ],
+        "requirements": {
+          "min_rating": 1200,
+          "prerequisites": [
+            "basic_tactics"
+          ]
+        },
+        "metadata": {
+          "author": "Chess Master",
+          "created_date": "2024-01-15",
+          "category": "tactics"
+        }
+      },
+      "response": "{\"success\":true,\"data\":{\"id\":\"285ce1dc-5b40-48c3-838c-1ed7c7cd2c15\",\"title\":\"Updated Test Content for Debugging\",\"content_type\":\"lesson\",\"parent_id\":null,\"order_index\":null,\"description\":null,\"content_body\":{\"sections\":[{\"type\":\"text\",\"content\":\"Introduction to chess tactics\"},{\"fen\":\"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1\",\"type\":\"diagram\"}],\"difficulty\":\"intermediate\",\"estimated_time\":\"15 minutes\"},\"difficulty_level\":\"intermediate\",\"estimated_duration\":15,\"category\":null,\"obj",
+      "error": ""
+    },
+    {
+      "endpoint": "POST /api/puzzles/",
+      "status_code": 400,
+      "success": false,
+      "payload": {
+        "fen": "r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/3P1N2/PPP2PPP/RNBQK2R w KQkq - 0 4",
+        "solution_moves": "Nxe5",
+        "themes": [
+          "fork",
+          "tactics"
+        ],
+        "description": "intermediate",
+        "rating": 1400
+      },
+      "response": "{\"success\":false,\"error\":\"invalid input syntax for type json\"}",
+      "error": ""
+    },
+    {
+      "endpoint": "PUT /api/puzzles/:id",
+      "status_code": 0,
+      "success": false,
+      "error": "No puzzle ID available from POST test"
+    },
+    {
+      "endpoint": "GET /api/puzzles/ (with params)",
+      "status_code": 400,
+      "success": false,
+      "params": {
+        "themes": "[\"tactics\", \"fork\"]",
+        "difficulty": "intermediate",
+        "limit": 10
+      },
+      "response": "{\"success\":false,\"error\":\"Unexpected token 'o', \\\"fork,tactics\\\" is not valid JSON\"}",
+      "error": ""
+    },
+    {
+      "endpoint": "POST /api/user-achievements/",
+      "status_code": 400,
+      "success": false,
+      "payload": {
+        "user_id": "1f0b8b68-b59f-4522-b960-b75ea7b786fe",
+        "achievement_id": "qn28dtt4rmewklmrx",
+        "earned_at": "2024-01-15T10:30:00Z",
+        "progress_data": {
+          "completion_percentage": 100,
+          "milestones_reached": [
+            "first_puzzle",
+            "ten_puzzles",
+            "hundred_points"
+          ]
+        }
+      },
+      "response": "{\"success\":false,\"error\":\"duplicate key value violates unique constraint \\\"user_achievements_user_id_achievement_id_key\\\"\"}",
+      "error": ""
+    },
+    {
+      "endpoint": "DELETE /api/users/b3c27a78-e44a-4ce3-a24a-5ea4fdf3d1db",
+      "status_code": 400,
+      "success": false,
+      "user_id": "b3c27a78-e44a-4ce3-a24a-5ea4fdf3d1db",
+      "response": "{\"success\":false,\"error\":\"User not found\"}",
+      "error": ""
+    }
+  ]
+}

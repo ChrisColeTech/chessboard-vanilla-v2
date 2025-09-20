@@ -1,0 +1,9 @@
+export const pageInstructions = {
+  id: '{{CHILD_ID}}',
+  title: '{{CHILD_DISPLAY_NAME}} Instructions',
+  instructions: [
+    '{{CHILD_DESCRIPTION}}',
+    'Use the action sheet to interact with available options',
+    'This page automatically adapts between mobile and desktop layouts'
+  ]
+}

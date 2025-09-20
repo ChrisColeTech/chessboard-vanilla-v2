@@ -1,0 +1,147 @@
+import { create } from 'zustand'
+import { persist, subscribeWithSelector } from 'zustand/middleware'
+import type { TabId } from '../components/layout/types'
+
+interface UIState {
+  // Navigation
+  selectedTab: TabId
+  currentChildPage: string | null  // For pages like 'dragtest', 'uiaudiotest'
+  
+  // Modal states
+  isSettingsPanelOpen: boolean
+  splashModalOpen: boolean
+  splashModalPage: string | null  // Which splash page to show in modal
+  coinsModalOpen: boolean
+  
+  // UI tracking
+  lastVisited: Date
+}
+
+interface UIActions {
+  // Navigation actions
+  setSelectedTab: (tab: TabId) => void
+  setCurrentChildPage: (childPage: string | null) => void
+  
+  // Settings panel actions
+  openSettings: () => void
+  closeSettings: () => void
+  toggleSettings: () => void
+  
+  // Splash modal actions
+  openSplashModal: (page: string) => void
+  closeSplashModal: () => void
+  
+  // Coins modal actions
+  openCoinsModal: () => void
+  closeCoinsModal: () => void
+  
+  // Utility
+  resetUI: () => void
+}
+
+type UIStore = UIState & UIActions
+
+const initialUIState: UIState = {
+  selectedTab: {{FIRST_TAB_ID}},
+  currentChildPage: null,
+  isSettingsPanelOpen: false,
+  splashModalOpen: false,
+  splashModalPage: null,
+  coinsModalOpen: false,
+  lastVisited: new Date(),
+}
+
+export const useUIStore = create<UIStore>()(
+  subscribeWithSelector(
+    persist(
+      (set) => ({
+        ...initialUIState,
+        
+        // Navigation actions
+        setSelectedTab: (tab: TabId) => set({ selectedTab: tab }),
+        setCurrentChildPage: (childPage: string | null) => set({ currentChildPage: childPage }),
+        
+        // Settings panel actions
+        openSettings: () => set({ isSettingsPanelOpen: true }),
+        closeSettings: () => set({ isSettingsPanelOpen: false }),
+        toggleSettings: () => set((state: any) => ({ isSettingsPanelOpen: !state.isSettingsPanelOpen })),
+        
+        // Splash modal actions
+        openSplashModal: (page: string) => set({ splashModalOpen: true, splashModalPage: page }),
+        closeSplashModal: () => set({ splashModalOpen: false, splashModalPage: null }),
+        
+        // Coins modal actions
+        openCoinsModal: () => set({ coinsModalOpen: true }),
+        closeCoinsModal: () => set({ coinsModalOpen: false }),
+        
+        // Utility
+        resetUI: () => set({ ...initialUIState, lastVisited: new Date() }),
+      }),
+      {
+        name: 'ui-store',
+        partialize: (state: any) => ({
+          selectedTab: state.selectedTab,
+          currentChildPage: state.currentChildPage,
+          lastVisited: new Date(), // Always update on persist
+        }),
+      }
+    )
+  )
+)
+
+// Convenience hooks
+export const useNavigation = () => {
+  const selectedTab = useUIStore((state: any) => state.selectedTab)
+  const currentChildPage = useUIStore((state: any) => state.currentChildPage)
+  const setSelectedTab = useUIStore((state: any) => state.setSelectedTab)
+  const setCurrentChildPage = useUIStore((state: any) => state.setCurrentChildPage)
+  
+  return {
+    selectedTab,
+    currentChildPage,
+    setSelectedTab,
+    setCurrentChildPage,
+  }
+}
+
+export const useSelectedTab = () => useUIStore((state: any) => state.selectedTab)
+
+export const useSettings = () => {
+  const isOpen = useUIStore((state: any) => state.isSettingsPanelOpen)
+  const open = useUIStore((state: any) => state.openSettings)
+  const close = useUIStore((state: any) => state.closeSettings)
+  const toggle = useUIStore((state: any) => state.toggleSettings)
+  
+  return {
+    isOpen,
+    open,
+    close,
+    toggle,
+  }
+}
+
+export const useSplashModal = () => {
+  const isOpen = useUIStore((state: any) => state.splashModalOpen)
+  const page = useUIStore((state: any) => state.splashModalPage)
+  const open = useUIStore((state: any) => state.openSplashModal)
+  const close = useUIStore((state: any) => state.closeSplashModal)
+  
+  return {
+    isOpen,
+    page,
+    open,
+    close,
+  }
+}
+
+export const useCoinsModal = () => {
+  const isOpen = useUIStore((state: any) => state.coinsModalOpen)
+  const open = useUIStore((state: any) => state.openCoinsModal)
+  const close = useUIStore((state: any) => state.closeCoinsModal)
+  
+  return {
+    isOpen,
+    open,
+    close,
+  }
+}

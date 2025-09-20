@@ -236,7 +236,7 @@ class EndpointTester:
         
         return test_data_map.get(handler)
     
-    def test_all_endpoints(self, config_path: str = "backend_config.json") -> Dict:
+    def test_all_endpoints(self, config_path: str = "/mnt/c/Projects/chessboard-vanilla-v2/config/backend_config.json") -> Dict:
         """Test all endpoints from config"""
         self.log("Starting comprehensive endpoint testing...")
         

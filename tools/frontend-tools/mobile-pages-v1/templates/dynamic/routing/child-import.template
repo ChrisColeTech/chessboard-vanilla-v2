@@ -1,0 +1,1 @@
+import { {{CHILD_NAME}}PageWrapper } from '@/components/{{PARENT_ID}}/{{CHILD_NAME}}PageWrapper';

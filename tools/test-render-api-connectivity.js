@@ -23,8 +23,8 @@ if (typeof fetch === 'undefined') {
     import('node-fetch').then(({ default: fetch }) => fetch(...args));
 }
 
-// Configuration - Production Render Environment
-const RENDER_API_URL = process.env.RENDER_API_URL || 'https://chessboard-vanilla-v2.onrender.com';
+// Configuration - Flexible Environment (can be local or production)
+const RENDER_API_URL = process.env.BACKEND_URL || process.env.RENDER_API_URL || 'http://localhost:3001';
 const PAYLOADS_PATH = path.join(__dirname, 'backend-tools', 'payload-generator', 'generated_payloads.json');
 
 // Global state
@@ -143,11 +143,9 @@ function buildEndpointUrl(entityName, endpoint) {
   if (entityName === 'auth') {
     basePath = '/api/auth';
   } else {
-    // Convert snake_case and kebab-case to camelCase for URL paths
-    const camelCaseEntity = entityName
-      .replace(/_([a-z])/g, (match, letter) => letter.toUpperCase())  // Handle underscores
-      .replace(/-([a-z])/g, (match, letter) => letter.toUpperCase()); // Handle hyphens
-    basePath = `/api/${camelCaseEntity}`;
+    // Convert underscores to kebab-case for URL paths (backend uses kebab-case routes)
+    const kebabCaseEntity = entityName.replace(/_/g, '-');
+    basePath = `/api/${kebabCaseEntity}`;
   }
 
   let fullPath = basePath + endpoint.path;

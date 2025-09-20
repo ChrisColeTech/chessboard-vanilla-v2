@@ -1,0 +1,13 @@
+import { useCallback } from 'react'
+import { useAppStore } from '../../stores/appStore'
+
+export function use{{PARENT_NAME}}Actions() {
+  const setCurrentChildPage = useAppStore((state) => state.setCurrentChildPage)
+  const setSelectedTab = useAppStore((state) => state.setSelectedTab)
+
+  {{NAVIGATION_METHODS}}
+
+  return {
+    {{RETURN_METHODS}}
+  }
+}

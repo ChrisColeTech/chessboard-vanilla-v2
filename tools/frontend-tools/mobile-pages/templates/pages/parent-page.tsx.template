@@ -1,0 +1,30 @@
+import React from "react";
+import { useAppStore } from "../../stores/appStore";
+import { usePageInstructions } from "../../hooks/core/usePageInstructions";
+import { usePageActions } from "../../hooks/core/usePageActions";
+import { {{PARENT_NAME}}MainPage } from "./{{PARENT_NAME}}MainPage";
+
+// Child page wrapper imports will be added by the generator
+
+interface {{PARENT_NAME}}PageProps {
+  // Add props as needed
+}
+
+export const {{PARENT_NAME}}Page: React.FC<{{PARENT_NAME}}PageProps> = () => {
+  const currentChildPage = useAppStore((state) => state.currentChildPage);
+  
+  // Apply page hooks directly (no wrapper needed)
+  usePageInstructions("{{PARENT_ID}}");
+  usePageActions("{{PARENT_ID}}");
+  
+  // Default to main page
+  let CurrentPageComponent = {{PARENT_NAME}}MainPage;
+  
+  // Child page routing - wrappers handle mobile switching internally
+  {{CHILD_ROUTING_LOGIC}}
+  
+  // Simple key for child page re-mounting
+  const componentKey = currentChildPage || 'main';
+  
+  return <CurrentPageComponent key={componentKey} />;
+};

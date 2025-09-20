@@ -13,13 +13,20 @@ from core.frontend_generator import FrontendGenerator
 def main():
     parser = argparse.ArgumentParser(description='Frontend Generator V2')
     parser.add_argument('--output', type=str, default='../../../frontend-v2/src', help='Output directory')
-    parser.add_argument('--config', type=str, default='../backend-tools/backend-generator-v2/migrated_config.json', help='Backend config file')
+    parser.add_argument('--config', type=str, help='Backend config file (default: /config/backend_config.json)')
     parser.add_argument('--verbose', '-v', action='store_true', help='Verbose output')
     
     args = parser.parse_args()
     
     try:
-        config_path = Path(args.config)
+        if args.config:
+            config_path = Path(args.config)
+        else:
+            # Default to /config/backend_config.json relative to project root
+            script_dir = Path(__file__).parent
+            project_root = script_dir.parent.parent.parent
+            config_path = "/mnt/c/Projects/chessboard-vanilla-v2/config/backend_config.json"
+        
         output_path = Path(args.output)
         
         print(f"🚀 Frontend Generator V2")

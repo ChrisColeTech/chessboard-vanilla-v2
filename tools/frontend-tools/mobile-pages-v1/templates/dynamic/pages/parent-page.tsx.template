@@ -1,0 +1,46 @@
+import React from "react";
+import { useAppStore } from "../../stores/appStore";
+import { usePageInstructions } from "../../hooks/core/usePageInstructions";
+import { usePageActions } from "../../hooks/core/usePageActions";
+import { useIsMobile } from "../../hooks/core/useIsMobile";
+import { ActionSheetContainer } from "../../components/action-sheet/ActionSheetContainer";
+import { use{{PARENT_NAME}}Actions } from "../../hooks/{{PARENT_ID}}/use{{PARENT_NAME}}Actions";
+import { {{PARENT_NAME}}MainPage } from "./{{PARENT_NAME}}MainPage";
+{{MOBILE_IMPORT}}{{CHILD_IMPORTS}}
+
+interface {{PARENT_NAME}}PageProps {
+  // Add props as needed
+}
+
+export const {{PARENT_NAME}}Page: React.FC<{{PARENT_NAME}}PageProps> = () => {
+  const currentChildPage = useAppStore((state) => state.currentChildPage);
+  const isMobile = useIsMobile();
+  
+  // Apply page hooks directly (no wrapper needed)
+  usePageInstructions("{{PARENT_ID}}");
+  usePageActions("{{PARENT_ID}}");
+  
+  // Use parent actions hook for navigation methods
+  use{{PARENT_NAME}}Actions();
+  
+  // Default to main page with mobile switching
+  let CurrentPageComponent = {{MOBILE_MAIN_PAGE_LOGIC}};
+  
+  // Child page routing - wrappers handle mobile switching internally
+  {{CHILD_ROUTING_LOGIC}}
+  
+  // Simple key for child page re-mounting
+  const componentKey = currentChildPage || 'main';
+  
+  return (
+    <>
+      <CurrentPageComponent key={componentKey} />
+      <ActionSheetContainer 
+        currentPage="{{PARENT_ID}}"
+        onClose={() => {}}
+        isOpen={false}
+        onOpenSettings={() => {}}
+      />
+    </>
+  );
+};

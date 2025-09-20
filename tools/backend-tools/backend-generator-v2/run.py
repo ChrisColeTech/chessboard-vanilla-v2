@@ -11,7 +11,7 @@ def run_with_existing_config():
     """Run the generator with the existing backend config from the v1 generator"""
     
     # Path to the existing backend config
-    old_config_path = Path("../config-v2/backend_config.json")
+    old_config_path = Path("/mnt/c/Projects/chessboard-vanilla-v2/config/backend_config.json")
     
     if not old_config_path.exists():
         print(f"❌ Backend config not found at: {old_config_path}")
@@ -86,7 +86,7 @@ def run_with_test_config():
 def run_dry_run():
     """Run a dry run with existing config"""
     
-    old_config_path = Path("../config-v2/backend_config.json")
+    old_config_path = Path("/mnt/c/Projects/chessboard-vanilla-v2/config/backend_config.json")
     
     if not old_config_path.exists():
         print(f"❌ Backend config not found at: {old_config_path}")

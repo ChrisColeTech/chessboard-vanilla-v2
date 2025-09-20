@@ -1,0 +1,18 @@
+import React from "react";
+import { MobileChessboardLayout } from "../../components/chess/MobileChessboardLayout";
+
+interface {{MOBILE_CHILD_NAME}}PageProps {
+  // Add mobile-specific props as needed
+}
+
+export const {{MOBILE_CHILD_NAME}}Page: React.FC<{{MOBILE_CHILD_NAME}}PageProps> = () => {
+  return (
+    <div className="uitest-mobile-container-padded">
+      <MobileChessboardLayout
+        topPieces={<div className="uitest-mobile-pieces">{{CHILD_DISPLAY_NAME}} Top Pieces</div>}
+        center={<div className="uitest-mobile-center">{{CHILD_DISPLAY_NAME}} Content</div>}
+        bottomPieces={<div className="uitest-mobile-pieces">{{CHILD_DISPLAY_NAME}} Bottom Pieces</div>}
+      />
+    </div>
+  );
+};

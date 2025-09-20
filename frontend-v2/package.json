@@ -1,13 +1,14 @@
 {
   "name": "chessboard-vanilla-frontend-v2",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npm run prelaunch && vite",
-    "dev:debug": "npm run prelaunch && vite --config vite.config.ddebug.ts",
-    "prelaunch": "lsof -ti:5173 | xargs -r kill -9 2>/dev/null; ",
-    "build": "tsc -b > frontend_build.log 2>&1",
+    "dev": "lsof -ti:5173 | xargs -r kill -9 2>/dev/null; vite",
+    "dev:web": "lsof -ti:5173 | xargs -r kill -9 2>/dev/null; npm run dev:web:local",
+    "dev:local": "vite",
+    "dev:web:local": "vite --config vite.config.web.ts",
+    "build": "tsc -b",
     "lint": "eslint .",
     "preview": "vite preview"
   },

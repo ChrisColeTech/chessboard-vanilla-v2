@@ -1,0 +1,48 @@
+{
+  "version": "1.0.0",
+  "generated_by": "mobile-pages-v2",
+  "last_updated": "2025-09-17T10:49:09.392712",
+  "pages": {
+    "settings": {
+      "id": "settings",
+      "name": "Settings",
+      "type": "parent",
+      "parent_id": "",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/settings",
+      "component_name": "SettingsPage",
+      "has_mobile": false,
+      "created_at": "2025-09-17T10:29:53.031576"
+    },
+    "parent": {
+      "id": "parent",
+      "name": "Parent",
+      "type": "parent",
+      "parent_id": "",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/parent",
+      "component_name": "ParentPage",
+      "has_mobile": false,
+      "created_at": "2025-09-17T10:49:09.177841"
+    },
+    "hooktest": {
+      "id": "hooktest",
+      "name": "Hooktest",
+      "type": "child",
+      "parent_id": "parent",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/hooktest",
+      "component_name": "HooktestPage",
+      "has_mobile": false,
+      "created_at": "2025-09-17T10:49:09.392676"
+    }
+  },
+  "metadata": {
+    "total_pages": 3,
+    "parent_pages": 2,
+    "child_pages": 1
+  }
+}

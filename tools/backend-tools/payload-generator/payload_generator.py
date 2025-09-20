@@ -13,18 +13,54 @@ import string
 from datetime import datetime, timedelta
 from typing import Dict, List, Any, Optional
 
+# Import specialized modules
+from field_validator import FieldValidator
+from json_formatter import JSONFormatter
+from id_resolver import IDResolver
+
 
 class PayloadGenerator:
-    def __init__(self, config_path: str):
+    def __init__(self, config_path: str, seed_fresh_data: bool = True):
         """Initialize the payload generator with configuration."""
         self.config_path = config_path
         self.config = self._load_config()
+        
+        # Seed fresh data if requested
+        if seed_fresh_data:
+            self._seed_fresh_data()
+        
         self.real_ids = self._load_real_ids()
         self.test_user_id = self.real_ids['user_id']
-        self.test_timestamp = datetime.now().isoformat()
+        # Use timezone-aware timestamp for PostgreSQL compatibility
+        from datetime import timezone
+        self.test_timestamp = datetime.now(timezone.utc).isoformat()
+        
+        # Initialize specialized modules
+        self.field_validator = FieldValidator()
+        self.json_formatter = JSONFormatter()
+        self.id_resolver = IDResolver()
         
         # Generate consistent test user credentials for register/login flow
         self.test_user_credentials = self._generate_random_user_credentials()
+    
+    def _seed_fresh_data(self):
+        """Run the test data seeder to create fresh data"""
+        try:
+            print("🌱 Seeding fresh test data before generating payloads...")
+            from test_data_seeder import TestDataSeederV2
+            
+            # Create seeder without cleanup to preserve existing data relationships
+            seeder = TestDataSeederV2(cleanup_old_data=False)
+            success = seeder.seed_all_test_data()
+            
+            if success:
+                print("✅ Fresh test data seeded successfully!")
+            else:
+                print("⚠️  Test data seeding had issues, but continuing with existing data...")
+                
+        except Exception as e:
+            print(f"⚠️  Could not seed fresh data: {e}")
+            print("💡 Continuing with existing real_test_ids.json data...")
     
     def _load_config(self) -> Dict:
         """Load the backend configuration file."""
@@ -93,8 +129,10 @@ class PayloadGenerator:
         if 'token' in property_name.lower():
             return f"token_{datetime.now().strftime('%Y%m%d%H%M%S')}"
         
-        if any(time_field in property_name.lower() for time_field in ['created_at', 'updated_at', 'expires_at', 'timestamp']):
-            return self.test_timestamp
+        if any(time_field in property_name.lower() for time_field in ['created_at', 'updated_at', 'expires_at', 'timestamp', 'started_at', 'completed_at', 'attempted_at', 'earned_at', 'last_accessed', '_at']):
+            # Use timezone-aware timestamp for PostgreSQL compatibility
+            from datetime import timezone
+            return datetime.now(timezone.utc).isoformat()
         
         # Handle ID fields with real database IDs
         if property_name == 'id':
@@ -108,9 +146,36 @@ class PayloadGenerator:
                 # For other entities, still generate dynamic ID but check for entity-specific mapping
                 return f"test-{property_name}-{datetime.now().strftime('%Y%m%d%H%M%S')}"
             
-        # Handle type-based defaults
+        # Handle type-based defaults with constraint awareness
         if property_type == "string":
-            return f"test_{property_name}"
+            # Handle fields with known constraints
+            if property_name == 'content_type':
+                return random.choice(['tutorial', 'lesson', 'course', 'exercise'])
+            elif property_name == 'difficulty_level':
+                return random.choice(['beginner', 'intermediate', 'advanced'])
+            elif property_name == 'status' and entity_name == 'user_content_progress':
+                return random.choice(['not_started', 'in_progress', 'completed'])
+            elif property_name == 'user_color':
+                return random.choice(['white', 'black'])
+            elif property_name == 'time_control':
+                return random.choice(['bullet', 'blitz', 'rapid', 'classical'])
+            elif property_name == 'result':
+                return random.choice(['1-0', '0-1', '1/2-1/2'])
+            elif property_name == 'eco_code':
+                # Standard chess opening codes
+                return random.choice(['A00', 'B01', 'C20', 'D00', 'E00'])
+            elif property_name == 'themes':
+                # Generate proper chess themes as array for API (JSONB column expects array, not string)
+                chess_themes = random.choice([
+                    ["tactics", "fork"],
+                    ["endgame", "checkmate"],
+                    ["opening", "development"],
+                    ["middlegame", "attack"],
+                    ["sacrifice", "combination"]
+                ])
+                return chess_themes
+            else:
+                return f"test_{property_name}"
         elif property_type == "number":
             # Context-aware numbers
             if 'rating' in property_name.lower() or 'elo' in property_name.lower():
@@ -154,6 +219,10 @@ class PayloadGenerator:
             if endpoint.get('method') in ['POST'] and prop_name in ['id', 'created_at', 'updated_at']:
                 continue
             
+            # Skip business key fields for PUT requests to avoid unique constraint violations
+            if endpoint.get('method') in ['PUT'] and prop_name in ['id', 'source_id', 'achievement_id', 'user_id', 'created_at', 'updated_at']:
+                continue
+            
             # Use matching credentials if available
             if prop_name == 'username' and username:
                 payload[prop_name] = username
@@ -166,6 +235,32 @@ class PayloadGenerator:
         
         # Add specific payload adjustments based on endpoint path and method
         payload = self._customize_payload_for_endpoint(payload, entity_name, endpoint)
+        
+        # Apply specialized processing modules
+        print(f"🔧 Processing {entity_name} payload with specialized modules...")
+        
+        # Step 1: Resolve all ID fields to use real database IDs
+        payload = self.id_resolver.resolve_all_ids_in_payload(entity_name, payload)
+        
+        # Step 2: Get field types for validation
+        # Handle special table name conversions
+        table_name_mappings = {
+            'user_content_progress': 'user_content_progress',  # No change needed
+            'user_achievements': 'user_achievements',  # No change needed
+            'puzzle_attempts': 'puzzle_attempts',  # No change needed
+            'puzzle_sources': 'puzzle_sources',  # No change needed
+            'user_profiles': 'user_profiles',  # No change needed
+            'user_sessions': 'user_sessions',  # No change needed
+            'historic_games': 'historic_games',  # No change needed
+        }
+        table_name = table_name_mappings.get(entity_name, entity_name.rstrip('s'))
+        field_types = self.field_validator.get_field_types(table_name)
+        
+        # Step 3: Format JSON fields properly for API payloads (send actual arrays/objects)
+        payload = self.json_formatter.format_payload_json_fields(payload, field_types, for_api=True)
+        
+        # Step 4: Validate and add missing required fields
+        payload = self.field_validator.validate_payload(table_name, payload)
         
         return payload
     
@@ -258,7 +353,8 @@ class PayloadGenerator:
                 return {
                     'ai_level': 1,
                     'user_color': 'white',
-                    'time_control': 'blitz'
+                    'time_control': 'blitz',
+                    'current_fen': 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
                 }
             elif 'analyze' in path:
                 return {
@@ -287,7 +383,7 @@ class PayloadGenerator:
                 return {
                     'user_id': self.test_user_id,
                     'refresh_token': f"refresh_token_{datetime.now().strftime('%Y%m%d%H%M%S')}",
-                    'expires_at': (datetime.now() + timedelta(hours=24)).isoformat()
+                    'expires_at': (datetime.now(timezone.utc) + timedelta(hours=24)).isoformat()
                 }
         
         # Progress endpoints
@@ -426,20 +522,38 @@ class PayloadGenerator:
         for param in param_matches:
             if param == 'id':
                 # Use appropriate real ID based on entity context
-                if entity_name == 'puzzles':
+                if entity_name == 'users':
+                    params[param] = self.real_ids['user_id']
+                elif entity_name == 'puzzles':
                     params[param] = self.real_ids['puzzle_id']
                 elif entity_name == 'games':
                     params[param] = self.real_ids['game_id']
-                elif entity_name == 'tutorials':
-                    params[param] = self.real_ids['tutorial_id']
                 elif entity_name == 'achievements':
                     params[param] = self.real_ids['achievement_id']
+                elif entity_name == 'content':
+                    params[param] = self.real_ids['content_id']
+                elif entity_name == 'user_profiles':
+                    params[param] = self.real_ids['profile_id']
+                elif entity_name == 'user_sessions':
+                    params[param] = self.real_ids['session_id']
+                elif entity_name == 'puzzle_attempts':
+                    params[param] = self.real_ids['puzzle_attempt_id']
+                elif entity_name == 'puzzle_sources':
+                    params[param] = self.real_ids['puzzle_source_id']
+                elif entity_name == 'user_achievements':
+                    params[param] = self.real_ids['user_achievement_id']
+                elif entity_name == 'user_content_progress':
+                    params[param] = self.real_ids['progress_id']
+                elif entity_name == 'historic_games':
+                    params[param] = self.real_ids['historic_game_id']
+                elif entity_name == 'openings':
+                    params[param] = self.real_ids['opening_id']
+                elif entity_name == 'tutorials':
+                    params[param] = self.real_ids['tutorial_id']
                 elif entity_name == 'learning':
                     params[param] = self.real_ids['learning_path_id']
                 elif entity_name == 'ai-opponents':
                     params[param] = self.real_ids['ai_opponent_id']
-                elif entity_name == 'historic-games':
-                    params[param] = self.real_ids['historic_game_id']
                 elif entity_name == 'learning-modules':
                     params[param] = self.real_ids['learning_module_id']
                 elif entity_name == 'subscriptions':
@@ -449,7 +563,9 @@ class PayloadGenerator:
                 elif entity_name == 'study-plans':
                     params[param] = self.real_ids['study_plan_id']
                 else:
-                    params[param] = self.real_ids['game_id']  # Default fallback
+                    # Generate a new UUID for unknown entities instead of using wrong ID
+                    import uuid
+                    params[param] = str(uuid.uuid4())
             elif param == 'userId':
                 params[param] = self.real_ids['user_id']
             elif param == 'puzzleId':
@@ -472,6 +588,32 @@ class PayloadGenerator:
                 params[param] = 'kasparov'
             elif param == 'token':
                 params[param] = 'test-session-token'
+            elif param == 'username':
+                username, _ = self._generate_random_user_credentials()
+                params[param] = username
+            elif param == 'email':
+                _, email = self._generate_random_user_credentials()
+                params[param] = email
+            elif param == 'playerId':
+                params[param] = self.real_ids['user_id']
+            elif param == 'tournament':
+                params[param] = 'World Championship 2023'
+            elif param == 'ecoCode':
+                params[param] = self.real_ids['opening_eco_code']
+            elif param == 'difficulty':
+                params[param] = 'beginner'
+            elif param == 'type':
+                params[param] = 'lesson'
+            elif param == 'rating':
+                params[param] = '1500'
+            elif param == 'theme':
+                params[param] = 'endgame'
+            elif param == 'contentId':
+                params[param] = self.real_ids.get('content_id', 'test-content-001')
+            elif param == 'puzzleId':
+                params[param] = self.real_ids['puzzle_id']
+            elif param == 'achievementId':
+                params[param] = self.real_ids['achievement_id']
             else:
                 # Try to map to a real ID or fail
                 if param.endswith('Id') and param[:-2] + '_id' in self.real_ids:
@@ -508,9 +650,27 @@ class PayloadGenerator:
 
 def main():
     """Main function to run the payload generator."""
+    import argparse
+    
+    parser = argparse.ArgumentParser(description='Generate API test payloads from configuration')
+    parser.add_argument('--config', 
+                       help='Configuration file path (default: /config/backend_config.json)')
+    parser.add_argument('--output', 
+                       help='Output file path (default: generated_payloads.json)')
+    
+    args = parser.parse_args()
+    
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    config_path = os.path.join(script_dir, '..', 'backend_config.json')
-    output_path = os.path.join(script_dir, 'generated_payloads.json')
+    
+    # Default to the corrected config in /config/backend_config.json
+    if args.config:
+        config_path = args.config
+    else:
+        # Default to /config/backend_config.json relative to project root
+        project_root = os.path.join(script_dir, '..', '..', '..')
+        config_path ="/mnt/c/Projects/chessboard-vanilla-v2/config/backend_config.json"
+    
+    output_path = args.output if args.output else os.path.join(script_dir, 'generated_payloads.json')
     
     try:
         generator = PayloadGenerator(config_path)

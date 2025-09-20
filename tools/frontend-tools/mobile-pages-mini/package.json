@@ -1,0 +1,24 @@
+{
+  "name": "mobile-pages-mini",
+  "version": "1.0.0",
+  "description": "Template-Based Page Generator for Mobile React Applications",
+  "main": "main.py",
+  "scripts": {
+    "mobile": "python main.py"
+  },
+  "bin": {
+    "mobile": "./main.py"
+  },
+  "keywords": [
+    "react",
+    "mobile",
+    "pages",
+    "generator",
+    "template"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "python": ">=3.8"
+  }
+}

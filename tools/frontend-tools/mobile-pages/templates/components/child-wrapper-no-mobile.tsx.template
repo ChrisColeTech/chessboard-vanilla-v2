@@ -1,0 +1,11 @@
+import React from "react";
+import { {{CHILD_NAME}}Page } from "../../pages/{{PARENT_ID}}/{{CHILD_NAME}}Page";
+
+// Mobile detection placeholder - update when useIsMobile is available
+const useIsMobile = () => false;
+
+export const {{CHILD_NAME}}PageWrapper: React.FC = () => {
+  const isMobile = useIsMobile();
+
+  return isMobile ? <{{CHILD_NAME}}Page /> : <{{CHILD_NAME}}Page />;
+};

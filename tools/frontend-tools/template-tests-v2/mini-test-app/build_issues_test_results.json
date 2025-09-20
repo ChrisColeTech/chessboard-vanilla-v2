@@ -1,0 +1,83 @@
+{
+  "build_success": false,
+  "build_errors": "",
+  "tests": {
+    "issue_1": {
+      "status": "FAIL",
+      "issues": [
+        "AppLayout missing children prop",
+        "Contains placeholder routing comment instead of actual routing",
+        "No page routing logic found"
+      ],
+      "has_children": false,
+      "has_routing": false,
+      "has_placeholder": true
+    },
+    "issue_2": {
+      "status": "FAIL",
+      "issues": [
+        "Found 'useTestcenterActions' - should be 'useTestCenterActions'",
+        "Found 'useGamecenterActions' - should be 'useGameCenterActions'",
+        "Casing mismatch: useTestcenterActions from ../../hooks/testcenter/useTestcenterActions",
+        "Casing mismatch: useGamecenterActions from ../../hooks/gamecenter/useGamecenterActions"
+      ],
+      "imports_found": [
+        [
+          "useCallback, useState, useEffect ",
+          "react"
+        ],
+        [
+          "useUIClickSoundOptimized ",
+          "../../hooks/audio/useUIClickSoundOptimized"
+        ],
+        [
+          "useUIHoverSoundOptimized ",
+          "../../hooks/audio/useUIHoverSoundOptimized"
+        ],
+        [
+          "useAppStore ",
+          "../../stores/appStore"
+        ],
+        [
+          "useAuthStore ",
+          "../../stores/authStore"
+        ],
+        [
+          "PAGE_ACTIONS ",
+          "../../constants/actions/page-actions.constants"
+        ],
+        [
+          "useTestcenterActions ",
+          "../../hooks/testcenter/useTestcenterActions"
+        ],
+        [
+          "useDashboardActions ",
+          "../../hooks/dashboard/useDashboardActions"
+        ],
+        [
+          "useGamecenterActions ",
+          "../../hooks/gamecenter/useGamecenterActions"
+        ]
+      ]
+    },
+    "issue_3": {
+      "status": "PASS",
+      "issues": [],
+      "conflicting_files": []
+    },
+    "issue_4": {
+      "status": "FAIL",
+      "issues": [
+        "Found problematic import: GamecenterPageWrapper",
+        "Found problematic import: GamecentermainPageWrapper",
+        "Found problematic import: PlayareaPageWrapper"
+      ]
+    }
+  },
+  "summary": {
+    "total_tests": 4,
+    "passed_tests": 1,
+    "failed_tests": 3,
+    "all_passed": false
+  }
+}

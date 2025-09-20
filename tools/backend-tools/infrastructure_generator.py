@@ -274,7 +274,7 @@ export const validateSchema = (schema: any) => {
     def _generate_app_file(self):
         """Generate main app.ts file with dynamic route registration"""
         # Load backend config to get available endpoints
-        config_path = Path(__file__).parent.parent / "backend_config.json"
+        config_path = "/mnt/c/Projects/chessboard-vanilla-v2/config/backend_config.json"
         route_imports = []
         route_registrations = []
         

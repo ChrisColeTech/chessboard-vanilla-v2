@@ -1,0 +1,10 @@
+{{CHILD_NAVIGATION_ICONS_IMPORT}}
+import type { ActionSheetAction } from '../../../types/core/action-sheet.types'
+
+export const pageActions = {
+  id: '{{PARENT_ID}}',
+  actions: [
+    // Child navigation actions
+    {{CHILD_NAVIGATION_ACTIONS}}
+  ] as ActionSheetAction[]
+}

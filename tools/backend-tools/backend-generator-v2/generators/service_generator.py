@@ -13,9 +13,10 @@ from core.template_engine import TemplateEngine
 class ServiceGenerator:
     """Generates TypeScript service files"""
     
-    def __init__(self, file_writer: FileWriter, template_engine: TemplateEngine):
+    def __init__(self, file_writer: FileWriter, template_engine: TemplateEngine, force_overwrite: bool = False):
         self.file_writer = file_writer
         self.template_engine = template_engine
+        self.force_overwrite = force_overwrite
         self.logger = logging.getLogger("service_generator")
     
     def generate_service(self, entity_info: Dict[str, str], table_name: str, 
@@ -32,7 +33,7 @@ class ServiceGenerator:
             # Generate service methods
             service_methods = []
             for method in all_methods:
-                method_code = self._generate_service_method(method, entity, entity_lower, table_name, configs)
+                method_code = self._generate_service_method(method, entity, entity_lower, table_name, properties, configs)
                 if method_code:
                     service_methods.append(method_code)
             
@@ -45,7 +46,7 @@ class ServiceGenerator:
             
             # Write service file
             file_path = FilePathHelper.get_service_path(entity_lower)
-            success = self.file_writer.write_file(file_path, content)
+            success = self.file_writer.write_file(file_path, content, self.force_overwrite)
             
             if success:
                 self.logger.info(f"📝 Generated service: {entity_lower}Service")
@@ -57,10 +58,10 @@ class ServiceGenerator:
             return False
     
     def _generate_service_method(self, method_name: str, entity: str, entity_lower: str, 
-                               table_name: str, configs: Dict[str, Any]) -> str:
+                               table_name: str, properties: Dict[str, str], configs: Dict[str, Any]) -> str:
         """Generate a service method using templates"""
         return self.template_engine.generate_method_from_template(
-            method_name, entity, entity_lower, table_name, configs
+            method_name, entity, entity_lower, table_name, properties, configs
         )
     
     def _build_service_content(self, entity: str, entity_lower: str, model_imports: str, 

@@ -1,0 +1,10 @@
+export const pageInstructions = {
+  id: '{{PARENT_ID}}',
+  title: '{{PARENT_NAME}} Instructions',
+  instructions: [
+    'Welcome to the {{PARENT_ID}} section',
+    'Use the action sheet to navigate to child pages',
+    'This page supports both mobile and desktop layouts',
+    'Child pages will automatically adapt to your device'
+  ]
+}

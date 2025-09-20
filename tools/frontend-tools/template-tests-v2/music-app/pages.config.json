@@ -1,0 +1,156 @@
+{
+  "version": "1.0.0",
+  "generated_by": "mobile-pages-v2",
+  "last_updated": "2025-09-18T18:45:37.802553",
+  "pages": {
+    "trending": {
+      "id": "trending",
+      "name": "Trending",
+      "type": "child",
+      "parent_id": "discover",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/trending",
+      "component_name": "TrendingPage",
+      "has_mobile": true,
+      "created_at": "2025-09-18T18:37:30.200483"
+    },
+    "genres": {
+      "id": "genres",
+      "name": "Genres",
+      "type": "child",
+      "parent_id": "discover",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/genres",
+      "component_name": "GenresPage",
+      "has_mobile": true,
+      "created_at": "2025-09-18T18:45:37.802513"
+    },
+    "discover": {
+      "id": "discover",
+      "name": "Discover",
+      "type": "parent",
+      "parent_id": "",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/discover",
+      "component_name": "DiscoverPage",
+      "has_mobile": true,
+      "created_at": "2025-09-18T18:37:17.875524"
+    },
+    "playlists": {
+      "id": "playlists",
+      "name": "Playlists",
+      "type": "child",
+      "parent_id": "library",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/playlists",
+      "component_name": "PlaylistsPage",
+      "has_mobile": true,
+      "created_at": "2025-09-18T18:40:17.633357"
+    },
+    "downloads": {
+      "id": "downloads",
+      "name": "Downloads",
+      "type": "child",
+      "parent_id": "library",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/downloads",
+      "component_name": "DownloadsPage",
+      "has_mobile": true,
+      "created_at": "2025-09-18T18:40:28.261800"
+    },
+    "library": {
+      "id": "library",
+      "name": "Library",
+      "type": "parent",
+      "parent_id": "",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/library",
+      "component_name": "LibraryPage",
+      "has_mobile": true,
+      "created_at": "2025-09-18T18:40:04.968178"
+    },
+    "songs": {
+      "id": "songs",
+      "name": "Songs",
+      "type": "child",
+      "parent_id": "search",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/songs",
+      "component_name": "SongsPage",
+      "has_mobile": true,
+      "created_at": "2025-09-18T18:40:58.701987"
+    },
+    "artists": {
+      "id": "artists",
+      "name": "Artists",
+      "type": "child",
+      "parent_id": "search",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/artists",
+      "component_name": "ArtistsPage",
+      "has_mobile": true,
+      "created_at": "2025-09-18T18:41:09.572714"
+    },
+    "search": {
+      "id": "search",
+      "name": "Search",
+      "type": "parent",
+      "parent_id": "",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/search",
+      "component_name": "SearchPage",
+      "has_mobile": true,
+      "created_at": "2025-09-18T18:40:45.684377"
+    },
+    "stats": {
+      "id": "stats",
+      "name": "Stats",
+      "type": "child",
+      "parent_id": "profile",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/stats",
+      "component_name": "StatsPage",
+      "has_mobile": true,
+      "created_at": "2025-09-18T18:41:40.658010"
+    },
+    "settings": {
+      "id": "settings",
+      "name": "Settings",
+      "type": "child",
+      "parent_id": "profile",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/settings",
+      "component_name": "SettingsPage",
+      "has_mobile": true,
+      "created_at": "2025-09-18T18:41:51.918801"
+    },
+    "profile": {
+      "id": "profile",
+      "name": "Profile",
+      "type": "parent",
+      "parent_id": "",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/profile",
+      "component_name": "ProfilePage",
+      "has_mobile": true,
+      "created_at": "2025-09-18T18:41:29.618764"
+    }
+  },
+  "metadata": {
+    "total_pages": 12,
+    "parent_pages": 4,
+    "child_pages": 8
+  }
+}

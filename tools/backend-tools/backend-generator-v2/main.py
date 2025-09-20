@@ -21,6 +21,7 @@ from generators.model_generator import ModelGenerator
 from generators.service_generator import ServiceGenerator
 from generators.route_generator import RouteGenerator
 from generators.infrastructure_generator import InfrastructureGenerator
+from generators.swagger_generator import SwaggerGenerator
 
 
 @dataclass
@@ -29,7 +30,7 @@ class GenerationOptions:
     dry_run: bool = False
     verbose: bool = False
     validate_config: bool = True
-    output_path: str = "../../backend-v2"
+    output_path: str = "../../../backend-v2"
     force_overwrite: bool = False
 
 
@@ -37,7 +38,7 @@ class BackendGeneratorOrchestrator:
     """Main orchestrator that coordinates all generator modules"""
     
     def __init__(self, backend_path: str = None, config_dir: str = None):
-        self.backend_path = backend_path or "../../backend-v2"
+        self.backend_path = backend_path or "../../../backend-v2"
         
         # Setup logging
         self.logger = logging.getLogger("backend_generator_orchestrator")
@@ -56,16 +57,18 @@ class BackendGeneratorOrchestrator:
         self.service_generator = None
         self.route_generator = None
         self.infrastructure_generator = None
+        self.swagger_generator = None
     
     def _initialize_generators(self, options: GenerationOptions):
         """Initialize generator modules with file writer"""
         self.file_writer = FileWriter(options.output_path, options.dry_run)
         
         # Initialize all generator modules
-        self.model_generator = ModelGenerator(self.file_writer, self.template_engine)
-        self.service_generator = ServiceGenerator(self.file_writer, self.template_engine)
-        self.route_generator = RouteGenerator(self.file_writer, self.template_engine, self.config_loader)
-        self.infrastructure_generator = InfrastructureGenerator(self.file_writer, self.template_engine)
+        self.model_generator = ModelGenerator(self.file_writer, self.template_engine, options.force_overwrite)
+        self.service_generator = ServiceGenerator(self.file_writer, self.template_engine, options.force_overwrite)
+        self.route_generator = RouteGenerator(self.file_writer, self.template_engine, self.config_loader, options.force_overwrite)
+        self.infrastructure_generator = InfrastructureGenerator(self.file_writer, self.template_engine, options.force_overwrite)
+        self.swagger_generator = SwaggerGenerator(self.file_writer, self.template_engine, options.force_overwrite)
     
     def generate_backend(self, entities_config: Dict[str, Any], options: GenerationOptions) -> bool:
         """Generate complete backend from entities configuration"""
@@ -108,7 +111,20 @@ class BackendGeneratorOrchestrator:
                 self.logger.error("❌ App.ts generation failed")
                 return False
             
+            # Generate Swagger documentation
+            swagger_success = self.swagger_generator.generate_swagger_infrastructure(entities_config, configs)
+            if not swagger_success:
+                self.logger.warning("⚠️ Swagger infrastructure generation failed")
+            
+            swagger_spec_success = self.swagger_generator.generate_swagger_spec(entities_config, configs)
+            if not swagger_spec_success:
+                self.logger.warning("⚠️ Swagger specification generation failed")
+            
             # Report results
+            total_swagger_success = swagger_success and swagger_spec_success
+            if total_swagger_success:
+                self.logger.info("📖 Swagger documentation generated successfully")
+            
             self._report_generation_results(success_count, total_count)
             return success_count == total_count
             
@@ -132,7 +148,7 @@ class BackendGeneratorOrchestrator:
             # Generate files using specialized generators
             model_success = self.model_generator.generate_model(entity_info, properties, configs)
             service_success = self.service_generator.generate_service(entity_info, table_name, methods, properties, configs)
-            route_success = self.route_generator.generate_routes(entity_info, endpoints, configs)
+            route_success = self.route_generator.generate_routes(entity_info, endpoints, entity_config)
             
             return model_success and service_success and route_success
             
@@ -187,8 +203,9 @@ def main():
     import argparse
     
     parser = argparse.ArgumentParser(description='Configuration-Driven Backend Generator v2')
-    parser.add_argument('config', help='Path to entities configuration file')
-    parser.add_argument('--backend-path', default='../../backend-v2', help='Backend output path')
+    parser.add_argument('config', nargs='?', 
+                       help='Path to entities configuration file (default: /config/backend_config.json)')
+    parser.add_argument('--backend-path', default='../../../backend-v2', help='Backend output path')
     parser.add_argument('--config-dir', help='Configuration directory path')
     parser.add_argument('--dry-run', action='store_true', help='Preview generation without creating files')
     parser.add_argument('--verbose', '-v', action='store_true', help='Verbose output')
@@ -202,7 +219,14 @@ def main():
         logging.getLogger().setLevel(logging.DEBUG)
     
     # Load entities configuration
-    config_path = Path(args.config)
+    if args.config:
+        config_path = Path(args.config)
+    else:
+        # Default to /config/backend_config.json relative to project root
+        script_dir = Path(__file__).parent
+        project_root = script_dir.parent.parent.parent
+        config_path = Path("/mnt/c/Projects/chessboard-vanilla-v2/config/backend_config.json")
+    
     if not config_path.exists():
         print(f"❌ Config file not found: {config_path}")
         return 1

@@ -21,11 +21,31 @@ class TemplateEngine:
             # Handle both {variable} and {{variable}} formats
             processed = template
             
+            # Process dynamic field generation if properties are available
+            if 'properties' in variables:
+                properties = variables['properties']
+                
+                # Generate INSERT field list and parameters
+                insert_fields = self._generate_insert_fields(properties)
+                insert_params = self._generate_insert_params(properties)
+                destructure_fields = self._generate_destructure_fields(properties)
+                update_fields = self._generate_update_fields(properties)
+                param_array = self._generate_param_array(properties)
+                update_param_array = self._generate_update_param_array(properties)
+                
+                processed = processed.replace('{INSERT_FIELDS}', insert_fields)
+                processed = processed.replace('{INSERT_PARAMS}', insert_params)
+                processed = processed.replace('{DESTRUCTURE_FIELDS}', destructure_fields)
+                processed = processed.replace('{UPDATE_FIELDS}', update_fields)
+                processed = processed.replace('{PARAM_ARRAY}', param_array)
+                processed = processed.replace('{UPDATE_PARAM_ARRAY}', update_param_array)
+            
             for key, value in variables.items():
-                # Replace {key} format
-                processed = processed.replace(f"{{{key}}}", str(value))
-                # Replace {{key}} format  
-                processed = processed.replace(f"{{{{{key}}}}}", str(value))
+                if key != 'properties':  # Skip properties as it's handled above
+                    # Replace {key} format
+                    processed = processed.replace(f"{{{key}}}", str(value))
+                    # Replace {{key}} format  
+                    processed = processed.replace(f"{{{{{key}}}}}", str(value))
             
             return processed
             
@@ -52,7 +72,7 @@ class TemplateEngine:
         return None
     
     def generate_method_from_template(self, method_name: str, entity: str, entity_lower: str, 
-                                    table_name: str, configs: Dict[str, Any]) -> str:
+                                    table_name: str, properties: Dict[str, str], configs: Dict[str, Any]) -> str:
         """Generate a service method using templates"""
         template_config = self.get_method_template(method_name, entity_lower, configs)
         
@@ -60,7 +80,8 @@ class TemplateEngine:
             variables = {
                 'method_name': method_name,
                 'entity': entity,
-                'table_name': table_name
+                'table_name': table_name,
+                'properties': properties
             }
             return self.process_template(template_config['template'], variables)
         
@@ -165,3 +186,106 @@ class TemplateEngine:
             method.format(Entity=entity, Entities=entities.capitalize())
             for method in standard_methods
         ]
+    
+    def _generate_insert_fields(self, properties: Dict[str, str]) -> str:
+        """Generate field list for INSERT statements"""
+        # Skip auto-generated fields and include user-provided fields
+        user_fields = [field for field in properties.keys() 
+                      if field not in ['id', 'created_at', 'updated_at']]
+        
+        all_fields = ['id'] + user_fields + ['created_at', 'updated_at']
+        return ', '.join(all_fields)
+    
+    def _generate_insert_params(self, properties: Dict[str, str]) -> str:
+        """Generate parameter placeholders for INSERT statements"""
+        # Skip auto-generated fields and include user-provided fields
+        user_fields = [field for field in properties.keys() 
+                      if field not in ['id', 'created_at', 'updated_at']]
+        
+        # Generate $1, $2, $3, etc. - id + user fields + created_at + updated_at
+        param_count = 1 + len(user_fields) + 2
+        params = [f"${i}" for i in range(1, param_count + 1)]
+        
+        # Replace timestamp parameters with NOW()
+        params[-2] = 'NOW()'  # created_at
+        params[-1] = 'NOW()'  # updated_at
+        
+        return ', '.join(params)
+    
+    def _generate_destructure_fields(self, properties: Dict[str, str]) -> str:
+        """Generate destructuring assignment for input data"""
+        # Only destructure fields that come from user input
+        user_fields = [field for field in properties.keys() 
+                      if field not in ['id', 'created_at', 'updated_at']]
+        
+        # Handle naming conflicts with common variable names
+        conflicting_names = ['result', 'error', 'data', 'response']
+        destructured_fields = []
+        
+        for field in user_fields:
+            if field in conflicting_names:
+                destructured_fields.append(f"{field}: {field}Data")
+            else:
+                destructured_fields.append(field)
+        
+        return ', '.join(destructured_fields)
+    
+    def _generate_update_fields(self, properties: Dict[str, str]) -> str:
+        """Generate SET clause for UPDATE statements"""
+        # Only update fields that come from user input
+        user_fields = [field for field in properties.keys() 
+                      if field not in ['id', 'created_at', 'updated_at']]
+        
+        # Handle naming conflicts with common variable names
+        conflicting_names = ['result', 'error', 'data', 'response']
+        param_vars = []
+        
+        for field in user_fields:
+            if field in conflicting_names:
+                param_vars.append(f"{field}Data")
+            else:
+                param_vars.append(field)
+        
+        set_clauses = [f"{field} = ${i+2}" for i, field in enumerate(user_fields)]  # Start at $2, $1 is for id
+        set_clauses.append("updated_at = NOW()")
+        
+        return ', '.join(set_clauses)
+    
+    def _generate_param_array(self, properties: Dict[str, str]) -> str:
+        """Generate parameter array for INSERT statements"""
+        # Skip auto-generated fields
+        user_fields = [field for field in properties.keys() 
+                      if field not in ['id', 'created_at', 'updated_at']]
+        
+        # Handle naming conflicts with common variable names
+        conflicting_names = ['result', 'error', 'data', 'response']
+        param_vars = []
+        
+        for field in user_fields:
+            if field in conflicting_names:
+                param_vars.append(f"{field}Data")
+            else:
+                param_vars.append(field)
+        
+        params = ['id'] + param_vars
+        return ', '.join(params)
+    
+    def _generate_update_param_array(self, properties: Dict[str, str]) -> str:
+        """Generate parameter array for UPDATE statements"""
+        # Skip auto-generated fields
+        user_fields = [field for field in properties.keys() 
+                      if field not in ['id', 'created_at', 'updated_at']]
+        
+        # Handle naming conflicts with common variable names
+        conflicting_names = ['result', 'error', 'data', 'response']
+        param_vars = []
+        
+        for field in user_fields:
+            if field in conflicting_names:
+                param_vars.append(f"{field}Data")
+            else:
+                param_vars.append(field)
+        
+        # For UPDATE: id comes first, then the user fields
+        params = ['id'] + param_vars
+        return ', '.join(params)

@@ -1,0 +1,78 @@
+import React from 'react';
+import type { DataTableProps } from '../../types/ui/data-table.types';
+
+export const DataTable: React.FC<DataTableProps> = ({
+  data,
+  columns,
+  loading = false,
+  error,
+  emptyMessage = "No data available",
+  className = ""
+}) => {
+  if (loading) {
+    return (
+      <div className={`datatable-container ${className}`}>
+        <div className="datatable-loading">
+          <div className="loading-spinner"></div>
+          <span>Loading data...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={`datatable-container ${className}`}>
+        <div className="datatable-error">
+          <span className="error-icon">⚠️</span>
+          <span className="error-message">{error}</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (!data || data.length === 0) {
+    return (
+      <div className={`datatable-container ${className}`}>
+        <div className="datatable-empty">
+          <span className="empty-icon">📋</span>
+          <span className="empty-message">{emptyMessage}</span>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`datatable-container ${className}`}>
+      <div className="datatable-wrapper">
+        <table className="datatable">
+          <thead className="datatable-header">
+            <tr>
+              {columns.map((column) => (
+                <th key={column.key} className="datatable-header-cell">
+                  {column.header}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="datatable-body">
+            {data.map((item, index) => (
+              <tr key={item.id || index} className="datatable-row">
+                {columns.map((column) => (
+                  <td key={column.key} className="datatable-cell">
+                    {column.render 
+                      ? column.render(item[column.key], item)
+                      : item[column.key]
+                    }
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+export default DataTable;

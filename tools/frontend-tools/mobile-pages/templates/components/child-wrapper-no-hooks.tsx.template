@@ -1,0 +1,6 @@
+import React from "react";
+import { {{CHILD_NAME}}Page } from "../../pages/{{PARENT_ID}}/{{CHILD_NAME}}Page";
+
+export const {{CHILD_NAME}}PageWrapper: React.FC = () => {
+  return <{{CHILD_NAME}}Page />;
+};

@@ -27,7 +27,7 @@ class ComprehensiveEndpointTester:
         
     def _load_backend_config(self) -> Dict:
         """Load backend configuration to get ALL endpoints"""
-        config_path = Path(__file__).parent / "backend_config.json"
+        config_path = "/mnt/c/Projects/chessboard-vanilla-v2/config/backend_config.json"
         with open(config_path, 'r') as f:
             return json.load(f)
     

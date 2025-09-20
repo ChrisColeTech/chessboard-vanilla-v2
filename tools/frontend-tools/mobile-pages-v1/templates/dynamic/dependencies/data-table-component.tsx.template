@@ -1,0 +1,114 @@
+import React from "react";
+
+interface Column {
+  key: string;
+  header: string;
+  render?: (value: any, row: any) => React.ReactNode;
+}
+
+interface DataTableProps {
+  data: any[];
+  columns?: Column[];
+  loading?: boolean;
+  error?: string | null;
+  className?: string;
+}
+
+export const DataTable: React.FC<DataTableProps> = ({
+  data = [],
+  columns = [],
+  loading = false,
+  error = null,
+  className = ""
+}) => {
+  // Auto-generate columns if not provided
+  const finalColumns = columns.length > 0 ? columns : generateColumnsFromData(data);
+
+  if (loading) {
+    return (
+      <div className={`w-full h-full flex items-center justify-center ${className}`}>
+        <div className="text-muted-foreground">Loading data...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={`w-full h-full flex items-center justify-center ${className}`}>
+        <div className="text-red-500 text-center">
+          <div className="font-semibold">Error loading data</div>
+          <div className="text-sm mt-1">{error}</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (data.length === 0) {
+    return (
+      <div className={`w-full h-full flex items-center justify-center ${className}`}>
+        <div className="text-muted-foreground">No data available</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`w-full h-full overflow-auto ${className}`}>
+      <div className="min-w-full">
+        <table className="w-full border-collapse">
+          <thead>
+            <tr className="border-b border-border bg-card/50">
+              {finalColumns.map((column) => (
+                <th
+                  key={column.key}
+                  className="text-left p-3 font-semibold text-sm text-foreground"
+                >
+                  {column.header}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((row, index) => (
+              <tr
+                key={index}
+                className="border-b border-border/50 hover:bg-card/30 transition-colors"
+              >
+                {finalColumns.map((column) => (
+                  <td key={column.key} className="p-3 text-sm text-muted-foreground">
+                    {column.render
+                      ? column.render(row[column.key], row)
+                      : formatValue(row[column.key])}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+// Helper function to auto-generate columns from data
+function generateColumnsFromData(data: any[]): Column[] {
+  if (data.length === 0) return [];
+
+  const firstRow = data[0];
+  const keys = Object.keys(firstRow);
+
+  return keys.slice(0, 6).map((key) => ({
+    key,
+    header: key.charAt(0).toUpperCase() + key.slice(1).replace(/[_-]/g, ' ')
+  }));
+}
+
+// Helper function to format values for display
+function formatValue(value: any): string {
+  if (value === null || value === undefined) return '-';
+  if (typeof value === 'boolean') return value ? 'Yes' : 'No';
+  if (typeof value === 'object') return JSON.stringify(value);
+  if (typeof value === 'string' && value.length > 50) {
+    return value.substring(0, 50) + '...';
+  }
+  return String(value);
+}

@@ -1,0 +1,11 @@
+{{HOOK_IMPORTS}}
+
+export function use{{PARENT_NAME}}Actions() {
+{{HOOK_STORE_USAGE}}
+
+{{NAVIGATION_METHODS}}
+
+  return {
+    {{RETURN_METHODS}}
+  };
+}

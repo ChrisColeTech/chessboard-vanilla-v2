@@ -1,0 +1,349 @@
+Using connection: postgresql://user:REDACTED@aws-1-us-east-2.pooler.supabase.com:5432/postgres?sslmode=require
+Querying database...
+
+=== TABLES AND COLUMNS (public schema) ===
+
+Table: public.achievements
+  [ 1] id                             character varying NO      
+  [ 2] name                           character varying NO      
+  [ 3] description                    character varying YES     
+  [ 4] category                       character varying YES     
+  [ 5] icon                           character varying YES     
+  [ 6] points                         integer         YES      default=0
+  [ 7] difficulty                     character varying YES     
+  [ 8] requirements                   character varying YES     
+  [ 9] created_at                     timestamp without time zone YES      default=CURRENT_TIMESTAMP
+  [10] updated_at                     timestamp without time zone YES      default=now()
+
+Table: public.content
+  [ 1] id                             character varying NO      
+  [ 2] title                          character varying NO      
+  [ 3] content_type                   character varying NO      
+  [ 4] parent_id                      character varying YES     
+  [ 5] order_index                    integer         YES      default=0
+  [ 6] description                    text            YES     
+  [ 7] content_body                   jsonb           NO      
+  [ 8] difficulty_level               character varying YES     
+  [ 9] estimated_duration             integer         YES     
+  [10] category                       character varying YES     
+  [11] objectives                     jsonb           YES     
+  [12] prerequisites                  jsonb           YES     
+  [13] is_published                   boolean         YES      default=true
+  [14] version                        integer         YES      default=1
+  [15] created_at                     timestamp without time zone YES      default=now()
+  [16] updated_at                     timestamp without time zone YES      default=now()
+
+Table: public.game_reviews_backup_20250910085750
+  [ 1] id                             character varying YES     
+  [ 2] game_id                        character varying YES     
+  [ 3] reviewer_id                    character varying YES     
+  [ 4] title                          character varying YES     
+  [ 5] description                    character varying YES     
+  [ 6] key_moments                    character varying YES     
+  [ 7] analysis_depth                 character varying YES     
+  [ 8] review_date                    timestamp without time zone YES     
+
+Table: public.games
+  [ 1] id                             character varying NO      
+  [ 2] user_id                        character varying YES     
+  [ 3] ai_level                       integer         NO      
+  [ 4] user_color                     character varying NO      
+  [ 5] current_fen                    character varying NO      
+  [ 6] pgn                            character varying YES      default=''::character varying
+  [ 7] status                         character varying YES      default='active'::character varying
+  [ 8] result                         character varying YES     
+  [ 9] time_control                   character varying YES     
+  [10] started_at                     timestamp without time zone YES      default=CURRENT_TIMESTAMP
+  [11] completed_at                   timestamp without time zone YES     
+  [12] created_at                     timestamp without time zone YES      default=CURRENT_TIMESTAMP
+  [13] updated_at                     timestamp without time zone YES      default=now()
+
+Table: public.games_backup_20250910091456
+  [ 1] id                             character varying YES     
+  [ 2] user_id                        character varying YES     
+  [ 3] ai_level                       integer         YES     
+  [ 4] user_color                     character varying YES     
+  [ 5] current_fen                    character varying YES     
+  [ 6] pgn                            character varying YES     
+  [ 7] status                         character varying YES     
+  [ 8] result                         character varying YES     
+  [ 9] time_control                   character varying YES     
+  [10] started_at                     timestamp without time zone YES     
+  [11] completed_at                   timestamp without time zone YES     
+  [12] created_at                     timestamp without time zone YES     
+
+Table: public.games_backup_20250910092144
+  [ 1] id                             character varying YES     
+  [ 2] user_id                        character varying YES     
+  [ 3] ai_level                       integer         YES     
+  [ 4] user_color                     character varying YES     
+  [ 5] current_fen                    character varying YES     
+  [ 6] pgn                            character varying YES     
+  [ 7] status                         character varying YES     
+  [ 8] result                         character varying YES     
+  [ 9] time_control                   character varying YES     
+  [10] started_at                     timestamp without time zone YES     
+  [11] completed_at                   timestamp without time zone YES     
+  [12] created_at                     timestamp without time zone YES     
+
+Table: public.games_backup_20250910094246
+  [ 1] id                             character varying YES     
+  [ 2] user_id                        character varying YES     
+  [ 3] ai_level                       integer         YES     
+  [ 4] user_color                     character varying YES     
+  [ 5] current_fen                    character varying YES     
+  [ 6] pgn                            character varying YES     
+  [ 7] status                         character varying YES     
+  [ 8] result                         character varying YES     
+  [ 9] time_control                   character varying YES     
+  [10] started_at                     timestamp without time zone YES     
+  [11] completed_at                   timestamp without time zone YES     
+  [12] created_at                     timestamp without time zone YES     
+
+Table: public.historic_games
+  [ 1] id                             character varying NO      
+  [ 2] white_player                   character varying NO      
+  [ 3] black_player                   character varying NO      
+  [ 4] white_rating                   integer         YES     
+  [ 5] black_rating                   integer         YES     
+  [ 6] tournament_name                character varying YES     
+  [ 7] tournament_year                integer         YES     
+  [ 8] opening_name                   character varying YES     
+  [ 9] opening_eco                    character varying YES     
+  [10] result                         character varying YES     
+  [11] pgn                            character varying YES     
+  [12] created_at                     timestamp without time zone YES      default=CURRENT_TIMESTAMP
+  [13] updated_at                     timestamp without time zone YES      default=now()
+
+Table: public.learning_modules_backup_20250910085750
+  [ 1] id                             character varying YES     
+  [ 2] learning_path_id               character varying YES     
+  [ 3] name                           character varying YES     
+  [ 4] description                    character varying YES     
+  [ 5] order_index                    integer         YES     
+  [ 6] estimated_hours                integer         YES     
+  [ 7] module_type                    character varying YES     
+  [ 8] content                        character varying YES     
+
+Table: public.openings
+  [ 1] id                             character varying NO      
+  [ 2] name                           character varying NO      
+  [ 3] eco_code                       character varying YES     
+  [ 4] moves                          character varying NO      
+  [ 5] description                    character varying YES     
+  [ 6] popularity_score               integer         YES      default=0
+  [ 7] difficulty_level               character varying YES     
+  [ 8] created_at                     timestamp without time zone YES      default=CURRENT_TIMESTAMP
+  [ 9] updated_at                     timestamp without time zone YES      default=now()
+
+Table: public.puzzle_attempts
+  [ 1] id                             character varying NO      
+  [ 2] user_id                        character varying NO      
+  [ 3] puzzle_id                      character varying NO      
+  [ 4] moves                          character varying NO      
+  [ 5] correct                        boolean         NO      
+  [ 6] time_taken                     integer         NO      
+  [ 7] hints_used                     integer         YES      default=0
+  [ 8] rating_change                  integer         NO      
+  [ 9] attempted_at                   timestamp without time zone YES      default=CURRENT_TIMESTAMP
+  [10] created_at                     timestamp without time zone NO       default=now()
+  [11] updated_at                     timestamp without time zone NO       default=now()
+
+Table: public.puzzle_sources
+  [ 1] id                             character varying NO      
+  [ 2] source_id                      character varying NO      
+  [ 3] name                           character varying NO      
+  [ 4] description                    character varying YES     
+  [ 5] total_puzzles                  integer         YES      default=0
+  [ 6] average_rating                 integer         YES      default=1500
+  [ 7] is_active                      boolean         YES      default=true
+  [ 8] attribution                    character varying YES     
+  [ 9] license                        character varying YES     
+  [10] url                            character varying YES     
+  [11] created_at                     timestamp without time zone YES      default=CURRENT_TIMESTAMP
+  [12] updated_at                     timestamp without time zone YES      default=CURRENT_TIMESTAMP
+
+Table: public.puzzles
+  [ 1] id                             character varying NO      
+  [ 2] fen                            character varying NO      
+  [ 3] solution_moves                 character varying NO      
+  [ 4] themes                         jsonb           NO      
+  [ 5] rating                         integer         NO      
+  [ 6] description                    character varying YES     
+  [ 7] created_at                     timestamp without time zone YES      default=CURRENT_TIMESTAMP
+  [ 8] updated_at                     timestamp without time zone YES      default=now()
+
+Table: public.subscriptions_backup_20250910091456
+  [ 1] id                             character varying YES     
+  [ 2] tier                           character varying YES     
+  [ 3] name                           character varying YES     
+  [ 4] price                          numeric         YES     
+  [ 5] currency                       character varying YES     
+  [ 6] description                    character varying YES     
+  [ 7] features                       character varying YES     
+  [ 8] limits                         character varying YES     
+  [ 9] is_active                      boolean         YES     
+  [10] created_at                     timestamp without time zone YES     
+
+Table: public.subscriptions_backup_20250910092144
+  [ 1] id                             character varying YES     
+  [ 2] tier                           character varying YES     
+  [ 3] name                           character varying YES     
+  [ 4] price                          numeric         YES     
+  [ 5] currency                       character varying YES     
+  [ 6] description                    character varying YES     
+  [ 7] features                       character varying YES     
+  [ 8] limits                         character varying YES     
+  [ 9] is_active                      boolean         YES     
+  [10] created_at                     timestamp without time zone YES     
+  [11] updated_at                     timestamp with time zone YES     
+
+Table: public.subscriptions_backup_20250910094246
+  [ 1] id                             character varying YES     
+  [ 2] tier                           character varying YES     
+  [ 3] name                           character varying YES     
+  [ 4] price                          numeric         YES     
+  [ 5] currency                       character varying YES     
+  [ 6] description                    character varying YES     
+  [ 7] features                       character varying YES     
+  [ 8] limits                         character varying YES     
+  [ 9] is_active                      boolean         YES     
+  [10] created_at                     timestamp without time zone YES     
+  [11] updated_at                     timestamp with time zone YES     
+
+Table: public.tutorial_steps_backup_20250910085750
+  [ 1] id                             character varying YES     
+  [ 2] tutorial_id                    character varying YES     
+  [ 3] step_number                    integer         YES     
+  [ 4] title                          character varying YES     
+  [ 5] content                        character varying YES     
+  [ 6] position_fen                   character varying YES     
+  [ 7] interactive_element            character varying YES     
+
+Table: public.user_achievements
+  [ 1] id                             character varying NO      
+  [ 2] user_id                        character varying NO      
+  [ 3] achievement_id                 character varying NO      
+  [ 4] earned_at                      timestamp without time zone YES      default=CURRENT_TIMESTAMP
+  [ 5] progress                       numeric         YES      default=1.0
+  [ 6] created_at                     timestamp without time zone YES      default=now()
+  [ 7] updated_at                     timestamp without time zone YES      default=now()
+
+Table: public.user_analytics_backup_20250910091456
+  [ 1] id                             character varying YES     
+  [ 2] user_id                        character varying YES     
+  [ 3] event_type                     character varying YES     
+  [ 4] event_data                     character varying YES     
+  [ 5] session_id                     character varying YES     
+  [ 6] timestamp                      timestamp without time zone YES     
+
+Table: public.user_content_progress
+  [ 1] id                             character varying NO      
+  [ 2] user_id                        character varying NO      
+  [ 3] content_id                     character varying NO      
+  [ 4] status                         character varying YES      default='not_started'::character varying
+  [ 5] progress_percentage            numeric         YES      default=0.00
+  [ 6] time_spent                     integer         YES      default=0
+  [ 7] completion_score               numeric         YES     
+  [ 8] started_at                     timestamp without time zone YES     
+  [ 9] completed_at                   timestamp without time zone YES     
+  [10] last_accessed                  timestamp without time zone YES     
+  [11] notes                          text            YES     
+  [12] bookmarked                     boolean         YES      default=false
+  [13] created_at                     timestamp without time zone YES      default=now()
+  [14] updated_at                     timestamp without time zone YES      default=now()
+
+Table: public.user_profiles
+  [ 1] id                             character varying NO      
+  [ 2] user_id                        character varying NO      
+  [ 3] display_name                   character varying YES     
+  [ 4] avatar_url                     character varying YES     
+  [ 5] bio                            character varying YES     
+  [ 6] country                        character varying YES     
+  [ 7] timezone                       character varying YES     
+  [ 8] created_at                     timestamp without time zone YES      default=CURRENT_TIMESTAMP
+  [ 9] updated_at                     timestamp without time zone YES      default=CURRENT_TIMESTAMP
+
+Table: public.user_sessions
+  [ 1] id                             character varying NO      
+  [ 2] user_id                        character varying YES     
+  [ 3] refresh_token                  character varying NO      
+  [ 4] expires_at                     timestamp without time zone NO      
+  [ 5] created_at                     timestamp without time zone YES      default=CURRENT_TIMESTAMP
+  [ 6] updated_at                     timestamp with time zone NO       default=now()
+
+Table: public.user_sessions_backup_20250910091456
+  [ 1] id                             character varying YES     
+  [ 2] user_id                        character varying YES     
+  [ 3] refresh_token                  character varying YES     
+  [ 4] expires_at                     timestamp without time zone YES     
+  [ 5] created_at                     timestamp without time zone YES     
+
+Table: public.user_sessions_backup_20250910092144
+  [ 1] id                             character varying YES     
+  [ 2] user_id                        character varying YES     
+  [ 3] refresh_token                  character varying YES     
+  [ 4] expires_at                     timestamp without time zone YES     
+  [ 5] created_at                     timestamp without time zone YES     
+  [ 6] updated_at                     timestamp with time zone YES     
+
+Table: public.user_sessions_backup_20250910094246
+  [ 1] id                             character varying YES     
+  [ 2] user_id                        character varying YES     
+  [ 3] refresh_token                  character varying YES     
+  [ 4] expires_at                     timestamp without time zone YES     
+  [ 5] created_at                     timestamp without time zone YES     
+  [ 6] updated_at                     timestamp with time zone YES     
+
+Table: public.user_study_plans_backup_20250910091456
+  [ 1] id                             character varying YES     
+  [ 2] user_id                        character varying YES     
+  [ 3] name                           character varying YES     
+  [ 4] description                    character varying YES     
+  [ 5] target_rating                  integer         YES     
+  [ 6] estimated_weeks                integer         YES     
+  [ 7] is_active                      boolean         YES     
+  [ 8] current_module                 character varying YES     
+  [ 9] progress                       numeric         YES     
+  [10] created_at                     timestamp without time zone YES     
+  [11] updated_at                     timestamp without time zone YES     
+
+Table: public.user_study_plans_backup_20250910092144
+  [ 1] id                             character varying YES     
+  [ 2] user_id                        character varying YES     
+  [ 3] name                           character varying YES     
+  [ 4] description                    character varying YES     
+  [ 5] target_rating                  integer         YES     
+  [ 6] estimated_weeks                integer         YES     
+  [ 7] is_active                      boolean         YES     
+  [ 8] current_module                 character varying YES     
+  [ 9] progress                       numeric         YES     
+  [10] created_at                     timestamp without time zone YES     
+  [11] updated_at                     timestamp without time zone YES     
+
+Table: public.user_study_plans_backup_20250910094246
+  [ 1] id                             character varying YES     
+  [ 2] user_id                        character varying YES     
+  [ 3] name                           character varying YES     
+  [ 4] description                    character varying YES     
+  [ 5] target_rating                  integer         YES     
+  [ 6] estimated_weeks                integer         YES     
+  [ 7] is_active                      boolean         YES     
+  [ 8] current_module                 character varying YES     
+  [ 9] progress                       numeric         YES     
+  [10] created_at                     timestamp without time zone YES     
+  [11] updated_at                     timestamp without time zone YES     
+
+Table: public.users
+  [ 1] id                             character varying NO      
+  [ 2] username                       character varying NO      
+  [ 3] email                          character varying NO      
+  [ 4] password_hash                  character varying NO      
+  [ 5] chess_elo                      integer         YES      default=1000
+  [ 6] puzzle_rating                  integer         YES      default=1000
+  [ 7] preferences                    character varying YES      default='{}'::character varying
+  [ 8] created_at                     timestamp without time zone YES      default=CURRENT_TIMESTAMP
+  [ 9] updated_at                     timestamp without time zone YES      default=CURRENT_TIMESTAMP
+
+[0;36m
+Done.

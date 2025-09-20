@@ -241,8 +241,8 @@ class FileAnalyzer:
         export_type = match.group(1)  # const, let, var
         export_name = match.group(2)  # variable name
         
-        # Check if it's a type-only export (unlikely for typed declarations, but be safe)
-        is_type_only = 'interface' in original_line or 'type' in original_line
+        # Check if it's a type-only export - must be explicitly declared as type
+        is_type_only = original_line.startswith('export type ') or export_type in ['interface', 'type', 'enum']
         
         export_info = ExportInfo(
             name=export_name,
@@ -265,7 +265,8 @@ class FileAnalyzer:
         original_line = lines[line_start].strip() if line_start < len(lines) else ""
         
         export_name = match.group(1)
-        is_type_only = 'interface' in original_line or 'type' in original_line
+        # More precise check for type-only exports - only check export statement itself
+        is_type_only = original_line.startswith('export default interface') or original_line.startswith('export default type')
         
         exports.append(ExportInfo(
             name=export_name,

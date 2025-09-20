@@ -65,16 +65,11 @@ export const useDemoLogin = (): UseDemoLoginReturn => {
           username: 'demo_user',
           email: DEMO_USER_CREDENTIALS.email,
           password_hash: 'demo-password-hash',
-          email_verified: true,
           chess_elo: 1200,
           puzzle_rating: 1100,
-          games_played: 25,
-          games_won: 15,
-          games_lost: 8,
-          games_drawn: 2,
+          preferences: JSON.stringify({ theme: 'default', notifications: true }),
           created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-          last_login: new Date().toISOString()
+          updated_at: new Date().toISOString()
         };
 
         const mockToken = 'demo-token-ngrok-bypass';

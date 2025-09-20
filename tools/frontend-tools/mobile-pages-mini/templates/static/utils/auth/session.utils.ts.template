@@ -1,0 +1,32 @@
+// Simple session utils for demo login
+export const sessionUtils = {
+  setToken: (token: string) => {
+    localStorage.setItem('authToken', token);
+  },
+  
+  getToken: () => {
+    return localStorage.getItem('authToken');
+  },
+  
+  removeToken: () => {
+    localStorage.removeItem('authToken');
+  },
+  
+  isTokenValid: (token: string | null) => {
+    return token !== null && token.length > 0;
+  },
+  
+  setSession: (sessionData: any) => {
+    localStorage.setItem('sessionData', JSON.stringify(sessionData));
+  },
+  
+  getSession: () => {
+    const data = localStorage.getItem('sessionData');
+    return data ? JSON.parse(data) : null;
+  },
+  
+  clearSession: () => {
+    localStorage.removeItem('sessionData');
+    localStorage.removeItem('authToken');
+  }
+};

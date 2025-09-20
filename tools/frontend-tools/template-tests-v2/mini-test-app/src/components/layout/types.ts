@@ -1,0 +1,1 @@
+export type TabId = 'dataanalytics' | 'gamehub' | 'testbackup' | 'testing' | 'testsection' | 'usermanagement'

@@ -1,0 +1,6 @@
+{
+  "tests/test_child_hook_generation.py::TestChildHookGeneration::test_multiple_children_hook_generation": true,
+  "tests/test_child_hook_generation.py::TestChildHookGeneration::test_hook_integrator_called_during_integration": true,
+  "tests/test_integration_duplicate_imports.py::TestIntegrationDuplicateImports::test_sequential_child_creation_creates_duplicates": true,
+  "tests/test_duplicate_imports_simulated.py::TestDuplicateImportsSimulated::test_template_regeneration_causes_duplicates": true
+}

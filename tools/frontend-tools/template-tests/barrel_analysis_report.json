@@ -1,0 +1,146 @@
+{
+  "statistics": {
+    "files_analyzed": 387,
+    "exports_found": 1190,
+    "conflicts_detected": 9,
+    "conflicts_resolved": 0,
+    "barrels_generated": 51
+  },
+  "conflicts": [
+    {
+      "export_name": "useTheme",
+      "file_count": 2,
+      "files": [
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/stores/appStore.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/contexts/ThemeContext.tsx"
+      ],
+      "resolution_strategy": "qualified_import"
+    },
+    {
+      "export_name": "Puzzle",
+      "file_count": 2,
+      "files": [
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/types/puzzle.types.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/types/puzzles/puzzles.ts"
+      ],
+      "resolution_strategy": "qualified_import"
+    },
+    {
+      "export_name": "PuzzleAttempt",
+      "file_count": 2,
+      "files": [
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/types/puzzle.types.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/types/puzzles/puzzleAttempts.ts"
+      ],
+      "resolution_strategy": "qualified_import"
+    },
+    {
+      "export_name": "pageActions",
+      "file_count": 30,
+      "files": [
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/animatedsplash.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/blackjack.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/brandedsplash.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/casino.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/chesslayouttest.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/craps.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/desktoplayouttest.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/dragtest.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/functionalsplash.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/hasOwnAudio.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/holdem.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/icon.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/id.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/label.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/layouttest.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/loadingprogress.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/luxurysplash.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/minimalsplash.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/mobiledragtest.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/PAGE_ACTIONS.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/play.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/playpuzzles.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/roulette.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/shortcut.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/slots.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/splash.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/uiaudiotest.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/uitests.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/variant.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/constants/actions/pages/worker.ts"
+      ],
+      "resolution_strategy": "qualified_import_within_dir"
+    },
+    {
+      "export_name": "GlobalUIAudioService",
+      "file_count": 2,
+      "files": [
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/audio/globalUIAudioService.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/types/audio/global-audio.types.ts"
+      ],
+      "resolution_strategy": "qualified_import"
+    },
+    {
+      "export_name": "PieceColor",
+      "file_count": 2,
+      "files": [
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/chess/TestBoardGameService.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/types/chess/chess.types.ts"
+      ],
+      "resolution_strategy": "qualified_import"
+    },
+    {
+      "export_name": "backgroundEffectsService",
+      "file_count": 2,
+      "files": [
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/core/backgroundEffectsRegistry.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/core/BackgroundEffectsService.ts"
+      ],
+      "resolution_strategy": "qualified_import_within_dir"
+    },
+    {
+      "export_name": "pageInstructions",
+      "file_count": 25,
+      "files": [
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/animatedsplash.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/blackjack.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/brandedsplash.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/casino.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/chesslayouttest.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/craps.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/desktoplayouttest.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/dragtest.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/functionalsplash.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/holdem.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/layout.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/layouttest.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/loadingprogress.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/minimalsplash.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/mobiledragtest.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/play.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/playpuzzles.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/roulette.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/slots.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/uiaudiotest.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/uitests.audio-demo.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/uitests.drag-test.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/uitests.mobile-drag-test.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/uitests.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/services/instructions/pages/worker.ts"
+      ],
+      "resolution_strategy": "qualified_import_within_dir"
+    },
+    {
+      "export_name": "User",
+      "file_count": 2,
+      "files": [
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/types/auth/auth.types.ts",
+        "/mnt/c/Projects/chessboard-vanilla-v2/tools/frontend-tools/template-tests/test/types/user-management/users.ts"
+      ],
+      "resolution_strategy": "qualified_import"
+    }
+  ],
+  "file_analyses": 71,
+  "export_registry_size": 635,
+  "validation_errors": 1
+}

@@ -32,7 +32,7 @@ class TestOrchestrator {
     this.environment = this.parseEnvironment();
     this.config = CONFIG[this.environment];
     this.payloadGeneratorPath = path.join(__dirname, 'backend-tools', 'payload-generator');
-    this.testScriptPath = path.join(__dirname, 'test-api-connectivity-v3.js');
+    this.testScriptPath = path.join(__dirname, 'test-render-api-connectivity.js');
     this.results = {
       payloadGeneration: null,
       apiTests: null,

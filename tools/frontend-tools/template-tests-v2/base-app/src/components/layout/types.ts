@@ -1,0 +1,1 @@
+export type TabId = 'discover' | 'library' | 'profile' | 'search' | 'testsection'

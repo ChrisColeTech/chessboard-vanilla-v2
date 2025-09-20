@@ -1,0 +1,58 @@
+{
+  "content_post": {
+    "title": "Test Content for Debugging",
+    "content_body": "{\"sections\": [{\"type\": \"text\", \"content\": \"Introduction to chess tactics\"}, {\"type\": \"diagram\", \"fen\": \"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1\"}], \"difficulty\": \"intermediate\", \"estimated_time\": \"15 minutes\"}",
+    "content_type": "lesson",
+    "difficulty_level": "intermediate",
+    "estimated_duration": 15,
+    "tags": "[\"tactics\", \"puzzle\"]",
+    "requirements": "{\"min_rating\": 1200, \"prerequisites\": [\"basic_tactics\"]}",
+    "metadata": "{\"author\": \"Chess Master\", \"created_date\": \"2024-01-15\", \"category\": \"tactics\"}"
+  },
+  "content_put": {
+    "title": "Test Content for Debugging",
+    "content_body": "{\"sections\": [{\"type\": \"text\", \"content\": \"Introduction to chess tactics\"}, {\"type\": \"diagram\", \"fen\": \"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1\"}], \"difficulty\": \"intermediate\", \"estimated_time\": \"15 minutes\"}",
+    "content_type": "lesson",
+    "difficulty_level": "intermediate",
+    "estimated_duration": 15,
+    "tags": ["tactics", "puzzle"],
+    "requirements": "{\"min_rating\": 1200, \"prerequisites\": [\"basic_tactics\"]}",
+    "metadata": "{\"author\": \"Chess Master\", \"created_date\": \"2024-01-15\", \"category\": \"tactics\"}"
+  },
+  "puzzle_post": {
+    "title": "Debug Puzzle: Fork Tactic",
+    "fen": "r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/3P1N2/PPP2PPP/RNBQK2R w KQkq - 0 4",
+    "solution_moves": "Nxe5",
+    "themes": "[\"fork\", \"tactics\"]",
+    "difficulty": "intermediate",
+    "rating": 1400,
+    "puzzle_source_id": "871w34jjimewklnso",
+    "tags": "[\"knight_fork\", \"middle_game\"]",
+    "metadata": "{\"puzzle_type\": \"tactical\", \"moves_to_mate\": null, \"time_limit\": 30}"
+  },
+  "puzzle_put": {
+    "title": "Debug Puzzle: Fork Tactic",
+    "fen": "r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/3P1N2/PPP2PPP/RNBQK2R w KQkq - 0 4",
+    "solution_moves": "Nxe5",
+    "themes": "[\"fork\", \"tactics\"]",
+    "difficulty": "intermediate",
+    "rating": 1400,
+    "puzzle_source_id": "871w34jjimewklnso",
+    "tags": "[\"knight_fork\", \"middle_game\"]",
+    "metadata": "{\"puzzle_type\": \"tactical\", \"moves_to_mate\": null, \"time_limit\": 30}"
+  },
+  "user_achievement_post": {
+    "user_id": "1f0b8b68-b59f-4522-b960-b75ea7b786fe",
+    "achievement_id": "qn28dtt4rmewklmrx",
+    "earned_at": "2024-01-15T10:30:00Z",
+    "progress_data": {
+      "completion_percentage": 100,
+      "milestones_reached": [
+        "first_puzzle",
+        "ten_puzzles",
+        "hundred_points"
+      ]
+    }
+  },
+  "user_delete_id": "b3c27a78-e44a-4ce3-a24a-5ea4fdf3d1db"
+}
