@@ -1,0 +1,14 @@
+// Generated service for {{entity_name}}
+import type { {{entity_name}} } from '../../types/{{domain}}/{{camel_endpoint}}';
+
+class {{entity_name}}Service {
+  private baseUrl: string;
+
+  constructor(baseUrl: string = '/api') {
+    this.baseUrl = baseUrl;
+  }
+
+{{methods_str}}
+}
+
+export const {{camel_entity_name}}Service = new {{entity_name}}Service();

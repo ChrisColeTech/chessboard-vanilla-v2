@@ -3,6 +3,15 @@ Variable Generator for creating template variables from page configuration.
 """
 
 from typing import Dict, List
+import sys
+from pathlib import Path
+
+# Add parent directory to path so we can import shared modules
+parent_dir = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(parent_dir))
+
+from shared.name_standardizer import NameStandardizer
+
 try:
     from .config import PageConfig, ProjectCapabilities, GenerationContext
 except ImportError:
@@ -14,6 +23,7 @@ class VariableGenerator:
     
     def __init__(self):
         pass
+    
     
     def generate_parent_variables(self, context: GenerationContext) -> Dict[str, str]:
         """Generate variables for parent page templates."""
@@ -30,29 +40,37 @@ class VariableGenerator:
             child_routing_logic = routing_vars['CHILD_ROUTING_LOGIC']
             child_navigation_actions = self.generate_child_navigation_actions(children)
             child_navigation_icons = self.generate_child_navigation_icons(children)
+            # Clean up the child_navigation_icons (remove leading comma and whitespace)
+            clean_icons = child_navigation_icons.lstrip(', ') if child_navigation_icons else ''
+            child_navigation_icons_import = f"import {{ {clean_icons} }} from 'lucide-react'" if clean_icons else ''
         else:
             child_imports = '// Child imports will be added here when children are created'
             child_routing_logic = '// Child routing logic will be added here when children are created'
             child_navigation_actions = '// Child navigation actions will be added here when children are created'
-            child_navigation_icons = 'Navigation'
+            child_navigation_icons = ''
+            child_navigation_icons_import = ''
         
         # Mobile support variables
         if config.mobile:
-            mobile_import = f'\nimport {{ Mobile{config.base_name.capitalize()}MainPage }} from "./Mobile{config.base_name.capitalize()}MainPage";'
-            mobile_main_page_logic = f'isMobile ? Mobile{config.base_name.capitalize()}MainPage : {config.base_name.capitalize()}MainPage'
+            mobile_import = f'import {{ Mobile{config.base_name}Page }} from "./Mobile{config.base_name}MainPage";'
+            mobile_hook_import = 'import { useIsMobile } from "../../hooks/core/useIsMobile";'
+            mobile_main_page_logic = f'isMobile ? Mobile{config.base_name}Page : {config.base_name}MainPage'
+            mobile_detection = 'const isMobile = useIsMobile();'
         else:
             mobile_import = ''
-            mobile_main_page_logic = f'{config.base_name.capitalize()}MainPage'
+            mobile_hook_import = '// Mobile hook import will be added when mobile support is enabled'
+            mobile_main_page_logic = f'{config.base_name}MainPage'
+            mobile_detection = '// Mobile detection will be added when mobile support is enabled'
 
         variables = {
             # Basic parent information
-            'PARENT_NAME': config.base_name.capitalize(),
+            'PARENT_NAME': config.base_name,  # base_name is already PascalCase
             'PARENT_ID': config.page_id,
             'PARENT_DISPLAY_NAME': config.display_name,
             
             # Hook imports and store usage
-            'HOOK_IMPORTS': self._generate_parent_hook_imports(),
-            'HOOK_STORE_USAGE': self._generate_parent_hook_store_usage(),
+            'HOOK_IMPORTS': self._generate_parent_hook_imports(context),
+            'HOOK_STORE_USAGE': self._generate_parent_hook_store_usage(context),
             
             # Navigation methods (will be generated dynamically)
             'NAVIGATION_METHODS': self._generate_navigation_methods(context),
@@ -63,10 +81,13 @@ class VariableGenerator:
             'CHILD_ROUTING_LOGIC': child_routing_logic,
             'CHILD_NAVIGATION_ACTIONS': child_navigation_actions,
             'CHILD_NAVIGATION_ICONS': child_navigation_icons,
+            'CHILD_NAVIGATION_ICONS_IMPORT': child_navigation_icons_import,
             
             # Mobile support
             'MOBILE_IMPORT': mobile_import,
-            'MOBILE_MAIN_PAGE_LOGIC': mobile_main_page_logic
+            'MOBILE_HOOK_IMPORT': mobile_hook_import,
+            'MOBILE_MAIN_PAGE_LOGIC': mobile_main_page_logic,
+            'MOBILE_DETECTION': mobile_detection
         }
         
         return variables
@@ -77,13 +98,13 @@ class VariableGenerator:
         
         variables = {
             # Basic child information
-            'CHILD_NAME': config.base_name.capitalize(),  # Use PascalCase for component names
+            'CHILD_NAME': config.base_name,  # base_name is already PascalCase
             'CHILD_ID': config.page_id,
             'CHILD_DISPLAY_NAME': config.display_name,
             'PARENT_ID': config.parent_id,
             
             # Mobile variant information
-            'MOBILE_CHILD_NAME': f"Mobile{config.base_name.capitalize()}",  # PascalCase for mobile components
+            'MOBILE_CHILD_NAME': f"Mobile{config.base_name}",  # base_name is already PascalCase
             
             # Description with fallback
             'CHILD_DESCRIPTION': self._escape_description(config.description) or f"Use this page to work with {config.display_name.lower()} features",
@@ -138,7 +159,7 @@ class VariableGenerator:
         
         # Generate methods for existing children
         for child_config in children:
-            method_name = f"goTo{child_config.base_name.capitalize()}"
+            method_name = f"goTo{child_config.base_name}"
             methods.append(f"""  const {method_name} = useCallback(() => {{
     // Small delay to prevent hover sound from triggering after menu transition
     setTimeout(() => {{
@@ -162,7 +183,7 @@ class VariableGenerator:
         
         # Add methods for existing children
         for child_config in children:
-            methods.append(f"goTo{child_config.base_name.capitalize()}")
+            methods.append(f"goTo{child_config.base_name}")
         
         # Note: Other parent navigation methods would be added here if needed
         
@@ -205,11 +226,15 @@ import { usePageActions } from "../../hooks/core/usePageActions";'''
         imports = []
         
         for config in child_configs:
-            # Use proper component name for wrapper component
-            wrapper_name = f"{config.page_name}Wrapper"
+            # Skip main pages - they shouldn't be treated as child routes
+            if config.page_id.endswith('main'):
+                continue
+                
+            # config.base_name is already properly PascalCase formatted
+            wrapper_name = f"{config.base_name}PageWrapper"
             
             # Import statement
-            imports.append(f'import {{ {wrapper_name} }} from "../../components/{config.parent_id}/{config.page_name}Wrapper";')
+            imports.append(f'import {{ {wrapper_name} }} from "../../components/{config.parent_id}/{config.base_name}PageWrapper";')
             
             # Routing condition
             condition = f'''  if (currentChildPage === "{config.page_id}") {{
@@ -231,7 +256,7 @@ import { usePageActions } from "../../hooks/core/usePageActions";'''
         for config in child_configs:
             action = f'''    {{
       id: 'go-to-{config.page_id}',
-      label: 'Go to {config.base_name.capitalize()}',
+      label: 'Go to {config.base_name}',
       icon: Navigation,
       variant: 'secondary'
     }},'''
@@ -242,11 +267,11 @@ import { usePageActions } from "../../hooks/core/usePageActions";'''
     def generate_child_navigation_icons(self, child_configs: List[PageConfig]) -> str:
         """Generate icon imports needed for child navigation actions."""
         if not child_configs:
-            return 'Navigation'
+            return ''
         
         # For now, all child navigation uses Navigation icon
         # In the future, this could be customized per child
-        return 'Navigation'
+        return ', Navigation'
     
     def _get_existing_children(self, context: GenerationContext, parent_id: str) -> List[PageConfig]:
         """Get existing children for a parent from page config."""
@@ -266,8 +291,9 @@ import { usePageActions } from "../../hooks/core/usePageActions";'''
             # Convert PageInfo objects to PageConfig objects
             child_configs = []
             for child_info in children_info:
+                # Use the original name from child_info to preserve capitalization
                 child_config = PageConfig(
-                    name=child_info.component_name,
+                    name=child_info.name,
                     parent=parent_id,
                     mobile=child_info.has_mobile,
                     description=child_info.description
@@ -307,10 +333,12 @@ import { usePageActions } from "../../hooks/core/usePageActions";'''
                 page_type = page_info.type
                 
                 if page_type == 'parent':
-                    # Parent page hook
-                    hook_name = f"use{page_name}Actions"
+                    # Parent page hook - ensure PascalCase using proven algorithm
+                    pascal_case_name = NameStandardizer.to_pascal_case(page_name)
+                    hook_name = f"use{pascal_case_name}Actions"
                     hook_var = f"{page_id}Actions"
                     
+                    # Import path should use actual filename, not page_id
                     hook_imports.append(f'import {{ {hook_name} }} from "../../hooks/{page_id}/{hook_name}";')
                     hook_initializations.append(f'  const {hook_var} = {hook_name}();')
                     hook_dependencies.append(f'    {hook_var},')
@@ -322,7 +350,7 @@ import { usePageActions } from "../../hooks/core/usePageActions";'''
                     parent_mappings = []
                     for child in children:
                         child_id = child.id
-                        child_name = child.name
+                        child_name = NameStandardizer.to_pascal_case(child.name)
                         method_name = f"goTo{child_name}"
                         parent_mappings.append(f'        "go-to-{child_id}": {hook_var}.{method_name},')
                     
@@ -346,7 +374,7 @@ import { usePageActions } from "../../hooks/core/usePageActions";'''
                         for sibling in siblings:
                             if sibling.id != page_id:  # Exclude self
                                 sibling_id = sibling.id
-                                sibling_name = sibling.name
+                                sibling_name = NameStandardizer.to_pascal_case(sibling.name)
                                 method_name = f"goTo{sibling_name}"
                                 child_mappings.append(f'        "go-to-{sibling_id}": {parent_hook_var}.{method_name},')
                         
@@ -443,13 +471,25 @@ import { usePageActions } from "../../hooks/core/usePageActions";'''
                 'DYNAMIC_PAGE_ACTION_ENTRIES': '  // No page action entries available'
             }
     
-    def _generate_parent_hook_imports(self) -> str:
+    def _generate_parent_hook_imports(self, context: GenerationContext) -> str:
         """Generate imports for parent action hooks."""
-        return "import { useCallback } from 'react';\nimport { useAppStore } from '../../stores/appStore';"
+        config = context.config
+        children = self._get_existing_children(context, config.page_id)
+        
+        if children:
+            return "import { useCallback } from 'react';\nimport { useAppStore } from '../../stores/appStore';"
+        else:
+            return "// Imports will be added here when children are created"
     
-    def _generate_parent_hook_store_usage(self) -> str:
-        """Generate store usage for parent action hooks.""" 
-        return "  const { setCurrentChildPage } = useAppStore();"
+    def _generate_parent_hook_store_usage(self, context: GenerationContext) -> str:
+        """Generate store usage for parent action hooks."""
+        config = context.config
+        children = self._get_existing_children(context, config.page_id)
+        
+        if children:
+            return "  const setCurrentChildPage = useAppStore((state: any) => state.setCurrentChildPage);"
+        else:
+            return "  // Store usage will be added here when children are created"
     
     def _generate_sibling_navigation_methods(self, context: GenerationContext) -> str:
         """Generate navigation methods for sibling pages."""
@@ -464,7 +504,7 @@ import { usePageActions } from "../../hooks/core/usePageActions";'''
         
         methods = []
         for sibling in siblings:
-            method_name = f"goTo{sibling.base_name.capitalize()}"
+            method_name = f"goTo{sibling.base_name}"
             methods.append(f"""  const {method_name} = useCallback(() => {{
     // Small delay to prevent hover sound from triggering after menu transition
     setTimeout(() => {{
@@ -485,5 +525,5 @@ import { usePageActions } from "../../hooks/core/usePageActions";'''
         if not siblings:
             return '// No sibling navigation needed - single child'
         
-        methods = [f"goTo{sibling.base_name.capitalize()}" for sibling in siblings]
+        methods = [f"goTo{sibling.base_name}" for sibling in siblings]
         return ',\n    '.join(methods)

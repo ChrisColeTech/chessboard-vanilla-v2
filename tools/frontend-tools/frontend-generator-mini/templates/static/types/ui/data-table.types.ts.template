@@ -1,0 +1,33 @@
+// data-table.types.ts - DataTable component type definitions
+
+import type { ReactNode } from 'react';
+
+/**
+ * Configuration for a data table column
+ */
+export interface DataTableColumn {
+  /** Unique key for the column (matches data property) */
+  key: string;
+  /** Display header text */
+  header: string;
+  /** Optional custom renderer for cell content */
+  render?: (value: any, item: any) => ReactNode;
+}
+
+/**
+ * Props for the DataTable component
+ */
+export interface DataTableProps {
+  /** Array of data objects to display */
+  data: any[];
+  /** Column configuration */
+  columns: DataTableColumn[];
+  /** Whether data is currently loading */
+  loading?: boolean;
+  /** Error message to display */
+  error?: string;
+  /** Message to show when no data is available */
+  emptyMessage?: string;
+  /** Custom CSS classes */
+  className?: string;
+}

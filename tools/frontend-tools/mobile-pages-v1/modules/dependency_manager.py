@@ -868,6 +868,11 @@ export default defineConfig({
                     
                     # Render static template with context variables
                     template_variables = getattr(context, 'variables', {})
+                    
+                    # Skip appStore template if variables are empty (will be generated later with proper variables)
+                    if 'appStore.ts' in str(template_path) and not template_variables:
+                        continue
+                    
                     content = self.template_engine.render_template(template_path, template_variables, is_static=True)
                     
                     # Write the file

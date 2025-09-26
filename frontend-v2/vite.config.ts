@@ -10,21 +10,15 @@
  * Then re-run the generator to update this file.
  */
 
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import { resolve } from 'path'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  server: {
-    host: '0.0.0.0', // Listen on all addresses
-    port: 5173,
-    watch: {
-      usePolling: true,
-      interval: 1000,
-    },
-    hmr: {
-      overlay: true,
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './src'),
     },
   },
-});
+})

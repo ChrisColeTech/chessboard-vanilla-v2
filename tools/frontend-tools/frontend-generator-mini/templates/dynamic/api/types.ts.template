@@ -1,0 +1,8 @@
+// Generated types for {{entity_name}}
+
+export interface {{entity_name}} {
+{{properties_str}}
+}
+
+export type Create{{entity_name}}Data = Omit<{{entity_name}}, 'id' | 'createdAt' | 'updatedAt'>;
+export type Update{{entity_name}}Data = Partial<Create{{entity_name}}Data>;

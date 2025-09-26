@@ -5,21 +5,30 @@ export {
   useSplashModal, 
   useCoinsModal,
   useSettings,
-  useUIStore 
+  useUIStore,
+  useChessSettings,
+  type Card
 } from './uiStore'
 export { useTheme, useAudio, useVisual } from './settingsStore'
+export { useChessGameStore, useChessGame } from './chessGameStore'
+
+// AppStore type for Frontend Generator compatibility
+export type AppStore = ReturnType<typeof useUIStore> & ReturnType<typeof useSettingsStore> & ReturnType<typeof useChessGameStore>
 
 // Legacy useAppStore function for backward compatibility
 import { useUIStore } from './uiStore'
 import { useSettingsStore } from './settingsStore'
+import { useChessGameStore } from './chessGameStore'
+import { useMemo } from 'react'
 
-export const useAppStore = <T = ReturnType<typeof useUIStore> & ReturnType<typeof useSettingsStore>>(
-  selector?: (state: ReturnType<typeof useUIStore> & ReturnType<typeof useSettingsStore>) => T
+export const useAppStore = <T = AppStore>(
+  selector?: (state: AppStore) => T
 ): T => {
   const uiState = useUIStore()
   const settingsState = useSettingsStore()
+  const chessGameState = useChessGameStore()
   
-  const combinedState = {
+  const combinedState: AppStore = useMemo(() => ({
     // UI state
     selectedTab: uiState.selectedTab,
     currentChildPage: uiState.currentChildPage,
@@ -30,6 +39,19 @@ export const useAppStore = <T = ReturnType<typeof useUIStore> & ReturnType<typeo
     openSplashModal: uiState.openSplashModal,
     closeSplashModal: uiState.closeSplashModal,
     lastVisited: uiState.lastVisited,
+    coinBalance: uiState.coinBalance,
+    chessSettings: uiState.chessSettings,
+    
+    // Settings panel from UI state
+    isSettingsPanelOpen: uiState.isSettingsPanelOpen,
+    openSettings: uiState.openSettings,
+    closeSettings: uiState.closeSettings,
+    toggleSettings: uiState.toggleSettings,
+    
+    // Coins modal from UI state
+    coinsModalOpen: uiState.coinsModalOpen,
+    openCoinsModal: uiState.openCoinsModal,
+    closeCoinsModal: uiState.closeCoinsModal,
     
     // Settings state
     currentTheme: settingsState.currentTheme,
@@ -37,11 +59,69 @@ export const useAppStore = <T = ReturnType<typeof useUIStore> & ReturnType<typeo
     audioVolume: settingsState.audioVolume,
     backgroundEffectVariant: settingsState.backgroundEffectVariant,
     setBackgroundEffectVariant: settingsState.setBackgroundEffectVariant,
-  }
+    
+    // Chess game state
+    selectedPieceSet: chessGameState.selectedPieceSet,
+    setPieceSet: chessGameState.setPieceSet,
+    pieceSize: chessGameState.pieceSize,
+    setPieceSize: chessGameState.setPieceSize,
+    boardColorMode: chessGameState.boardColorMode,
+    setBoardColorMode: chessGameState.setBoardColorMode,
+    premiumBoardStyle: chessGameState.premiumBoardStyle,
+    setPremiumBoardStyle: chessGameState.setPremiumBoardStyle,
+  }), [uiState, settingsState, chessGameState])
   
   if (selector) {
     return selector(combinedState)
   }
   
   return combinedState as T
+}
+
+// Add getState method for common-actions-handlers
+useAppStore.getState = (): AppStore => {
+  const uiState = useUIStore.getState()
+  const settingsState = useSettingsStore.getState()
+  const chessGameState = useChessGameStore.getState()
+  
+  return {
+    selectedTab: uiState.selectedTab,
+    currentChildPage: uiState.currentChildPage,
+    setSelectedTab: uiState.setSelectedTab,
+    setCurrentChildPage: uiState.setCurrentChildPage,
+    splashModalOpen: uiState.splashModalOpen,
+    splashModalPage: uiState.splashModalPage,
+    openSplashModal: uiState.openSplashModal,
+    closeSplashModal: uiState.closeSplashModal,
+    lastVisited: uiState.lastVisited,
+    coinBalance: uiState.coinBalance,
+    chessSettings: uiState.chessSettings,
+    
+    // Settings panel from UI state
+    isSettingsPanelOpen: uiState.isSettingsPanelOpen,
+    openSettings: uiState.openSettings,
+    closeSettings: uiState.closeSettings,
+    toggleSettings: uiState.toggleSettings,
+    
+    // Coins modal from UI state
+    coinsModalOpen: uiState.coinsModalOpen,
+    openCoinsModal: uiState.openCoinsModal,
+    closeCoinsModal: uiState.closeCoinsModal,
+    
+    currentTheme: settingsState.currentTheme,
+    audioEnabled: settingsState.audioEnabled,
+    audioVolume: settingsState.audioVolume,
+    backgroundEffectVariant: settingsState.backgroundEffectVariant,
+    setBackgroundEffectVariant: settingsState.setBackgroundEffectVariant,
+    
+    // Chess game state
+    selectedPieceSet: chessGameState.selectedPieceSet,
+    setPieceSet: chessGameState.setPieceSet,
+    pieceSize: chessGameState.pieceSize,
+    setPieceSize: chessGameState.setPieceSize,
+    boardColorMode: chessGameState.boardColorMode,
+    setBoardColorMode: chessGameState.setBoardColorMode,
+    premiumBoardStyle: chessGameState.premiumBoardStyle,
+    setPremiumBoardStyle: chessGameState.setPremiumBoardStyle,
+  }
 }

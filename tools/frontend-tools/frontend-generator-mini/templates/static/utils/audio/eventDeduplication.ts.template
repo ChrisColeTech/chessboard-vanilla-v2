@@ -1,0 +1,57 @@
+// eventDeduplication.ts - Smart event deduplication for mobile hover/click sequences
+
+export class EventDeduplicator {
+  private lastHoverElement: HTMLElement | null = null;
+  private lastHoverTime = 0;
+  private pendingHoverLogs: Map<HTMLElement, number> = new Map();
+
+  /**
+   * Track a hover event and optionally schedule logging
+   */
+  public trackHover(element: HTMLElement, onLog: () => void, isMobile: boolean): void {
+    this.lastHoverElement = element;
+    this.lastHoverTime = Date.now();
+    
+    // Cancel any existing pending log for this element
+    if (this.pendingHoverLogs.has(element)) {
+      window.clearTimeout(this.pendingHoverLogs.get(element)!);
+    }
+    
+    if (isMobile) {
+      // On mobile, delay hover logging to see if click follows
+      const timeout = window.setTimeout(() => {
+        onLog();
+        this.pendingHoverLogs.delete(element);
+      }, 50);
+      this.pendingHoverLogs.set(element, timeout);
+    } else {
+      // On desktop, log hover immediately
+      onLog();
+    }
+  }
+
+  /**
+   * Handle a click event, canceling pending hover logs if needed
+   */
+  public handleClick(element: HTMLElement): { wasPartOfSequence: boolean; timeSinceHover: number } {
+    // Cancel any pending hover log for this element (deduplication)
+    if (this.pendingHoverLogs.has(element)) {
+      window.clearTimeout(this.pendingHoverLogs.get(element)!);
+      this.pendingHoverLogs.delete(element);
+    }
+
+    // Check if this was part of a mobile hover→click sequence
+    const wasPartOfSequence = this.lastHoverElement === element;
+    const timeSinceHover = Date.now() - this.lastHoverTime;
+
+    return { wasPartOfSequence, timeSinceHover };
+  }
+
+  /**
+   * Clean up all pending timeouts
+   */
+  public destroy(): void {
+    this.pendingHoverLogs.forEach(timeout => window.clearTimeout(timeout));
+    this.pendingHoverLogs.clear();
+  }
+}

@@ -1,0 +1,8 @@
+import type { ActionSheetAction } from '../../../types/core/action-sheet.types'
+
+export const pageActions = {
+  id: '{{CHILD_ID}}',
+  actions: [
+    // Page-specific actions can be added here
+  ] as ActionSheetAction[]
+}

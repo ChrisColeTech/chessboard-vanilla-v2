@@ -1,0 +1,83 @@
+import { useAuthStore } from '../../stores/authStore'
+import { authService } from '../../services/auth.service'
+import { useState } from 'react'
+import type { LoginCredentials, RegisterData } from '../../types/auth/auth.types'
+
+export function useAuth() {
+  const { user, isAuthenticated, setUser, setAuthenticated, logout: storeLogout } = useAuthStore()
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const login = async (credentials: LoginCredentials) => {
+    setIsLoading(true)
+    setError(null)
+    try {
+      const response = await authService.login(credentials)
+      if (response.data?.user) {
+        setUser(response.data.user)
+        setAuthenticated(true)
+      }
+      return response
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Login failed'
+      setError(errorMessage)
+      throw err
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const register = async (data: RegisterData) => {
+    setIsLoading(true)
+    setError(null)
+    try {
+      const response = await authService.register(data)
+      if (response.data) {
+        setUser(response.data)
+        setAuthenticated(true)
+      }
+      return response
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Registration failed'
+      setError(errorMessage)
+      throw err
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const logout = async () => {
+    setIsLoading(true)
+    try {
+      await authService.logout()
+      storeLogout()
+    } catch (err) {
+      console.error('Logout error:', err)
+      // Still clear local state even if API call fails
+      storeLogout()
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return {
+    user,
+    isAuthenticated,
+    isLoading,
+    error,
+    login,
+    register,
+    logout
+  }
+}
+
+// Alias exports for compatibility
+export const useLogin = () => {
+  const { login, isLoading, error } = useAuth()
+  return { login, isLoading, error }
+}
+
+export const useRegister = () => {
+  const { register, isLoading, error } = useAuth()
+  return { register, isLoading, error }
+}

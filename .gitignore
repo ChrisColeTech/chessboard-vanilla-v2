@@ -199,3 +199,16 @@ tools/frontend-tools/frontend-generator-v2/core/__pycache__/__init__.cpython-312
 /tools/backend-tools/__pycache__
 /tools/frontend-tools/shared/tests/__pycache__
 /tools/backend-tools/__pycache__
+/frontend-v2/.generator_backups
+/frontend-v2/src/constants/actions/.generator_backups
+/tools/frontend-tools/frontend-generator-mini/__pycache__
+/tools/frontend-tools/frontend-generator-mini/core/__pycache__
+/tools/frontend-tools/frontend-generator-mini/generators/__pycache__
+/tools/frontend-tools/frontend-generator-mini/generators/hooks/__pycache__
+/tools/frontend-tools/frontend-generator-mini/generators/pages/__pycache__
+/tools/frontend-tools/frontend-generator-mini/generators/services/__pycache__
+/tools/frontend-tools/frontend-generator-mini/generators/types/__pycache__
+/tools/frontend-tools/frontend-generator-mini/modules/__pycache__
+/tools/frontend-tools/frontend-generator-mini/shared/__pycache__
+/tools/frontend-tools/frontend-generator-mini/tests/__pycache__
+/tools/frontend-tools/frontend-generator-mini/generators/components/__pycache__

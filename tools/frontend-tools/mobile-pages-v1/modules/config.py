@@ -12,7 +12,7 @@ class PageConfig:
     """Configuration for page generation with proper name normalization."""
     name: str
     parent: Optional[str] = None
-    mobile: bool = False
+    mobile: bool = True
     icon: str = "Navigation"
     description: str = ""
     

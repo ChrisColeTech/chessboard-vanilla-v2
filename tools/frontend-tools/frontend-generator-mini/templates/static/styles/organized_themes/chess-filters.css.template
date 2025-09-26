@@ -1,0 +1,139 @@
+/* =============================================================================
+   CHESS GAME STATE VISUAL EFFECTS
+   Minimal game state styles + overlay classes
+   ============================================================================= */
+
+/* Overlay cell base styles */
+.overlay-cell {
+  position: relative;
+}
+
+/* Color-aware overlay effects */
+.overlay-cell.overlay-light-square.selected {
+  backdrop-filter: blur(3px) !important;
+  background-color: rgba(255, 255, 255, 0.15) !important; /* Light overlay for light squares */
+  animation: selected-glow 2s ease-in-out infinite;
+}
+
+.overlay-cell.overlay-dark-square.selected {
+  backdrop-filter: blur(3px) !important;
+  background-color: rgba(0, 0, 0, 0.15) !important; /* Dark overlay for dark squares */
+  animation: selected-glow 2s ease-in-out infinite;
+}
+
+.overlay-cell.overlay-light-square.hovered {
+  backdrop-filter: blur(1.5px) !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  animation: hover-glow 1.5s ease-in-out infinite;
+}
+
+.overlay-cell.overlay-dark-square.hovered {
+  backdrop-filter: blur(1.5px) !important;
+  background-color: rgba(0, 0, 0, 0.08) !important;
+  animation: hover-glow 1.5s ease-in-out infinite;
+}
+
+/* Keyframe animations */
+@keyframes selected-glow {
+  0%, 100% {
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+  }
+  50% {
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+}
+
+@keyframes hover-glow {
+  0%, 100% {
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+  }
+  50% {
+    backdrop-filter: blur(2.5px);
+    -webkit-backdrop-filter: blur(2.5px);
+  }
+}
+
+/* Capture indicator - Red overlay for enemy pieces */
+.overlay-cell.capture {
+  backdrop-filter: blur(2px) !important;
+  background-color: rgba(255, 69, 0, 0.4) !important; /* Orange-red for captures */
+  animation: capture-glow 1.2s ease-in-out infinite;
+  border: 2px solid rgba(255, 0, 0, 0.8) !important; /* Red border for visibility */
+}
+
+.overlay-cell.overlay-light-square.capture {
+  background-color: rgba(255, 69, 0, 0.3) !important; /* Orange-red for light squares */
+}
+
+.overlay-cell.overlay-dark-square.capture {
+  background-color: rgba(220, 20, 60, 0.4) !important; /* Crimson for dark squares */
+}
+
+
+@keyframes capture-glow {
+  0%, 100% {
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+  50% {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+}
+
+
+/* Accessibility: Disable animations for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .overlay-cell {
+    animation: none !important;
+  }
+}
+
+/* King in Check - Urgent red warning effect */
+.chess-square.king-in-check {
+  background: rgba(255, 0, 0, 0.8) !important;
+  animation: check-warning 1.5s ease-in-out infinite;
+}
+
+@keyframes check-warning {
+  0%, 100% { 
+    background: rgba(255, 0, 0, 0.8);
+  }
+  50% { 
+    background: rgba(255, 0, 0, 1.0);
+  }
+}
+
+/* Checkmate - Game over dramatic effect */
+.chess-square.checkmate {
+  background: rgba(139, 0, 0, 0.9) !important;
+  animation: checkmate-flash 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes checkmate-flash {
+  0% { 
+    background: rgba(139, 0, 0, 0.9);
+  }
+  100% { 
+    background: rgba(255, 0, 0, 1.0);
+  }
+}
+
+/* Performance: Disable animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .chess-square.king-in-check,
+  .chess-square.checkmate {
+    animation: none;
+  }
+  
+  .chess-square.king-in-check {
+    background: rgba(255, 0, 0, 0.8) !important;
+  }
+  
+  .chess-square.checkmate {
+    background: rgba(139, 0, 0, 0.9) !important;
+  }
+}

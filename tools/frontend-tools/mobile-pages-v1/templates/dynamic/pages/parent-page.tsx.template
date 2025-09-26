@@ -6,7 +6,8 @@ import { useIsMobile } from "../../hooks/core/useIsMobile";
 import { ActionSheetContainer } from "../../components/action-sheet/ActionSheetContainer";
 import { use{{PARENT_NAME}}Actions } from "../../hooks/{{PARENT_ID}}/use{{PARENT_NAME}}Actions";
 import { {{PARENT_NAME}}MainPage } from "./{{PARENT_NAME}}MainPage";
-{{MOBILE_IMPORT}}{{CHILD_IMPORTS}}
+{{MOBILE_IMPORT}}
+{{CHILD_IMPORTS}}
 
 interface {{PARENT_NAME}}PageProps {
   // Add props as needed

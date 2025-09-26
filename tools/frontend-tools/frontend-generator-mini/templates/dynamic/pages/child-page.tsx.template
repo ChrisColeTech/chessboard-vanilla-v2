@@ -1,0 +1,95 @@
+import React from "react";
+import { ActionSheetContainer } from "../../components/action-sheet/ActionSheetContainer";
+import { use{{CHILD_NAME}}Actions } from "../../hooks/{{PARENT_ID}}/use{{CHILD_NAME}}Actions";
+
+interface {{CHILD_NAME}}PageProps {
+  // Add props as needed
+}
+
+export const {{CHILD_NAME}}Page: React.FC<{{CHILD_NAME}}PageProps> = () => {
+  // Use child actions hook for sibling navigation
+  use{{CHILD_NAME}}Actions();
+  
+  return (
+    <>
+      <div className="uitest-layout-container">
+        <div 
+          className="w-full h-full border-2 border-border p-2"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '100px 1fr 100px',
+            gridTemplateRows: '80px 1fr 80px',
+            gap: '8px',
+            minHeight: '100%'
+          }}
+        >
+          {/* Row 1 */}
+          <div 
+            className="flex items-center justify-center border border-border/50 p-2 rounded"
+            style={{ minHeight: '0', minWidth: '0' }}
+          >
+            {{CHILD_NAME}} Top Left
+          </div>
+          <div 
+            className="flex items-center justify-center border border-border/50 p-2 rounded"
+            style={{ minHeight: '0', minWidth: '0' }}
+          >
+            {{CHILD_NAME}} Top
+          </div>
+          <div 
+            className="flex items-center justify-center border border-border/50 p-2 rounded"
+            style={{ minHeight: '0', minWidth: '0' }}
+          >
+            {{CHILD_NAME}} Top Right
+          </div>
+          
+          {/* Row 2 */}
+          <div 
+            className="flex items-center justify-center border border-border/50 p-2 rounded"
+            style={{ minHeight: '0', minWidth: '0' }}
+          >
+            {{CHILD_NAME}} Left
+          </div>
+          <div 
+            className="flex items-center justify-center border border-border/50 p-2 rounded"
+            style={{ minHeight: '0', minWidth: '0' }}
+          >
+            {{CHILD_NAME}} Center
+          </div>
+          <div 
+            className="flex items-center justify-center border border-border/50 p-2 rounded"
+            style={{ minHeight: '0', minWidth: '0' }}
+          >
+            {{CHILD_NAME}} Right
+          </div>
+          
+          {/* Row 3 */}
+          <div 
+            className="flex items-center justify-center border border-border/50 p-2 rounded"
+            style={{ minHeight: '0', minWidth: '0' }}
+          >
+            {{CHILD_NAME}} Bottom Left
+          </div>
+          <div 
+            className="flex items-center justify-center border border-border/50 p-2 rounded"
+            style={{ minHeight: '0', minWidth: '0' }}
+          >
+            {{CHILD_NAME}} Bottom
+          </div>
+          <div 
+            className="flex items-center justify-center border border-border/50 p-2 rounded"
+            style={{ minHeight: '0', minWidth: '0' }}
+          >
+            {{CHILD_NAME}} Bottom Right
+          </div>
+        </div>
+      </div>
+      <ActionSheetContainer 
+        currentPage="{{CHILD_ID}}"
+        onClose={() => {}}
+        isOpen={false}
+        onOpenSettings={() => {}}
+      />
+    </>
+  );
+};

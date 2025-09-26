@@ -47,6 +47,44 @@ from config_integration import ConfigIntegration
 from unified_logger import create_logger, LogMode
 
 
+def get_env_file_path():
+    """Get the path to the .env file in the same directory as main.py"""
+    return Path(__file__).parent / '.env'
+
+
+def load_last_frontend_root():
+    """Load the last used frontend root from .env file"""
+    env_file = get_env_file_path()
+    if env_file.exists():
+        try:
+            with open(env_file, 'r') as f:
+                for line in f:
+                    line = line.strip()
+                    if line.startswith('LAST_FRONTEND_ROOT='):
+                        path = line.split('=', 1)[1].strip()
+                        # Remove quotes if present
+                        if path.startswith('"') and path.endswith('"'):
+                            path = path[1:-1]
+                        if path.startswith("'") and path.endswith("'"):
+                            path = path[1:-1]
+                        return path
+        except Exception as e:
+            print(f"⚠️  Warning: Could not read .env file: {e}")
+    return None
+
+
+def save_last_frontend_root(frontend_root):
+    """Save the frontend root to .env file"""
+    env_file = get_env_file_path()
+    try:
+        # Convert to absolute path for storage
+        abs_path = str(Path(frontend_root).resolve())
+        with open(env_file, 'w') as f:
+            f.write(f'LAST_FRONTEND_ROOT="{abs_path}"\n')
+    except Exception as e:
+        print(f"⚠️  Warning: Could not save frontend root to .env file: {e}")
+
+
 class TemplateBasedGeneratorCLI:
     """Main CLI interface for the template-based page generator."""
     
@@ -96,7 +134,7 @@ class TemplateBasedGeneratorCLI:
         # Initialize shared modules for config management
         self.config_integration = ConfigIntegration(self.frontend_root)
     
-    def create_parent_page(self, name: str, mobile: bool = False) -> None:
+    def create_parent_page(self, name: str, mobile: bool = True) -> None:
         """Create a parent page with all required files."""
         self.logger.operation(f"Creating parent page: {name}")
         
@@ -155,7 +193,7 @@ class TemplateBasedGeneratorCLI:
             self.logger.error(f"Error creating parent page: {e}")
             sys.exit(1)
     
-    def create_child_page(self, name: str, parent: str, mobile: bool = False) -> None:
+    def create_child_page(self, name: str, parent: str, mobile: bool = True) -> None:
         """Create a child page with adaptive wrapper."""
         self.logger.operation(f"Creating child page: {name} (parent: {parent})")
         
@@ -366,7 +404,7 @@ class TemplateBasedGeneratorCLI:
             print(f"❌ Error validating files: {e}")
             sys.exit(1)
     
-    def create_pages(self, parent: str, children: list = None, mobile: bool = False) -> None:
+    def create_pages(self, parent: str, children: list = None, mobile: bool = True) -> None:
         """Create parent and children in one command."""
         if children is None:
             children = []
@@ -394,7 +432,7 @@ class TemplateBasedGeneratorCLI:
             print(f"❌ Error creating page structure: {e}")
             sys.exit(1)
     
-    def _preregister_children_in_config(self, parent: str, children: list, mobile: bool = False) -> None:
+    def _preregister_children_in_config(self, parent: str, children: list, mobile: bool = True) -> None:
         """Pre-register children in config so parent can find them during generation."""
         try:
             # Import the PageConfigManager from shared 
@@ -518,10 +556,12 @@ Examples:
         """
     )
     
+    # Load last frontend root from .env file
+    last_frontend_root = load_last_frontend_root()
+    
     parser.add_argument(
         '--frontend-root',
-        default='.',
-        help='Path to frontend root directory (default: current directory)'
+        help='Path to frontend root directory (required on first run, optional afterwards - uses saved location)'
     )
     parser.add_argument(
         '--force', '-f',
@@ -552,19 +592,19 @@ Examples:
     # Parent command
     parent_parser = subparsers.add_parser('parent', help='Create parent page')
     parent_parser.add_argument('name', help='Parent page name')
-    parent_parser.add_argument('--mobile', action='store_true', help='Create mobile variant of parent page')
+    parent_parser.add_argument('--mobile', action='store_true', help='Create mobile variant of parent page (default)')
     
     # Child command
     child_parser = subparsers.add_parser('child', help='Create child page')
     child_parser.add_argument('name', help='Child page name')
     child_parser.add_argument('--parent', required=True, help='Parent page name')
-    child_parser.add_argument('--mobile', action='store_true', help='Create mobile variant')
+    child_parser.add_argument('--mobile', action='store_true', help='Create mobile variant (default)')
     
     # Create command (one-shot parent + children)
     create_parser = subparsers.add_parser('create', help='Create parent and children in one command')
     create_parser.add_argument('parent', help='Parent page name')
     create_parser.add_argument('--children', nargs='+', help='Child page names', default=[])
-    create_parser.add_argument('--mobile', action='store_true', help='Create mobile variants for all children')
+    create_parser.add_argument('--mobile', action='store_true', help='Create mobile variants for all children (default)')
     
     # Analyze command
     subparsers.add_parser('analyze', help='Analyze project structure')
@@ -580,10 +620,82 @@ Examples:
     regenerate_parser.add_argument('--target', choices=['all', 'container', 'actions'], default='all', 
                                  help='What to regenerate (default: all)')
     
-    args = parser.parse_args()
+    # Custom parsing to handle flexible argument order
+    import sys
+    raw_args = sys.argv[1:]
+    
+    # Global flag patterns that need to be moved before command
+    global_flags = ['--frontend-root', '--force', '-f', '--verbose', '-v', '--silent', '-s', '--log-file']
+    
+    # Find the command (non-flag argument)
+    command_candidates = ['parent', 'child', 'create', 'analyze', 'validate', 'migrate', 'regenerate']
+    found_command = None
+    command_index = -1
+    
+    for i, arg in enumerate(raw_args):
+        if arg in command_candidates:
+            found_command = arg
+            command_index = i
+            break
+    
+    if found_command:
+        # Separate global flags and command-specific args
+        global_args = []
+        command_args = [found_command]
+        
+        # Process args before command
+        i = 0
+        while i < command_index:
+            arg = raw_args[i]
+            if arg in global_flags:
+                global_args.append(arg)
+                # Check if this flag takes a value
+                if arg in ['--frontend-root', '--log-file'] and i + 1 < command_index:
+                    i += 1
+                    global_args.append(raw_args[i])
+            else:
+                command_args.append(arg)
+            i += 1
+        
+        # Process args after command
+        i = command_index + 1
+        while i < len(raw_args):
+            arg = raw_args[i]
+            if arg in global_flags:
+                global_args.append(arg)
+                # Check if this flag takes a value
+                if arg in ['--frontend-root', '--log-file'] and i + 1 < len(raw_args):
+                    i += 1
+                    global_args.append(raw_args[i])
+            else:
+                command_args.append(arg)
+            i += 1
+        
+        # Reconstruct with proper order: global flags + command + command args
+        reordered_args = global_args + command_args
+        args = parser.parse_args(reordered_args)
+    else:
+        # No command found, parse normally
+        args = parser.parse_args()
     
     if not args.command:
         parser.print_help()
+        sys.exit(1)
+    
+    # Determine frontend root with environment file logic
+    if args.frontend_root:
+        # Use the provided frontend root
+        frontend_root = args.frontend_root
+        print(f"📁 Using specified frontend root: {frontend_root}")
+    elif last_frontend_root:
+        # Use saved location and show info
+        frontend_root = last_frontend_root
+        print(f"📁 Using saved frontend location: {frontend_root}")
+        print("   (Use --frontend-root to specify a different location)")
+    else:
+        # No saved location and no flag provided - require explicit flag
+        print("❌ No frontend root specified and no saved location found.")
+        print("   Please provide --frontend-root to specify the frontend directory")
         sys.exit(1)
     
     try:
@@ -596,15 +708,23 @@ Examples:
             log_mode = "minimal"
         
         # Initialize CLI with logging configuration
-        cli = TemplateBasedGeneratorCLI(args.frontend_root, args.force, log_mode, args.log_file)
+        cli = TemplateBasedGeneratorCLI(frontend_root, args.force, log_mode, args.log_file)
+        
+        # Save the frontend root for next time
+        save_last_frontend_root(frontend_root)
+        if args.frontend_root:
+            # Show save confirmation when explicitly provided
+            env_file_path = get_env_file_path()
+            print(f"💾 Frontend location saved to: {env_file_path}")
+            print("   (Will be used automatically in future runs)")
         
         # Execute command
         if args.command == 'parent':
-            cli.create_parent_page(args.name, args.mobile)
+            cli.create_parent_page(args.name)  # Use method default (True)
         elif args.command == 'child':
-            cli.create_child_page(args.name, args.parent, args.mobile)
+            cli.create_child_page(args.name, args.parent)  # Use method default (True)
         elif args.command == 'create':
-            cli.create_pages(args.parent, args.children, args.mobile)
+            cli.create_pages(args.parent, args.children)  # Use method default (True)
         elif args.command == 'analyze':
             cli.analyze_project()
         elif args.command == 'validate':

@@ -1,0 +1,20 @@
+// Generated hook for {{entity_name}}
+import { useState } from 'react';
+import type { {{entity_name}} } from '../../types/{{domain}}/{{camel_endpoint}}';
+import { {{camel_entity_name}}Service } from '../../services/{{domain}}/{{entity_name}}Service';
+
+export const use{{entity_name}} = () => {
+  const [{{camel_endpoint}}, set{{entity_name}}s] = useState<{{entity_name}}[]>([]);
+  const [{{camel_entity_name}}, set{{entity_name}}] = useState<{{entity_name}} | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+{{hook_methods_str}}
+
+  return {
+    {{camel_endpoint}},
+    {{camel_entity_name}},
+    loading,
+    error{{hook_return_methods}}
+  };
+};

@@ -1,0 +1,42 @@
+/**
+ * Dynamic PAGE_ACTIONS Registry - Generated from pages.config.json
+ * 
+ * This registry automatically imports all generated page actions and provides
+ * dynamic action discovery for the ActionSheetContainer.
+ */
+import type { ActionSheetAction } from '../../types/core/action-sheet.types'
+import { mergeWithCommonActions } from './common-actions.constants'
+
+// Dynamic imports for all generated page actions
+{{DYNAMIC_PAGE_ACTION_IMPORTS}}
+
+/**
+ * Central registry of all page actions.
+ * Automatically updated when new pages are generated.
+ */
+export const PAGE_ACTIONS: Record<string, ActionSheetAction[]> = {
+{{DYNAMIC_PAGE_ACTION_ENTRIES}}
+}
+
+/**
+ * Helper function to get actions for a specific page.
+ * Returns empty array if page not found.
+ */
+export function getPageActions(pageId: string): ActionSheetAction[] {
+  return PAGE_ACTIONS[pageId] || [];
+}
+
+/**
+ * Helper function to check if page has actions.
+ */
+export function hasPageActions(pageId: string): boolean {
+  const actions = PAGE_ACTIONS[pageId];
+  return actions && actions.length > 0;
+}
+
+/**
+ * Get all page IDs that have actions defined.
+ */
+export function getPageIdsWithActions(): string[] {
+  return Object.keys(PAGE_ACTIONS);
+}

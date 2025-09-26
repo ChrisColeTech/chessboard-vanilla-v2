@@ -1,0 +1,802 @@
+/* =============================================================================
+   CHESS PIECE COLORS FOR ALL THEMES
+   Harmonious piece colors that align with each theme's palette
+   ============================================================================= */
+
+/* =============================================================================
+   BASE THEME PIECE COLORS (Default Light/Dark)
+   Professional gray-based colors with excellent contrast
+   ============================================================================= */
+
+:root {
+  /* Base theme piece colors - light mode */
+  --chess-piece-white-base: #f8fafc;
+  --chess-piece-black-base: #1e293b;
+
+  /* Generic piece color variables that map to current theme */
+  --chess-piece-white: var(--chess-piece-white-base);
+  --chess-piece-black: var(--chess-piece-black-base);
+  --chess-piece-white-shadow: drop-shadow(var(--chess-piece-white-shadow-base));
+  --chess-piece-black-shadow: drop-shadow(var(--chess-piece-black-shadow-base));
+  --chess-piece-white-text-shadow: var(--chess-piece-white-text-shadow-base);
+  --chess-piece-black-text-shadow: var(--chess-piece-black-text-shadow-base);
+
+  /* Enhanced visibility with subtle shadows */
+  --chess-piece-white-shadow-base: 0 2px 4px rgba(30, 41, 59, 0.3);
+  --chess-piece-black-shadow-base: 0 2px 4px rgba(248, 250, 252, 0.4);
+  --chess-piece-white-text-shadow-base: 1px 1px 2px rgba(30, 41, 59, 0.5);
+  --chess-piece-black-text-shadow-base: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.dark {
+  /* Enhanced visibility with subtle shadows */
+  --chess-piece-white-shadow-base: 0 2px 4px rgba(15, 23, 42, 0.6);
+  --chess-piece-black-shadow-base: 0 2px 4px rgba(148, 163, 184, 0.3);
+  --chess-piece-white-text-shadow-base: 1px 1px 2px rgba(15, 23, 42, 0.8);
+  --chess-piece-black-text-shadow-base: 1px 1px 2px rgba(148, 163, 184, 0.5);
+}
+
+/* =============================================================================
+   BRONZE THEME PIECE COLORS
+   Warm metallic tones with bronze/amber harmony
+   ============================================================================= */
+
+.theme-bronze {
+  /* Bronze theme piece colors - light mode */
+  --chess-piece-white-bronze: #fed7aa;
+  --chess-piece-black-bronze: #1c1917;
+
+  /* Map generic variables to bronze theme */
+  --chess-piece-white: var(--chess-piece-white-bronze);
+  --chess-piece-black: var(--chess-piece-black-bronze);
+  --chess-piece-white-shadow: drop-shadow(var(--chess-piece-white-shadow-bronze));
+  --chess-piece-black-shadow: drop-shadow(var(--chess-piece-black-shadow-bronze));
+  --chess-piece-white-text-shadow: var(--chess-piece-white-text-shadow-bronze);
+  --chess-piece-black-text-shadow: var(--chess-piece-black-text-shadow-bronze);
+
+  /* Enhanced bronze metallic effects */
+  --chess-piece-white-shadow-bronze: 0 3px 6px rgba(146, 64, 14, 0.4);
+  --chess-piece-black-shadow-bronze: 0 3px 6px rgba(255, 251, 235, 0.3);
+  --chess-piece-white-text-shadow-bronze: 1px 1px 3px rgba(146, 64, 14, 0.6);
+  --chess-piece-black-text-shadow-bronze: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.theme-bronze.dark {
+  /* Enhanced bronze metallic effects */
+  --chess-piece-white-shadow-bronze: 0 3px 6px rgba(28, 25, 23, 0.7);
+  --chess-piece-black-shadow-bronze: 0 3px 6px rgba(254, 215, 170, 0.4);
+  --chess-piece-white-text-shadow-bronze: 1px 1px 3px rgba(28, 25, 23, 0.9);
+  --chess-piece-black-text-shadow-bronze: 1px 1px 3px rgba(254, 215, 170, 0.6);
+}
+
+/* =============================================================================
+   CRIMSON THEME PIECE COLORS
+   Bold red-based colors with high contrast
+   ============================================================================= */
+
+.theme-crimson {
+  /* Crimson theme piece colors - light mode */
+  --chess-piece-white-crimson: #fef2f2;
+  --chess-piece-black-crimson: #7f1d1d;
+
+  /* Map generic variables to crimson theme */
+  --chess-piece-white: var(--chess-piece-white-crimson);
+  --chess-piece-black: var(--chess-piece-black-crimson);
+  --chess-piece-white-shadow: drop-shadow(var(--chess-piece-white-shadow-crimson));
+  --chess-piece-black-shadow: drop-shadow(var(--chess-piece-black-shadow-crimson));
+  --chess-piece-white-text-shadow: var(--chess-piece-white-text-shadow-crimson);
+  --chess-piece-black-text-shadow: var(--chess-piece-black-text-shadow-crimson);
+
+  /* Dramatic crimson effects */
+  --chess-piece-white-shadow-crimson: 0 3px 6px rgba(127, 29, 29, 0.4);
+  --chess-piece-black-shadow-crimson: 0 3px 6px rgba(254, 242, 242, 0.3);
+  --chess-piece-white-text-shadow-crimson: 1px 1px 3px rgba(127, 29, 29, 0.7);
+  --chess-piece-black-text-shadow-crimson: 1px 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.theme-crimson.dark {
+  /* Crimson theme piece colors - dark mode */
+  --chess-piece-white-crimson: #fca5a5;
+  --chess-piece-black-crimson: #0f0f0f;
+
+  /* Dramatic crimson effects */
+  --chess-piece-white-shadow-crimson: 0 3px 6px rgba(15, 15, 15, 0.8);
+  --chess-piece-black-shadow-crimson: 0 3px 6px rgba(252, 165, 165, 0.4);
+  --chess-piece-white-text-shadow-crimson: 1px 1px 3px rgba(15, 15, 15, 0.9);
+  --chess-piece-black-text-shadow-crimson: 1px 1px 3px rgba(252, 165, 165, 0.6);
+}
+
+/* =============================================================================
+   AMBER THEME PIECE COLORS
+   Warm orange-red tones with energetic feel
+   ============================================================================= */
+
+.theme-amber {
+  /* Amber theme piece colors - light mode */
+  --chess-piece-white-amber: #fff7ed;
+  --chess-piece-black-amber: #c2410c;
+
+  /* Map generic variables to amber theme */
+  --chess-piece-white: var(--chess-piece-white-amber);
+  --chess-piece-black: var(--chess-piece-black-amber);
+  --chess-piece-white-shadow: drop-shadow(var(--chess-piece-white-shadow-amber));
+  --chess-piece-black-shadow: drop-shadow(var(--chess-piece-black-shadow-amber));
+  --chess-piece-white-text-shadow: var(--chess-piece-white-text-shadow-amber);
+  --chess-piece-black-text-shadow: var(--chess-piece-black-text-shadow-amber);
+
+  /* Warm amber glow effects */
+  --chess-piece-white-shadow-amber: 0 3px 6px rgba(194, 65, 12, 0.4);
+  --chess-piece-black-shadow-amber: 0 3px 6px rgba(255, 247, 237, 0.3);
+  --chess-piece-white-text-shadow-amber: 1px 1px 3px rgba(194, 65, 12, 0.6);
+  --chess-piece-black-text-shadow-amber: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.theme-amber.dark {
+  /* Amber theme piece colors - dark mode */
+  --chess-piece-white-amber: #fdba74;
+  --chess-piece-black-amber: #121212;
+
+  /* Warm amber glow effects */
+  --chess-piece-white-shadow-amber: 0 3px 6px rgba(18, 18, 18, 0.8);
+  --chess-piece-black-shadow-amber: 0 3px 6px rgba(253, 186, 116, 0.4);
+  --chess-piece-white-text-shadow-amber: 1px 1px 3px rgba(18, 18, 18, 0.9);
+  --chess-piece-black-text-shadow-amber: 1px 1px 3px rgba(253, 186, 116, 0.6);
+}
+
+/* =============================================================================
+   SAGE THEME PIECE COLORS
+   Natural green tones with organic harmony
+   ============================================================================= */
+
+.theme-sage {
+  /* Sage theme piece colors - light mode */
+  --chess-piece-white-sage: #f0fdf4;
+  --chess-piece-black-sage: #15803d;
+
+  /* Map generic variables to sage theme */
+  --chess-piece-white: var(--chess-piece-white-sage);
+  --chess-piece-black: var(--chess-piece-black-sage);
+  --chess-piece-white-shadow: drop-shadow(var(--chess-piece-white-shadow-sage));
+  --chess-piece-black-shadow: drop-shadow(var(--chess-piece-black-shadow-sage));
+  --chess-piece-white-text-shadow: var(--chess-piece-white-text-shadow-sage);
+  --chess-piece-black-text-shadow: var(--chess-piece-black-text-shadow-sage);
+
+  /* Natural green effects */
+  --chess-piece-white-shadow-sage: 0 3px 6px rgba(21, 128, 61, 0.4);
+  --chess-piece-black-shadow-sage: 0 3px 6px rgba(240, 253, 244, 0.3);
+  --chess-piece-white-text-shadow-sage: 1px 1px 3px rgba(21, 128, 61, 0.6);
+  --chess-piece-black-text-shadow-sage: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.theme-sage.dark {
+  /* Sage theme piece colors - dark mode */
+  --chess-piece-white-sage: #86efac;
+  --chess-piece-black-sage: #0c1710;
+
+  /* Natural green effects */
+  --chess-piece-white-shadow-sage: 0 3px 6px rgba(12, 23, 16, 0.8);
+  --chess-piece-black-shadow-sage: 0 3px 6px rgba(134, 239, 172, 0.4);
+  --chess-piece-white-text-shadow-sage: 1px 1px 3px rgba(12, 23, 16, 0.9);
+  --chess-piece-black-text-shadow-sage: 1px 1px 3px rgba(134, 239, 172, 0.6);
+}
+
+/* =============================================================================
+   GOLD THEME PIECE COLORS
+   Luxurious golden tones with regal appearance
+   ============================================================================= */
+
+.theme-gold {
+  /* Gold theme piece colors - light mode */
+  --chess-piece-white-gold: #fffbeb;
+  --chess-piece-black-gold: #a16207;
+
+  /* Map generic variables to gold theme */
+  --chess-piece-white: var(--chess-piece-white-gold);
+  --chess-piece-black: var(--chess-piece-black-gold);
+  --chess-piece-white-shadow: drop-shadow(var(--chess-piece-white-shadow-gold));
+  --chess-piece-black-shadow: drop-shadow(var(--chess-piece-black-shadow-gold));
+  --chess-piece-white-text-shadow: var(--chess-piece-white-text-shadow-gold);
+  --chess-piece-black-text-shadow: var(--chess-piece-black-text-shadow-gold);
+
+  /* Luxurious gold effects */
+  --chess-piece-white-shadow-gold: 0 3px 6px rgba(161, 98, 7, 0.4);
+  --chess-piece-black-shadow-gold: 0 3px 6px rgba(255, 251, 235, 0.3);
+  --chess-piece-white-text-shadow-gold: 1px 1px 3px rgba(161, 98, 7, 0.7);
+  --chess-piece-black-text-shadow-gold: 1px 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.theme-gold.dark {
+  /* Gold theme piece colors - dark mode */
+  --chess-piece-white-gold: #fde68a;
+  --chess-piece-black-gold: #111827;
+
+  /* Luxurious gold effects */
+  --chess-piece-white-shadow-gold: 0 3px 6px rgba(17, 24, 39, 0.8);
+  --chess-piece-black-shadow-gold: 0 3px 6px rgba(253, 230, 138, 0.4);
+  --chess-piece-white-text-shadow-gold: 1px 1px 3px rgba(17, 24, 39, 0.9);
+  --chess-piece-black-text-shadow-gold: 1px 1px 3px rgba(253, 230, 138, 0.6);
+}
+
+/* =============================================================================
+   SCARLET THEME PIECE COLORS
+   Deep red tones with intense drama
+   ============================================================================= */
+
+.theme-scarlet {
+  /* Scarlet theme piece colors - light mode */
+  --chess-piece-white-scarlet: #fef2f2;
+  --chess-piece-black-scarlet: #991b1b;
+
+  /* Map generic variables to scarlet theme */
+  --chess-piece-white: var(--chess-piece-white-scarlet);
+  --chess-piece-black: var(--chess-piece-black-scarlet);
+  --chess-piece-white-shadow: drop-shadow(var(--chess-piece-white-shadow-scarlet));
+  --chess-piece-black-shadow: drop-shadow(var(--chess-piece-black-shadow-scarlet));
+  --chess-piece-white-text-shadow: var(--chess-piece-white-text-shadow-scarlet);
+  --chess-piece-black-text-shadow: var(--chess-piece-black-text-shadow-scarlet);
+
+  /* Intense scarlet effects */
+  --chess-piece-white-shadow-scarlet: 0 3px 6px rgba(153, 27, 27, 0.4);
+  --chess-piece-black-shadow-scarlet: 0 3px 6px rgba(254, 242, 242, 0.3);
+  --chess-piece-white-text-shadow-scarlet: 1px 1px 3px rgba(153, 27, 27, 0.7);
+  --chess-piece-black-text-shadow-scarlet: 1px 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.theme-scarlet.dark {
+  /* Scarlet theme piece colors - dark mode */
+  --chess-piece-white-scarlet: #fca5a5;
+  --chess-piece-black-scarlet: #1f1117;
+
+  /* Intense scarlet effects */
+  --chess-piece-white-shadow-scarlet: 0 3px 6px rgba(31, 17, 23, 0.8);
+  --chess-piece-black-shadow-scarlet: 0 3px 6px rgba(252, 165, 165, 0.4);
+  --chess-piece-white-text-shadow-scarlet: 1px 1px 3px rgba(31, 17, 23, 0.9);
+  --chess-piece-black-text-shadow-scarlet: 1px 1px 3px rgba(252, 165, 165, 0.6);
+}
+
+/* =============================================================================
+   TEAL THEME PIECE COLORS
+   Cyan-turquoise colors with modern appeal
+   ============================================================================= */
+
+.theme-teal {
+  /* Teal theme piece colors - light mode */
+  --chess-piece-white-teal: #f0fdfa;
+  --chess-piece-black-teal: #0f766e;
+
+  /* Map generic variables to teal theme */
+  --chess-piece-white: var(--chess-piece-white-teal);
+  --chess-piece-black: var(--chess-piece-black-teal);
+  --chess-piece-white-shadow: drop-shadow(var(--chess-piece-white-shadow-teal));
+  --chess-piece-black-shadow: drop-shadow(var(--chess-piece-black-shadow-teal));
+  --chess-piece-white-text-shadow: var(--chess-piece-white-text-shadow-teal);
+  --chess-piece-black-text-shadow: var(--chess-piece-black-text-shadow-teal);
+
+  /* Modern teal effects */
+  --chess-piece-white-shadow-teal: 0 3px 6px rgba(15, 118, 110, 0.4);
+  --chess-piece-black-shadow-teal: 0 3px 6px rgba(240, 253, 250, 0.3);
+  --chess-piece-white-text-shadow-teal: 1px 1px 3px rgba(15, 118, 110, 0.6);
+  --chess-piece-black-text-shadow-teal: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.theme-teal.dark {
+  /* Teal theme piece colors - dark mode */
+  --chess-piece-white-teal: #5eead4;
+  --chess-piece-black-teal: #042f2e;
+
+  /* Modern teal effects */
+  --chess-piece-white-shadow-teal: 0 3px 6px rgba(4, 47, 46, 0.8);
+  --chess-piece-black-shadow-teal: 0 3px 6px rgba(94, 234, 212, 0.4);
+  --chess-piece-white-text-shadow-teal: 1px 1px 3px rgba(4, 47, 46, 0.9);
+  --chess-piece-black-text-shadow-teal: 1px 1px 3px rgba(94, 234, 212, 0.6);
+}
+
+/* =============================================================================
+   COPPER THEME PIECE COLORS
+   Warm metallic copper tones
+   ============================================================================= */
+
+.theme-copper {
+  /* Copper theme piece colors - light mode */
+  --chess-piece-white-copper: #fff7ed;
+  --chess-piece-black-copper: #9a3412;
+
+  /* Map generic variables to copper theme */
+  --chess-piece-white: var(--chess-piece-white-copper);
+  --chess-piece-black: var(--chess-piece-black-copper);
+  --chess-piece-white-shadow: drop-shadow(var(--chess-piece-white-shadow-copper));
+  --chess-piece-black-shadow: drop-shadow(var(--chess-piece-black-shadow-copper));
+  --chess-piece-white-text-shadow: var(--chess-piece-white-text-shadow-copper);
+  --chess-piece-black-text-shadow: var(--chess-piece-black-text-shadow-copper);
+
+  /* Copper metallic effects */
+  --chess-piece-white-shadow-copper: 0 3px 6px rgba(154, 52, 18, 0.4);
+  --chess-piece-black-shadow-copper: 0 3px 6px rgba(255, 247, 237, 0.3);
+  --chess-piece-white-text-shadow-copper: 1px 1px 3px rgba(154, 52, 18, 0.6);
+  --chess-piece-black-text-shadow-copper: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.theme-copper.dark {
+  /* Copper theme piece colors - dark mode */
+  --chess-piece-white-copper: #fdba74;
+  --chess-piece-black-copper: #1f1108;
+
+  /* Copper metallic effects */
+  --chess-piece-white-shadow-copper: 0 3px 6px rgba(31, 17, 8, 0.8);
+  --chess-piece-black-shadow-copper: 0 3px 6px rgba(253, 186, 116, 0.4);
+  --chess-piece-white-text-shadow-copper: 1px 1px 3px rgba(31, 17, 8, 0.9);
+  --chess-piece-black-text-shadow-copper: 1px 1px 3px rgba(253, 186, 116, 0.6);
+}
+
+/* =============================================================================
+   ONYX THEME PIECE COLORS
+   Classic monochromatic black and white
+   ============================================================================= */
+
+.theme-onyx {
+  /* Onyx theme piece colors - light mode */
+  --chess-piece-white-onyx: #ffffff;
+  --chess-piece-black-onyx: #000000;
+
+  /* Map generic variables to onyx theme */
+  --chess-piece-white: var(--chess-piece-white-onyx);
+  --chess-piece-black: var(--chess-piece-black-onyx);
+  --chess-piece-white-shadow: drop-shadow(var(--chess-piece-white-shadow-onyx));
+  --chess-piece-black-shadow: drop-shadow(var(--chess-piece-black-shadow-onyx));
+  --chess-piece-white-text-shadow: var(--chess-piece-white-text-shadow-onyx);
+  --chess-piece-black-text-shadow: var(--chess-piece-black-text-shadow-onyx);
+
+  /* High contrast monochrome effects */
+  --chess-piece-white-shadow-onyx: 0 3px 6px rgba(0, 0, 0, 0.5);
+  --chess-piece-black-shadow-onyx: 0 3px 6px rgba(255, 255, 255, 0.3);
+  --chess-piece-white-text-shadow-onyx: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  --chess-piece-black-text-shadow-onyx: 1px 1px 3px rgba(255, 255, 255, 0.9);
+}
+
+.theme-onyx.dark {
+  /* Onyx theme piece colors - dark mode */
+  --chess-piece-white-onyx: #f5f5f5;
+  --chess-piece-black-onyx: #0a0a0a;
+
+  /* High contrast monochrome effects */
+  --chess-piece-white-shadow-onyx: 0 3px 6px rgba(10, 10, 10, 0.8);
+  --chess-piece-black-shadow-onyx: 0 3px 6px rgba(245, 245, 245, 0.4);
+  --chess-piece-white-text-shadow-onyx: 1px 1px 3px rgba(10, 10, 10, 0.9);
+  --chess-piece-black-text-shadow-onyx: 1px 1px 3px rgba(245, 245, 245, 0.7);
+}
+
+/* =============================================================================
+   AZURE THEME PIECE COLORS
+   Professional blue tones
+   ============================================================================= */
+
+.theme-azure {
+  /* Azure theme piece colors - light mode */
+  --chess-piece-white-azure: #f0f9ff;
+  --chess-piece-black-azure: #1e40af;
+
+  /* Map generic variables to azure theme */
+  --chess-piece-white: var(--chess-piece-white-azure);
+  --chess-piece-black: var(--chess-piece-black-azure);
+  --chess-piece-white-shadow: drop-shadow(var(--chess-piece-white-shadow-azure));
+  --chess-piece-black-shadow: drop-shadow(var(--chess-piece-black-shadow-azure));
+  --chess-piece-white-text-shadow: var(--chess-piece-white-text-shadow-azure);
+  --chess-piece-black-text-shadow: var(--chess-piece-black-text-shadow-azure);
+
+  /* Professional blue effects */
+  --chess-piece-white-shadow-azure: 0 3px 6px rgba(30, 64, 175, 0.4);
+  --chess-piece-black-shadow-azure: 0 3px 6px rgba(240, 249, 255, 0.3);
+  --chess-piece-white-text-shadow-azure: 1px 1px 3px rgba(30, 64, 175, 0.6);
+  --chess-piece-black-text-shadow-azure: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.theme-azure.dark {
+  /* Azure theme piece colors - dark mode */
+  --chess-piece-white-azure: #93c5fd;
+  --chess-piece-black-azure: #0c1120;
+
+  /* Professional blue effects */
+  --chess-piece-white-shadow-azure: 0 3px 6px rgba(12, 17, 32, 0.8);
+  --chess-piece-black-shadow-azure: 0 3px 6px rgba(147, 197, 253, 0.4);
+  --chess-piece-white-text-shadow-azure: 1px 1px 3px rgba(12, 17, 32, 0.9);
+  --chess-piece-black-text-shadow-azure: 1px 1px 3px rgba(147, 197, 253, 0.6);
+}
+
+/* =============================================================================
+   MATRIX THEME PIECE COLORS
+   Green matrix/hacker aesthetic
+   ============================================================================= */
+
+.theme-matrix {
+  /* Matrix theme piece colors - light mode */
+  --chess-piece-white-matrix: #f0fff0;
+  --chess-piece-black-matrix: #006600;
+
+  /* Map generic variables to matrix theme */
+  --chess-piece-white: var(--chess-piece-white-matrix);
+  --chess-piece-black: var(--chess-piece-black-matrix);
+  --chess-piece-white-shadow: drop-shadow(var(--chess-piece-white-shadow-matrix));
+  --chess-piece-black-shadow: drop-shadow(var(--chess-piece-black-shadow-matrix));
+  --chess-piece-white-text-shadow: var(--chess-piece-white-text-shadow-matrix);
+  --chess-piece-black-text-shadow: var(--chess-piece-black-text-shadow-matrix);
+
+  /* Matrix digital effects */
+  --chess-piece-white-shadow-matrix: 0 3px 6px rgba(0, 102, 0, 0.4);
+  --chess-piece-black-shadow-matrix: 0 3px 6px rgba(240, 255, 240, 0.3);
+  --chess-piece-white-text-shadow-matrix: 1px 1px 3px rgba(0, 102, 0, 0.7);
+  --chess-piece-black-text-shadow-matrix: 1px 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.theme-matrix.dark {
+  /* Matrix theme piece colors - dark mode */
+  --chess-piece-white-matrix: #00ff00;
+  --chess-piece-black-matrix: #001100;
+
+  /* Matrix digital effects with glow */
+  --chess-piece-white-shadow-matrix: 0 3px 6px rgba(0, 255, 0, 0.6),
+    0 0 10px rgba(0, 255, 0, 0.3);
+  --chess-piece-black-shadow-matrix: 0 3px 6px rgba(0, 255, 0, 0.4);
+  --chess-piece-white-text-shadow-matrix: 1px 1px 3px rgba(0, 17, 0, 0.9),
+    0 0 8px rgba(0, 255, 0, 0.5);
+  --chess-piece-black-text-shadow-matrix: 1px 1px 3px rgba(0, 255, 0, 0.7);
+}
+
+/* =============================================================================
+   NEON THEME PIECE COLORS
+   Bright neon colors with electric feel
+   ============================================================================= */
+
+.theme-neon {
+  /* Neon theme piece colors - light mode */
+  --chess-piece-white-neon: #fff0ff;
+  --chess-piece-black-neon: #cc00cc;
+
+  /* Map generic variables to neon theme */
+  --chess-piece-white: var(--chess-piece-white-neon);
+  --chess-piece-black: var(--chess-piece-black-neon);
+  --chess-piece-white-shadow: drop-shadow(var(--chess-piece-white-shadow-neon));
+  --chess-piece-black-shadow: drop-shadow(var(--chess-piece-black-shadow-neon));
+  --chess-piece-white-text-shadow: var(--chess-piece-white-text-shadow-neon);
+  --chess-piece-black-text-shadow: var(--chess-piece-black-text-shadow-neon);
+
+  /* Electric neon effects */
+  --chess-piece-white-shadow-neon: 0 3px 6px rgba(204, 0, 204, 0.4);
+  --chess-piece-black-shadow-neon: 0 3px 6px rgba(255, 240, 255, 0.3);
+  --chess-piece-white-text-shadow-neon: 1px 1px 3px rgba(204, 0, 204, 0.7);
+  --chess-piece-black-text-shadow-neon: 1px 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.theme-neon.dark {
+  /* Neon theme piece colors - dark mode */
+  --chess-piece-white-neon: #00ffff;
+  --chess-piece-black-neon: #0a0a0a;
+
+  /* Electric neon effects with intense glow */
+  --chess-piece-white-shadow-neon: 0 3px 6px rgba(0, 255, 255, 0.6),
+    0 0 12px rgba(0, 255, 255, 0.4);
+  --chess-piece-black-shadow-neon: 0 3px 6px rgba(0, 255, 255, 0.4);
+  --chess-piece-white-text-shadow-neon: 1px 1px 3px rgba(10, 10, 10, 0.9),
+    0 0 10px rgba(0, 255, 255, 0.6);
+  --chess-piece-black-text-shadow-neon: 1px 1px 3px rgba(0, 255, 255, 0.7);
+}
+
+/* =============================================================================
+   VIOLET THEME PIECE COLORS
+   Purple/violet sophisticated tones
+   ============================================================================= */
+
+.theme-violet {
+  /* Violet theme piece colors - light mode */
+  --chess-piece-white-violet: #faf5ff;
+  --chess-piece-black-violet: #6b21a8;
+
+  /* Map generic variables to violet theme */
+  --chess-piece-white: var(--chess-piece-white-violet);
+  --chess-piece-black: var(--chess-piece-black-violet);
+  --chess-piece-white-shadow: drop-shadow(var(--chess-piece-white-shadow-violet));
+  --chess-piece-black-shadow: drop-shadow(var(--chess-piece-black-shadow-violet));
+  --chess-piece-white-text-shadow: var(--chess-piece-white-text-shadow-violet);
+  --chess-piece-black-text-shadow: var(--chess-piece-black-text-shadow-violet);
+
+  /* Elegant violet effects */
+  --chess-piece-white-shadow-violet: 0 3px 6px rgba(107, 33, 168, 0.4);
+  --chess-piece-black-shadow-violet: 0 3px 6px rgba(250, 245, 255, 0.3);
+  --chess-piece-white-text-shadow-violet: 1px 1px 3px rgba(107, 33, 168, 0.6);
+  --chess-piece-black-text-shadow-violet: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.theme-violet.dark {
+  /* Violet theme piece colors - dark mode */
+  --chess-piece-white-violet: #c084fc;
+  --chess-piece-black-violet: #1a0f2e;
+
+  /* Elegant violet effects */
+  --chess-piece-white-shadow-violet: 0 3px 6px rgba(26, 15, 46, 0.8);
+  --chess-piece-black-shadow-violet: 0 3px 6px rgba(192, 132, 252, 0.4);
+  --chess-piece-white-text-shadow-violet: 1px 1px 3px rgba(26, 15, 46, 0.9);
+  --chess-piece-black-text-shadow-violet: 1px 1px 3px rgba(192, 132, 252, 0.6);
+}
+
+/* =============================================================================
+   UTILITY CLASSES FOR APPLYING PIECE COLORS
+   Easy-to-use classes for chess piece styling
+   ============================================================================= */
+
+/* Base theme piece styling */
+.chess-piece-white {
+  color: var(--chess-piece-white-base);
+}
+.chess-piece-black {
+  color: var(--chess-piece-black-base);
+}
+.chess-piece-white {
+  text-shadow: var(--chess-piece-white-text-shadow-base);
+}
+.chess-piece-black {
+  text-shadow: var(--chess-piece-black-text-shadow-base);
+}
+
+/* Enhanced visibility with drop shadows */
+.chess-piece-white-shadow {
+  filter: drop-shadow(var(--chess-piece-white-shadow-base));
+}
+.chess-piece-black-shadow {
+  filter: drop-shadow(var(--chess-piece-black-shadow-base));
+}
+
+/* Theme-specific piece colors - automatically applied based on theme class */
+.theme-bronze .chess-piece-white {
+  color: var(--chess-piece-white-bronze);
+  text-shadow: var(--chess-piece-white-text-shadow-bronze);
+}
+.theme-bronze .chess-piece-black {
+  color: var(--chess-piece-black-bronze);
+  text-shadow: var(--chess-piece-black-text-shadow-bronze);
+}
+.theme-bronze .chess-piece-white-shadow {
+  filter: drop-shadow(var(--chess-piece-white-shadow-bronze));
+}
+.theme-bronze .chess-piece-black-shadow {
+  filter: drop-shadow(var(--chess-piece-black-shadow-bronze));
+}
+
+.theme-crimson .chess-piece-white {
+  color: var(--chess-piece-white-crimson);
+  text-shadow: var(--chess-piece-white-text-shadow-crimson);
+}
+.theme-crimson .chess-piece-black {
+  color: var(--chess-piece-black-crimson);
+  text-shadow: var(--chess-piece-black-text-shadow-crimson);
+}
+.theme-crimson .chess-piece-white-shadow {
+  filter: drop-shadow(var(--chess-piece-white-shadow-crimson));
+}
+.theme-crimson .chess-piece-black-shadow {
+  filter: drop-shadow(var(--chess-piece-black-shadow-crimson));
+}
+
+.theme-amber .chess-piece-white {
+  color: var(--chess-piece-white-amber);
+  text-shadow: var(--chess-piece-white-text-shadow-amber);
+}
+.theme-amber .chess-piece-black {
+  color: var(--chess-piece-black-amber);
+  text-shadow: var(--chess-piece-black-text-shadow-amber);
+}
+.theme-amber .chess-piece-white-shadow {
+  filter: drop-shadow(var(--chess-piece-white-shadow-amber));
+}
+.theme-amber .chess-piece-black-shadow {
+  filter: drop-shadow(var(--chess-piece-black-shadow-amber));
+}
+
+.theme-sage .chess-piece-white {
+  color: var(--chess-piece-white-sage);
+  text-shadow: var(--chess-piece-white-text-shadow-sage);
+}
+.theme-sage .chess-piece-black {
+  color: var(--chess-piece-black-sage);
+  text-shadow: var(--chess-piece-black-text-shadow-sage);
+}
+.theme-sage .chess-piece-white-shadow {
+  filter: drop-shadow(var(--chess-piece-white-shadow-sage));
+}
+.theme-sage .chess-piece-black-shadow {
+  filter: drop-shadow(var(--chess-piece-black-shadow-sage));
+}
+
+.theme-gold .chess-piece-white {
+  color: var(--chess-piece-white-gold);
+  text-shadow: var(--chess-piece-white-text-shadow-gold);
+}
+.theme-gold .chess-piece-black {
+  color: var(--chess-piece-black-gold);
+  text-shadow: var(--chess-piece-black-text-shadow-gold);
+}
+.theme-gold .chess-piece-white-shadow {
+  filter: drop-shadow(var(--chess-piece-white-shadow-gold));
+}
+.theme-gold .chess-piece-black-shadow {
+  filter: drop-shadow(var(--chess-piece-black-shadow-gold));
+}
+
+.theme-scarlet .chess-piece-white {
+  color: var(--chess-piece-white-scarlet);
+  text-shadow: var(--chess-piece-white-text-shadow-scarlet);
+}
+.theme-scarlet .chess-piece-black {
+  color: var(--chess-piece-black-scarlet);
+  text-shadow: var(--chess-piece-black-text-shadow-scarlet);
+}
+.theme-scarlet .chess-piece-white-shadow {
+  filter: drop-shadow(var(--chess-piece-white-shadow-scarlet));
+}
+.theme-scarlet .chess-piece-black-shadow {
+  filter: drop-shadow(var(--chess-piece-black-shadow-scarlet));
+}
+
+.theme-teal .chess-piece-white {
+  color: var(--chess-piece-white-teal);
+  text-shadow: var(--chess-piece-white-text-shadow-teal);
+}
+.theme-teal .chess-piece-black {
+  color: var(--chess-piece-black-teal);
+  text-shadow: var(--chess-piece-black-text-shadow-teal);
+}
+.theme-teal .chess-piece-white-shadow {
+  filter: drop-shadow(var(--chess-piece-white-shadow-teal));
+}
+.theme-teal .chess-piece-black-shadow {
+  filter: drop-shadow(var(--chess-piece-black-shadow-teal));
+}
+
+.theme-copper .chess-piece-white {
+  color: var(--chess-piece-white-copper);
+  text-shadow: var(--chess-piece-white-text-shadow-copper);
+}
+.theme-copper .chess-piece-black {
+  color: var(--chess-piece-black-copper);
+  text-shadow: var(--chess-piece-black-text-shadow-copper);
+}
+.theme-copper .chess-piece-white-shadow {
+  filter: drop-shadow(var(--chess-piece-white-shadow-copper));
+}
+.theme-copper .chess-piece-black-shadow {
+  filter: drop-shadow(var(--chess-piece-black-shadow-copper));
+}
+
+.theme-onyx .chess-piece-white {
+  color: var(--chess-piece-white-onyx);
+  text-shadow: var(--chess-piece-white-text-shadow-onyx);
+}
+.theme-onyx .chess-piece-black {
+  color: var(--chess-piece-black-onyx);
+  text-shadow: var(--chess-piece-black-text-shadow-onyx);
+}
+.theme-onyx .chess-piece-white-shadow {
+  filter: drop-shadow(var(--chess-piece-white-shadow-onyx));
+}
+.theme-onyx .chess-piece-black-shadow {
+  filter: drop-shadow(var(--chess-piece-black-shadow-onyx));
+}
+
+.theme-azure .chess-piece-white {
+  color: var(--chess-piece-white-azure);
+  text-shadow: var(--chess-piece-white-text-shadow-azure);
+}
+.theme-azure .chess-piece-black {
+  color: var(--chess-piece-black-azure);
+  text-shadow: var(--chess-piece-black-text-shadow-azure);
+}
+.theme-azure .chess-piece-white-shadow {
+  filter: drop-shadow(var(--chess-piece-white-shadow-azure));
+}
+.theme-azure .chess-piece-black-shadow {
+  filter: drop-shadow(var(--chess-piece-black-shadow-azure));
+}
+
+.theme-matrix .chess-piece-white {
+  color: var(--chess-piece-white-matrix);
+  text-shadow: var(--chess-piece-white-text-shadow-matrix);
+}
+.theme-matrix .chess-piece-black {
+  color: var(--chess-piece-black-matrix);
+  text-shadow: var(--chess-piece-black-text-shadow-matrix);
+}
+.theme-matrix .chess-piece-white-shadow {
+  filter: drop-shadow(var(--chess-piece-white-shadow-matrix));
+}
+.theme-matrix .chess-piece-black-shadow {
+  filter: drop-shadow(var(--chess-piece-black-shadow-matrix));
+}
+
+.theme-neon .chess-piece-white {
+  color: var(--chess-piece-white-neon);
+  text-shadow: var(--chess-piece-white-text-shadow-neon);
+}
+.theme-neon .chess-piece-black {
+  color: var(--chess-piece-black-neon);
+  text-shadow: var(--chess-piece-black-text-shadow-neon);
+}
+.theme-neon .chess-piece-white-shadow {
+  filter: drop-shadow(var(--chess-piece-white-shadow-neon));
+}
+.theme-neon .chess-piece-black-shadow {
+  filter: drop-shadow(var(--chess-piece-black-shadow-neon));
+}
+
+.theme-violet .chess-piece-white {
+  color: var(--chess-piece-white-violet);
+  text-shadow: var(--chess-piece-white-text-shadow-violet);
+}
+.theme-violet .chess-piece-black {
+  color: var(--chess-piece-black-violet);
+  text-shadow: var(--chess-piece-black-text-shadow-violet);
+}
+.theme-violet .chess-piece-white-shadow {
+  filter: drop-shadow(var(--chess-piece-white-shadow-violet));
+}
+.theme-violet .chess-piece-black-shadow {
+  filter: drop-shadow(var(--chess-piece-black-shadow-violet));
+}
+
+/* =============================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   High contrast options for better visibility
+   ============================================================================= */
+
+/* High contrast mode for better accessibility */
+@media (prefers-contrast: high) {
+  :root {
+    --chess-piece-white-base: #ffffff;
+    --chess-piece-black-base: #000000;
+    --chess-piece-white-text-shadow-base: 2px 2px 4px rgba(0, 0, 0, 0.9);
+    --chess-piece-black-text-shadow-base: 2px 2px 4px rgba(255, 255, 255, 0.9);
+  }
+
+  /* Force high contrast for all themes in high contrast mode */
+  [class*="theme-"] .chess-piece-white {
+    color: #ffffff !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9) !important;
+  }
+
+  [class*="theme-"] .chess-piece-black {
+    color: #000000 !important;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.9) !important;
+  }
+}
+
+/* =============================================================================
+   USAGE EXAMPLES & DOCUMENTATION
+   How to apply these colors to chess pieces
+   ============================================================================= */
+
+/*
+USAGE EXAMPLES:
+
+1. Basic piece styling:
+   <div class="chess-piece chess-piece-white">♔</div>
+   <div class="chess-piece chess-piece-black">♚</div>
+
+2. With enhanced shadows:
+   <div class="chess-piece chess-piece-white chess-piece-white-shadow">♔</div>
+   <div class="chess-piece chess-piece-black chess-piece-black-shadow">♚</div>
+
+3. Theme-specific colors (automatically applied when theme class is on parent):
+   <div class="theme-bronze">
+     <div class="chess-piece chess-piece-white">♔</div> <!-- Uses bronze white color -->
+     <div class="chess-piece chess-piece-black">♚</div> <!-- Uses bronze black color -->
+   </div>
+
+4. Direct variable usage:
+   .custom-piece-white { color: var(--chess-piece-white-gold); }
+   .custom-piece-black { color: var(--chess-piece-black-gold); }
+
+COLOR DESIGN RATIONALE:
+- Each theme's piece colors are derived from the theme's existing palette
+- Light colors for white pieces, dark colors for black pieces
+- Enhanced contrast ensures pieces are visible on both light and dark squares
+- Shadow effects provide depth and improved readability
+- Special effects (like matrix glow, neon brightness) enhance thematic coherence
+- Accessibility considerations with high contrast media query overrides
+*/

@@ -1,0 +1,204 @@
+import { create } from 'zustand'
+import { persist, subscribeWithSelector } from 'zustand/middleware'
+
+// Poker Game Types
+export type Card = {
+  suit: 'hearts' | 'diamonds' | 'clubs' | 'spades'
+  rank: 'A' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | 'J' | 'Q' | 'K'
+}
+
+export type GamePhase = 'waiting' | 'preflop' | 'flop' | 'turn' | 'river' | 'showdown'
+
+export type BetAction = 
+  | { type: 'fold' }
+  | { type: 'check' }
+  | { type: 'call'; amount: number }
+  | { type: 'raise'; amount: number }
+  | { type: 'all-in'; amount: number }
+
+export type AIPlayer = {
+  id: string
+  name: string
+  chips: number
+  hand: [Card, Card] | null
+  position: number
+  isActive: boolean
+  lastAction: BetAction | null
+}
+
+interface GameState {
+  // General game state
+  coinBalance: number
+  
+  // Poker Game State (Single-player vs Computer)
+  pokerGame: {
+    gamePhase: GamePhase
+    pot: number
+    playerBet: number
+    dealerBet: number
+    playerHand: [Card, Card] | null
+    dealerHand: [Card, Card] | null
+    communityCards: Card[]
+    isPlayerTurn: boolean
+    playerChips: number
+    handNumber: number
+    lastWinner: 'player' | 'dealer' | 'tie' | null
+    showDealerCards: boolean
+  }
+}
+
+interface GameActions {
+  // Game actions
+  setCoinBalance: (balance: number) => void
+  
+  // Poker actions
+  setPokerGamePhase: (phase: GamePhase) => void
+  setPlayerHand: (hand: [Card, Card] | null) => void
+  setDealerHand: (hand: [Card, Card] | null) => void
+  setCommunityCards: (cards: Card[]) => void
+  setPlayerChips: (chips: number) => void
+  setPot: (pot: number) => void
+  setPlayerBet: (bet: number) => void
+  setDealerBet: (bet: number) => void
+  setIsPlayerTurn: (isPlayerTurn: boolean) => void
+  setShowDealerCards: (show: boolean) => void
+  setLastWinner: (winner: 'player' | 'dealer' | 'tie' | null) => void
+  dealNewHand: () => void
+  resetPokerGame: () => void
+  
+  // Utility
+  resetGame: () => void
+}
+
+type GameStore = GameState & GameActions
+
+const initialGameState: GameState = {
+  coinBalance: 350,
+  pokerGame: {
+    gamePhase: 'waiting',
+    pot: 0,
+    playerBet: 0,
+    dealerBet: 0,
+    playerHand: null,
+    dealerHand: null,
+    communityCards: [],
+    isPlayerTurn: false,
+    playerChips: 1000,
+    handNumber: 0,
+    lastWinner: null,
+    showDealerCards: false,
+  },
+}
+
+export const useGameStore = create<GameStore>()(
+  subscribeWithSelector(
+    persist(
+      (set) => ({
+        ...initialGameState,
+        
+        // Game actions
+        setCoinBalance: (balance) => set({ coinBalance: Math.max(0, balance) }),
+        
+        // Poker actions
+        setPokerGamePhase: (phase) => set((state: any) => ({
+          pokerGame: { ...state.pokerGame, gamePhase: phase }
+        })),
+        setPlayerHand: (hand) => set((state: any) => ({
+          pokerGame: { ...state.pokerGame, playerHand: hand }
+        })),
+        setDealerHand: (hand) => set((state: any) => ({
+          pokerGame: { ...state.pokerGame, dealerHand: hand }
+        })),
+        setCommunityCards: (cards) => set((state: any) => ({
+          pokerGame: { ...state.pokerGame, communityCards: cards }
+        })),
+        setPlayerChips: (chips) => set((state: any) => ({
+          pokerGame: { ...state.pokerGame, playerChips: chips }
+        })),
+        setPot: (pot) => set((state: any) => ({
+          pokerGame: { ...state.pokerGame, pot }
+        })),
+        setPlayerBet: (bet) => set((state: any) => ({
+          pokerGame: { ...state.pokerGame, playerBet: bet }
+        })),
+        setDealerBet: (bet) => set((state: any) => ({
+          pokerGame: { ...state.pokerGame, dealerBet: bet }
+        })),
+        setIsPlayerTurn: (isPlayerTurn) => set((state: any) => ({
+          pokerGame: { ...state.pokerGame, isPlayerTurn }
+        })),
+        setShowDealerCards: (show) => set((state: any) => ({
+          pokerGame: { ...state.pokerGame, showDealerCards: show }
+        })),
+        setLastWinner: (winner) => set((state: any) => ({
+          pokerGame: { ...state.pokerGame, lastWinner: winner }
+        })),
+        dealNewHand: () => set((state: any) => ({
+          pokerGame: {
+            ...state.pokerGame,
+            gamePhase: 'preflop',
+            pot: 0,
+            playerBet: 0,
+            dealerBet: 0,
+            playerHand: null,
+            dealerHand: null,
+            communityCards: [],
+            isPlayerTurn: true,
+            handNumber: state.pokerGame.handNumber + 1,
+            showDealerCards: false,
+            lastWinner: null,
+          }
+        })),
+        resetPokerGame: () => set((state: any) => ({
+          pokerGame: {
+            ...initialGameState.pokerGame,
+            playerChips: state.pokerGame.playerChips,
+          }
+        })),
+        resetGame: () => set(initialGameState),
+      }),
+      {
+        name: 'game-store',
+        partialize: (state: any) => ({
+          coinBalance: state.coinBalance,
+          pokerGame: state.pokerGame,
+        }),
+      }
+    )
+  )
+)
+
+// Convenience hooks
+export const useCoinBalance = () => {
+  const coinBalance = useGameStore((state: any) => state.coinBalance)
+  const setCoinBalance = useGameStore((state: any) => state.setCoinBalance)
+  
+  return {
+    coinBalance,
+    setCoinBalance,
+  }
+}
+
+export const usePokerGame = () => {
+  const pokerGame = useGameStore((state: any) => state.pokerGame)
+  const actions = {
+    setPokerGamePhase: useGameStore((state: any) => state.setPokerGamePhase),
+    setPlayerHand: useGameStore((state: any) => state.setPlayerHand),
+    setDealerHand: useGameStore((state: any) => state.setDealerHand),
+    setCommunityCards: useGameStore((state: any) => state.setCommunityCards),
+    setPlayerChips: useGameStore((state: any) => state.setPlayerChips),
+    setPot: useGameStore((state: any) => state.setPot),
+    setPlayerBet: useGameStore((state: any) => state.setPlayerBet),
+    setDealerBet: useGameStore((state: any) => state.setDealerBet),
+    setIsPlayerTurn: useGameStore((state: any) => state.setIsPlayerTurn),
+    setShowDealerCards: useGameStore((state: any) => state.setShowDealerCards),
+    setLastWinner: useGameStore((state: any) => state.setLastWinner),
+    dealNewHand: useGameStore((state: any) => state.dealNewHand),
+    resetPokerGame: useGameStore((state: any) => state.resetPokerGame),
+  }
+  
+  return {
+    ...pokerGame,
+    ...actions,
+  }
+}

@@ -1,0 +1,191 @@
+/* =============================================================================
+   CHESS GAME STATE VISUAL EFFECTS
+   Visual indicators for selected pieces, check, checkmate, etc.
+   Uses CSS custom properties from themes for filter effects
+   =============================================================================
+
+/* =============================================================================
+   CHESS GAME STATE UTILITY CLASSES
+   Visual indicators for selected pieces, check, checkmate, etc.
+   ============================================================================= */
+
+/* Selected Piece/Square - Now handled via inline styles in ChessGrid.tsx */
+/* Keeping keyframes for potential future use */
+
+@keyframes selected-pulse {
+  0%, 100% { 
+    filter: var(--chess-selected-filter, brightness(1.4) saturate(1.6)) !important;
+  }
+  50% { 
+    filter: brightness(1.7) saturate(2) !important;
+  }
+}
+
+/* King in Check - Urgent red warning effect */
+.chess-square.king-in-check {
+  background: rgba(255, 0, 0, 0.8) !important;
+  filter: brightness(1.3) saturate(2);
+  animation: check-warning 1.5s ease-in-out infinite;
+}
+
+@keyframes check-warning {
+  0%, 100% { 
+    filter: brightness(1.3) saturate(2);
+  }
+  50% { 
+    filter: brightness(1.8) saturate(2.5);
+  }
+}
+
+/* Checkmate - Game over dramatic effect */
+.chess-square.checkmate {
+  background: rgba(139, 0, 0, 0.9) !important;
+  filter: brightness(0.8) saturate(2.5);
+  animation: checkmate-flash 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes checkmate-flash {
+  0% { 
+    filter: brightness(0.8) saturate(2.5);
+  }
+  100% { 
+    filter: brightness(1.5) saturate(3);
+  }
+}
+
+/* Last Move - Subtle green highlight for previous move */
+.chess-square.last-move {
+  background: rgba(0, 255, 0, 0.3) !important;
+  filter: brightness(1.15) saturate(1.3);
+}
+
+/* Valid Move Target - Blue highlight for legal moves */
+/* Higher specificity to override theme styles */
+.chess-square.chess-light-square.valid-move,
+.chess-square.chess-dark-square.valid-move {
+  background: rgba(0, 150, 255, 0.4) !important;
+  filter: var(--chess-valid-move-filter, brightness(1.2) saturate(1.4)) !important;
+}
+
+/* Capture Target - Orange/red highlight for capture moves */
+.chess-square.capture-target {
+  background: rgba(255, 140, 0, 0.5) !important;
+  filter: brightness(1.3) saturate(1.5);
+}
+
+/* Under Attack - Warning indicator for threatened pieces */
+.chess-square.under-attack {
+  background: rgba(255, 69, 0, 0.3) !important;
+  filter: brightness(1.1) saturate(1.2);
+  animation: under-attack-pulse 3s ease-in-out infinite;
+}
+
+@keyframes under-attack-pulse {
+  0%, 100% { 
+    filter: brightness(1.1) saturate(1.2);
+  }
+  50% { 
+    filter: brightness(1.2) saturate(1.3);
+  }
+}
+
+/* Promotion Square - Golden highlight for pawn promotion */
+.chess-square.promotion {
+  background: rgba(255, 215, 0, 0.6) !important;
+  filter: brightness(1.4) saturate(1.8);
+  animation: promotion-glow 2s ease-in-out infinite;
+}
+
+@keyframes promotion-glow {
+  0%, 100% { 
+    filter: brightness(1.4) saturate(1.8);
+  }
+  50% { 
+    filter: brightness(1.8) saturate(2.2);
+  }
+}
+
+/* En Passant Target - Purple highlight for en passant moves */
+.chess-square.en-passant {
+  background: rgba(138, 43, 226, 0.4) !important;
+  filter: brightness(1.2) saturate(1.3);
+}
+
+/* Castling Squares - Royal blue highlight for castling moves */
+.chess-square.castling {
+  background: rgba(65, 105, 225, 0.4) !important;
+  filter: brightness(1.25) saturate(1.4);
+}
+
+/* =============================================================================
+   HOVER AND INTERACTIVE EFFECTS
+   Enhanced user feedback for chess squares
+   ============================================================================= */
+
+/* Subtle Hover Enhancement */
+.chess-square:hover {
+  filter: brightness(1.1) saturate(1.1);
+  transition: filter 0.2s ease;
+}
+
+/* Gaming Theme Hover Glow */
+.chess-square.gaming-hover:hover {
+  filter: brightness(1.3) saturate(1.4);
+  transition: filter 0.2s ease;
+}
+
+/* Professional Theme Hover */
+.chess-square.professional-hover:hover {
+  filter: brightness(1.05) contrast(1.1);
+  transition: filter 0.2s ease;
+}
+
+/* =============================================================================
+   PERFORMANCE CONSIDERATIONS
+   Motion-safe overrides for accessibility
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .chess-square.holographic,
+  .chess-square.matrix,
+  .chess-square.shimmer,
+  .chess-square.rgb-pulse,
+  .chess-square.selected,
+  .chess-square.king-in-check,
+  .chess-square.checkmate,
+  .chess-square.under-attack,
+  .chess-square.promotion {
+    animation: none;
+  }
+  
+  .chess-square.holographic {
+    filter: hue-rotate(45deg) saturate(1.8) brightness(1.2);
+  }
+  
+  .chess-square.matrix {
+    filter: grayscale(100%) brightness(0.8) contrast(2);
+  }
+  
+  .chess-square.shimmer {
+    filter: brightness(1.1);
+  }
+  
+  .chess-square.rgb-pulse {
+    filter: saturate(1.5);
+  }
+  
+  /* Static game state indicators for accessibility */
+  /* .chess-square.selected now handled via inline styles */
+  
+  .chess-square.king-in-check {
+    filter: brightness(1.3) saturate(2);
+  }
+  
+  .chess-square.checkmate {
+    filter: brightness(0.8) saturate(2.5);
+  }
+  
+  .chess-square.promotion {
+    filter: brightness(1.4) saturate(1.8);
+  }
+}
