@@ -1,1 +1,1 @@
-export type TabId = 'static'
+export type TabId = 'worker' | 'uitests' | 'casino'

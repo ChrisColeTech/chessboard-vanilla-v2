@@ -2,8 +2,8 @@
 
 // Auth-specific user types (public/frontend-safe user data)
 // Note: Re-exporting User from user-management types barrel
-import type { User as UserType } from '../user-management';
-export type User = UserType;
+import type { users } from '../user-management';
+export type User = users.User;
 
 export interface UserProgress {
   id: string;

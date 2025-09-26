@@ -69,20 +69,16 @@ export const useDemoLogin = (): UseDemoLoginReturn => {
         // Simulate network delay
         await new Promise(resolve => setTimeout(resolve, 1000));
 
-        // Create mock user data matching auth types
+        // Create mock user data matching database schema
         const mockUser = {
           id: 'demo-user-1',
           username: 'demo_user',
           email: DEMO_USER_CREDENTIALS.email,
-          firstName: 'Demo',
-          lastName: 'User',
-          avatar: undefined,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          isVerified: true,
-          role: 'user' as const,
-          preferences: {
-            theme: 'light' as const,
+          password_hash: 'hashed_password', // Not exposed to frontend
+          chess_elo: 1200,
+          puzzle_rating: 1100,
+          preferences: JSON.stringify({
+            theme: 'light',
             notifications: {
               email: true,
               push: true,
@@ -90,17 +86,19 @@ export const useDemoLogin = (): UseDemoLoginReturn => {
               promotions: false
             },
             privacy: {
-              profileVisibility: 'public' as const,
+              profileVisibility: 'public',
               showOnlineStatus: true,
               allowFriendRequests: true
             },
             gameplay: {
               autoSave: true,
               showHints: true,
-              difficultyLevel: 'intermediate' as const,
-              preferredTimeControl: '10+0' as const
+              difficultyLevel: 'intermediate',
+              preferredTimeControl: '10+0'
             }
-          }
+          }),
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
         };
 
         const mockToken = 'demo-token-dev-bypass';

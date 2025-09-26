@@ -1,6 +1,7 @@
 import React from "react";
 import { usePageData } from "../../hooks/core/usePageData";
 import { DataTable } from "../../components/ui/DataTable";
+import { useDataTableColumns } from "../../hooks/core/useDataTableColumns";
 
 interface {{PARENT_NAME}}MainPageProps {
   // Add props as needed
@@ -8,6 +9,7 @@ interface {{PARENT_NAME}}MainPageProps {
 
 export const {{PARENT_NAME}}MainPage: React.FC<{{PARENT_NAME}}MainPageProps> = () => {
   const { data, loading, error } = usePageData("{{PARENT_ID}}");
+  const columns = useDataTableColumns(data || []);
 
   return (
     <div className="uitest-layout-container">
@@ -52,7 +54,7 @@ export const {{PARENT_NAME}}MainPage: React.FC<{{PARENT_NAME}}MainPageProps> = (
           className="flex items-center justify-center border border-border/50 p-2 rounded"
           style={{ minHeight: '0', minWidth: '0' }}
         >
-          <DataTable data={data} loading={loading} error={error} />
+          <DataTable data={data} columns={columns} loading={loading} error={error} />
         </div>
         <div 
           className="flex items-center justify-center border border-border/50 p-2 rounded"

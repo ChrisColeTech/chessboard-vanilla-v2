@@ -12,8 +12,8 @@ export {
 export { useTheme, useAudio, useVisual } from './settingsStore'
 export { useChessGameStore, useChessGame } from './chessGameStore'
 
-// AppStore type for Frontend Generator compatibility
-export type AppStore = ReturnType<typeof useUIStore> & ReturnType<typeof useSettingsStore> & ReturnType<typeof useChessGameStore>
+// AppStore type for Frontend Generator compatibility - use getState() return types
+export type AppStore = ReturnType<typeof useUIStore.getState> & ReturnType<typeof useSettingsStore.getState> & ReturnType<typeof useChessGameStore.getState>
 
 // Legacy useAppStore function for backward compatibility
 import { useUIStore } from './uiStore'

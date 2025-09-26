@@ -10,7 +10,7 @@ import { useSelectedTab, useAppStore, type AppStore } from "./stores/appStore";
 import { useChessAudio } from "./services/audio/audioService";
 import { useAuthStatus } from "./hooks";
 import AuthRouter from "./components/auth/AuthRouter";
-import { PlayPage } from "./pages/chess/PlayPage";
+import { WorkerTestPage } from "./pages/chess/WorkerTestPage";
 
 /*
  * To add a new route/page:
@@ -89,7 +89,9 @@ function AppContent() {
       coinBalance={coinBalance}
     >
                   {/* Page routing */}
-      {selectedTab === "play" && <PlayPage />}
+      {selectedTab === "worker" && <WorkerTestPage />}
+      {selectedTab === "uitests" && <div>UI Tests Page Coming Soon</div>}
+      {selectedTab === "casino" && <div>Casino Page Coming Soon</div>}
 
       {/* Global drag overlay */}
       {draggedPiece && (
