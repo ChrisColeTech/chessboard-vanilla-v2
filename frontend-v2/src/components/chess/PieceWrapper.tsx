@@ -156,7 +156,7 @@ const PieceWrapper: React.FC<PieceWrapperProps> = ({ piece, size, gridSize = 6, 
         src={getPieceImagePath(
           piece.color as 'white' | 'black',
           piece.type as 'king' | 'queen' | 'rook' | 'bishop' | 'knight' | 'pawn',
-          selectedPieceSet,
+          selectedPieceSet as 'classic' | 'modern' | 'tournament' | 'executive' | 'conqueror',
           piece.boardPosition
         )}
         alt={`${piece.color} ${piece.type}`}

@@ -1,0 +1,175 @@
+import { create } from 'zustand'
+import { persist, subscribeWithSelector } from 'zustand/middleware'
+import type { TabId } from '../components/layout/types'
+
+// Card type for poker constants
+export type Card = {
+  suit: 'hearts' | 'diamonds' | 'clubs' | 'spades'
+  rank: string
+}
+
+interface UIState {
+  // Navigation
+  selectedTab: TabId
+  currentChildPage: string | null  // For pages like 'dragtest', 'uiaudiotest'
+  
+  // Modal states
+  isSettingsPanelOpen: boolean
+  splashModalOpen: boolean
+  splashModalPage: string | null  // Which splash page to show in modal
+  coinsModalOpen: boolean
+  
+  // Chess and game features
+  coinBalance: number
+  chessSettings: {
+    pieceSet: 'classic' | 'modern' | 'tournament' | 'executive' | 'conqueror'
+    boardTheme: string
+    difficulty: number
+    pieceSize: 'small' | 'medium' | 'large'
+  }
+  
+  // UI tracking
+  lastVisited: Date
+}
+
+interface UIActions {
+  // Navigation actions
+  setSelectedTab: (tab: TabId) => void
+  setCurrentChildPage: (childPage: string | null) => void
+  
+  // Settings panel actions
+  openSettings: () => void
+  closeSettings: () => void
+  toggleSettings: () => void
+  
+  // Splash modal actions
+  openSplashModal: (page: string) => void
+  closeSplashModal: () => void
+  
+  // Coins modal actions
+  openCoinsModal: () => void
+  closeCoinsModal: () => void
+  
+  // Utility
+  resetUI: () => void
+}
+
+type UIStore = UIState & UIActions
+
+const initialUIState: UIState = {
+  selectedTab: 'chess',
+  currentChildPage: null,
+  isSettingsPanelOpen: false,
+  splashModalOpen: false,
+  splashModalPage: null,
+  coinsModalOpen: false,
+  coinBalance: 1000,
+  chessSettings: {
+    pieceSet: 'classic',
+    boardTheme: 'default',
+    difficulty: 5,
+    pieceSize: 'medium',
+  },
+  lastVisited: new Date(),
+}
+
+export const useUIStore = create<UIStore>()(
+  subscribeWithSelector(
+    persist(
+      (set) => ({
+        ...initialUIState,
+        
+        // Navigation actions
+        setSelectedTab: (tab: TabId) => set({ selectedTab: tab }),
+        setCurrentChildPage: (childPage: string | null) => set({ currentChildPage: childPage }),
+        
+        // Settings panel actions
+        openSettings: () => set({ isSettingsPanelOpen: true }),
+        closeSettings: () => set({ isSettingsPanelOpen: false }),
+        toggleSettings: () => set((state: UIStore) => ({ isSettingsPanelOpen: !state.isSettingsPanelOpen })),
+        
+        // Splash modal actions
+        openSplashModal: (page: string) => set({ splashModalOpen: true, splashModalPage: page }),
+        closeSplashModal: () => set({ splashModalOpen: false, splashModalPage: null }),
+        
+        // Coins modal actions
+        openCoinsModal: () => set({ coinsModalOpen: true }),
+        closeCoinsModal: () => set({ coinsModalOpen: false }),
+        
+        // Utility
+        resetUI: () => set({ ...initialUIState, lastVisited: new Date() }),
+      }),
+      {
+        name: 'ui-store',
+        partialize: (state: UIStore) => ({
+          selectedTab: state.selectedTab,
+          currentChildPage: state.currentChildPage,
+          lastVisited: new Date(), // Always update on persist
+        }),
+      }
+    )
+  )
+)
+
+// Convenience hooks
+export const useNavigation = () => {
+  const selectedTab = useUIStore((state: UIStore) => state.selectedTab)
+  const currentChildPage = useUIStore((state: UIStore) => state.currentChildPage)
+  const setSelectedTab = useUIStore((state: UIStore) => state.setSelectedTab)
+  const setCurrentChildPage = useUIStore((state: UIStore) => state.setCurrentChildPage)
+  
+  return {
+    selectedTab,
+    currentChildPage,
+    setSelectedTab,
+    setCurrentChildPage,
+  }
+}
+
+export const useSelectedTab = () => useUIStore((state: UIStore) => state.selectedTab)
+
+export const useSettings = () => {
+  const isOpen = useUIStore((state: UIStore) => state.isSettingsPanelOpen)
+  const open = useUIStore((state: UIStore) => state.openSettings)
+  const close = useUIStore((state: UIStore) => state.closeSettings)
+  const toggle = useUIStore((state: UIStore) => state.toggleSettings)
+  
+  return {
+    isOpen,
+    open,
+    close,
+    toggle,
+  }
+}
+
+export const useSplashModal = () => {
+  const isOpen = useUIStore((state: UIStore) => state.splashModalOpen)
+  const page = useUIStore((state: UIStore) => state.splashModalPage)
+  const open = useUIStore((state: UIStore) => state.openSplashModal)
+  const close = useUIStore((state: UIStore) => state.closeSplashModal)
+  
+  return {
+    isOpen,
+    page,
+    open,
+    close,
+  }
+}
+
+export const useCoinsModal = () => {
+  const isOpen = useUIStore((state: UIStore) => state.coinsModalOpen)
+  const open = useUIStore((state: UIStore) => state.openCoinsModal)
+  const close = useUIStore((state: UIStore) => state.closeCoinsModal)
+  
+  return {
+    isOpen,
+    open,
+    close,
+    coinBalance: useUIStore((state: UIStore) => state.coinBalance),
+  }
+}
+
+export const useChessSettings = () => {
+  const chessSettings = useUIStore((state: UIStore) => state.chessSettings)
+  return chessSettings
+}

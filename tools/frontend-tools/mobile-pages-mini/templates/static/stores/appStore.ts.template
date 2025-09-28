@@ -52,23 +52,72 @@ export const useAppStore = <T = AppStore>(
     coinsModalOpen: uiState.coinsModalOpen,
     openCoinsModal: uiState.openCoinsModal,
     closeCoinsModal: uiState.closeCoinsModal,
-    
+
+    // Utility from UI state
+    resetUI: uiState.resetUI,
+
     // Settings state
     currentTheme: settingsState.currentTheme,
+    isDarkMode: settingsState.isDarkMode,
+    selectedBaseTheme: settingsState.selectedBaseTheme,
     audioEnabled: settingsState.audioEnabled,
     audioVolume: settingsState.audioVolume,
+    moveSound: settingsState.moveSound,
+    captureSound: settingsState.captureSound,
+    checkSound: settingsState.checkSound,
+    uiSounds: settingsState.uiSounds,
     backgroundEffectVariant: settingsState.backgroundEffectVariant,
+
+    // Settings actions
+    setTheme: settingsState.setTheme,
+    setBaseTheme: settingsState.setBaseTheme,
+    toggleMode: settingsState.toggleMode,
+    setAudioEnabled: settingsState.setAudioEnabled,
+    setAudioVolume: settingsState.setAudioVolume,
+    setMoveSound: settingsState.setMoveSound,
+    setCaptureSound: settingsState.setCaptureSound,
+    setCheckSound: settingsState.setCheckSound,
+    setUiSounds: settingsState.setUiSounds,
+    toggleAudio: settingsState.toggleAudio,
     setBackgroundEffectVariant: settingsState.setBackgroundEffectVariant,
+    resetSettings: settingsState.resetSettings,
     
-    // Chess game state
+    // Chess game state - piece data
+    pieces: chessGameState.pieces,
+    squareMap: chessGameState.squareMap,
+    capturedPieces: chessGameState.capturedPieces,
+
+    // Chess game state - game state
+    selectedCell: chessGameState.selectedCell,
+    hoveredCell: chessGameState.hoveredCell,
+    isFlipped: chessGameState.isFlipped,
+
+    // Chess game state - drag state
+    draggedPiece: chessGameState.draggedPiece,
+    isDragging: chessGameState.isDragging,
+
+    // Chess game state - frontend compatibility
     selectedPieceSet: chessGameState.selectedPieceSet,
-    setPieceSet: chessGameState.setPieceSet,
     pieceSize: chessGameState.pieceSize,
-    setPieceSize: chessGameState.setPieceSize,
     boardColorMode: chessGameState.boardColorMode,
-    setBoardColorMode: chessGameState.setBoardColorMode,
     premiumBoardStyle: chessGameState.premiumBoardStyle,
+
+    // Chess game actions
+    setPieces: chessGameState.setPieces,
+    setSelectedCell: chessGameState.setSelectedCell,
+    setHoveredCell: chessGameState.setHoveredCell,
+    setDraggedPiece: chessGameState.setDraggedPiece,
+    setCapturedPieces: chessGameState.setCapturedPieces,
+    addCapturedPiece: chessGameState.addCapturedPiece,
+    flipBoard: chessGameState.flipBoard,
+    setPieceSet: chessGameState.setPieceSet,
+    setPieceSize: chessGameState.setPieceSize,
+    setBoardColorMode: chessGameState.setBoardColorMode,
     setPremiumBoardStyle: chessGameState.setPremiumBoardStyle,
+
+    // Helper methods
+    isCapturePossible: chessGameState.isCapturePossible,
+    getPieceAt: chessGameState.getPieceAt,
   }), [uiState, settingsState, chessGameState])
   
   if (selector) {
@@ -107,21 +156,70 @@ useAppStore.getState = (): AppStore => {
     coinsModalOpen: uiState.coinsModalOpen,
     openCoinsModal: uiState.openCoinsModal,
     closeCoinsModal: uiState.closeCoinsModal,
-    
+
+    // Utility from UI state
+    resetUI: uiState.resetUI,
+
     currentTheme: settingsState.currentTheme,
+    isDarkMode: settingsState.isDarkMode,
+    selectedBaseTheme: settingsState.selectedBaseTheme,
     audioEnabled: settingsState.audioEnabled,
     audioVolume: settingsState.audioVolume,
+    moveSound: settingsState.moveSound,
+    captureSound: settingsState.captureSound,
+    checkSound: settingsState.checkSound,
+    uiSounds: settingsState.uiSounds,
     backgroundEffectVariant: settingsState.backgroundEffectVariant,
+
+    // Settings actions
+    setTheme: settingsState.setTheme,
+    setBaseTheme: settingsState.setBaseTheme,
+    toggleMode: settingsState.toggleMode,
+    setAudioEnabled: settingsState.setAudioEnabled,
+    setAudioVolume: settingsState.setAudioVolume,
+    setMoveSound: settingsState.setMoveSound,
+    setCaptureSound: settingsState.setCaptureSound,
+    setCheckSound: settingsState.setCheckSound,
+    setUiSounds: settingsState.setUiSounds,
+    toggleAudio: settingsState.toggleAudio,
     setBackgroundEffectVariant: settingsState.setBackgroundEffectVariant,
+    resetSettings: settingsState.resetSettings,
     
-    // Chess game state
+    // Chess game state - piece data
+    pieces: chessGameState.pieces,
+    squareMap: chessGameState.squareMap,
+    capturedPieces: chessGameState.capturedPieces,
+
+    // Chess game state - game state
+    selectedCell: chessGameState.selectedCell,
+    hoveredCell: chessGameState.hoveredCell,
+    isFlipped: chessGameState.isFlipped,
+
+    // Chess game state - drag state
+    draggedPiece: chessGameState.draggedPiece,
+    isDragging: chessGameState.isDragging,
+
+    // Chess game state - frontend compatibility
     selectedPieceSet: chessGameState.selectedPieceSet,
-    setPieceSet: chessGameState.setPieceSet,
     pieceSize: chessGameState.pieceSize,
-    setPieceSize: chessGameState.setPieceSize,
     boardColorMode: chessGameState.boardColorMode,
-    setBoardColorMode: chessGameState.setBoardColorMode,
     premiumBoardStyle: chessGameState.premiumBoardStyle,
+
+    // Chess game actions
+    setPieces: chessGameState.setPieces,
+    setSelectedCell: chessGameState.setSelectedCell,
+    setHoveredCell: chessGameState.setHoveredCell,
+    setDraggedPiece: chessGameState.setDraggedPiece,
+    setCapturedPieces: chessGameState.setCapturedPieces,
+    addCapturedPiece: chessGameState.addCapturedPiece,
+    flipBoard: chessGameState.flipBoard,
+    setPieceSet: chessGameState.setPieceSet,
+    setPieceSize: chessGameState.setPieceSize,
+    setBoardColorMode: chessGameState.setBoardColorMode,
     setPremiumBoardStyle: chessGameState.setPremiumBoardStyle,
+
+    // Helper methods
+    isCapturePossible: chessGameState.isCapturePossible,
+    getPieceAt: chessGameState.getPieceAt,
   }
 }

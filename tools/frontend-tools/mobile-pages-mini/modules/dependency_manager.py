@@ -769,9 +769,17 @@ export default defineConfig({
             ('hooks/core/useIsMobile.ts.template', 'src/hooks/core/useIsMobile.ts'),
             ('hooks/audio/useUIClickSoundOptimized.ts.template', 'src/hooks/audio/useUIClickSoundOptimized.ts'),
             ('hooks/audio/useUIHoverSoundOptimized.ts.template', 'src/hooks/audio/useUIHoverSoundOptimized.ts'),
-            ('hooks/useActionSheetDelayedPage.ts', 'src/hooks/useActionSheetDelayedPage.ts'),
+            ('hooks/useActionSheetDelayedPage.ts.template', 'src/hooks/useActionSheetDelayedPage.ts'),
             ('components/action-sheet/ActionSheet.tsx.template', 'src/components/action-sheet/ActionSheet.tsx'),
             ('constants/actions/common-actions.constants.ts.template', 'src/constants/actions/common-actions.constants.ts'),
+            # Chess utility dependencies
+            ('utils/grid-generator.utils.ts.template', 'src/utils/grid-generator.utils.ts'),
+            ('utils/coordinate.utils.ts.template', 'src/utils/coordinate.utils.ts'),
+            ('utils/chess.utils.ts.template', 'src/utils/chess.utils.ts'),
+            ('utils/chess/computer-chess.utils.ts.template', 'src/utils/chess/computer-chess.utils.ts'),
+            ('utils/chess/mobile-chess.utils.ts.template', 'src/utils/chess/mobile-chess.utils.ts'),
+            ('providers/DragProvider.tsx.template', 'src/providers/DragProvider.tsx'),
+            ('hooks/audio/useChessBoardAudio.ts.template', 'src/hooks/audio/useChessBoardAudio.ts'),
         ]
         
         # Combine scanned dependencies with core essentials (avoid duplicates)

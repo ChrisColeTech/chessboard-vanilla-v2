@@ -10,9 +10,10 @@
  * Then re-run the generator to update this file.
  */
 
-// Generated types for User
+// Generated types for User (Database format - snake_case)
+// Note: Main User interface is in user-management.types.ts
 
-export interface User {
+export interface DatabaseUser {
   id: string;
   username: string;
   email: string;

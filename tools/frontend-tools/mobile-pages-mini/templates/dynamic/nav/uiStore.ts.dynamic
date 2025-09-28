@@ -22,9 +22,10 @@ interface UIState {
   // Chess and game features
   coinBalance: number
   chessSettings: {
-    pieceSet: string
+    pieceSet: 'classic' | 'modern' | 'tournament' | 'executive' | 'conqueror'
     boardTheme: string
     difficulty: number
+    pieceSize: 'small' | 'medium' | 'large'
   }
   
   // UI tracking
@@ -67,6 +68,7 @@ const initialUIState: UIState = {
     pieceSet: 'classic',
     boardTheme: 'default',
     difficulty: 5,
+    pieceSize: 'medium',
   },
   lastVisited: new Date(),
 }

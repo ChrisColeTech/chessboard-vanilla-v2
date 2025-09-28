@@ -1,0 +1,60 @@
+{
+  "version": "1.0.0",
+  "generated_by": "mobile-pages-v2",
+  "last_updated": "2025-09-27T08:46:10.194155",
+  "pages": {
+    "playchess": {
+      "id": "playchess",
+      "name": "PlayChess",
+      "type": "child",
+      "parent_id": "chess",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/playchess",
+      "component_name": "PlayChessPage",
+      "has_mobile": true,
+      "created_at": "2025-09-27T08:46:05.924601"
+    },
+    "playpuzzles": {
+      "id": "playpuzzles",
+      "name": "PlayPuzzles",
+      "type": "child",
+      "parent_id": "chess",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/playpuzzles",
+      "component_name": "PlayPuzzlesPage",
+      "has_mobile": true,
+      "created_at": "2025-09-27T08:46:10.194148"
+    },
+    "chess": {
+      "id": "chess",
+      "name": "Chess",
+      "type": "parent",
+      "parent_id": "",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/chess",
+      "component_name": "ChessPage",
+      "has_mobile": true,
+      "created_at": "2025-09-27T08:46:01.786892"
+    },
+    "worker": {
+      "id": "worker",
+      "name": "Worker",
+      "type": "parent",
+      "parent_id": "",
+      "icon": "Navigation",
+      "description": "",
+      "route": "/worker",
+      "component_name": "WorkerPage",
+      "has_mobile": true,
+      "created_at": "2025-09-27T08:37:20.551493"
+    }
+  },
+  "metadata": {
+    "total_pages": 4,
+    "parent_pages": 2,
+    "child_pages": 2
+  }
+}

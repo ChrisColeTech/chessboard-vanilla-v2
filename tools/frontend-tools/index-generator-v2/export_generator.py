@@ -62,49 +62,81 @@ class ExportGenerator:
         dir_context = context.directories.get(dir_path)
         if not dir_context:
             return []
-        
-        exports = []
-        
+
+        # Check for conflicts in this directory
+        all_exports_in_dir = {}  # export_name -> list of files that export it
         for file_context in dir_context.files:
-            file_exports = self._generate_exports_for_file(context, file_context)
+            if file_context.file_name.startswith('index.'):
+                continue  # Skip index files
+            for export in file_context.exports:
+                if export.name not in all_exports_in_dir:
+                    all_exports_in_dir[export.name] = []
+                all_exports_in_dir[export.name].append(file_context.file_name_without_ext)
+
+        # Check if we have conflicts
+        has_conflicts = any(len(files) > 1 for files in all_exports_in_dir.values())
+
+        exports = []
+
+        for file_context in dir_context.files:
+            file_exports = self._generate_exports_for_file(
+                context,
+                file_context,
+                use_selective_exports=has_conflicts,
+                all_exports_in_dir=all_exports_in_dir
+            )
             exports.extend(file_exports)
-        
+
         return exports
     
-    def _generate_exports_for_file(self, context: WorkflowContext, file_context: FileContext) -> List[str]:
+    def _generate_exports_for_file(self, context: WorkflowContext, file_context: FileContext, use_selective_exports: bool = False, all_exports_in_dir: dict = None) -> List[str]:
         """Generate export statements for a single file"""
         if not file_context.exports:
             return []
-        
+
         file_name = file_context.file_name_without_ext
         exports = []
-        
+
         # Collect named and default exports
         named_exports = [exp for exp in file_context.exports if exp.is_named and not exp.is_default]
         default_exports = [exp for exp in file_context.exports if exp.is_default]
-        
-        # Generate named exports - use export type * if all named exports are type-only
-        if named_exports:
-            all_named_are_type_only = all(exp.is_type_only for exp in named_exports)
-            if all_named_are_type_only:
-                exports.append(f"export type * from './{file_name}';")
-            else:
-                exports.append(f"export * from './{file_name}';")
-        
+
+        # Use selective exports if there are conflicts in the directory
+        if use_selective_exports and all_exports_in_dir:
+            # Only export non-conflicting named exports
+            for export in named_exports:
+                # Skip exports that conflict with other files
+                if export.name in all_exports_in_dir and len(all_exports_in_dir[export.name]) > 1:
+                    # This export conflicts - skip it or handle it specially
+                    continue
+
+                if export.is_type_only:
+                    exports.append(f"export type {{ {export.name} }} from './{file_name}';")
+                else:
+                    exports.append(f"export {{ {export.name} }} from './{file_name}';")
+        else:
+            # Generate named exports - use export type * if all named exports are type-only
+            if named_exports:
+                all_named_are_type_only = all(exp.is_type_only for exp in named_exports)
+                if all_named_are_type_only:
+                    exports.append(f"export type * from './{file_name}';")
+                else:
+                    exports.append(f"export * from './{file_name}';")
+
         # Generate default exports (skip if same name as named export to avoid duplicates)
         named_export_names = {exp.name for exp in named_exports}
         for default_export in default_exports:
             export_name = default_export.name
-            
+
             # Skip if we already exported this name as a named export
             if export_name in named_export_names:
                 continue
-                
+
             if default_export.is_type_only:
                 exports.append(f"export type {{ default as {export_name} }} from './{file_name}';")
             else:
                 exports.append(f"export {{ default as {export_name} }} from './{file_name}';")
-        
+
         return exports
     
     def _check_for_export_conflicts(self, context: WorkflowContext, dir_path: str, current_file: FileContext) -> bool:

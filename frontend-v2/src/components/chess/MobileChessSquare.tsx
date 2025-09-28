@@ -98,7 +98,7 @@ const MobileChessSquare: React.FC<MobileChessSquareProps> = ({
           src={getPieceImagePath(
             piece.color,
             piece.type,
-            selectedPieceSet,
+            selectedPieceSet as 'classic' | 'modern' | 'tournament' | 'executive' | 'conqueror',
             square
           )}
           alt={`${piece.color} ${piece.type}`}
@@ -133,7 +133,7 @@ const MobileChessSquare: React.FC<MobileChessSquareProps> = ({
               `Failed to load piece image: ${getPieceImagePath(
                 piece.color,
                 piece.type,
-                selectedPieceSet,
+                selectedPieceSet as 'classic' | 'modern' | 'tournament' | 'executive' | 'conqueror',
                 square
               )}`
             );
